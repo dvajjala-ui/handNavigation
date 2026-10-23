@@ -1,0 +1,7 @@
+{
+  "import": "PASS",
+  "approval": "PASS",
+  "list": "PASS",
+  "local_forget": "PASS",
+  "scope": "CLI against disposable local registry; no browser or real account"
+}

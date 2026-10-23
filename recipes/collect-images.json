@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "id": "collect-local-images",
+  "revision": 1,
+  "name": "Collect verified images from the local library",
+  "parameters": {"topic": "string", "limit": "integer"},
+  "steps": [
+    {"id": "enter-topic", "op": "fill", "target": [{"by": "label", "value": "Topic"}], "value": "{{topic}}"},
+    {"id": "search", "op": "click", "target": [{"by": "role", "role": "button", "name": "Search"}, {"by": "role", "role": "button", "name": "Find images"}]},
+    {"id": "wait-results", "op": "wait", "target": [{"by": "testid", "value": "results-ready"}]},
+    {"id": "collect", "op": "collect", "target": [{"by": "testid", "value": "results-ready"}], "download_target": [{"by": "role", "role": "link", "name": "Download image"}]}
+  ]
+}

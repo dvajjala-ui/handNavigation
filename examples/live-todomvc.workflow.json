@@ -1,0 +1,58 @@
+{
+  "schema": "handnavigate.live.v1",
+  "name": "Public TodoMVC browser acceptance check - NOT executed here",
+  "start_url": "https://demo.playwright.dev/todomvc/",
+  "scope": {
+    "origins": [
+      "https://demo.playwright.dev"
+    ],
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ],
+    "max_actions": 10
+  },
+  "steps": [
+    {
+      "op": "fill",
+      "locator": {
+        "kind": "placeholder",
+        "value": "What needs to be done?"
+      },
+      "value": {
+        "parameter": "todo_text"
+      }
+    },
+    {
+      "op": "press",
+      "locator": {
+        "kind": "placeholder",
+        "value": "What needs to be done?"
+      },
+      "value": "Enter"
+    }
+  ],
+  "checks": [
+    {
+      "kind": "text_visible",
+      "expected": {
+        "parameter": "todo_text"
+      }
+    },
+    {
+      "kind": "input_value",
+      "locator": {
+        "kind": "placeholder",
+        "value": "What needs to be done?"
+      },
+      "expected": ""
+    }
+  ],
+  "provenance": {
+    "source": "explicitly-authored-from-official-Playwright-demo-documentation",
+    "reviewed": false,
+    "blockers": 0,
+    "live_execution_qualified": false
+  }
+}

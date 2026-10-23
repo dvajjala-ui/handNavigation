@@ -1,0 +1,176 @@
+{
+  "run_id": "598a3487-0a45-40da-a4f2-194d40e5197d",
+  "job_key": "15fe0c48-6663-4d0f-a25e-d37d3a65fe46",
+  "workflow": "collect-local-images",
+  "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+  "scenario": "normal",
+  "fixture_transport": "memory",
+  "parameters": {
+    "topic": "architecture",
+    "limit": 10
+  },
+  "status": "VERIFIED",
+  "started_at": "2026-10-22T13:33:51.434134+00:00",
+  "model_calls": 0,
+  "model_call_basis": "No model client or provider code exists in this runner.",
+  "verified_files": [
+    {
+      "item_id": "asset-01",
+      "path": "artifacts/341eca852962e5206c48/asset-01-786b7b42d37d.png",
+      "sha256": "786b7b42d37d2b25dcd469b0592034e2a71dffe0b9e6bc087265f00700bb4fce",
+      "bytes": 1498,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    },
+    {
+      "item_id": "asset-02",
+      "path": "artifacts/341eca852962e5206c48/asset-02-c9fe7cb1f161.png",
+      "sha256": "c9fe7cb1f16196bc2936b4baa0e773713280d0f1ccda40695980ff758adaa630",
+      "bytes": 1535,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    },
+    {
+      "item_id": "asset-03",
+      "path": "artifacts/341eca852962e5206c48/asset-03-963730a0f617.png",
+      "sha256": "963730a0f617cb0566e86e8be3050b8af234c2bff8f95b2460f349ef9c9af5f0",
+      "bytes": 1535,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    },
+    {
+      "item_id": "asset-04",
+      "path": "artifacts/341eca852962e5206c48/asset-04-2b2f8bbd0bed.png",
+      "sha256": "2b2f8bbd0bedb132e4265b1304c6eb7aee324672942de21e7716037aebaaeef0",
+      "bytes": 1535,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    },
+    {
+      "item_id": "asset-05",
+      "path": "artifacts/341eca852962e5206c48/asset-05-24cd0c6f5c7a.png",
+      "sha256": "24cd0c6f5c7ad2d71f1fc525e6fb9c58d623fa72cf01b6fa7332390f01b25963",
+      "bytes": 1497,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    },
+    {
+      "item_id": "asset-06",
+      "path": "artifacts/341eca852962e5206c48/asset-06-51a643be0c5d.png",
+      "sha256": "51a643be0c5db79556dca47901ed0c814edfcf8a59038d3ed04e95c0d7c62a83",
+      "bytes": 1506,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    },
+    {
+      "item_id": "asset-07",
+      "path": "artifacts/341eca852962e5206c48/asset-07-e9c73dadf3e7.png",
+      "sha256": "e9c73dadf3e715900829873ad69e9e9ab91bb20039099069bb8aadf4b29515f5",
+      "bytes": 1372,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    },
+    {
+      "item_id": "asset-08",
+      "path": "artifacts/341eca852962e5206c48/asset-08-0a50051788ce.png",
+      "sha256": "0a50051788cedd40889146c1e50cf22fd79999354823fa6961a64e18e9a8ef0a",
+      "bytes": 1502,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    },
+    {
+      "item_id": "asset-09",
+      "path": "artifacts/341eca852962e5206c48/asset-09-d840aa299ed6.png",
+      "sha256": "d840aa299ed65456dd4b39df3cff1158d56ea14e1fd89bfcc448cfbcee49ec90",
+      "bytes": 1503,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    },
+    {
+      "item_id": "asset-10",
+      "path": "artifacts/341eca852962e5206c48/asset-10-c1d58f206e65.png",
+      "sha256": "c1d58f206e653828612d0d8e8432dcce722b09e18fd561b9161cac881c706acb",
+      "bytes": 1526,
+      "width": 24,
+      "height": 24,
+      "reused": false
+    }
+  ],
+  "skipped": [],
+  "events": [
+    {
+      "step": "enter-topic",
+      "outcome": "checked"
+    },
+    {
+      "step": "search",
+      "outcome": "checked"
+    },
+    {
+      "step": "wait-results",
+      "outcome": "checked"
+    },
+    {
+      "item_id": "asset-01",
+      "outcome": "file_verified"
+    },
+    {
+      "item_id": "asset-02",
+      "outcome": "file_verified"
+    },
+    {
+      "item_id": "asset-03",
+      "outcome": "file_verified"
+    },
+    {
+      "item_id": "asset-04",
+      "outcome": "file_verified"
+    },
+    {
+      "item_id": "asset-05",
+      "outcome": "file_verified"
+    },
+    {
+      "item_id": "asset-06",
+      "outcome": "file_verified"
+    },
+    {
+      "item_id": "asset-07",
+      "outcome": "file_verified"
+    },
+    {
+      "item_id": "asset-08",
+      "outcome": "file_verified"
+    },
+    {
+      "item_id": "asset-09",
+      "outcome": "file_verified"
+    },
+    {
+      "item_id": "asset-10",
+      "outcome": "file_verified"
+    },
+    {
+      "step": "collect",
+      "outcome": "checked"
+    }
+  ],
+  "blocked_requests": [],
+  "resumed_files": 0,
+  "new_downloads": 10,
+  "error": null,
+  "completion_note": "Verified local file count, format, bounded decode, and declared hash.",
+  "finished_at": "2026-10-22T13:33:54.666451+00:00",
+  "elapsed_seconds": 3.232,
+  "verified_count": 10,
+  "report_path": "/mnt/data/handnavigate-lab/runtime-demo/reports/598a3487-0a45-40da-a4f2-194d40e5197d.json"
+}

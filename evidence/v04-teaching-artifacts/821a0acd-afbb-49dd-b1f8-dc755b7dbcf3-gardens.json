@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "run_id": "821a0acd-afbb-49dd-b1f8-dc755b7dbcf3",
+  "row_id": "gardens",
+  "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d",
+  "expected": {
+    "captions": false,
+    "layout": "compact",
+    "topic": "city gardens"
+  },
+  "observed": {
+    "captions": false,
+    "layout": "compact",
+    "topic": "city gardens"
+  },
+  "verified_at": "2026-10-23T07:01:35.170371+00:00",
+  "scope": "Owned in-memory form, actual Chromium actions; no HTTP or external site"
+}

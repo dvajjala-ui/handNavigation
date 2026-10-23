@@ -1,0 +1,387 @@
+{
+  "generated_at": "2026-10-23T07:02:42.552616+00:00",
+  "clock_basis": "Injected October 23 clock; two real offline browser runs; not an overnight soak",
+  "automated_recording": true,
+  "recorded_events": [
+    {
+      "op": "fill",
+      "target": [
+        {
+          "by": "label",
+          "value": "Topic"
+        }
+      ],
+      "value": "architecture"
+    },
+    {
+      "op": "click",
+      "target": [
+        {
+          "by": "role",
+          "role": "button",
+          "name": "Search"
+        }
+      ]
+    }
+  ],
+  "rehearsal": {
+    "attempt_id": "377cb75d-d02b-493e-a94b-26dfd06469d9",
+    "blocked_requests": [],
+    "completion_note": "Verified local file count, format, bounded decode, and declared hash.",
+    "due_at": null,
+    "elapsed_seconds": 2.732,
+    "error": null,
+    "events": [
+      {
+        "outcome": "checked",
+        "step": "enter-topic"
+      },
+      {
+        "outcome": "checked",
+        "step": "search"
+      },
+      {
+        "outcome": "checked",
+        "step": "wait-results"
+      },
+      {
+        "item_id": "asset-01",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-02",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-03",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-04",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-05",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-06",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-07",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-08",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-09",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-10",
+        "outcome": "file_verified"
+      },
+      {
+        "outcome": "checked",
+        "step": "collect"
+      }
+    ],
+    "finished_at": "2026-10-23T07:02:39.011944+00:00",
+    "fixture_transport": "memory",
+    "job_key": "d8468a99-8851-42f0-9913-7532b6e8449b",
+    "model_call_basis": "No model client or provider code exists in this runner.",
+    "model_calls": 0,
+    "new_downloads": 10,
+    "parameters": {
+      "limit": 10,
+      "topic": "architecture"
+    },
+    "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+    "resumed_files": 0,
+    "run_id": "461892c8-2eb9-435e-bae1-b8b42659f72e",
+    "scenario": "normal",
+    "schedule_id": null,
+    "skipped": [],
+    "started_at": "2026-10-23T07:02:36.280256+00:00",
+    "status": "VERIFIED",
+    "trigger": "manual",
+    "verified_count": 10,
+    "verified_files": [
+      {
+        "bytes": 1498,
+        "height": 24,
+        "item_id": "asset-01",
+        "path": "artifacts/64f785884318e9f4ba09/asset-01-786b7b42d37d.png",
+        "reused": false,
+        "sha256": "786b7b42d37d2b25dcd469b0592034e2a71dffe0b9e6bc087265f00700bb4fce",
+        "width": 24
+      },
+      {
+        "bytes": 1535,
+        "height": 24,
+        "item_id": "asset-02",
+        "path": "artifacts/64f785884318e9f4ba09/asset-02-c9fe7cb1f161.png",
+        "reused": false,
+        "sha256": "c9fe7cb1f16196bc2936b4baa0e773713280d0f1ccda40695980ff758adaa630",
+        "width": 24
+      },
+      {
+        "bytes": 1535,
+        "height": 24,
+        "item_id": "asset-03",
+        "path": "artifacts/64f785884318e9f4ba09/asset-03-963730a0f617.png",
+        "reused": false,
+        "sha256": "963730a0f617cb0566e86e8be3050b8af234c2bff8f95b2460f349ef9c9af5f0",
+        "width": 24
+      },
+      {
+        "bytes": 1535,
+        "height": 24,
+        "item_id": "asset-04",
+        "path": "artifacts/64f785884318e9f4ba09/asset-04-2b2f8bbd0bed.png",
+        "reused": false,
+        "sha256": "2b2f8bbd0bedb132e4265b1304c6eb7aee324672942de21e7716037aebaaeef0",
+        "width": 24
+      },
+      {
+        "bytes": 1497,
+        "height": 24,
+        "item_id": "asset-05",
+        "path": "artifacts/64f785884318e9f4ba09/asset-05-24cd0c6f5c7a.png",
+        "reused": false,
+        "sha256": "24cd0c6f5c7ad2d71f1fc525e6fb9c58d623fa72cf01b6fa7332390f01b25963",
+        "width": 24
+      },
+      {
+        "bytes": 1506,
+        "height": 24,
+        "item_id": "asset-06",
+        "path": "artifacts/64f785884318e9f4ba09/asset-06-51a643be0c5d.png",
+        "reused": false,
+        "sha256": "51a643be0c5db79556dca47901ed0c814edfcf8a59038d3ed04e95c0d7c62a83",
+        "width": 24
+      },
+      {
+        "bytes": 1372,
+        "height": 24,
+        "item_id": "asset-07",
+        "path": "artifacts/64f785884318e9f4ba09/asset-07-e9c73dadf3e7.png",
+        "reused": false,
+        "sha256": "e9c73dadf3e715900829873ad69e9e9ab91bb20039099069bb8aadf4b29515f5",
+        "width": 24
+      },
+      {
+        "bytes": 1502,
+        "height": 24,
+        "item_id": "asset-08",
+        "path": "artifacts/64f785884318e9f4ba09/asset-08-0a50051788ce.png",
+        "reused": false,
+        "sha256": "0a50051788cedd40889146c1e50cf22fd79999354823fa6961a64e18e9a8ef0a",
+        "width": 24
+      },
+      {
+        "bytes": 1503,
+        "height": 24,
+        "item_id": "asset-09",
+        "path": "artifacts/64f785884318e9f4ba09/asset-09-d840aa299ed6.png",
+        "reused": false,
+        "sha256": "d840aa299ed65456dd4b39df3cff1158d56ea14e1fd89bfcc448cfbcee49ec90",
+        "width": 24
+      },
+      {
+        "bytes": 1526,
+        "height": 24,
+        "item_id": "asset-10",
+        "path": "artifacts/64f785884318e9f4ba09/asset-10-c1d58f206e65.png",
+        "reused": false,
+        "sha256": "c1d58f206e653828612d0d8e8432dcce722b09e18fd561b9161cac881c706acb",
+        "width": 24
+      }
+    ],
+    "workflow": "collect-local-images"
+  },
+  "scheduled": {
+    "attempt_id": "8266778f-ea67-4947-919f-b168f0de17f0",
+    "blocked_requests": [],
+    "completion_note": "Verified local file count, format, bounded decode, and declared hash.",
+    "due_at": "2026-10-23T02:30:00.000000+00:00",
+    "elapsed_seconds": 2.682,
+    "error": null,
+    "events": [
+      {
+        "outcome": "checked",
+        "step": "enter-topic"
+      },
+      {
+        "outcome": "checked",
+        "step": "search"
+      },
+      {
+        "outcome": "checked",
+        "step": "wait-results"
+      },
+      {
+        "item_id": "asset-01",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-02",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-03",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-04",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-05",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-06",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-07",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-08",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-09",
+        "outcome": "file_verified"
+      },
+      {
+        "item_id": "asset-10",
+        "outcome": "file_verified"
+      },
+      {
+        "outcome": "checked",
+        "step": "collect"
+      }
+    ],
+    "finished_at": "2026-10-23T07:02:41.702927+00:00",
+    "fixture_transport": "memory",
+    "job_key": "schedule:f0965c64-147a-4f41-805a-01a0083b5fef:2026-10-23T02:30:00.000000+00:00",
+    "model_call_basis": "No model client or provider code exists in this runner.",
+    "model_calls": 0,
+    "new_downloads": 10,
+    "parameters": {
+      "limit": 10,
+      "topic": "architecture"
+    },
+    "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+    "resumed_files": 0,
+    "run_id": "f5e68dbd-e8c8-4c62-8e8e-c8e558bb0e25",
+    "scenario": "normal",
+    "schedule_id": "f0965c64-147a-4f41-805a-01a0083b5fef",
+    "skipped": [],
+    "started_at": "2026-10-23T07:02:39.021159+00:00",
+    "status": "VERIFIED",
+    "trigger": "schedule",
+    "verified_count": 10,
+    "verified_files": [
+      {
+        "bytes": 1498,
+        "height": 24,
+        "item_id": "asset-01",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-01-786b7b42d37d.png",
+        "reused": false,
+        "sha256": "786b7b42d37d2b25dcd469b0592034e2a71dffe0b9e6bc087265f00700bb4fce",
+        "width": 24
+      },
+      {
+        "bytes": 1535,
+        "height": 24,
+        "item_id": "asset-02",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-02-c9fe7cb1f161.png",
+        "reused": false,
+        "sha256": "c9fe7cb1f16196bc2936b4baa0e773713280d0f1ccda40695980ff758adaa630",
+        "width": 24
+      },
+      {
+        "bytes": 1535,
+        "height": 24,
+        "item_id": "asset-03",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-03-963730a0f617.png",
+        "reused": false,
+        "sha256": "963730a0f617cb0566e86e8be3050b8af234c2bff8f95b2460f349ef9c9af5f0",
+        "width": 24
+      },
+      {
+        "bytes": 1535,
+        "height": 24,
+        "item_id": "asset-04",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-04-2b2f8bbd0bed.png",
+        "reused": false,
+        "sha256": "2b2f8bbd0bedb132e4265b1304c6eb7aee324672942de21e7716037aebaaeef0",
+        "width": 24
+      },
+      {
+        "bytes": 1497,
+        "height": 24,
+        "item_id": "asset-05",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-05-24cd0c6f5c7a.png",
+        "reused": false,
+        "sha256": "24cd0c6f5c7ad2d71f1fc525e6fb9c58d623fa72cf01b6fa7332390f01b25963",
+        "width": 24
+      },
+      {
+        "bytes": 1506,
+        "height": 24,
+        "item_id": "asset-06",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-06-51a643be0c5d.png",
+        "reused": false,
+        "sha256": "51a643be0c5db79556dca47901ed0c814edfcf8a59038d3ed04e95c0d7c62a83",
+        "width": 24
+      },
+      {
+        "bytes": 1372,
+        "height": 24,
+        "item_id": "asset-07",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-07-e9c73dadf3e7.png",
+        "reused": false,
+        "sha256": "e9c73dadf3e715900829873ad69e9e9ab91bb20039099069bb8aadf4b29515f5",
+        "width": 24
+      },
+      {
+        "bytes": 1502,
+        "height": 24,
+        "item_id": "asset-08",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-08-0a50051788ce.png",
+        "reused": false,
+        "sha256": "0a50051788cedd40889146c1e50cf22fd79999354823fa6961a64e18e9a8ef0a",
+        "width": 24
+      },
+      {
+        "bytes": 1503,
+        "height": 24,
+        "item_id": "asset-09",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-09-d840aa299ed6.png",
+        "reused": false,
+        "sha256": "d840aa299ed65456dd4b39df3cff1158d56ea14e1fd89bfcc448cfbcee49ec90",
+        "width": 24
+      },
+      {
+        "bytes": 1526,
+        "height": 24,
+        "item_id": "asset-10",
+        "path": "artifacts/aa4841d2d46efe07b022/asset-10-c1d58f206e65.png",
+        "reused": false,
+        "sha256": "c1d58f206e653828612d0d8e8432dcce722b09e18fd561b9161cac881c706acb",
+        "width": 24
+      }
+    ],
+    "workflow": "collect-local-images"
+  },
+  "duplicate_tick": "No second execution for the same occurrence",
+  "live_runtime_database_included": false
+}

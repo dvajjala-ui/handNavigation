@@ -1,0 +1,5 @@
+{
+  "cli_approval_harness": "passed; synthetic terminal input, receipt stored only in temporary directory",
+  "missing_site_authorization": "rejected before browser launch",
+  "public_site_execution": false
+}

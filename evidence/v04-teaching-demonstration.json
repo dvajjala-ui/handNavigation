@@ -1,0 +1,573 @@
+{
+  "generated_at": "2026-10-23T07:02:47.442297+00:00",
+  "automated_demonstration": true,
+  "scope": "Owned form in memory, actual Chromium interaction and local JSON evidence; no HTTP website",
+  "recording": [
+    {
+      "op": "fill",
+      "field": "topic",
+      "value": "architecture"
+    },
+    {
+      "op": "select",
+      "field": "layout",
+      "value": "detailed"
+    },
+    {
+      "op": "check",
+      "field": "captions",
+      "value": true
+    },
+    {
+      "op": "click",
+      "control": "prepare"
+    }
+  ],
+  "bindings": {
+    "topic": {
+      "mode": "variable",
+      "name": "topic"
+    },
+    "layout": {
+      "mode": "variable",
+      "name": "layout"
+    },
+    "captions": {
+      "mode": "variable",
+      "name": "captions"
+    }
+  },
+  "recipe": {
+    "schema_version": 2,
+    "kind": "guided-form",
+    "name": "Daily topic previews",
+    "adapter_id": "owned-form-v1",
+    "adapter_sha256": "4b08667091b8f6f629397358d9d676e58c10209b825654e9437122c5b0458d17",
+    "parameters": {
+      "topic": {
+        "type": "string",
+        "max_length": 80
+      },
+      "layout": {
+        "type": "enum",
+        "choices": [
+          "compact",
+          "detailed"
+        ]
+      },
+      "captions": {
+        "type": "boolean"
+      }
+    },
+    "steps": [
+      {
+        "id": "step-1",
+        "op": "fill",
+        "field": "topic",
+        "value": {
+          "parameter": "topic"
+        }
+      },
+      {
+        "id": "step-2",
+        "op": "select",
+        "field": "layout",
+        "value": {
+          "parameter": "layout"
+        }
+      },
+      {
+        "id": "step-3",
+        "op": "check",
+        "field": "captions",
+        "value": {
+          "parameter": "captions"
+        }
+      },
+      {
+        "id": "step-4",
+        "op": "click",
+        "control": "prepare"
+      }
+    ],
+    "verification": {
+      "contract": "inputs_match_preview_v1",
+      "expected": {
+        "topic": {
+          "parameter": "topic"
+        },
+        "layout": {
+          "parameter": "layout"
+        },
+        "captions": {
+          "parameter": "captions"
+        }
+      }
+    },
+    "repeat": {
+      "max_rows": 10,
+      "stop_on_error": true
+    }
+  },
+  "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d",
+  "rows": [
+    {
+      "row_id": "architecture",
+      "values": {
+        "topic": "architecture",
+        "layout": "detailed",
+        "captions": true
+      }
+    },
+    {
+      "row_id": "gardens",
+      "values": {
+        "topic": "city gardens",
+        "layout": "compact",
+        "captions": false
+      }
+    },
+    {
+      "row_id": "interiors",
+      "values": {
+        "topic": "quiet interiors",
+        "layout": "detailed",
+        "captions": true
+      }
+    }
+  ],
+  "plan": {
+    "lesson_id": "b447135c-718c-4e4e-a2d7-07d672e8342d",
+    "approved": true,
+    "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d",
+    "inputs_sha256": "80eb270d77fc406261ff5b1639997e16049a554558376ddd06c22f0556192899",
+    "adapter_sha256": "4b08667091b8f6f629397358d9d676e58c10209b825654e9437122c5b0458d17",
+    "row_count": 3,
+    "action_count": 12,
+    "assertion_count": 9,
+    "rows": [
+      {
+        "row_id": "architecture",
+        "expected": {
+          "captions": true,
+          "layout": "detailed",
+          "topic": "architecture"
+        },
+        "actions": [
+          {
+            "field": "topic",
+            "id": "step-1",
+            "op": "fill",
+            "value": "architecture"
+          },
+          {
+            "field": "layout",
+            "id": "step-2",
+            "op": "select",
+            "value": "detailed"
+          },
+          {
+            "field": "captions",
+            "id": "step-3",
+            "op": "check",
+            "value": true
+          },
+          {
+            "control": "prepare",
+            "id": "step-4",
+            "op": "click"
+          }
+        ]
+      },
+      {
+        "row_id": "gardens",
+        "expected": {
+          "captions": false,
+          "layout": "compact",
+          "topic": "city gardens"
+        },
+        "actions": [
+          {
+            "field": "topic",
+            "id": "step-1",
+            "op": "fill",
+            "value": "city gardens"
+          },
+          {
+            "field": "layout",
+            "id": "step-2",
+            "op": "select",
+            "value": "compact"
+          },
+          {
+            "field": "captions",
+            "id": "step-3",
+            "op": "check",
+            "value": false
+          },
+          {
+            "control": "prepare",
+            "id": "step-4",
+            "op": "click"
+          }
+        ]
+      },
+      {
+        "row_id": "interiors",
+        "expected": {
+          "captions": true,
+          "layout": "detailed",
+          "topic": "quiet interiors"
+        },
+        "actions": [
+          {
+            "field": "topic",
+            "id": "step-1",
+            "op": "fill",
+            "value": "quiet interiors"
+          },
+          {
+            "field": "layout",
+            "id": "step-2",
+            "op": "select",
+            "value": "detailed"
+          },
+          {
+            "field": "captions",
+            "id": "step-3",
+            "op": "check",
+            "value": true
+          },
+          {
+            "control": "prepare",
+            "id": "step-4",
+            "op": "click"
+          }
+        ]
+      }
+    ],
+    "scope": "Owned in-memory practice form only; no network or external writes",
+    "model_calls": 0,
+    "external_writes": false,
+    "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca"
+  },
+  "state": {
+    "lessons": [
+      {
+        "id": "b447135c-718c-4e4e-a2d7-07d672e8342d",
+        "recipe": {
+          "adapter_id": "owned-form-v1",
+          "adapter_sha256": "4b08667091b8f6f629397358d9d676e58c10209b825654e9437122c5b0458d17",
+          "kind": "guided-form",
+          "name": "Daily topic previews",
+          "parameters": {
+            "captions": {
+              "type": "boolean"
+            },
+            "layout": {
+              "choices": [
+                "compact",
+                "detailed"
+              ],
+              "type": "enum"
+            },
+            "topic": {
+              "max_length": 80,
+              "type": "string"
+            }
+          },
+          "repeat": {
+            "max_rows": 10,
+            "stop_on_error": true
+          },
+          "schema_version": 2,
+          "steps": [
+            {
+              "field": "topic",
+              "id": "step-1",
+              "op": "fill",
+              "value": {
+                "parameter": "topic"
+              }
+            },
+            {
+              "field": "layout",
+              "id": "step-2",
+              "op": "select",
+              "value": {
+                "parameter": "layout"
+              }
+            },
+            {
+              "field": "captions",
+              "id": "step-3",
+              "op": "check",
+              "value": {
+                "parameter": "captions"
+              }
+            },
+            {
+              "control": "prepare",
+              "id": "step-4",
+              "op": "click"
+            }
+          ],
+          "verification": {
+            "contract": "inputs_match_preview_v1",
+            "expected": {
+              "captions": {
+                "parameter": "captions"
+              },
+              "layout": {
+                "parameter": "layout"
+              },
+              "topic": {
+                "parameter": "topic"
+              }
+            }
+          }
+        },
+        "sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d",
+        "approved": true,
+        "source": "Actual Chromium events driven by an automated example, not human teaching; explicit bindings and verification selected",
+        "created_at": "2026-10-23T07:02:43.553284+00:00"
+      }
+    ],
+    "runs": [
+      {
+        "id": "c33d94a0-d992-4514-a471-b7c36ebaf542",
+        "lesson_id": "b447135c-718c-4e4e-a2d7-07d672e8342d",
+        "state": "VERIFIED",
+        "created_at": "2026-10-23T07:02:46.160147+00:00",
+        "finished_at": "2026-10-23T07:02:47.435866+00:00",
+        "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca",
+        "report": {
+          "browser_version": "144.0.7559.96",
+          "duration_ms": 1272,
+          "error": null,
+          "finished_at": "2026-10-23T07:02:47.434799+00:00",
+          "input_rows": 3,
+          "model_calls": 0,
+          "network_requests": 0,
+          "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca",
+          "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d",
+          "rows": [
+            {
+              "artifact": {
+                "bytes": 526,
+                "path": "lesson-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-architecture.json",
+                "sha256": "0bb1da87a94732d463348a52c25be9079fda8f2750da659505282afba62c34f4"
+              },
+              "observed": {
+                "captions": true,
+                "layout": "detailed",
+                "topic": "architecture"
+              },
+              "row_id": "architecture",
+              "state": "VERIFIED"
+            },
+            {
+              "artifact": {
+                "bytes": 521,
+                "path": "lesson-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-gardens.json",
+                "sha256": "e41d5165dcb0083544e2bfdebdf66c5b1a94bf8bd04dd609b485cd12eba24f2c"
+              },
+              "observed": {
+                "captions": false,
+                "layout": "compact",
+                "topic": "city gardens"
+              },
+              "row_id": "gardens",
+              "state": "VERIFIED"
+            },
+            {
+              "artifact": {
+                "bytes": 529,
+                "path": "lesson-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-interiors.json",
+                "sha256": "a36fce19bb8b498571363b6e5cf0ed8236f5c5e897371b8d4ec3ee6c25913749"
+              },
+              "observed": {
+                "captions": true,
+                "layout": "detailed",
+                "topic": "quiet interiors"
+              },
+              "row_id": "interiors",
+              "state": "VERIFIED"
+            }
+          ],
+          "run_id": "c33d94a0-d992-4514-a471-b7c36ebaf542",
+          "schema_version": 1,
+          "scope": "Owned in-memory form, actual Chromium actions; no HTTP or external site",
+          "started_at": "2026-10-23T07:02:46.162779+00:00",
+          "status": "VERIFIED",
+          "steps": [
+            {
+              "op": "fill",
+              "row_id": "architecture",
+              "state": "EXECUTED",
+              "step_id": "step-1"
+            },
+            {
+              "op": "select",
+              "row_id": "architecture",
+              "state": "EXECUTED",
+              "step_id": "step-2"
+            },
+            {
+              "op": "check",
+              "row_id": "architecture",
+              "state": "EXECUTED",
+              "step_id": "step-3"
+            },
+            {
+              "op": "click",
+              "row_id": "architecture",
+              "state": "EXECUTED",
+              "step_id": "step-4"
+            },
+            {
+              "op": "fill",
+              "row_id": "gardens",
+              "state": "EXECUTED",
+              "step_id": "step-1"
+            },
+            {
+              "op": "select",
+              "row_id": "gardens",
+              "state": "EXECUTED",
+              "step_id": "step-2"
+            },
+            {
+              "op": "check",
+              "row_id": "gardens",
+              "state": "EXECUTED",
+              "step_id": "step-3"
+            },
+            {
+              "op": "click",
+              "row_id": "gardens",
+              "state": "EXECUTED",
+              "step_id": "step-4"
+            },
+            {
+              "op": "fill",
+              "row_id": "interiors",
+              "state": "EXECUTED",
+              "step_id": "step-1"
+            },
+            {
+              "op": "select",
+              "row_id": "interiors",
+              "state": "EXECUTED",
+              "step_id": "step-2"
+            },
+            {
+              "op": "check",
+              "row_id": "interiors",
+              "state": "EXECUTED",
+              "step_id": "step-3"
+            },
+            {
+              "op": "click",
+              "row_id": "interiors",
+              "state": "EXECUTED",
+              "step_id": "step-4"
+            }
+          ],
+          "unstarted_or_unverified_rows": 0,
+          "verification": "Three exact output values per row, not a success banner",
+          "verified_rows": 3
+        }
+      },
+      {
+        "id": "1bcf343c-a7bf-4bab-a298-f9e11471709c",
+        "lesson_id": "b447135c-718c-4e4e-a2d7-07d672e8342d",
+        "state": "HALTED",
+        "created_at": "2026-10-23T07:02:43.559758+00:00",
+        "finished_at": "2026-10-23T07:02:46.155957+00:00",
+        "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca",
+        "report": {
+          "browser_version": "144.0.7559.96",
+          "duration_ms": 2592,
+          "error": {
+            "code": "OUTPUT_MISMATCH",
+            "message": "An expected output was missing or did not match. Later rows were not started."
+          },
+          "finished_at": "2026-10-23T07:02:46.155414+00:00",
+          "input_rows": 3,
+          "model_calls": 0,
+          "network_requests": 0,
+          "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca",
+          "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d",
+          "rows": [],
+          "run_id": "1bcf343c-a7bf-4bab-a298-f9e11471709c",
+          "schema_version": 1,
+          "scope": "Owned in-memory form, actual Chromium actions; no HTTP or external site",
+          "started_at": "2026-10-23T07:02:43.563515+00:00",
+          "status": "HALTED",
+          "steps": [
+            {
+              "op": "fill",
+              "row_id": "architecture",
+              "state": "EXECUTED",
+              "step_id": "step-1"
+            },
+            {
+              "op": "select",
+              "row_id": "architecture",
+              "state": "EXECUTED",
+              "step_id": "step-2"
+            },
+            {
+              "op": "check",
+              "row_id": "architecture",
+              "state": "EXECUTED",
+              "step_id": "step-3"
+            },
+            {
+              "op": "click",
+              "row_id": "architecture",
+              "state": "EXECUTED",
+              "step_id": "step-4"
+            }
+          ],
+          "unstarted_or_unverified_rows": 3,
+          "verification": "Three exact output values per row, not a success banner",
+          "verified_rows": 0
+        }
+      }
+    ],
+    "active_id": null,
+    "error": null,
+    "scope": "Owned form rehearsals only; not connected to schedules or authenticated sites"
+  },
+  "artifacts": [
+    {
+      "bytes": 526,
+      "path": "lesson-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-architecture.json",
+      "sha256": "0bb1da87a94732d463348a52c25be9079fda8f2750da659505282afba62c34f4",
+      "row_id": "architecture",
+      "package_path": "evidence/v04-teaching-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-architecture.json"
+    },
+    {
+      "bytes": 521,
+      "path": "lesson-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-gardens.json",
+      "sha256": "e41d5165dcb0083544e2bfdebdf66c5b1a94bf8bd04dd609b485cd12eba24f2c",
+      "row_id": "gardens",
+      "package_path": "evidence/v04-teaching-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-gardens.json"
+    },
+    {
+      "bytes": 529,
+      "path": "lesson-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-interiors.json",
+      "sha256": "a36fce19bb8b498571363b6e5cf0ed8236f5c5e897371b8d4ec3ee6c25913749",
+      "row_id": "interiors",
+      "package_path": "evidence/v04-teaching-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-interiors.json"
+    }
+  ],
+  "limitations": [
+    "Not a human usability trial",
+    "No learned loops, intent or verifier",
+    "No third-party website, account or long-running job",
+    "No model-provider integration; model-call count is structurally zero"
+  ]
+}

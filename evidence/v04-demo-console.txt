@@ -1,0 +1,2 @@
+Generated verified rehearsal, scheduled 10-file run, recorded draft and read-only preview.
+Recorded four browser actions, compiled explicit bindings, verified three rows and preserved one real wrong-output halt.

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en"><head><script>window.__HANDNAVIGATE_TEACHING_PREVIEW={"state": {"lessons": [{"id": "b447135c-718c-4e4e-a2d7-07d672e8342d", "recipe": {"adapter_id": "owned-form-v1", "adapter_sha256": "4b08667091b8f6f629397358d9d676e58c10209b825654e9437122c5b0458d17", "kind": "guided-form", "name": "Daily topic previews", "parameters": {"captions": {"type": "boolean"}, "layout": {"choices": ["compact", "detailed"], "type": "enum"}, "topic": {"max_length": 80, "type": "string"}}, "repeat": {"max_rows": 10, "stop_on_error": true}, "schema_version": 2, "steps": [{"field": "topic", "id": "step-1", "op": "fill", "value": {"parameter": "topic"}}, {"field": "layout", "id": "step-2", "op": "select", "value": {"parameter": "layout"}}, {"field": "captions", "id": "step-3", "op": "check", "value": {"parameter": "captions"}}, {"control": "prepare", "id": "step-4", "op": "click"}], "verification": {"contract": "inputs_match_preview_v1", "expected": {"captions": {"parameter": "captions"}, "layout": {"parameter": "layout"}, "topic": {"parameter": "topic"}}}}, "sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d", "approved": true, "source": "Actual Chromium events driven by an automated example, not human teaching; explicit bindings and verification selected", "created_at": "2026-10-23T07:02:43.553284+00:00"}], "runs": [{"id": "c33d94a0-d992-4514-a471-b7c36ebaf542", "lesson_id": "b447135c-718c-4e4e-a2d7-07d672e8342d", "state": "VERIFIED", "created_at": "2026-10-23T07:02:46.160147+00:00", "finished_at": "2026-10-23T07:02:47.435866+00:00", "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca", "report": {"browser_version": "144.0.7559.96", "duration_ms": 1272, "error": null, "finished_at": "2026-10-23T07:02:47.434799+00:00", "input_rows": 3, "model_calls": 0, "network_requests": 0, "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca", "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d", "rows": [{"artifact": {"bytes": 526, "path": "lesson-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-architecture.json", "sha256": "0bb1da87a94732d463348a52c25be9079fda8f2750da659505282afba62c34f4"}, "observed": {"captions": true, "layout": "detailed", "topic": "architecture"}, "row_id": "architecture", "state": "VERIFIED"}, {"artifact": {"bytes": 521, "path": "lesson-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-gardens.json", "sha256": "e41d5165dcb0083544e2bfdebdf66c5b1a94bf8bd04dd609b485cd12eba24f2c"}, "observed": {"captions": false, "layout": "compact", "topic": "city gardens"}, "row_id": "gardens", "state": "VERIFIED"}, {"artifact": {"bytes": 529, "path": "lesson-artifacts/c33d94a0-d992-4514-a471-b7c36ebaf542-interiors.json", "sha256": "a36fce19bb8b498571363b6e5cf0ed8236f5c5e897371b8d4ec3ee6c25913749"}, "observed": {"captions": true, "layout": "detailed", "topic": "quiet interiors"}, "row_id": "interiors", "state": "VERIFIED"}], "run_id": "c33d94a0-d992-4514-a471-b7c36ebaf542", "schema_version": 1, "scope": "Owned in-memory form, actual Chromium actions; no HTTP or external site", "started_at": "2026-10-23T07:02:46.162779+00:00", "status": "VERIFIED", "steps": [{"op": "fill", "row_id": "architecture", "state": "EXECUTED", "step_id": "step-1"}, {"op": "select", "row_id": "architecture", "state": "EXECUTED", "step_id": "step-2"}, {"op": "check", "row_id": "architecture", "state": "EXECUTED", "step_id": "step-3"}, {"op": "click", "row_id": "architecture", "state": "EXECUTED", "step_id": "step-4"}, {"op": "fill", "row_id": "gardens", "state": "EXECUTED", "step_id": "step-1"}, {"op": "select", "row_id": "gardens", "state": "EXECUTED", "step_id": "step-2"}, {"op": "check", "row_id": "gardens", "state": "EXECUTED", "step_id": "step-3"}, {"op": "click", "row_id": "gardens", "state": "EXECUTED", "step_id": "step-4"}, {"op": "fill", "row_id": "interiors", "state": "EXECUTED", "step_id": "step-1"}, {"op": "select", "row_id": "interiors", "state": "EXECUTED", "step_id": "step-2"}, {"op": "check", "row_id": "interiors", "state": "EXECUTED", "step_id": "step-3"}, {"op": "click", "row_id": "interiors", "state": "EXECUTED", "step_id": "step-4"}], "unstarted_or_unverified_rows": 0, "verification": "Three exact output values per row, not a success banner", "verified_rows": 3}}, {"id": "1bcf343c-a7bf-4bab-a298-f9e11471709c", "lesson_id": "b447135c-718c-4e4e-a2d7-07d672e8342d", "state": "HALTED", "created_at": "2026-10-23T07:02:43.559758+00:00", "finished_at": "2026-10-23T07:02:46.155957+00:00", "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca", "report": {"browser_version": "144.0.7559.96", "duration_ms": 2592, "error": {"code": "OUTPUT_MISMATCH", "message": "An expected output was missing or did not match. Later rows were not started."}, "finished_at": "2026-10-23T07:02:46.155414+00:00", "input_rows": 3, "model_calls": 0, "network_requests": 0, "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca", "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d", "rows": [], "run_id": "1bcf343c-a7bf-4bab-a298-f9e11471709c", "schema_version": 1, "scope": "Owned in-memory form, actual Chromium actions; no HTTP or external site", "started_at": "2026-10-23T07:02:43.563515+00:00", "status": "HALTED", "steps": [{"op": "fill", "row_id": "architecture", "state": "EXECUTED", "step_id": "step-1"}, {"op": "select", "row_id": "architecture", "state": "EXECUTED", "step_id": "step-2"}, {"op": "check", "row_id": "architecture", "state": "EXECUTED", "step_id": "step-3"}, {"op": "click", "row_id": "architecture", "state": "EXECUTED", "step_id": "step-4"}], "unstarted_or_unverified_rows": 3, "verification": "Three exact output values per row, not a success banner", "verified_rows": 0}}], "active_id": null, "error": null, "scope": "Owned form rehearsals only; not connected to schedules or authenticated sites"}, "recording": [{"op": "fill", "field": "topic", "value": "architecture"}, {"op": "select", "field": "layout", "value": "detailed"}, {"op": "check", "field": "captions", "value": true}, {"op": "click", "control": "prepare"}], "lesson_id": "b447135c-718c-4e4e-a2d7-07d672e8342d", "rows": [{"row_id": "architecture", "values": {"topic": "architecture", "layout": "detailed", "captions": true}}, {"row_id": "gardens", "values": {"topic": "city gardens", "layout": "compact", "captions": false}}, {"row_id": "interiors", "values": {"topic": "quiet interiors", "layout": "detailed", "captions": true}}], "plan": {"lesson_id": "b447135c-718c-4e4e-a2d7-07d672e8342d", "approved": true, "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d", "inputs_sha256": "80eb270d77fc406261ff5b1639997e16049a554558376ddd06c22f0556192899", "adapter_sha256": "4b08667091b8f6f629397358d9d676e58c10209b825654e9437122c5b0458d17", "row_count": 3, "action_count": 12, "assertion_count": 9, "rows": [{"row_id": "architecture", "expected": {"captions": true, "layout": "detailed", "topic": "architecture"}, "actions": [{"field": "topic", "id": "step-1", "op": "fill", "value": "architecture"}, {"field": "layout", "id": "step-2", "op": "select", "value": "detailed"}, {"field": "captions", "id": "step-3", "op": "check", "value": true}, {"control": "prepare", "id": "step-4", "op": "click"}]}, {"row_id": "gardens", "expected": {"captions": false, "layout": "compact", "topic": "city gardens"}, "actions": [{"field": "topic", "id": "step-1", "op": "fill", "value": "city gardens"}, {"field": "layout", "id": "step-2", "op": "select", "value": "compact"}, {"field": "captions", "id": "step-3", "op": "check", "value": false}, {"control": "prepare", "id": "step-4", "op": "click"}]}, {"row_id": "interiors", "expected": {"captions": true, "layout": "detailed", "topic": "quiet interiors"}, "actions": [{"field": "topic", "id": "step-1", "op": "fill", "value": "quiet interiors"}, {"field": "layout", "id": "step-2", "op": "select", "value": "detailed"}, {"field": "captions", "id": "step-3", "op": "check", "value": true}, {"control": "prepare", "id": "step-4", "op": "click"}]}], "scope": "Owned in-memory practice form only; no network or external writes", "model_calls": 0, "external_writes": false, "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca"}, "stage": "rehearse"};</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HandNavigate | Guided teaching</title>
+<style>
+:root{--ink:#1a2840;--muted:#738199;--line:#e4e9f1;--base:#f5f7fb;--accent:#6952ee;--violet:#f0edff;--green:#15846d;--amber:#9b680b;--red:#b84949;--radius:12px}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--base);font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button,a,input,select,textarea{outline-offset:3px}button{cursor:pointer;border:1px solid var(--line);background:white;color:var(--ink);border-radius:7px;padding:9px 14px;font-weight:600}button:disabled{opacity:.46;cursor:not-allowed}.primary{background:var(--accent);color:white;border-color:var(--accent)}.danger{color:var(--red)}.small{padding:6px 10px;font-size:12px}a{color:var(--accent);text-decoration:none}.app{display:grid;grid-template-columns:214px minmax(0,1fr);min-height:100vh}.sidebar{background:white;border-right:1px solid var(--line);padding:26px 18px;display:flex;flex-direction:column;gap:26px}.brand{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:750;letter-spacing:-.6px;color:var(--ink)}.brand-mark{width:29px;height:32px;border-radius:9px;background:var(--ink);color:white;text-align:center;line-height:32px}.workspace{border:1px solid var(--line);padding:12px;border-radius:8px;font-size:12px}.workspace small{display:block;color:var(--muted)}.eyebrow{font-size:10px;font-weight:750;letter-spacing:1.6px;color:var(--muted);text-transform:uppercase}.sidebar nav{display:grid;gap:6px}.nav-item{display:flex;justify-content:space-between;align-items:center;padding:11px;border-radius:8px;color:var(--muted);font-size:13px;font-weight:600}.nav-item.active{background:var(--violet);color:var(--accent)}.nav-item small{font-size:9px}.side-note{margin-top:auto;border:1px solid var(--line);border-radius:9px;padding:13px;font-size:11px;color:var(--muted)}.side-note strong{display:block;color:var(--ink);margin-bottom:6px}.side-foot{font-size:10px;color:var(--muted);display:flex;justify-content:space-between}.main{min-width:0}.topbar{height:72px;padding:0 32px;background:#fff;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font-size:12px}.topbar span{color:var(--muted)}.top-status{display:flex;align-items:center;gap:14px}.dot{width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;margin-right:6px}.chip{border:1px solid var(--line);background:white;border-radius:5px;font-size:10px;font-weight:650;padding:3px 7px;white-space:nowrap}.chip.purple{color:var(--accent);background:var(--violet);border-color:#e4dfff}.chip.green{color:var(--green);background:#eaf7f2;border-color:#d6ede4}.chip.amber{color:var(--amber);background:#fff7e8;border-color:#f6e9cb}.content{max-width:1480px;margin:auto;padding:34px 34px 24px}.page-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}h1{font-size:29px;letter-spacing:-1px;line-height:1.2;margin:10px 0}h2{font-size:16px;line-height:1.4;margin:0}h3{margin:8px 0;font-size:20px;letter-spacing:-.4px}p{margin:7px 0;color:var(--muted);font-size:12px}.step-tabs{display:flex;border-bottom:1px solid var(--line);gap:28px;margin:26px 0 22px}.step-tabs button{border:0;border-radius:0;background:transparent;padding:12px 0;color:var(--muted);border-bottom:3px solid transparent;font-size:13px}.step-tabs button.active{border-bottom-color:var(--accent);color:var(--ink)}.step-num{display:inline-flex;width:24px;height:24px;border-radius:6px;background:#e9edf4;align-items:center;justify-content:center;font-size:10px;margin-right:7px}.active .step-num{background:var(--violet);color:var(--accent)}[hidden]{display:none!important}.grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,1fr);gap:22px;align-items:start}.card{background:white;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-width:0}.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:18px 21px}.card-body{padding:21px}.card-foot{padding:12px 21px;background:#fbfcfe;border-top:1px solid var(--line);color:var(--muted);font-size:11px}.stack{display:grid;gap:18px}.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.toolbar.spread{justify-content:space-between}.form-field{display:grid;gap:6px;margin-bottom:15px;font-size:11px;font-weight:600;color:#5d6d85}input:not([type=checkbox]),select,textarea{width:100%;min-width:0;border:1px solid #dce3ee;border-radius:7px;background:white;padding:9px 10px;color:var(--ink)}input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px;flex-shrink:0}textarea{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;resize:vertical}.check{display:flex;gap:9px;align-items:flex-start;font-size:11px;color:var(--muted);margin:12px 0}.check input{margin-top:2px}.hint{background:var(--violet);border:1px solid #e6dfff;border-radius:9px;padding:13px 15px;color:#756a9e;font-size:11px}.hint strong{color:#5d4ba6}.scope-strip{display:flex;justify-content:space-between;gap:16px;font-size:11px;color:var(--muted);margin:24px 0 0;border-top:1px solid var(--line);padding-top:16px}.practice-surface{padding:25px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(140deg,#fff,#fafaff)}.practice-eyebrow{font-size:9px;letter-spacing:1.6px;font-weight:750;color:var(--accent)}.practice-heading{margin-bottom:20px}.practice-heading p{max-width:350px}.practice-label{display:grid;gap:6px;margin:14px 0;font-size:12px;font-weight:600}.practice-check{display:flex;align-items:center;gap:8px;font-size:12px;margin:17px 0}.practice-surface>button{width:100%;margin-top:6px}.practice-result{background:#f0f9f5;border:1px solid #d5eadd;border-radius:8px;margin-top:16px;padding:15px;font-size:12px}.practice-result strong{color:var(--green)}dl{display:grid;grid-template-columns:70px minmax(0,1fr);gap:3px;margin:10px 0 0}dt{color:var(--muted)}dd{margin:0;overflow-wrap:anywhere}.recording-status{display:flex;align-items:center;gap:8px;font-size:11px}.recording-status.active{color:#c74856}.recording-status.active:before{content:'';width:7px;height:7px;background:#d44c61;border-radius:50%}.event-list{min-height:220px;max-height:345px;overflow:auto}.event{display:grid;grid-template-columns:27px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid #f0f2f6;font-size:12px}.event:last-child{border:0}.event-num{width:24px;height:24px;border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted)}.event strong{display:block;font-size:12px;font-weight:650}.event small{color:var(--muted);word-break:break-word}.empty{padding:32px 10px;text-align:center;color:var(--muted);font-size:12px}.empty strong{display:block;color:var(--ink);margin-bottom:6px}.subtle{font-size:11px;color:var(--muted)}.binding-grid{display:grid;grid-template-columns:1fr 105px 1fr;gap:8px;align-items:center;margin:12px 0}.binding-grid strong{font-size:12px}.binding-grid small{display:block;overflow-wrap:anywhere;color:var(--muted);font-size:10px}.binding-grid select,.binding-grid input{font-size:11px;padding:8px}.divider{height:1px;background:var(--line);margin:20px 0}.two{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:12px}details{font-size:11px;color:var(--muted);margin:13px 0}summary{cursor:pointer}pre{max-height:270px;overflow:auto;border:1px solid var(--line);background:#f8f9fc;padding:12px;border-radius:7px;font:10px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}.metric{border:1px solid var(--line);border-radius:9px;padding:14px;background:white}.metric .value{font-size:25px;font-weight:700;letter-spacing:-.7px;margin-top:6px}.metric .label{font-size:9px;letter-spacing:1.1px;color:var(--muted);text-transform:uppercase}.metric small{font-size:10px;color:var(--muted)}.row-editor{border:1px solid var(--line);border-radius:8px;padding:13px;margin:12px 0;background:#fcfcfe}.row-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}.row-top input{max-width:150px;font:11px ui-monospace,Consolas,monospace;padding:5px 8px}.row-variables{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:10px;align-items:end}.row-variables .form-field{margin:0}.row-variables .check{align-items:center;margin:0;padding-bottom:10px}.plan-item{border:1px solid var(--line);border-radius:8px;margin:10px 0;padding:12px}.plan-item strong{font-size:12px}.plan-item p{font-size:11px;word-break:break-word}.receipt{border:1px solid var(--line);border-radius:8px;padding:14px;margin:12px 0}.receipt-top{display:flex;justify-content:space-between;gap:10px;font-size:12px}.receipt ul{padding-left:18px;margin:10px 0 0;font-size:11px;color:var(--muted)}.hash{font-family:ui-monospace,Consolas,monospace;font-size:10px;overflow-wrap:anywhere;color:var(--muted)}.notice{border:1px solid #f3dfac;background:#fff7e5;color:#8d6b2c;padding:9px 18px;font-size:11px;text-align:center}.toast{position:fixed;bottom:23px;left:50%;transform:translateX(-50%);background:var(--ink);color:white;max-width:min(620px,90vw);padding:13px 19px;border-radius:9px;box-shadow:0 7px 25px #12213c20;z-index:100;font-size:12px}.lesson-selector{max-width:265px;font-size:11px}button:hover:not(:disabled){filter:brightness(.97)}@media(prefers-reduced-motion:no-preference){button{transition:background .15s,filter .15s}.card{animation:appear .2s ease}@keyframes appear{from{opacity:.7;transform:translateY(3px)}to{opacity:1;transform:none}}}@media(min-width:1550px){.content{padding-top:45px}}@media(max-width:1150px){.app{grid-template-columns:180px minmax(0,1fr)}.content{padding:26px 22px}.grid{grid-template-columns:minmax(0,1.2fr) minmax(275px,1fr)}.sidebar{padding:24px 12px}.step-tabs{gap:18px}.page-heading{align-items:flex-start}h1{font-size:25px}}@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{display:none}.grid{grid-template-columns:1fr 1fr}.topbar{padding:0 22px}.content{padding:24px 20px}.page-heading{flex-wrap:wrap}.scope-strip{flex-wrap:wrap}}@media(max-width:680px){.grid{grid-template-columns:1fr}.content{padding:22px 15px}.topbar{height:58px;padding:0 15px}.topbar .top-status>span:first-child{display:none}h1{font-size:26px}.page-heading{gap:12px}.step-tabs{gap:10px;margin-top:18px;justify-content:space-between}.step-tabs button{font-size:10px}.step-num{width:20px;height:20px;margin-right:4px}.card-body{padding:17px}.card-head{padding:15px 17px}.metrics{gap:7px}.metric{padding:10px}.metric .value{font-size:23px}.metric .label{font-size:8px}.binding-grid{grid-template-columns:1fr 95px minmax(80px,1fr)}.scope-strip{font-size:10px}.lesson-selector{max-width:100%}.practice-surface{padding:18px}.row-variables{grid-template-columns:1fr 1fr}.row-variables>.form-field:first-child{grid-column:1/-1}.page-heading>div:last-child{width:100%}}
+</style></head><body>
+<div id="preview-notice" class="notice" hidden>Read-only evidence preview. No recording, execution, approval or API calls are enabled.</div>
+<div class="app"><aside class="sidebar"><a class="brand" href="/" id="brand-link"><span class="brand-mark">h</span>handnavigate</a><div class="workspace">Personal workspace<small>Local engineering lab</small></div><div><div class="eyebrow" style="padding:0 11px 12px">Build &amp; operate</div><nav><a class="nav-item" href="/" id="studio-link">Studio <small>01</small></a><span class="nav-item active">Guided teaching <small>NEW</small></span><a class="nav-item" href="/#schedules" id="schedules-link">Schedules</a><a class="nav-item" href="/#connections" id="connections-link">Connections</a></nav></div><div class="side-note"><strong><span class="dot"></span>Deterministic by design</strong>Demonstrate actions. Define what can change. Verify the actual result.</div><div class="side-foot"><span>ENGINEERING LAB</span><span>v0.4</span></div></aside>
+<main class="main"><header class="topbar"><div><span>Workspace &nbsp;/&nbsp;</span> Guided teaching</div><div class="top-status"><span><i class="dot"></i>Strict replay</span><span class="chip">NO MODEL PROVIDER</span></div></header><div class="content"><div class="page-heading"><div><div class="eyebrow">Your demonstration. Explicit rules. <span class="chip purple">OWNED SANDBOX</span></div><h1>Teach the task, not every repetition.</h1><p>Record a form, choose its variables, then rehearse with different inputs.</p></div><div><label class="form-field" style="margin:0">Saved lesson<select id="lesson-select" class="lesson-selector"><option value="">Create your first lesson</option></select></label></div></div>
+<div class="step-tabs" role="tablist" aria-label="Teaching stages"><button data-stage="record" class="active" role="tab" aria-selected="true"><span class="step-num">01</span>Demonstrate</button><button data-stage="review" role="tab" aria-selected="false"><span class="step-num">02</span>Bind &amp; review</button><button data-stage="rehearse" role="tab" aria-selected="false"><span class="step-num">03</span>Rehearse</button></div>
+<section id="stage-record"><div class="grid"><div class="card"><div class="card-head"><h2>Your practice workspace</h2><span class="chip">LOCAL ONLY</span></div><div class="card-body"><label class="check"><input type="checkbox" id="record-consent">I understand that recording is limited to this practice form. I will not enter secrets.</label><div class="toolbar" style="margin:12px 0 20px"><button id="record-start" class="primary" disabled>Start recording</button><button id="record-stop" disabled>Stop</button><button id="capture-inputs" class="small" disabled>Capture current inputs</button></div><div id="owned-workspace" class="practice-surface">
+  <div class="practice-heading"><span class="practice-eyebrow">OWNED PRACTICE PAGE</span><h3>Build a topic preview</h3><p>This form only changes its local preview. It does not contact a website.</p></div>
+  <label class="practice-label">Topic<input data-hn-field="topic" type="text" maxlength="80" placeholder="For example, architecture" autocomplete="off"></label>
+  <label class="practice-label">Layout<select data-hn-field="layout" aria-label="Layout"><option value="compact">Compact</option><option value="detailed">Detailed</option></select></label>
+  <label class="practice-check"><input data-hn-field="captions" type="checkbox">Include captions</label>
+  <button type="button" data-hn-control="prepare">Prepare preview</button>
+  <div data-testid="preview-output" class="practice-result" hidden aria-live="polite"><strong>Preview prepared</strong><dl><dt>Topic</dt><dd data-testid="result-topic"></dd><dt>Layout</dt><dd data-testid="result-layout"></dd><dt>Captions</dt><dd data-testid="result-captions"></dd></dl></div>
+</div>
+</div><div class="card-foot">Set each input, then click Prepare preview. Capture current inputs also records unchanged defaults.</div></div><div class="stack"><div class="card"><div class="card-head"><h2>Recorded actions</h2><span id="record-status" class="recording-status">Not recording</span></div><div class="card-body"><div id="event-list" class="event-list"><div class="empty"><strong>Start with a demonstration</strong>Your inputs and clicks will appear here.<br>No screen-wide recording.</div></div><div class="toolbar" style="margin-top:16px"><button id="continue-review" class="primary" disabled>Review these actions</button><button id="load-demo" class="small">Load sample trace</button></div><p id="record-provenance">A sample trace is an example, not a recording of your actions.</p></div></div><div class="hint"><strong>Actions are not intent.</strong><br>The next step asks which values can change, how many times to repeat, and what must match before a run counts as verified.</div></div></div></section>
+<section id="stage-review" hidden><div class="grid"><div class="card"><div class="card-head"><h2>Turn your example into a recipe</h2><span class="chip purple">EXPLICIT BINDINGS</span></div><div class="card-body"><div class="two"><label class="form-field">Lesson name<input id="lesson-name" value="Daily topic previews" maxlength="100"></label><label class="form-field">Maximum rows<input id="repeat-limit" type="number" min="1" max="20" value="10"></label></div><p>Keep a recorded value fixed or give it a variable name. No intent is inferred.</p><div id="bindings"></div><div class="divider"></div><label class="check"><input id="verifier-consent" type="checkbox">Verify that the displayed topic, layout and captions exactly match the final reviewed inputs for every row.</label><p>Stop the batch on the first failed check. A success message by itself is not enough.</p><button id="compile-lesson" class="primary" disabled>Compile reviewed draft</button><details><summary>Import an existing recipe instead</summary><textarea id="import-recipe" rows="5" placeholder="Paste a recipe JSON object. Imports always need a new approval."></textarea><button id="import-button" class="small" style="margin-top:8px">Import without approval</button></details></div><div class="card-foot">The verifier and loop are selected by you. They are not learned automatically.</div></div><div class="card"><div class="card-head"><h2>Recipe review</h2><span id="lesson-badge" class="chip amber">NO DRAFT</span></div><div class="card-body"><div id="recipe-summary" class="empty"><strong>No compiled draft yet</strong>Record or load an example, then define its bindings.</div><details><summary>Inspect exact recipe &amp; checksum</summary><pre id="recipe-json">No recipe</pre><div id="recipe-hash" class="hash"></div></details><label class="check"><input id="approval-consent" type="checkbox" disabled>I reviewed these exact actions, variables, result checks, and the repeat limit.</label><div class="toolbar"><button id="approve-lesson" class="primary" disabled>Approve exact recipe</button><button id="export-lesson" class="small" disabled>Export JSON</button><button id="revoke-lesson" class="small" disabled>Revoke approval</button></div><button id="to-rehearse" style="margin-top:12px" disabled>Continue to rehearsal</button></div><div class="card-foot">Local checksum acknowledgement, not a signature or website permission.</div></div></div></section>
+<section id="stage-rehearse" hidden><div class="metrics"><div class="metric"><div class="label">Latest verification</div><div id="metric-rows" class="value">--</div><small>Rows with all outputs checked</small></div><div class="metric"><div class="label">Model calls</div><div id="metric-models" class="value">--</div><small>No provider in this runner</small></div><div class="metric"><div class="label">Execution scope</div><div class="value" style="font-size:20px">Owned form</div><small>Not a third-party website</small></div></div><div class="grid"><div class="stack"><div class="card"><div class="card-head"><h2>Inputs for this rehearsal</h2><button id="demo-rows" class="small" disabled>Use 3 demo rows</button></div><div class="card-body"><div id="row-editor"><div class="empty">Select or compile a lesson first.</div></div><div class="toolbar"><button id="add-row" class="small" disabled>Add row</button><button id="preview-plan" class="primary" disabled>Preview execution plan</button></div><p>Changing any input invalidates the current plan review.</p></div></div><div class="card"><div class="card-head"><h2>Evidence &amp; run history</h2><span id="history-count" class="chip">0 RUNS</span></div><div class="card-body" id="run-history"><div class="empty">Verified rows and halted runs will appear here.</div></div></div></div><div class="card"><div class="card-head"><h2>Check before running</h2><span id="plan-badge" class="chip amber">PLAN REQUIRED</span></div><div class="card-body"><div id="plan-summary" class="empty"><strong>Review the actual inputs</strong>Preview the plan to see every expected result.</div><details><summary>Inspect exact execution plan</summary><pre id="plan-json">No reviewed plan</pre></details><label class="check"><input id="plan-consent" type="checkbox" disabled>I reviewed these input rows and expected results. Run only this plan.</label><div class="toolbar"><button id="run-lesson" class="primary" disabled>Run verified rehearsal</button><button id="stop-lesson" class="danger" disabled>Stop</button></div><p id="run-status">No active rehearsal. The local studio must stay open.</p></div><div class="card-foot">Fresh page per row. One local execution slot. No automatic retry after interruption.</div></div></div></section>
+<footer class="scope-strip"><span>Owned practice form &middot; No arbitrary URLs, generated code, or secret capture.</span><span>HandNavigate Lab v0.4 &middot; Browser HTTP qualification remains a separate gate.</span></footer></div></main></div><div id="toast" class="toast" role="status" hidden></div>
+<script>// Owned fixture logic. Kept separate from recorder and output expectations.
+window.HandNavigatePractice = {
+  mount(root, scenario='normal') {
+    const button=root.querySelector('[data-hn-control="prepare"]');
+    const output=root.querySelector('[data-testid="preview-output"]');
+    button.addEventListener('click',()=>{
+      const values={topic:root.querySelector('[data-hn-field="topic"]').value,
+        layout:root.querySelector('[data-hn-field="layout"]').value,
+        captions:root.querySelector('[data-hn-field="captions"]').checked};
+      if(!values.topic.trim())return;
+      if(scenario==='missing-output')return;
+      if(scenario==='dialog'){alert('Unexpected confirmation');return;}
+      if(scenario==='wrong-topic')values.topic='WRONG TOPIC';
+      const render=()=>{
+        output.querySelector('[data-testid="result-topic"]').textContent=values.topic;
+        output.querySelector('[data-testid="result-layout"]').textContent=values.layout;
+        output.querySelector('[data-testid="result-captions"]').textContent=values.captions?'yes':'no';
+        output.hidden=false;
+      };
+      if(scenario==='delayed-output')setTimeout(render,180);else render();
+    });
+    if(scenario==='ambiguous-control')button.after(button.cloneNode(true));
+  }
+};
+</script><script>// A consent-driven recorder for the owned practice root, never the whole page.
+window.HandNavigateTeachingRecorder=class {
+  constructor(root,onChange=()=>{}) {
+    this.root=root;this.onChange=onChange;this.active=false;this.events=[];
+    this.listeners=[];
+  }
+  start(){
+    this.stop();this.events=[];this.active=true;
+    const sensitive=el=>Boolean(el.closest('[data-private]'))||el.type==='password'||
+      /password|one-time-code|cc-|credit/i.test(el.autocomplete||'');
+    const fieldEvent=el=>{
+      if(!(el instanceof HTMLInputElement||el instanceof HTMLSelectElement||el instanceof HTMLTextAreaElement))return;
+      if(sensitive(el)){this.push({op:'blocked',reason:'private_control'});return;}
+      const field=el.dataset.hnField;
+      if(!['topic','layout','captions'].includes(field)){this.push({op:'blocked',reason:'unknown_control'});return;}
+      const op=field==='topic'?'fill':field==='layout'?'select':'check';
+      const value=field==='captions'?el.checked:el.value;
+      this.push({op,field,value});
+    };
+    const input=e=>{if(e.target instanceof HTMLInputElement && e.target.type!=='checkbox' || e.target instanceof HTMLTextAreaElement)fieldEvent(e.target);};
+    const change=e=>{if(e.target instanceof HTMLSelectElement||e.target instanceof HTMLInputElement&&e.target.type==='checkbox')fieldEvent(e.target);};
+    const click=e=>{
+      const el=e.target.closest('button,a,[role="button"]');if(!el||!this.root.contains(el))return;
+      if(sensitive(el)){this.push({op:'blocked',reason:'private_control'});return;}
+      if(el.dataset.hnControl==='prepare')this.push({op:'click',control:'prepare'});
+      else this.push({op:'blocked',reason:'unsupported_click'});
+    };
+    for(const [type,fn] of [['input',input],['change',change],['click',click]]){
+      this.root.addEventListener(type,fn,true);this.listeners.push([type,fn]);
+    }
+    this.onChange(this.snapshot());
+  }
+  push(event){
+    if(!this.active)return;
+    if(this.events.length>=48){this.events=[{op:'blocked',reason:'event_budget_exceeded'}];this.stop();return;}
+    const last=this.events[this.events.length-1];
+    // Only adjacent edits to the same field are collapsed; clicks are boundaries.
+    if(event.field&&last&&last.field===event.field&&last.op===event.op)this.events.pop();
+    this.events.push(event);this.onChange(this.snapshot());
+  }
+  captureInputs(){
+    if(!this.active)throw new Error('Start recording first');
+    for(const field of ['topic','layout','captions']){
+      const el=this.root.querySelector('[data-hn-field="'+field+'"]');
+      if(el.closest('[data-private]')||el.type==='password'||/password|one-time-code|cc-|credit/i.test(el.autocomplete||'')) {this.push({op:'blocked',reason:'private_control'});continue;}
+      this.push({op:field==='topic'?'fill':field==='layout'?'select':'check',field,value:field==='captions'?el.checked:el.value});
+    }
+  }
+  stop(){for(const [type,fn] of this.listeners)this.root.removeEventListener(type,fn,true);this.listeners=[];this.active=false;this.onChange(this.snapshot());return this.snapshot();}
+  snapshot(){return {schema_version:2,adapter_id:'owned-form-v1',capture_state:this.active?'RECORDING':'STOPPED',events:JSON.parse(JSON.stringify(this.events)),
+    provenance:'Captured browser events; capture alone does not prove a human performed them'};}
+};
+
+void 0;
+</script><script>(() => {
+'use strict';
+const $=id=>document.getElementById(id);
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const PREVIEW=window.__HANDNAVIGATE_TEACHING_PREVIEW||null;
+const readOnly=Boolean(PREVIEW);
+const csrf='READ_ONLY_PREVIEW';
+const fieldNames={topic:'Topic',layout:'Layout',captions:'Include captions'};
+let state={lessons:[],runs:[],active_id:null,error:null}, selected=null, recording=[], rows=[], plan=null;
+let planRequestId=null, planConsumed=false, currentStage='record', pending=false;
+let recipeSignature='', historySignature='', selectSignature='', toastTimer;
+const practice=$('owned-workspace');
+HandNavigatePractice.mount(practice);
+const recorder=new HandNavigateTeachingRecorder(practice,snapshot=>{
+ recording=snapshot.events;
+ renderEvents();
+ $('record-status').textContent=recorder.active?'Recording':'Recording stopped';
+ $('record-status').className='recording-status'+(recorder.active?' active':'');
+ updateButtons();
+});
+function newRequestId(){
+ if(!globalThis.crypto || !crypto.getRandomValues)throw new Error('Secure request IDs are unavailable in this browser. Execution remains disabled.');
+ const bytes=crypto.getRandomValues(new Uint8Array(16));bytes[6]=(bytes[6]&15)|64;bytes[8]=(bytes[8]&63)|128;
+ const hex=Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
+ return hex.slice(0,8)+'-'+hex.slice(8,12)+'-'+hex.slice(12,16)+'-'+hex.slice(16,20)+'-'+hex.slice(20);
+}
+function toast(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,6000);}
+async function api(path,body){
+ if(readOnly)throw new Error('Read-only preview: no changes or execution are available.');
+ const response=await fetch(path,body===undefined?{cache:'no-store'}:{method:'POST',headers:{'Content-Type':'application/json','X-HandNavigate-Token':csrf},body:JSON.stringify(body)});
+ const result=await response.json();if(!response.ok)throw new Error(result.error||'Request failed');return result;
+}
+function action(id,fn){$(id).addEventListener('click',async()=>{if(pending||readOnly)return;pending=true;updateButtons();try{await fn();}catch(error){toast(error.message);}finally{pending=false;updateButtons();}});}
+function stage(name){
+ if(recorder.active && name!=='record'){recorder.stop();$('record-provenance').textContent='Browser events captured in the owned practice form. Capture alone does not prove a human performed them.';}
+ currentStage=name;
+ for(const node of document.querySelectorAll('[data-stage]')){const active=node.dataset.stage===name;node.classList.toggle('active',active);node.setAttribute('aria-selected',String(active));}
+ for(const name of ['record','review','rehearse'])$('stage-'+name).hidden=name!==currentStage;
+}
+for(const button of document.querySelectorAll('[data-stage]'))button.addEventListener('click',()=>stage(button.dataset.stage));
+function eventDescription(event){
+ if(event.op==='blocked')return ['Blocked action',event.reason];
+ if(event.op==='click')return ['Click Prepare preview','Owned form only'];
+ return [(event.op==='fill'?'Fill ':event.op==='select'?'Select ':'Set ')+fieldNames[event.field],typeof event.value==='boolean'?(event.value?'Checked':'Unchecked'):event.value];
+}
+function renderEvents(){
+ $('event-list').innerHTML=recording.length?recording.map((event,i)=>{const [title,value]=eventDescription(event);return '<div class="event"><span class="event-num">'+(i+1)+'</span><div><strong>'+esc(title)+'</strong><small>'+esc(value)+'</small></div></div>';}).join(''):'<div class="empty"><strong>Start with a demonstration</strong>Your inputs and clicks will appear here.<br>No screen-wide recording.</div>';
+ renderBindings();
+}
+function renderBindings(){
+ const existing={};for(const field of Object.keys(fieldNames)){if($('bind-mode-'+field))existing[field]={mode:$('bind-mode-'+field).value,name:$('bind-name-'+field).value};}
+ const final={};for(const event of recording)if(event.field)final[event.field]=event.value;
+ $('bindings').innerHTML=Object.keys(fieldNames).map(field=>'<div class="binding-grid"><div><strong>'+fieldNames[field]+'</strong><small>Example: '+esc(final[field]===undefined?'not recorded':JSON.stringify(final[field]))+'</small></div><select id="bind-mode-'+field+'" aria-label="'+fieldNames[field]+' binding"><option value="variable">Variable</option><option value="constant">Keep fixed</option></select><input id="bind-name-'+field+'" aria-label="'+fieldNames[field]+' variable name" value="'+field+'" maxlength="32"></div>').join('');
+ for(const field of Object.keys(fieldNames)){
+  if(existing[field]){$('bind-mode-'+field).value=existing[field].mode;$('bind-name-'+field).value=existing[field].name;}
+  $('bind-name-'+field).disabled=readOnly||$('bind-mode-'+field).value==='constant';
+  $('bind-mode-'+field).disabled=readOnly;
+  $('bind-mode-'+field).addEventListener('change',()=>{$('bind-name-'+field).disabled=$('bind-mode-'+field).value==='constant';});
+ }
+}
+function clearPlan(){plan=null;planRequestId=null;planConsumed=false;$('plan-consent').checked=false;renderPlan();updateButtons();}
+function setLesson(lesson){
+ const changed=selected?.sha256!==lesson?.sha256||selected?.id!==lesson?.id;
+ selected=lesson;
+ if(changed){rows=[];clearPlan();if(selected)rows=[defaultRow(1)];renderRows();}
+ const signature=JSON.stringify(selected);
+ if(signature!==recipeSignature){recipeSignature=signature;$('approval-consent').checked=false;renderRecipe();}
+ if(selected)$('lesson-select').value=selected.id;
+ updateButtons();
+}
+function parameterEntries(){
+ const names=Object.keys(fieldNames).map(field=>selected.recipe.verification.expected[field].parameter).filter(Boolean);
+ for(const name of Object.keys(selected.recipe.parameters))if(!names.includes(name))names.push(name);
+ return names.map(name=>[name,selected.recipe.parameters[name]]);
+}
+function runTime(value){
+ try{return new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',dateStyle:'medium',timeStyle:'short'}).format(new Date(value))+' IST';}
+ catch(_){return String(value);}
+}
+function defaultValues(index){
+ const examples=[{topic:'architecture',layout:'detailed',captions:true},{topic:'city gardens',layout:'compact',captions:false},{topic:'quiet interiors',layout:'detailed',captions:true}];
+ const input=examples[(index-1)%examples.length];const values={};
+ for(const [field,source] of Object.entries(selected.recipe.verification.expected))if(source.parameter)values[source.parameter]=input[field];
+ return values;
+}
+function defaultRow(index){return {row_id:'row-'+index,values:defaultValues(index)};}
+function renderRecipe(){
+ $('lesson-badge').textContent=selected?(selected.approved?'APPROVED':'REVIEW REQUIRED'):'NO DRAFT';
+ $('lesson-badge').className='chip '+(selected?.approved?'green':'amber');
+ if(!selected){$('recipe-summary').className='empty';$('recipe-summary').innerHTML='<strong>No compiled draft yet</strong>Record or load an example, then define its bindings.';$('recipe-json').textContent='No recipe';$('recipe-hash').textContent='';return;}
+ const recipe=selected.recipe;$('recipe-summary').className='';
+ $('recipe-summary').innerHTML='<strong>'+esc(recipe.name)+'</strong><p>'+recipe.steps.length+' actions per row &middot; '+Object.keys(recipe.parameters).length+' variables &middot; at most '+recipe.repeat.max_rows+' rows</p>'+recipe.steps.map((step,i)=>'<div class="event"><span class="event-num">'+(i+1)+'</span><div><strong>'+esc(step.op==='click'?'Click Prepare preview':step.op+' '+fieldNames[step.field])+'</strong><small>'+esc(step.value?(step.value.parameter?'{{'+step.value.parameter+'}}':JSON.stringify(step.value.literal)):'Then verify all three displayed values')+'</small></div></div>').join('')+'<div class="hint" style="margin-top:12px"><strong>Verified, not merely replayed.</strong><br>Every row must match all three expected output values. Stop on the first mismatch.</div>';
+ $('recipe-json').textContent=JSON.stringify(recipe,null,2);$('recipe-hash').textContent='SHA-256 '+selected.sha256;
+}
+function renderRows(){
+ if(!selected){$('row-editor').innerHTML='<div class="empty">Select or compile a lesson first.</div>';return;}
+ $('row-editor').innerHTML=rows.map((row,index)=>'<div class="row-editor"><div class="row-top"><input aria-label="Row '+(index+1)+' identity" data-rowid="'+index+'" value="'+esc(row.row_id)+'" maxlength="64"><button class="small" data-remove-row="'+index+'" '+(rows.length===1?'disabled':'')+'>Remove</button></div><div class="row-variables">'+parameterEntries().map(([key,spec])=>spec.type==='boolean'?'<label class="check"><input type="checkbox" data-row="'+index+'" data-key="'+esc(key)+'" '+(row.values[key]?'checked':'')+'>'+esc(key)+'</label>':'<label class="form-field">'+esc(key)+(spec.type==='enum'?'<select data-row="'+index+'" data-key="'+esc(key)+'">'+spec.choices.map(value=>'<option '+(row.values[key]===value?'selected':'')+' value="'+esc(value)+'">'+esc(value)+'</option>').join('')+'</select>':'<input data-row="'+index+'" data-key="'+esc(key)+'" value="'+esc(row.values[key])+'" maxlength="80">')+'</label>').join('')+'</div></div>').join('');
+ for(const input of $('row-editor').querySelectorAll('[data-row]')){
+  input.disabled=readOnly;
+  input.addEventListener('input',()=>{rows[Number(input.dataset.row)].values[input.dataset.key]=input.type==='checkbox'?input.checked:input.value;clearPlan();});
+ }
+ for(const input of $('row-editor').querySelectorAll('[data-rowid]')){input.disabled=readOnly;input.addEventListener('input',()=>{rows[Number(input.dataset.rowid)].row_id=input.value;clearPlan();});}
+ for(const button of $('row-editor').querySelectorAll('[data-remove-row]')){button.disabled=readOnly||rows.length===1;button.addEventListener('click',()=>{rows.splice(Number(button.dataset.removeRow),1);clearPlan();renderRows();});}
+}
+function renderPlan(){
+ $('plan-badge').textContent=plan?(planConsumed?'EXECUTION SUBMITTED':'REVIEW REQUIRED'):'PLAN REQUIRED';
+ $('plan-badge').className='chip '+(planConsumed?'green':'amber');
+ $('plan-json').textContent=plan?JSON.stringify(plan,null,2):'No reviewed plan';
+ $('plan-summary').className=plan?'':'empty';
+ $('plan-summary').innerHTML=plan?'<strong>'+plan.row_count+' rows &middot; '+plan.action_count+' actions &middot; '+plan.assertion_count+' checks</strong><p>No model calls. No external writes. Stop on first failed verification.</p>'+plan.rows.map(row=>'<div class="plan-item"><strong>'+esc(row.row_id)+'</strong><p>'+esc(row.expected.topic)+' &middot; '+esc(row.expected.layout)+' &middot; captions '+(row.expected.captions?'on':'off')+'</p></div>').join('')+'<div class="hash">Plan '+esc(plan.plan_sha256)+'</div>':'<strong>Review the actual inputs</strong>Preview the plan to see every expected result.';
+}
+function renderHistory(){
+ const signature=JSON.stringify([state.runs,state.active_id,state.error]);if(signature===historySignature)return;historySignature=signature;
+ const latest=state.runs.find(run=>run.report);
+ $('metric-rows').textContent=latest?latest.report.verified_rows+' / '+latest.report.input_rows:'--';
+ $('metric-models').textContent=latest?String(latest.report.model_calls):'--';
+ $('history-count').textContent=state.runs.length+' RUN'+(state.runs.length===1?'':'S');
+ $('run-history').innerHTML=state.runs.length?state.runs.slice(0,8).map(run=>{
+  const report=run.report;
+  return '<div class="receipt"><div class="receipt-top"><strong>'+esc(runTime(run.created_at))+'</strong><span class="chip '+(run.state==='VERIFIED'?'green':'amber')+'">'+esc(run.state)+'</span></div>'+(report?'<p>'+report.verified_rows+' / '+report.input_rows+' rows verified &middot; '+report.model_calls+' model calls</p>'+(report.error?'<p>'+esc(report.error.code+': '+report.error.message)+'</p>':'')+'<ul>'+report.rows.map(row=>'<li>'+esc(row.row_id)+': '+esc(row.observed.topic)+' <a '+(readOnly?'title="Artifact is included in the source package"':'href="/api/teaching/artifact?run='+encodeURIComponent(run.id)+'&row='+encodeURIComponent(row.row_id)+'" target="_blank" rel="noopener"')+'>verified receipt</a></li>').join('')+'</ul>':'<p>Awaiting evidence. A running state is not verified completion.</p>')+(run.state==='NEEDS_REVIEW'?'<div class="hint">Interrupted work is never retried automatically.</div><button class="small" data-ack="'+esc(run.id)+'" '+(readOnly?'disabled':'')+'>Acknowledge without retry</button>':'')+'</div>';
+ }).join(''):'<div class="empty">Verified rows and halted runs will appear here.</div>';
+ for(const button of $('run-history').querySelectorAll('[data-ack]'))button.addEventListener('click',async()=>{try{await api('/api/teaching/acknowledge',{run_id:button.dataset.ack,acknowledgement:'REVIEWED_WITHOUT_RETRY'});await refresh();}catch(e){toast(e.message);}});
+ $('run-status').textContent=state.error|| (state.active_id?'Rehearsal is running. Stop is cooperative at step boundaries.':readOnly?'Recorded evidence only. No runner exists in this preview.':'No active rehearsal. The local studio must stay open.');
+}
+function updateButtons(){
+ const disabled=readOnly||pending;
+ $('record-start').disabled=disabled||recorder.active||!$('record-consent').checked;
+ $('record-stop').disabled=disabled||!recorder.active;$('capture-inputs').disabled=disabled||!recorder.active;
+ $('continue-review').disabled=disabled||!recording.length;$('load-demo').disabled=disabled||recorder.active;
+ $('compile-lesson').disabled=disabled||recording.length<4||!$('verifier-consent').checked;
+ $('approval-consent').disabled=disabled||!selected||selected.approved;
+ $('approve-lesson').disabled=disabled||!selected||selected.approved||!$('approval-consent').checked;
+ $('export-lesson').disabled=disabled||!selected;$('revoke-lesson').disabled=disabled||!selected?.approved||Boolean(state.active_id);
+ $('to-rehearse').disabled=disabled||!selected;
+ $('demo-rows').disabled=disabled||!selected;
+ $('add-row').disabled=disabled||!selected||rows.length>=selected.recipe.repeat.max_rows;
+ $('preview-plan').disabled=disabled||!selected||!rows.length;
+ $('plan-consent').disabled=disabled||!plan||planConsumed;
+ $('run-lesson').disabled=disabled||!selected?.approved||!plan||!planRequestId||planConsumed||!$('plan-consent').checked||Boolean(state.active_id)||Boolean(state.error);
+ $('stop-lesson').disabled=disabled||!state.active_id;
+ $('import-button').disabled=disabled;
+}
+async function refresh(){
+ const data=readOnly?PREVIEW.state:await api('/api/teaching');state=data;
+ const signature=JSON.stringify(state.lessons.map(l=>[l.id,l.sha256,l.approved]));
+ if(signature!==selectSignature){selectSignature=signature;$('lesson-select').innerHTML='<option value="">Create a new lesson</option>'+state.lessons.map(lesson=>'<option value="'+esc(lesson.id)+'">'+esc(lesson.recipe.name)+(lesson.approved?' - approved':' - draft')+'</option>').join('');}
+ if(selected){const updated=state.lessons.find(l=>l.id===selected.id);if(updated)setLesson(updated);}
+ else if(state.lessons.length&&!recording.length)setLesson(state.lessons[0]);
+ renderHistory();updateButtons();
+}
+for(const id of ['record-consent','verifier-consent','approval-consent','plan-consent'])$(id).addEventListener('change',updateButtons);
+$('lesson-select').addEventListener('change',()=>setLesson(state.lessons.find(l=>l.id===$('lesson-select').value)||null));
+action('record-start',()=>{setLesson(null);$('record-provenance').textContent='Recording only this owned form. Stop before leaving the practice workspace.';recorder.start();});
+action('record-stop',()=>{recorder.stop();$('record-provenance').textContent='Browser events captured in the owned practice form; capture alone does not prove a human performed them.';});
+action('capture-inputs',()=>{recorder.captureInputs();toast('Current values recorded explicitly. Now click Prepare preview.');});
+action('continue-review',()=>stage('review'));
+action('load-demo',()=>{recorder.stop();recording=[{op:'fill',field:'topic',value:'architecture'},{op:'select',field:'layout',value:'detailed'},{op:'check',field:'captions',value:true},{op:'click',control:'prepare'}];$('record-provenance').textContent='Synthetic sample trace, not recorded from your actions.';renderEvents();});
+action('compile-lesson',async()=>{
+ const bindings={};for(const field of Object.keys(fieldNames)){const mode=$('bind-mode-'+field).value;bindings[field]=mode==='constant'?{mode}:{mode,name:$('bind-name-'+field).value};}
+ const result=await api('/api/teaching/compile',{events:recording,bindings,name:$('lesson-name').value,verification_contract:'inputs_match_preview_v1',max_rows:Number($('repeat-limit').value)});
+ setLesson(result);await refresh();toast('Draft compiled. Inspect its exact actions before approving.');
+});
+action('approve-lesson',async()=>{setLesson(await api('/api/teaching/approve',{lesson_id:selected.id,reviewed_sha256:selected.sha256,acknowledgement:$('approval-consent').checked}));await refresh();toast('Exact recipe approved. Input plans still need review.');});
+action('revoke-lesson',async()=>{setLesson(await api('/api/teaching/revoke',{lesson_id:selected.id}));clearPlan();await refresh();toast('Approval revoked. Nothing was retried.');});
+action('export-lesson',()=>{const blob=new Blob([JSON.stringify(selected.recipe,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='handnavigate-lesson.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Recipe exported without approval or credentials. Constants are included.');});
+action('import-button',async()=>{const recipe=JSON.parse($('import-recipe').value);setLesson(await api('/api/teaching/import',{recipe}));await refresh();toast('Imported as an unapproved draft.');});
+action('to-rehearse',()=>stage('rehearse'));
+action('demo-rows',()=>{rows=[1,2,3].slice(0,selected.recipe.repeat.max_rows).map(defaultRow);clearPlan();renderRows();});
+action('add-row',()=>{let index=rows.length+1;while(rows.some(row=>row.row_id==='row-'+index))index++;rows.push(defaultRow(index));clearPlan();renderRows();});
+action('preview-plan',async()=>{
+ const snapshot=JSON.stringify(rows), lessonId=selected.id;
+ const result=await api('/api/teaching/plan',{lesson_id:lessonId,rows});
+ if(selected?.id!==lessonId||JSON.stringify(rows)!==snapshot)throw new Error('Inputs changed during preview; request a new plan.');
+ const requestId=newRequestId();plan=result;planConsumed=false;planRequestId=requestId;$('plan-consent').checked=false;renderPlan();
+});
+action('run-lesson',async()=>{
+ const result=await api('/api/teaching/run',{lesson_id:selected.id,rows,reviewed_plan_sha256:plan.plan_sha256,request_id:planRequestId});
+ planConsumed=true;$('plan-consent').checked=false;renderPlan();await refresh();toast(result.deduplicated?'This request was already accepted; no duplicate run was started.':'Rehearsal started. Inspect the verified rows in history.');
+});
+action('stop-lesson',async()=>{await api('/api/teaching/stop',{run_id:state.active_id});toast('Stop requested. Waiting for a safe step boundary.');});
+renderBindings();renderPlan();renderRows();
+if(readOnly){
+ $('preview-notice').hidden=false;
+ for(const id of ['brand-link','studio-link','schedules-link','connections-link'])$(id).removeAttribute('href');
+ for(const node of document.querySelectorAll('input,textarea,select'))node.disabled=true;
+ for(const node of practice.querySelectorAll('button'))node.disabled=true;
+ $('lesson-select').disabled=false;
+ if(PREVIEW.recording){recording=PREVIEW.recording;renderEvents();$('record-provenance').textContent='Recorded Chromium events driven by an automated test, not human teaching.';}
+}
+(async()=>{try{await refresh();if(readOnly){
+ if(PREVIEW.lesson_id)setLesson(state.lessons.find(l=>l.id===PREVIEW.lesson_id)||selected);
+ if(PREVIEW.rows){rows=PREVIEW.rows;renderRows();}if(PREVIEW.plan){plan=PREVIEW.plan;planConsumed=true;renderPlan();}
+ stage(PREVIEW.stage||'rehearse');updateButtons();
+ }else setInterval(()=>refresh().catch(e=>{$('run-status').textContent='Status unavailable: '+e.message;}),1600);
+}catch(e){toast(e.message);}})();
+})();
+</script></body></html>

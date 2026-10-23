@@ -1,0 +1,6 @@
+{
+  "status": "ENVIRONMENT_BLOCKED",
+  "error_type": "Error",
+  "error": "Browser URL navigation is blocked by administrator policy; no fallback was attempted",
+  "live_site_qualified": false
+}

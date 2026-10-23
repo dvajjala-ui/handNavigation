@@ -1,0 +1,46 @@
+{
+  "schema": "handnavigate.live.v1",
+  "name": "Explicit offline scripted-provider test",
+  "start_url": "https://owned.example/form",
+  "scope": {
+    "origins": [
+      "https://owned.example"
+    ],
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ],
+    "max_actions": 30
+  },
+  "steps": [
+    {
+      "op": "fill",
+      "value": "architecture",
+      "locator": {
+        "kind": "label",
+        "value": "Topic"
+      }
+    },
+    {
+      "op": "click",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Prepare preview"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "kind": "text_visible",
+      "expected": "Ready: architecture"
+    }
+  ],
+  "provenance": {
+    "source": "supervised-live-browser-actions",
+    "reviewed": false,
+    "blockers": 0,
+    "recorded_actions": 2
+  }
+}

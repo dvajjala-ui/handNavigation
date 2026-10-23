@@ -1,0 +1,28 @@
+{
+  "build": "v0.4 + experimental live-browser core",
+  "new_component_suite": {
+    "tests": 42,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "real_browser_navigation_probe": {
+    "status": "ENVIRONMENT_BLOCKED",
+    "error_type": "Error",
+    "error": "Browser URL navigation is blocked by administrator policy; no fallback was attempted",
+    "live_site_qualified": false
+  },
+  "real_llm_requests": 0,
+  "vision_provider_tested": false,
+  "real_site_e2e_qualified": false,
+  "legacy_full_regression": "INCOMPLETE_TIMEOUT",
+  "legacy_completed_before_timeout": {
+    "passed": 19,
+    "skipped": 1
+  },
+  "studio_integration": "not wired; previous studio remains practice-only",
+  "source_reference_archive": "trustudio_capture.zip",
+  "reference_session_imported": false,
+  "uploaded_secret_used": false,
+  "uploaded_secret_in_deliverable": false
+}

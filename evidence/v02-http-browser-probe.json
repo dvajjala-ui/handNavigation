@@ -1,0 +1,8 @@
+{
+  "checked_at": "2026-10-23T05:37:48.642027+00:00",
+  "attempt": "ordinary browser navigation to owned localhost fixture",
+  "policy_changed": false,
+  "browser_version": "144.0.7559.96",
+  "navigation_succeeded": false,
+  "error": "Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:40773/library\nCall log:\n  - navigating to \"http://127.0.0.1:40773/library\", waiting until \"domcontentloaded\"\n"
+}

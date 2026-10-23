@@ -1,0 +1,1401 @@
+{
+  "busy": false,
+  "history": [
+    {
+      "attempt_id": "8266778f-ea67-4947-919f-b168f0de17f0",
+      "blocked_requests": [],
+      "completion_note": "Verified local file count, format, bounded decode, and declared hash.",
+      "due_at": "2026-10-23T02:30:00.000000+00:00",
+      "elapsed_seconds": 2.682,
+      "error": null,
+      "events": [
+        {
+          "outcome": "checked",
+          "step": "enter-topic"
+        },
+        {
+          "outcome": "checked",
+          "step": "search"
+        },
+        {
+          "outcome": "checked",
+          "step": "wait-results"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "outcome": "checked",
+          "step": "collect"
+        }
+      ],
+      "finished_at": "2026-10-23T07:02:41.702927+00:00",
+      "fixture_transport": "memory",
+      "job_key": "schedule:f0965c64-147a-4f41-805a-01a0083b5fef:2026-10-23T02:30:00.000000+00:00",
+      "model_call_basis": "No model client or provider code exists in this runner.",
+      "model_calls": 0,
+      "new_downloads": 10,
+      "parameters": {
+        "limit": 10,
+        "topic": "architecture"
+      },
+      "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+      "resumed_files": 0,
+      "run_id": "f5e68dbd-e8c8-4c62-8e8e-c8e558bb0e25",
+      "scenario": "normal",
+      "schedule_id": "f0965c64-147a-4f41-805a-01a0083b5fef",
+      "skipped": [],
+      "started_at": "2026-10-23T07:02:39.021159+00:00",
+      "status": "VERIFIED",
+      "trigger": "schedule",
+      "verified_count": 10,
+      "verified_files": [
+        {
+          "bytes": 1498,
+          "height": 24,
+          "item_id": "asset-01",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-01-786b7b42d37d.png",
+          "reused": false,
+          "sha256": "786b7b42d37d2b25dcd469b0592034e2a71dffe0b9e6bc087265f00700bb4fce",
+          "width": 24
+        },
+        {
+          "bytes": 1535,
+          "height": 24,
+          "item_id": "asset-02",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-02-c9fe7cb1f161.png",
+          "reused": false,
+          "sha256": "c9fe7cb1f16196bc2936b4baa0e773713280d0f1ccda40695980ff758adaa630",
+          "width": 24
+        },
+        {
+          "bytes": 1535,
+          "height": 24,
+          "item_id": "asset-03",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-03-963730a0f617.png",
+          "reused": false,
+          "sha256": "963730a0f617cb0566e86e8be3050b8af234c2bff8f95b2460f349ef9c9af5f0",
+          "width": 24
+        },
+        {
+          "bytes": 1535,
+          "height": 24,
+          "item_id": "asset-04",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-04-2b2f8bbd0bed.png",
+          "reused": false,
+          "sha256": "2b2f8bbd0bedb132e4265b1304c6eb7aee324672942de21e7716037aebaaeef0",
+          "width": 24
+        },
+        {
+          "bytes": 1497,
+          "height": 24,
+          "item_id": "asset-05",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-05-24cd0c6f5c7a.png",
+          "reused": false,
+          "sha256": "24cd0c6f5c7ad2d71f1fc525e6fb9c58d623fa72cf01b6fa7332390f01b25963",
+          "width": 24
+        },
+        {
+          "bytes": 1506,
+          "height": 24,
+          "item_id": "asset-06",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-06-51a643be0c5d.png",
+          "reused": false,
+          "sha256": "51a643be0c5db79556dca47901ed0c814edfcf8a59038d3ed04e95c0d7c62a83",
+          "width": 24
+        },
+        {
+          "bytes": 1372,
+          "height": 24,
+          "item_id": "asset-07",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-07-e9c73dadf3e7.png",
+          "reused": false,
+          "sha256": "e9c73dadf3e715900829873ad69e9e9ab91bb20039099069bb8aadf4b29515f5",
+          "width": 24
+        },
+        {
+          "bytes": 1502,
+          "height": 24,
+          "item_id": "asset-08",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-08-0a50051788ce.png",
+          "reused": false,
+          "sha256": "0a50051788cedd40889146c1e50cf22fd79999354823fa6961a64e18e9a8ef0a",
+          "width": 24
+        },
+        {
+          "bytes": 1503,
+          "height": 24,
+          "item_id": "asset-09",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-09-d840aa299ed6.png",
+          "reused": false,
+          "sha256": "d840aa299ed65456dd4b39df3cff1158d56ea14e1fd89bfcc448cfbcee49ec90",
+          "width": 24
+        },
+        {
+          "bytes": 1526,
+          "height": 24,
+          "item_id": "asset-10",
+          "path": "artifacts/aa4841d2d46efe07b022/asset-10-c1d58f206e65.png",
+          "reused": false,
+          "sha256": "c1d58f206e653828612d0d8e8432dcce722b09e18fd561b9161cac881c706acb",
+          "width": 24
+        }
+      ],
+      "workflow": "collect-local-images"
+    },
+    {
+      "attempt_id": "377cb75d-d02b-493e-a94b-26dfd06469d9",
+      "blocked_requests": [],
+      "completion_note": "Verified local file count, format, bounded decode, and declared hash.",
+      "due_at": null,
+      "elapsed_seconds": 2.732,
+      "error": null,
+      "events": [
+        {
+          "outcome": "checked",
+          "step": "enter-topic"
+        },
+        {
+          "outcome": "checked",
+          "step": "search"
+        },
+        {
+          "outcome": "checked",
+          "step": "wait-results"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "outcome": "checked",
+          "step": "collect"
+        }
+      ],
+      "finished_at": "2026-10-23T07:02:39.011944+00:00",
+      "fixture_transport": "memory",
+      "job_key": "d8468a99-8851-42f0-9913-7532b6e8449b",
+      "model_call_basis": "No model client or provider code exists in this runner.",
+      "model_calls": 0,
+      "new_downloads": 10,
+      "parameters": {
+        "limit": 10,
+        "topic": "architecture"
+      },
+      "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+      "resumed_files": 0,
+      "run_id": "461892c8-2eb9-435e-bae1-b8b42659f72e",
+      "scenario": "normal",
+      "schedule_id": null,
+      "skipped": [],
+      "started_at": "2026-10-23T07:02:36.280256+00:00",
+      "status": "VERIFIED",
+      "trigger": "manual",
+      "verified_count": 10,
+      "verified_files": [
+        {
+          "bytes": 1498,
+          "height": 24,
+          "item_id": "asset-01",
+          "path": "artifacts/64f785884318e9f4ba09/asset-01-786b7b42d37d.png",
+          "reused": false,
+          "sha256": "786b7b42d37d2b25dcd469b0592034e2a71dffe0b9e6bc087265f00700bb4fce",
+          "width": 24
+        },
+        {
+          "bytes": 1535,
+          "height": 24,
+          "item_id": "asset-02",
+          "path": "artifacts/64f785884318e9f4ba09/asset-02-c9fe7cb1f161.png",
+          "reused": false,
+          "sha256": "c9fe7cb1f16196bc2936b4baa0e773713280d0f1ccda40695980ff758adaa630",
+          "width": 24
+        },
+        {
+          "bytes": 1535,
+          "height": 24,
+          "item_id": "asset-03",
+          "path": "artifacts/64f785884318e9f4ba09/asset-03-963730a0f617.png",
+          "reused": false,
+          "sha256": "963730a0f617cb0566e86e8be3050b8af234c2bff8f95b2460f349ef9c9af5f0",
+          "width": 24
+        },
+        {
+          "bytes": 1535,
+          "height": 24,
+          "item_id": "asset-04",
+          "path": "artifacts/64f785884318e9f4ba09/asset-04-2b2f8bbd0bed.png",
+          "reused": false,
+          "sha256": "2b2f8bbd0bedb132e4265b1304c6eb7aee324672942de21e7716037aebaaeef0",
+          "width": 24
+        },
+        {
+          "bytes": 1497,
+          "height": 24,
+          "item_id": "asset-05",
+          "path": "artifacts/64f785884318e9f4ba09/asset-05-24cd0c6f5c7a.png",
+          "reused": false,
+          "sha256": "24cd0c6f5c7ad2d71f1fc525e6fb9c58d623fa72cf01b6fa7332390f01b25963",
+          "width": 24
+        },
+        {
+          "bytes": 1506,
+          "height": 24,
+          "item_id": "asset-06",
+          "path": "artifacts/64f785884318e9f4ba09/asset-06-51a643be0c5d.png",
+          "reused": false,
+          "sha256": "51a643be0c5db79556dca47901ed0c814edfcf8a59038d3ed04e95c0d7c62a83",
+          "width": 24
+        },
+        {
+          "bytes": 1372,
+          "height": 24,
+          "item_id": "asset-07",
+          "path": "artifacts/64f785884318e9f4ba09/asset-07-e9c73dadf3e7.png",
+          "reused": false,
+          "sha256": "e9c73dadf3e715900829873ad69e9e9ab91bb20039099069bb8aadf4b29515f5",
+          "width": 24
+        },
+        {
+          "bytes": 1502,
+          "height": 24,
+          "item_id": "asset-08",
+          "path": "artifacts/64f785884318e9f4ba09/asset-08-0a50051788ce.png",
+          "reused": false,
+          "sha256": "0a50051788cedd40889146c1e50cf22fd79999354823fa6961a64e18e9a8ef0a",
+          "width": 24
+        },
+        {
+          "bytes": 1503,
+          "height": 24,
+          "item_id": "asset-09",
+          "path": "artifacts/64f785884318e9f4ba09/asset-09-d840aa299ed6.png",
+          "reused": false,
+          "sha256": "d840aa299ed65456dd4b39df3cff1158d56ea14e1fd89bfcc448cfbcee49ec90",
+          "width": 24
+        },
+        {
+          "bytes": 1526,
+          "height": 24,
+          "item_id": "asset-10",
+          "path": "artifacts/64f785884318e9f4ba09/asset-10-c1d58f206e65.png",
+          "reused": false,
+          "sha256": "c1d58f206e653828612d0d8e8432dcce722b09e18fd561b9161cac881c706acb",
+          "width": 24
+        }
+      ],
+      "workflow": "collect-local-images"
+    }
+  ],
+  "recipe": {
+    "id": "collect-local-images",
+    "name": "Collect verified images from the local library",
+    "parameters": {
+      "limit": "integer",
+      "topic": "string"
+    },
+    "revision": 1,
+    "schema_version": 1,
+    "steps": [
+      {
+        "id": "enter-topic",
+        "op": "fill",
+        "target": [
+          {
+            "by": "label",
+            "value": "Topic"
+          }
+        ],
+        "value": "{{topic}}"
+      },
+      {
+        "id": "search",
+        "op": "click",
+        "target": [
+          {
+            "by": "role",
+            "name": "Search",
+            "role": "button"
+          },
+          {
+            "by": "role",
+            "name": "Find images",
+            "role": "button"
+          }
+        ]
+      },
+      {
+        "id": "wait-results",
+        "op": "wait",
+        "target": [
+          {
+            "by": "testid",
+            "value": "results-ready"
+          }
+        ]
+      },
+      {
+        "download_target": [
+          {
+            "by": "role",
+            "name": "Download image",
+            "role": "link"
+          }
+        ],
+        "id": "collect",
+        "op": "collect",
+        "target": [
+          {
+            "by": "testid",
+            "value": "results-ready"
+          }
+        ]
+      }
+    ]
+  },
+  "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+  "cases": {
+    "normal": "Standard library",
+    "layout": "Moved controls and generated element IDs",
+    "alternative": "Previously approved alternative button label",
+    "ambiguous": "Two indistinguishable Search buttons",
+    "unknown": "Unapproved Search button label",
+    "slow": "Delayed results",
+    "duplicates": "Repeated result IDs and identical image content",
+    "few": "Only three eligible results",
+    "corrupt": "HTML returned as an image download",
+    "wrong_file": "Valid image, wrong declared content hash",
+    "truncated": "Incomplete PNG download",
+    "fake_success": "Success banner but no downloaded file",
+    "expired": "Expired session",
+    "egress": "Attempted third-party network request",
+    "redirect": "Download redirects outside the allowed origin",
+    "injection": "Untrusted page text tries to change instructions",
+    "conflicting_id": "Same item ID, conflicting content metadata",
+    "missing_download": "One candidate has no download control",
+    "oversized": "Download exceeds the byte budget",
+    "reordered": "Different result order"
+  },
+  "fixture_transport": "memory",
+  "fixture_origin": "http://127.0.0.1:45421",
+  "schedules": [
+    {
+      "id": "f0965c64-147a-4f41-805a-01a0083b5fef",
+      "spec": {
+        "grace_seconds": 300,
+        "misfire": "run_once",
+        "name": "Morning inspiration",
+        "time": "08:00",
+        "timezone": "Asia/Kolkata"
+      },
+      "request": {
+        "case": "normal",
+        "fixture_transport": "memory",
+        "limit": 10,
+        "topic": "architecture"
+      },
+      "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+      "enabled": true,
+      "next_due_at": "2026-10-24T02:30:00.000000+00:00",
+      "pause_reason": null
+    }
+  ],
+  "attempts": [
+    {
+      "id": "8266778f-ea67-4947-919f-b168f0de17f0",
+      "source": "schedule",
+      "state": "VERIFIED",
+      "schedule_id": "f0965c64-147a-4f41-805a-01a0083b5fef",
+      "due_at": "2026-10-23T02:30:00.000000+00:00",
+      "created_at": "2026-10-23T02:30:00.000000+00:00",
+      "started_at": "2026-10-23T02:30:00.000000+00:00",
+      "request": {
+        "case": "normal",
+        "fixture_transport": "memory",
+        "job_key": "schedule:f0965c64-147a-4f41-805a-01a0083b5fef:2026-10-23T02:30:00.000000+00:00",
+        "limit": 10,
+        "topic": "architecture"
+      },
+      "report": {
+        "attempt_id": "8266778f-ea67-4947-919f-b168f0de17f0",
+        "blocked_requests": [],
+        "completion_note": "Verified local file count, format, bounded decode, and declared hash.",
+        "due_at": "2026-10-23T02:30:00.000000+00:00",
+        "elapsed_seconds": 2.682,
+        "error": null,
+        "events": [
+          {
+            "outcome": "checked",
+            "step": "enter-topic"
+          },
+          {
+            "outcome": "checked",
+            "step": "search"
+          },
+          {
+            "outcome": "checked",
+            "step": "wait-results"
+          },
+          {
+            "item_id": "asset-01",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-02",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-03",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-04",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-05",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-06",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-07",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-08",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-09",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-10",
+            "outcome": "file_verified"
+          },
+          {
+            "outcome": "checked",
+            "step": "collect"
+          }
+        ],
+        "finished_at": "2026-10-23T07:02:41.702927+00:00",
+        "fixture_transport": "memory",
+        "job_key": "schedule:f0965c64-147a-4f41-805a-01a0083b5fef:2026-10-23T02:30:00.000000+00:00",
+        "model_call_basis": "No model client or provider code exists in this runner.",
+        "model_calls": 0,
+        "new_downloads": 10,
+        "parameters": {
+          "limit": 10,
+          "topic": "architecture"
+        },
+        "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+        "resumed_files": 0,
+        "run_id": "f5e68dbd-e8c8-4c62-8e8e-c8e558bb0e25",
+        "scenario": "normal",
+        "schedule_id": "f0965c64-147a-4f41-805a-01a0083b5fef",
+        "skipped": [],
+        "started_at": "2026-10-23T07:02:39.021159+00:00",
+        "status": "VERIFIED",
+        "trigger": "schedule",
+        "verified_count": 10,
+        "verified_files": [
+          {
+            "bytes": 1498,
+            "height": 24,
+            "item_id": "asset-01",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-01-786b7b42d37d.png",
+            "reused": false,
+            "sha256": "786b7b42d37d2b25dcd469b0592034e2a71dffe0b9e6bc087265f00700bb4fce",
+            "width": 24
+          },
+          {
+            "bytes": 1535,
+            "height": 24,
+            "item_id": "asset-02",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-02-c9fe7cb1f161.png",
+            "reused": false,
+            "sha256": "c9fe7cb1f16196bc2936b4baa0e773713280d0f1ccda40695980ff758adaa630",
+            "width": 24
+          },
+          {
+            "bytes": 1535,
+            "height": 24,
+            "item_id": "asset-03",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-03-963730a0f617.png",
+            "reused": false,
+            "sha256": "963730a0f617cb0566e86e8be3050b8af234c2bff8f95b2460f349ef9c9af5f0",
+            "width": 24
+          },
+          {
+            "bytes": 1535,
+            "height": 24,
+            "item_id": "asset-04",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-04-2b2f8bbd0bed.png",
+            "reused": false,
+            "sha256": "2b2f8bbd0bedb132e4265b1304c6eb7aee324672942de21e7716037aebaaeef0",
+            "width": 24
+          },
+          {
+            "bytes": 1497,
+            "height": 24,
+            "item_id": "asset-05",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-05-24cd0c6f5c7a.png",
+            "reused": false,
+            "sha256": "24cd0c6f5c7ad2d71f1fc525e6fb9c58d623fa72cf01b6fa7332390f01b25963",
+            "width": 24
+          },
+          {
+            "bytes": 1506,
+            "height": 24,
+            "item_id": "asset-06",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-06-51a643be0c5d.png",
+            "reused": false,
+            "sha256": "51a643be0c5db79556dca47901ed0c814edfcf8a59038d3ed04e95c0d7c62a83",
+            "width": 24
+          },
+          {
+            "bytes": 1372,
+            "height": 24,
+            "item_id": "asset-07",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-07-e9c73dadf3e7.png",
+            "reused": false,
+            "sha256": "e9c73dadf3e715900829873ad69e9e9ab91bb20039099069bb8aadf4b29515f5",
+            "width": 24
+          },
+          {
+            "bytes": 1502,
+            "height": 24,
+            "item_id": "asset-08",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-08-0a50051788ce.png",
+            "reused": false,
+            "sha256": "0a50051788cedd40889146c1e50cf22fd79999354823fa6961a64e18e9a8ef0a",
+            "width": 24
+          },
+          {
+            "bytes": 1503,
+            "height": 24,
+            "item_id": "asset-09",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-09-d840aa299ed6.png",
+            "reused": false,
+            "sha256": "d840aa299ed65456dd4b39df3cff1158d56ea14e1fd89bfcc448cfbcee49ec90",
+            "width": 24
+          },
+          {
+            "bytes": 1526,
+            "height": 24,
+            "item_id": "asset-10",
+            "path": "artifacts/aa4841d2d46efe07b022/asset-10-c1d58f206e65.png",
+            "reused": false,
+            "sha256": "c1d58f206e653828612d0d8e8432dcce722b09e18fd561b9161cac881c706acb",
+            "width": 24
+          }
+        ],
+        "workflow": "collect-local-images"
+      }
+    },
+    {
+      "id": "377cb75d-d02b-493e-a94b-26dfd06469d9",
+      "source": "manual",
+      "state": "VERIFIED",
+      "schedule_id": null,
+      "due_at": null,
+      "created_at": "2026-10-23T02:00:00.000000+00:00",
+      "started_at": "2026-10-23T02:00:00.000000+00:00",
+      "request": {
+        "case": "normal",
+        "fixture_transport": "memory",
+        "job_key": "d8468a99-8851-42f0-9913-7532b6e8449b",
+        "limit": 10,
+        "topic": "architecture"
+      },
+      "report": {
+        "attempt_id": "377cb75d-d02b-493e-a94b-26dfd06469d9",
+        "blocked_requests": [],
+        "completion_note": "Verified local file count, format, bounded decode, and declared hash.",
+        "due_at": null,
+        "elapsed_seconds": 2.732,
+        "error": null,
+        "events": [
+          {
+            "outcome": "checked",
+            "step": "enter-topic"
+          },
+          {
+            "outcome": "checked",
+            "step": "search"
+          },
+          {
+            "outcome": "checked",
+            "step": "wait-results"
+          },
+          {
+            "item_id": "asset-01",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-02",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-03",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-04",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-05",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-06",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-07",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-08",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-09",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-10",
+            "outcome": "file_verified"
+          },
+          {
+            "outcome": "checked",
+            "step": "collect"
+          }
+        ],
+        "finished_at": "2026-10-23T07:02:39.011944+00:00",
+        "fixture_transport": "memory",
+        "job_key": "d8468a99-8851-42f0-9913-7532b6e8449b",
+        "model_call_basis": "No model client or provider code exists in this runner.",
+        "model_calls": 0,
+        "new_downloads": 10,
+        "parameters": {
+          "limit": 10,
+          "topic": "architecture"
+        },
+        "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+        "resumed_files": 0,
+        "run_id": "461892c8-2eb9-435e-bae1-b8b42659f72e",
+        "scenario": "normal",
+        "schedule_id": null,
+        "skipped": [],
+        "started_at": "2026-10-23T07:02:36.280256+00:00",
+        "status": "VERIFIED",
+        "trigger": "manual",
+        "verified_count": 10,
+        "verified_files": [
+          {
+            "bytes": 1498,
+            "height": 24,
+            "item_id": "asset-01",
+            "path": "artifacts/64f785884318e9f4ba09/asset-01-786b7b42d37d.png",
+            "reused": false,
+            "sha256": "786b7b42d37d2b25dcd469b0592034e2a71dffe0b9e6bc087265f00700bb4fce",
+            "width": 24
+          },
+          {
+            "bytes": 1535,
+            "height": 24,
+            "item_id": "asset-02",
+            "path": "artifacts/64f785884318e9f4ba09/asset-02-c9fe7cb1f161.png",
+            "reused": false,
+            "sha256": "c9fe7cb1f16196bc2936b4baa0e773713280d0f1ccda40695980ff758adaa630",
+            "width": 24
+          },
+          {
+            "bytes": 1535,
+            "height": 24,
+            "item_id": "asset-03",
+            "path": "artifacts/64f785884318e9f4ba09/asset-03-963730a0f617.png",
+            "reused": false,
+            "sha256": "963730a0f617cb0566e86e8be3050b8af234c2bff8f95b2460f349ef9c9af5f0",
+            "width": 24
+          },
+          {
+            "bytes": 1535,
+            "height": 24,
+            "item_id": "asset-04",
+            "path": "artifacts/64f785884318e9f4ba09/asset-04-2b2f8bbd0bed.png",
+            "reused": false,
+            "sha256": "2b2f8bbd0bedb132e4265b1304c6eb7aee324672942de21e7716037aebaaeef0",
+            "width": 24
+          },
+          {
+            "bytes": 1497,
+            "height": 24,
+            "item_id": "asset-05",
+            "path": "artifacts/64f785884318e9f4ba09/asset-05-24cd0c6f5c7a.png",
+            "reused": false,
+            "sha256": "24cd0c6f5c7ad2d71f1fc525e6fb9c58d623fa72cf01b6fa7332390f01b25963",
+            "width": 24
+          },
+          {
+            "bytes": 1506,
+            "height": 24,
+            "item_id": "asset-06",
+            "path": "artifacts/64f785884318e9f4ba09/asset-06-51a643be0c5d.png",
+            "reused": false,
+            "sha256": "51a643be0c5db79556dca47901ed0c814edfcf8a59038d3ed04e95c0d7c62a83",
+            "width": 24
+          },
+          {
+            "bytes": 1372,
+            "height": 24,
+            "item_id": "asset-07",
+            "path": "artifacts/64f785884318e9f4ba09/asset-07-e9c73dadf3e7.png",
+            "reused": false,
+            "sha256": "e9c73dadf3e715900829873ad69e9e9ab91bb20039099069bb8aadf4b29515f5",
+            "width": 24
+          },
+          {
+            "bytes": 1502,
+            "height": 24,
+            "item_id": "asset-08",
+            "path": "artifacts/64f785884318e9f4ba09/asset-08-0a50051788ce.png",
+            "reused": false,
+            "sha256": "0a50051788cedd40889146c1e50cf22fd79999354823fa6961a64e18e9a8ef0a",
+            "width": 24
+          },
+          {
+            "bytes": 1503,
+            "height": 24,
+            "item_id": "asset-09",
+            "path": "artifacts/64f785884318e9f4ba09/asset-09-d840aa299ed6.png",
+            "reused": false,
+            "sha256": "d840aa299ed65456dd4b39df3cff1158d56ea14e1fd89bfcc448cfbcee49ec90",
+            "width": 24
+          },
+          {
+            "bytes": 1526,
+            "height": 24,
+            "item_id": "asset-10",
+            "path": "artifacts/64f785884318e9f4ba09/asset-10-c1d58f206e65.png",
+            "reused": false,
+            "sha256": "c1d58f206e653828612d0d8e8432dcce722b09e18fd561b9161cac881c706acb",
+            "width": 24
+          }
+        ],
+        "workflow": "collect-local-images"
+      }
+    }
+  ],
+  "drafts": [
+    {
+      "id": "02a2f266-d772-4472-b0cc-1b043f6e2b2a",
+      "recipe": {
+        "id": "recorded-search",
+        "name": "Recorded search + explicitly selected collection contract",
+        "parameters": {
+          "limit": "integer",
+          "topic": "string"
+        },
+        "revision": 2,
+        "schema_version": 1,
+        "steps": [
+          {
+            "id": "recorded-1",
+            "op": "fill",
+            "target": [
+              {
+                "by": "label",
+                "value": "Topic"
+              }
+            ],
+            "value": "{{topic}}"
+          },
+          {
+            "id": "recorded-2",
+            "op": "click",
+            "target": [
+              {
+                "by": "role",
+                "name": "Search",
+                "role": "button"
+              }
+            ]
+          },
+          {
+            "id": "reviewed-postcondition",
+            "op": "wait",
+            "target": [
+              {
+                "by": "testid",
+                "value": "results-ready"
+              }
+            ]
+          },
+          {
+            "download_target": [
+              {
+                "by": "role",
+                "name": "Download image",
+                "role": "link"
+              }
+            ],
+            "id": "collect",
+            "op": "collect",
+            "target": [
+              {
+                "by": "testid",
+                "value": "results-ready"
+              }
+            ]
+          }
+        ]
+      },
+      "sha256": "25c69fa2f23bb434d1cb870a568db887c3720ac4b339c11f3820b3a4c394d499",
+      "source": "Automated local demonstration; explicit topic binding and authored collection template. Not human teaching or learned intent.",
+      "state": "DRAFT",
+      "created_at": "2026-10-23T02:30:00.000000+00:00"
+    }
+  ],
+  "audit": [
+    {
+      "id": 8,
+      "at": "2026-10-23T02:30:00.000000+00:00",
+      "event": "DRAFT_CREATED",
+      "subject": "02a2f266-d772-4472-b0cc-1b043f6e2b2a",
+      "detail": {
+        "sha256": "25c69fa2f23bb434d1cb870a568db887c3720ac4b339c11f3820b3a4c394d499",
+        "source": "Automated local demonstration; explicit topic binding and authored collection template. Not human teaching or learned intent."
+      }
+    },
+    {
+      "id": 7,
+      "at": "2026-10-23T02:30:00.000000+00:00",
+      "event": "RUN_FINISHED",
+      "subject": "8266778f-ea67-4947-919f-b168f0de17f0",
+      "detail": {
+        "status": "VERIFIED",
+        "verified_count": 10
+      }
+    },
+    {
+      "id": 6,
+      "at": "2026-10-23T02:30:00.000000+00:00",
+      "event": "RUN_STARTED",
+      "subject": "8266778f-ea67-4947-919f-b168f0de17f0",
+      "detail": {
+        "source": "schedule"
+      }
+    },
+    {
+      "id": 5,
+      "at": "2026-10-23T02:30:00.000000+00:00",
+      "event": "SCHEDULE_OCCURRENCE_QUEUED",
+      "subject": "f0965c64-147a-4f41-805a-01a0083b5fef",
+      "detail": {
+        "attempt": "8266778f-ea67-4947-919f-b168f0de17f0",
+        "coalesced_from": "2026-10-23T02:30:00.000000+00:00",
+        "due_at": "2026-10-23T02:30:00.000000+00:00",
+        "late_seconds": 0.0
+      }
+    },
+    {
+      "id": 4,
+      "at": "2026-10-23T02:00:00.000000+00:00",
+      "event": "SCHEDULE_CREATED",
+      "subject": "f0965c64-147a-4f41-805a-01a0083b5fef",
+      "detail": {
+        "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+        "spec": {
+          "grace_seconds": 300,
+          "misfire": "run_once",
+          "name": "Morning inspiration",
+          "time": "08:00",
+          "timezone": "Asia/Kolkata"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "at": "2026-10-23T02:00:00.000000+00:00",
+      "event": "RUN_FINISHED",
+      "subject": "377cb75d-d02b-493e-a94b-26dfd06469d9",
+      "detail": {
+        "status": "VERIFIED",
+        "verified_count": 10
+      }
+    },
+    {
+      "id": 2,
+      "at": "2026-10-23T02:00:00.000000+00:00",
+      "event": "RUN_STARTED",
+      "subject": "377cb75d-d02b-493e-a94b-26dfd06469d9",
+      "detail": {
+        "source": "manual"
+      }
+    },
+    {
+      "id": 1,
+      "at": "2026-10-23T02:00:00.000000+00:00",
+      "event": "RUN_QUEUED",
+      "subject": "377cb75d-d02b-493e-a94b-26dfd06469d9",
+      "detail": {
+        "source": "manual"
+      }
+    }
+  ],
+  "needs_review": [],
+  "scheduler": {
+    "running": false,
+    "error": null,
+    "last_tick_at": "2026-10-23T02:30:00+00:00",
+    "scope": "Recorded injected-clock demonstration; no live runner in this preview"
+  },
+  "notice": "Measured owned fixture runs plus separate HTTP component checks. No live schedules or sessions are distributed.",
+  "connections": [
+    {
+      "id": "owned-report-portal",
+      "profile": {
+        "schema_version": 1,
+        "id": "owned-report-portal",
+        "revision": 1,
+        "name": "Owned report portal",
+        "origin": "http://127.0.0.1:4181",
+        "scope": "owned_local",
+        "permission_note": "Owned synthetic portal. No third-party account or website.",
+        "login_path": "/login",
+        "entry_path": "/reports",
+        "routes": [
+          {
+            "path": "/login",
+            "methods": [
+              "GET"
+            ],
+            "query_keys": []
+          },
+          {
+            "path": "/session",
+            "methods": [
+              "POST"
+            ],
+            "query_keys": []
+          },
+          {
+            "path": "/reports",
+            "methods": [
+              "GET"
+            ],
+            "query_keys": []
+          },
+          {
+            "path": "/api/reports",
+            "methods": [
+              "GET"
+            ],
+            "query_keys": [
+              "topic"
+            ]
+          },
+          {
+            "path": "/download",
+            "methods": [
+              "GET"
+            ],
+            "query_keys": [
+              "topic"
+            ]
+          },
+          {
+            "path": "/favicon",
+            "methods": [
+              "GET"
+            ],
+            "query_keys": []
+          }
+        ],
+        "account": {
+          "target": [
+            {
+              "by": "testid",
+              "value": "account-id"
+            }
+          ],
+          "expected": "demo@handnavigate.local"
+        },
+        "controls": {
+          "topic": [
+            {
+              "by": "label",
+              "value": "Report topic"
+            }
+          ],
+          "submit": [
+            {
+              "by": "role",
+              "role": "button",
+              "name": "Find reports"
+            }
+          ],
+          "ready": [
+            {
+              "by": "testid",
+              "value": "report-ready"
+            }
+          ],
+          "download": [
+            {
+              "by": "role",
+              "role": "link",
+              "name": "Download CSV"
+            }
+          ],
+          "auth_required": [
+            {
+              "by": "testid",
+              "value": "login-required"
+            }
+          ]
+        },
+        "file_contract": {
+          "format": "csv",
+          "columns": [
+            "item_id",
+            "topic",
+            "label"
+          ],
+          "unique_column": "item_id",
+          "topic_column": "topic",
+          "min_rows": 5,
+          "max_rows": 5,
+          "max_bytes": 131072
+        }
+      },
+      "sha256": "3f49bbc04600126868683c6fb284efe0d27c2d63ea1f50bb987d6fd71d57301a",
+      "approved_sha256": null,
+      "approved_at": null,
+      "updated_at": "2026-10-23T07:02:42.778898+00:00",
+      "status": "DRAFT",
+      "scheduled_execution": false,
+      "session": {
+        "encrypted_file_present": false,
+        "validity": "NOT_CHECKED"
+      }
+    }
+  ],
+  "connection_example": {
+    "schema_version": 1,
+    "id": "owned-report-portal",
+    "revision": 1,
+    "name": "Owned report portal",
+    "origin": "http://127.0.0.1:4181",
+    "scope": "owned_local",
+    "permission_note": "Owned synthetic portal. No third-party account or website.",
+    "login_path": "/login",
+    "entry_path": "/reports",
+    "routes": [
+      {
+        "path": "/login",
+        "methods": [
+          "GET"
+        ],
+        "query_keys": []
+      },
+      {
+        "path": "/session",
+        "methods": [
+          "POST"
+        ],
+        "query_keys": []
+      },
+      {
+        "path": "/reports",
+        "methods": [
+          "GET"
+        ],
+        "query_keys": []
+      },
+      {
+        "path": "/api/reports",
+        "methods": [
+          "GET"
+        ],
+        "query_keys": [
+          "topic"
+        ]
+      },
+      {
+        "path": "/download",
+        "methods": [
+          "GET"
+        ],
+        "query_keys": [
+          "topic"
+        ]
+      },
+      {
+        "path": "/favicon",
+        "methods": [
+          "GET"
+        ],
+        "query_keys": []
+      }
+    ],
+    "account": {
+      "target": [
+        {
+          "by": "testid",
+          "value": "account-id"
+        }
+      ],
+      "expected": "demo@handnavigate.local"
+    },
+    "controls": {
+      "topic": [
+        {
+          "by": "label",
+          "value": "Report topic"
+        }
+      ],
+      "submit": [
+        {
+          "by": "role",
+          "role": "button",
+          "name": "Find reports"
+        }
+      ],
+      "ready": [
+        {
+          "by": "testid",
+          "value": "report-ready"
+        }
+      ],
+      "download": [
+        {
+          "by": "role",
+          "role": "link",
+          "name": "Download CSV"
+        }
+      ],
+      "auth_required": [
+        {
+          "by": "testid",
+          "value": "login-required"
+        }
+      ]
+    },
+    "file_contract": {
+      "format": "csv",
+      "columns": [
+        "item_id",
+        "topic",
+        "label"
+      ],
+      "unique_column": "item_id",
+      "topic_column": "topic",
+      "min_rows": 5,
+      "max_rows": 5,
+      "max_bytes": 131072
+    }
+  },
+  "qualification": {
+    "schema_version": 1,
+    "generated_at": "2026-10-23T06:54:08.154383+00:00",
+    "scope": "owned synthetic portal only",
+    "production_ready": false,
+    "third_party_sites_tested": 0,
+    "model_calls": 0,
+    "checks": [
+      {
+        "name": "Unauthenticated entry denied",
+        "status": "PASS",
+        "layer": "HTTP client -> owned server"
+      },
+      {
+        "name": "Synthetic sign-in sets an HttpOnly cookie",
+        "status": "PASS",
+        "layer": "HTTP client -> owned server"
+      },
+      {
+        "name": "Signed-in session reused with expected account",
+        "status": "PASS",
+        "layer": "HTTP client -> owned server"
+      },
+      {
+        "name": "Authenticated search returns export link",
+        "status": "PASS",
+        "layer": "HTTP client -> owned server"
+      },
+      {
+        "name": "Actual HTTP CSV passes content contract",
+        "status": "PASS",
+        "layer": "HTTP download + Python verifier"
+      },
+      {
+        "name": "Encrypted session round trip",
+        "status": "PASS",
+        "layer": "vault + real synthetic cookie"
+      },
+      {
+        "name": "Server-expired session rejected",
+        "status": "PASS",
+        "layer": "HTTP client -> owned server"
+      }
+    ],
+    "environment": {
+      "python": "3.13.5",
+      "system": "Linux",
+      "playwright": "1.57.0",
+      "cryptography": "46.0.4"
+    },
+    "limitations": [
+      "No browser-policy bypass or alternate engine",
+      "No third-party website or real customer account",
+      "HTTP client checks do not prove browser interactions",
+      "No authenticated unattended scheduling",
+      "No OS network sandbox or hardware-protected secret store",
+      "No Windows/macOS qualification unless run and reported on those platforms"
+    ],
+    "component_artifact": {
+      "sha256": "577071fcdfa85aa654fa93d4cee8da4a2d05309525e4eaa312a2afe8c11f3032",
+      "bytes": 235,
+      "rows": 5,
+      "columns": [
+        "item_id",
+        "topic",
+        "label"
+      ],
+      "verification": "schema, bounded rows, unique IDs, exact topic, conservative cell checks",
+      "path": "owned-http-component-export.csv",
+      "downloaded_by": "Python HTTP client, NOT browser"
+    },
+    "browser_probe": {
+      "status": "BLOCKED",
+      "error": {
+        "code": "ENVIRONMENT_BLOCKED",
+        "message": "Browser navigation is blocked by administrator policy. No policy was changed."
+      },
+      "layer": "real browser HTTP navigation",
+      "policy_changed": false
+    },
+    "browser_workflow": {
+      "status": "NOT_RUN",
+      "reason": "ENVIRONMENT_BLOCKED"
+    },
+    "http_request_audit": [
+      {
+        "method": "GET",
+        "path": "/reports",
+        "status": 401
+      },
+      {
+        "method": "GET",
+        "path": "/login",
+        "status": 200
+      },
+      {
+        "method": "POST",
+        "path": "/session",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/reports",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/api/reports",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/download",
+        "status": 200
+      },
+      {
+        "method": "GET",
+        "path": "/reports",
+        "status": 401
+      }
+    ],
+    "status": "COMPONENTS_PASS_BROWSER_BLOCKED"
+  }
+}

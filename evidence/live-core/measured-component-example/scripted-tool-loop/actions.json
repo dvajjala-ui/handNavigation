@@ -1,0 +1,37 @@
+[
+  {
+    "index": 0,
+    "before": "10a25cb55e6b4a619ccc11d4d5163274",
+    "action": {
+      "op": "fill",
+      "reason": "Explicit test action",
+      "value": "architecture",
+      "target_description": {
+        "role": "textbox",
+        "name": "Topic",
+        "tag": "input"
+      }
+    },
+    "status": "EXECUTED",
+    "network_start": 0,
+    "after": "d29b1a89fbeb4570bbce2ec4d8a6521f",
+    "network": []
+  },
+  {
+    "index": 1,
+    "before": "d29b1a89fbeb4570bbce2ec4d8a6521f",
+    "action": {
+      "op": "click",
+      "reason": "Explicit test action",
+      "target_description": {
+        "role": "button",
+        "name": "Prepare preview",
+        "tag": "button"
+      }
+    },
+    "status": "EXECUTED",
+    "network_start": 0,
+    "after": "f73bad071e544ce9a59651d5bac85d5b",
+    "network": []
+  }
+]

@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "id": "owned-report-portal",
+  "revision": 1,
+  "name": "Owned report portal",
+  "origin": "http://127.0.0.1:4181",
+  "scope": "owned_local",
+  "permission_note": "Owned synthetic portal. No third-party account or website.",
+  "login_path": "/login",
+  "entry_path": "/reports",
+  "routes": [
+    {
+      "path": "/login",
+      "methods": [
+        "GET"
+      ],
+      "query_keys": []
+    },
+    {
+      "path": "/session",
+      "methods": [
+        "POST"
+      ],
+      "query_keys": []
+    },
+    {
+      "path": "/reports",
+      "methods": [
+        "GET"
+      ],
+      "query_keys": []
+    },
+    {
+      "path": "/api/reports",
+      "methods": [
+        "GET"
+      ],
+      "query_keys": [
+        "topic"
+      ]
+    },
+    {
+      "path": "/download",
+      "methods": [
+        "GET"
+      ],
+      "query_keys": [
+        "topic"
+      ]
+    },
+    {
+      "path": "/favicon",
+      "methods": [
+        "GET"
+      ],
+      "query_keys": []
+    }
+  ],
+  "account": {
+    "target": [
+      {
+        "by": "testid",
+        "value": "account-id"
+      }
+    ],
+    "expected": "demo@handnavigate.local"
+  },
+  "controls": {
+    "topic": [
+      {
+        "by": "label",
+        "value": "Report topic"
+      }
+    ],
+    "submit": [
+      {
+        "by": "role",
+        "role": "button",
+        "name": "Find reports"
+      }
+    ],
+    "ready": [
+      {
+        "by": "testid",
+        "value": "report-ready"
+      }
+    ],
+    "download": [
+      {
+        "by": "role",
+        "role": "link",
+        "name": "Download CSV"
+      }
+    ],
+    "auth_required": [
+      {
+        "by": "testid",
+        "value": "login-required"
+      }
+    ]
+  },
+  "file_contract": {
+    "format": "csv",
+    "columns": [
+      "item_id",
+      "topic",
+      "label"
+    ],
+    "unique_column": "item_id",
+    "topic_column": "topic",
+    "min_rows": 5,
+    "max_rows": 5,
+    "max_bytes": 131072
+  }
+}

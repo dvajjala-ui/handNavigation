@@ -1,0 +1,1906 @@
+{
+  "generated_at": "2026-10-23T06:59:54.131174+00:00",
+  "scope": "Synthetic owned fixture only; not a benchmark on real third-party websites.",
+  "fixture_transport": "memory",
+  "environment": {
+    "python": "3.13.5",
+    "system": "Linux",
+    "playwright": "1.57.0",
+    "cryptography": "46.0.4"
+  },
+  "test_methods": 174,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 2,
+  "all_passed": true,
+  "skipped_tests": [
+    {
+      "test": "test_16_redirect_blocked (test_lab.BrowserTests.test_16_redirect_blocked)",
+      "reason": "HTTP redirect integration cannot be represented by an offline Blob fixture; policy unit-tested separately"
+    },
+    {
+      "test": "test_browser_signin_capture_and_separate_context_export (test_v03.RealBrowserHTTPGateTests.test_browser_signin_capture_and_separate_context_export)",
+      "reason": "Observed ERR_BLOCKED_BY_ADMINISTRATOR; no policy bypass; browser HTTP remains unqualified"
+    }
+  ],
+  "browser_observations": [
+    {
+      "test": "test_lab.BrowserTests.test_01_normal_ten_downloads",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 10,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.557,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_02_variable_topic_and_count",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 1,
+      "new_downloads": 1,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.593,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_02_variable_topic_and_count",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 5,
+      "new_downloads": 5,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 1.298,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_02_variable_topic_and_count",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 12,
+      "new_downloads": 12,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.61,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-11",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-12",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_03_layout_drift",
+      "case": "layout",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 10,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.343,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_04_approved_alternative",
+      "case": "alternative",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 10,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.346,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "outcome": "approved_alternative",
+          "strategy": {
+            "by": "role",
+            "role": "button",
+            "name": "Find images"
+          }
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_05_delayed_results",
+      "case": "slow",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 10,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.458,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_06_duplicate_identity_and_content",
+      "case": "duplicates",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 10,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.171,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-11",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": [
+        {
+          "item_id": "asset-02",
+          "reason": "duplicate_id"
+        },
+        {
+          "item_id": "asset-04",
+          "reason": "duplicate_content"
+        }
+      ]
+    },
+    {
+      "test": "test_lab.BrowserTests.test_07_shortfall_is_not_success",
+      "case": "few",
+      "expected": "PARTIAL",
+      "actual": "PARTIAL",
+      "verified_count": 3,
+      "new_downloads": 3,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.893,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_08_ambiguous_search_stops",
+      "case": "ambiguous",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "AMBIGUOUS_TARGET",
+        "message": "More than one visible control matches the approved target"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.269,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_09_unknown_button_stops",
+      "case": "unknown",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "TARGET_NOT_FOUND",
+        "message": "No uniquely identified control matches an approved strategy"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 1.766,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_10_html_download_stops",
+      "case": "corrupt",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "FILE_SIZE",
+        "message": "Downloaded file is outside the 64-524288 byte budget"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.466,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_11_wrong_valid_image_stops",
+      "case": "wrong_file",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "HASH_MISMATCH",
+        "message": "The image does not match the item's declared SHA-256"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.442,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_12_truncated_download_stops",
+      "case": "truncated",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "FILE_SIZE",
+        "message": "Downloaded file is outside the 64-524288 byte budget"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.43,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_13_fake_success_banner_stops",
+      "case": "fake_success",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "TIMEOUT",
+        "message": "An expected control, state, or download did not arrive in time."
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 1.884,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_14_expired_session_stops",
+      "case": "expired",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "AUTH_REQUIRED",
+        "message": "Session expired; human sign-in is required"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.241,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_15_egress_blocked",
+      "case": "egress",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "NETWORK_POLICY",
+        "message": "A request outside the local GET-only fixture policy was blocked"
+      },
+      "model_calls": 0,
+      "blocked_requests": [
+        {
+          "method": "GET",
+          "destination": "https://example.invalid/collect"
+        }
+      ],
+      "elapsed_seconds": 0.412,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_17_page_instruction_text_does_not_control_runner",
+      "case": "injection",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 10,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.154,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_18_conflicting_duplicate_ids_stop",
+      "case": "conflicting_id",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "ITEM_IDENTITY",
+        "message": "Duplicate item IDs disagree about content or download destination"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.399,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_19_missing_download_is_explicit_skip",
+      "case": "missing_download",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 10,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.222,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-11",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": [
+        {
+          "item_id": "asset-02",
+          "reason": "download_unavailable"
+        }
+      ]
+    },
+    {
+      "test": "test_lab.BrowserTests.test_20_oversized_download_stops",
+      "case": "oversized",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "FILE_SIZE",
+        "message": "Download exceeded the allowed byte budget"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.685,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_21_reordered_results",
+      "case": "reordered",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 10,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.213,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-14",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-13",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-12",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-11",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_22_checkpoint_resume_without_redownload",
+      "case": "normal",
+      "expected": "PAUSED",
+      "actual": "PAUSED",
+      "verified_count": 3,
+      "new_downloads": 3,
+      "resumed_files": 0,
+      "error": {
+        "code": "CONTROLLED_PAUSE",
+        "message": "Deliberate interruption after a verified checkpoint"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.977,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_22_checkpoint_resume_without_redownload",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 7,
+      "resumed_files": 3,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 1.572,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_23_completed_job_resume_is_idempotent_for_files",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 10,
+      "resumed_files": 0,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 2.16,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-03",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-04",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-05",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-06",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-07",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-08",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-09",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-10",
+          "outcome": "file_verified"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_23_completed_job_resume_is_idempotent_for_files",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "VERIFIED",
+      "verified_count": 10,
+      "new_downloads": 0,
+      "resumed_files": 10,
+      "error": null,
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.307,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "step": "collect",
+          "outcome": "checked"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_24_tampered_checkpoint_is_rejected",
+      "case": "normal",
+      "expected": "PAUSED",
+      "actual": "PAUSED",
+      "verified_count": 2,
+      "new_downloads": 2,
+      "resumed_files": 0,
+      "error": {
+        "code": "CONTROLLED_PAUSE",
+        "message": "Deliberate interruption after a verified checkpoint"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.791,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        },
+        {
+          "item_id": "asset-02",
+          "outcome": "file_verified"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_24_tampered_checkpoint_is_rejected",
+      "case": "normal",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "CHECKPOINT_TAMPERED",
+        "message": "A previously verified file no longer passes validation"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.002,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_25_resume_contract_cannot_silently_change",
+      "case": "normal",
+      "expected": "PAUSED",
+      "actual": "PAUSED",
+      "verified_count": 1,
+      "new_downloads": 1,
+      "resumed_files": 0,
+      "error": {
+        "code": "CONTROLLED_PAUSE",
+        "message": "Deliberate interruption after a verified checkpoint"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.604,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_25_resume_contract_cannot_silently_change",
+      "case": "normal",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "JOB_CONTRACT_CHANGED",
+        "message": "Resume key is bound to different inputs or a different workflow"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.002,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_26_overlap_lock",
+      "case": "normal",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNNER_BUSY",
+        "message": "The runner is busy or a stale lock needs manual review"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.0,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_27_operator_stop",
+      "case": "normal",
+      "expected": "CANCELLED",
+      "actual": "CANCELLED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "CANCELLED",
+        "message": "The operator stopped the run"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.01,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_28_record_compile_review_replay",
+      "case": "record_compile_review_replay",
+      "expected": "REPLAYED",
+      "actual": "REPLAYED",
+      "captured_actions": [
+        {
+          "op": "fill",
+          "target": [
+            {
+              "by": "label",
+              "value": "Topic"
+            }
+          ],
+          "value": "architecture"
+        },
+        {
+          "op": "click",
+          "target": [
+            {
+              "by": "role",
+              "role": "button",
+              "name": "Search"
+            }
+          ]
+        }
+      ],
+      "compiled_recipe": {
+        "schema_version": 1,
+        "id": "recorded-search",
+        "revision": 1,
+        "name": "Recorded search - explicit review required",
+        "parameters": {
+          "topic": "string",
+          "limit": "integer"
+        },
+        "steps": [
+          {
+            "op": "fill",
+            "target": [
+              {
+                "by": "label",
+                "value": "Topic"
+              }
+            ],
+            "value": "{{topic}}",
+            "id": "recorded-1"
+          },
+          {
+            "op": "click",
+            "target": [
+              {
+                "by": "role",
+                "role": "button",
+                "name": "Search"
+              }
+            ],
+            "id": "recorded-2"
+          },
+          {
+            "id": "reviewed-postcondition",
+            "op": "wait",
+            "target": [
+              {
+                "by": "testid",
+                "value": "results-ready"
+              }
+            ]
+          }
+        ]
+      },
+      "model_calls": 0,
+      "verified_count": 0,
+      "elapsed_seconds": 0.203
+    },
+    {
+      "test": "test_lab.BrowserTests.test_30_missing_checkpoint_file_stops",
+      "case": "normal",
+      "expected": "PAUSED",
+      "actual": "PAUSED",
+      "verified_count": 1,
+      "new_downloads": 1,
+      "resumed_files": 0,
+      "error": {
+        "code": "CONTROLLED_PAUSE",
+        "message": "Deliberate interruption after a verified checkpoint"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.544,
+      "events": [
+        {
+          "step": "enter-topic",
+          "outcome": "checked"
+        },
+        {
+          "step": "search",
+          "outcome": "checked"
+        },
+        {
+          "step": "wait-results",
+          "outcome": "checked"
+        },
+        {
+          "item_id": "asset-01",
+          "outcome": "file_verified"
+        }
+      ],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_30_missing_checkpoint_file_stops",
+      "case": "normal",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "CHECKPOINT_MISSING",
+        "message": "A previously verified file is missing or has an unsafe path"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.001,
+      "events": [],
+      "skipped": []
+    }
+  ],
+  "v02_observations": [
+    {
+      "check": "teaching API pipeline",
+      "result": "import -> explicit parameter -> authored collection selection -> checksum approval -> VERIFIED rehearsal -> daily schedule saved",
+      "scope": "actual HTTP API and offline Chromium; not inferred intent"
+    },
+    {
+      "check": "forced process exit",
+      "result": "NEEDS_REVIEW; simulated effect not repeated",
+      "scope": "injected local effect, not a remote website transaction"
+    },
+    {
+      "check": "scheduled browser workflow",
+      "transport": "memory",
+      "clock": "injected UTC clock, actual background controller thread; not an overnight soak",
+      "rehearsal": "VERIFIED",
+      "scheduled": {
+        "attempt_id": "60dcf90f-8a1b-4cfd-8cc0-046cb6114a00",
+        "blocked_requests": [],
+        "completion_note": "Verified local file count, format, bounded decode, and declared hash.",
+        "due_at": "2026-10-23T02:30:00.000000+00:00",
+        "elapsed_seconds": 1.24,
+        "error": null,
+        "events": [
+          {
+            "outcome": "checked",
+            "step": "enter-topic"
+          },
+          {
+            "outcome": "checked",
+            "step": "search"
+          },
+          {
+            "outcome": "checked",
+            "step": "wait-results"
+          },
+          {
+            "item_id": "asset-01",
+            "outcome": "file_verified"
+          },
+          {
+            "item_id": "asset-02",
+            "outcome": "file_verified"
+          },
+          {
+            "outcome": "checked",
+            "step": "collect"
+          }
+        ],
+        "finished_at": "2026-10-23T06:59:22.201899+00:00",
+        "fixture_transport": "memory",
+        "job_key": "schedule:f133b6d1-0b38-416d-917f-f7a291fe3411:2026-10-23T02:30:00.000000+00:00",
+        "model_call_basis": "No model client or provider code exists in this runner.",
+        "model_calls": 0,
+        "new_downloads": 2,
+        "parameters": {
+          "limit": 2,
+          "topic": "architecture"
+        },
+        "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
+        "report_path": "/tmp/tmpv23pv0oz/reports/3ba90f10-38c9-491d-a7aa-c5961b65e525.json",
+        "resumed_files": 0,
+        "run_id": "3ba90f10-38c9-491d-a7aa-c5961b65e525",
+        "scenario": "normal",
+        "schedule_id": "f133b6d1-0b38-416d-917f-f7a291fe3411",
+        "skipped": [],
+        "started_at": "2026-10-23T06:59:20.961647+00:00",
+        "status": "VERIFIED",
+        "trigger": "schedule",
+        "verified_count": 2,
+        "verified_files": [
+          {
+            "bytes": 1498,
+            "height": 24,
+            "item_id": "asset-01",
+            "path": "artifacts/1f8866d23ed071372a55/asset-01-786b7b42d37d.png",
+            "reused": false,
+            "sha256": "786b7b42d37d2b25dcd469b0592034e2a71dffe0b9e6bc087265f00700bb4fce",
+            "width": 24
+          },
+          {
+            "bytes": 1535,
+            "height": 24,
+            "item_id": "asset-02",
+            "path": "artifacts/1f8866d23ed071372a55/asset-02-c9fe7cb1f161.png",
+            "reused": false,
+            "sha256": "c9fe7cb1f16196bc2936b4baa0e773713280d0f1ccda40695980ff758adaa630",
+            "width": 24
+          }
+        ],
+        "workflow": "collect-local-images"
+      },
+      "duplicate_tick": "no second execution"
+    }
+  ],
+  "v03_observations": [
+    {
+      "layer": "real HTTP client -> owned server, NOT browser",
+      "scenario": "authenticated export",
+      "rows": 5,
+      "sha256": "076a51e055e2cb8f151858e412b640ef479476dc5c368d391ee2a185a12497a9"
+    },
+    {
+      "status": "BLOCKED",
+      "error": {
+        "code": "ENVIRONMENT_BLOCKED",
+        "message": "Browser navigation is blocked by administrator policy. No policy was changed."
+      },
+      "layer": "real browser HTTP navigation",
+      "policy_changed": false
+    }
+  ],
+  "v04_observations": [
+    {
+      "test": "test_v04.OwnedRecorderTests.test_actual_fill_select_check_click_events_compile",
+      "layer": "real Chromium owned DOM; actions driven by Playwright, not a human",
+      "recorded_events": [
+        {
+          "op": "fill",
+          "field": "topic",
+          "value": "architecture"
+        },
+        {
+          "op": "select",
+          "field": "layout",
+          "value": "detailed"
+        },
+        {
+          "op": "check",
+          "field": "captions",
+          "value": true
+        },
+        {
+          "op": "click",
+          "control": "prepare"
+        }
+      ]
+    },
+    {
+      "test": "test_v04.OwnedRehearsalTests.test_three_rows_replayed_and_verified_with_actual_files",
+      "layer": "real Chromium owned DOM + local verified JSON files",
+      "report": {
+        "schema_version": 1,
+        "run_id": "8ac30dd0-ef67-455e-a451-d0e5f649d90d",
+        "status": "VERIFIED",
+        "started_at": "2026-10-23T06:59:40.498093+00:00",
+        "finished_at": "2026-10-23T06:59:41.923740+00:00",
+        "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d",
+        "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca",
+        "input_rows": 3,
+        "verified_rows": 3,
+        "rows": [
+          {
+            "row_id": "architecture",
+            "state": "VERIFIED",
+            "observed": {
+              "topic": "architecture",
+              "layout": "detailed",
+              "captions": true
+            },
+            "artifact": {
+              "path": "lesson-artifacts/8ac30dd0-ef67-455e-a451-d0e5f649d90d-architecture.json",
+              "sha256": "48bb38080f5bec13981b5d898faa5232ff21146c9611aa2a6851c03423eb6474",
+              "bytes": 526
+            }
+          },
+          {
+            "row_id": "gardens",
+            "state": "VERIFIED",
+            "observed": {
+              "topic": "city gardens",
+              "layout": "compact",
+              "captions": false
+            },
+            "artifact": {
+              "path": "lesson-artifacts/8ac30dd0-ef67-455e-a451-d0e5f649d90d-gardens.json",
+              "sha256": "323374671f9337ca9e5057ed9c1b5fd32e425878c7f11d40d1fd065ef8dc50e7",
+              "bytes": 521
+            }
+          },
+          {
+            "row_id": "interiors",
+            "state": "VERIFIED",
+            "observed": {
+              "topic": "quiet interiors",
+              "layout": "detailed",
+              "captions": true
+            },
+            "artifact": {
+              "path": "lesson-artifacts/8ac30dd0-ef67-455e-a451-d0e5f649d90d-interiors.json",
+              "sha256": "153e3084766228d5d0d793761023a66ef3599bb13d7b64fea214ce7ae574588f",
+              "bytes": 529
+            }
+          }
+        ],
+        "steps": [
+          {
+            "row_id": "architecture",
+            "step_id": "step-1",
+            "op": "fill",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "architecture",
+            "step_id": "step-2",
+            "op": "select",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "architecture",
+            "step_id": "step-3",
+            "op": "check",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "architecture",
+            "step_id": "step-4",
+            "op": "click",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "gardens",
+            "step_id": "step-1",
+            "op": "fill",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "gardens",
+            "step_id": "step-2",
+            "op": "select",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "gardens",
+            "step_id": "step-3",
+            "op": "check",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "gardens",
+            "step_id": "step-4",
+            "op": "click",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "interiors",
+            "step_id": "step-1",
+            "op": "fill",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "interiors",
+            "step_id": "step-2",
+            "op": "select",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "interiors",
+            "step_id": "step-3",
+            "op": "check",
+            "state": "EXECUTED"
+          },
+          {
+            "row_id": "interiors",
+            "step_id": "step-4",
+            "op": "click",
+            "state": "EXECUTED"
+          }
+        ],
+        "model_calls": 0,
+        "network_requests": 0,
+        "scope": "Owned in-memory form, actual Chromium actions; no HTTP or external site",
+        "verification": "Three exact output values per row, not a success banner",
+        "error": null,
+        "browser_version": "144.0.7559.96",
+        "duration_ms": 1426,
+        "unstarted_or_unverified_rows": 0
+      }
+    },
+    {
+      "test": "test_v04.OwnedRehearsalTests.test_twenty_row_bound_supports_a_longer_deterministic_batch",
+      "layer": "real Chromium owned DOM, not a long-running remote-site trial",
+      "verified_rows": 20,
+      "executed_actions": 80,
+      "output_checks": 60,
+      "model_calls": 0
+    },
+    {
+      "test": "test_v04.TeachingStudioAPITests.test_http_api_starts_actual_owned_browser_run_and_checks_artifact_tamper",
+      "layer": "actual localhost HTTP API + real in-memory browser runner, not browser HTTP navigation",
+      "status": "VERIFIED",
+      "verified_rows": 3,
+      "artifact_tamper_rejected": true,
+      "duplicate_request_replayed": false
+    }
+  ],
+  "failure_details": [],
+  "limitations": [
+    "Recorder actions in tests are driven by Playwright, not observed real-user teaching.",
+    "Guided teaching supports the owned form only, with explicit bindings and a selected verifier, not arbitrary site inference.",
+    "A 20-row owned batch is not a multi-day or remote-site reliability trial.",
+    "The collection loop and PNG verifier are explicitly authored, not inferred.",
+    "Controlled pause/resume and an injected process exit are tested; arbitrary power-loss and remote exactly-once effects are not.",
+    "Scheduling tests use injected clocks, including one actual offline Chromium scheduled execution; no overnight soak.",
+    "No OS-level egress isolation or adversarial-site security certification.",
+    "No claim of Windows, macOS, mobile, or production-site validation.",
+    "Owned HTTP-client checks do not qualify browser HTTP; full browser sign-in/export test is a separate gate.",
+    "Session vault is passphrase-based, not an OS keychain; no authenticated recurring schedules."
+  ]
+}

@@ -1,0 +1,44 @@
+name: HandNavigate local qualification
+on:
+  workflow_dispatch:
+  push:
+    paths: ['handnavigate/**', 'tests/**', 'requirements.txt', 'run_tests.py', 'ui/**', 'check_ui*.py', 'build_v04_evidence.py', '.github/workflows/qualification.yml']
+  pull_request:
+    paths: ['handnavigate/**', 'tests/**', 'requirements.txt', 'run_tests.py', 'ui/**', 'check_ui*.py', 'build_v04_evidence.py', '.github/workflows/qualification.yml']
+permissions:
+  contents: read
+jobs:
+  qualify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    env:
+      HANDNAVIGATE_REQUIRE_BROWSER_HTTP: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - if: runner.os == 'Linux'
+        run: python -m playwright install --with-deps chromium
+      - if: runner.os != 'Linux'
+        run: python -m playwright install chromium
+      - run: python run_tests.py
+      - run: python -m handnavigate doctor --output evidence/v04-qualification
+      - run: python build_v04_evidence.py
+      - run: python check_ui.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qualification-${{ matrix.os }}
+          path: |
+            evidence/test-results.json
+            evidence/v04-qualification/qualification.json
+            evidence/v04-ui-checks.json
+            evidence/v04-teaching-ui-checks.json
+# This workflow is supplied but was not pushed or run on GitHub in this delivery.
+# The strict env flag turns an administrator-blocked browser HTTP gate into failure.

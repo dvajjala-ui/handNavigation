@@ -1,0 +1,31 @@
+{
+  "scope": "Offline owned HTML loaded with set_content; scripted tool provider, not a live LLM",
+  "third_party_navigation": false,
+  "real_provider_requests": 0,
+  "tool_loop": {
+    "status": "VERIFIED",
+    "model_calls": 3,
+    "actions": 2,
+    "provider_test_double": true,
+    "checks": [
+      {
+        "kind": "text_visible",
+        "passed": true
+      }
+    ],
+    "downloads": [],
+    "usage": []
+  },
+  "deterministic_replay": {
+    "status": "VERIFIED",
+    "model_calls": 0,
+    "actions": 2,
+    "checks": [
+      {
+        "kind": "text_visible",
+        "passed": true
+      }
+    ],
+    "downloads": []
+  }
+}

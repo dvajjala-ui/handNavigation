@@ -1,0 +1,22 @@
+[
+  {
+    "op": "fill",
+    "target": [
+      {
+        "by": "label",
+        "value": "Topic"
+      }
+    ],
+    "value": "architecture"
+  },
+  {
+    "op": "click",
+    "target": [
+      {
+        "by": "role",
+        "role": "button",
+        "name": "Search"
+      }
+    ]
+  }
+]

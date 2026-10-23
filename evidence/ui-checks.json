@@ -1,0 +1,15 @@
+{
+  "mode": "read-only offline browser UI",
+  "checks": [
+    "sample receipt displays 10 / 10",
+    "execution disabled in preview",
+    "workflow tab works",
+    "evidence tab displays 49 passed and 1 skipped",
+    "build boundaries tab works",
+    "1440px no horizontal overflow",
+    "390px no horizontal overflow",
+    "no page script errors"
+  ],
+  "passed": 8,
+  "errors": []
+}

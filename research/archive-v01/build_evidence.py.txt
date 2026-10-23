@@ -1,0 +1,116 @@
+"""Package measured evidence and a read-only studio preview. No external access."""
+from collections import Counter
+from datetime import datetime, timezone
+from pathlib import Path
+import json
+import platform
+
+from handnavigate.contracts import digest, load_default
+from handnavigate.fixture import CASES
+
+ROOT = Path(__file__).resolve().parent
+OUT = ROOT.parent
+results = json.loads((ROOT / 'evidence/test-results.json').read_text())
+sample = json.loads((ROOT / 'evidence/sample-run.json').read_text())
+sample.pop('report_path', None)
+passed = results['test_methods'] - results['failures'] - results['errors'] - results['skipped']
+counts = Counter(x['actual'] for x in results['browser_observations'])
+rows = []
+for entry in results['browser_observations']:
+    rows.append(f"| {entry['case'].replace('_', ' ')} | {entry['expected']} | {entry['actual']} | {entry['verified_count']} |")
+report = f'''# HandNavigate Lab: test and qualification report
+
+**Research date:** 22 October 2026  
+**Execution timestamp:** {results['generated_at']}  
+**Scope:** Owned synthetic fixture only. No third-party site was automated.
+
+## Result
+
+**{passed} passed, {results['failures']} failed, {results['errors']} errors, {results['skipped']} explicitly skipped out of {results['test_methods']} test methods.**
+
+The method count includes browser-fixture checks, contract validation, mock-based network-policy tests, and direct localhost studio API tests. It is not {results['test_methods']} completed customer workflows.
+
+There are {len(results['browser_observations'])} recorded run observations, including refusals before browser work. Their outcome counts are `{dict(counts)}`. Safe halts and deliberate pauses are expected outcomes in fault tests, not completed tasks.
+
+## Exact execution boundary
+
+The browser was real Chromium. The default test adapter populated an owned HTML fixture directly and used local Blob links for actual PNG download events. Browser input, click, DOM lookup, file persistence, file checking, and controlled checkpoint resume were exercised.
+
+**HTTP browser navigation was blocked by administrator policy in the build environment.** That policy was not changed. Therefore actual HTTP website navigation, HTTP download integration, account authentication and real-site reliability are not validated by this report.
+
+A separate direct localhost HTTP client tested the studio API, including a real request that initiated the offline browser runner and returned a checked artifact. That does not substitute for browser navigation validation.
+
+The browser HTTP redirect integration test is explicitly skipped. A fake-route unit test checks that redirect fetching is configured with `max_redirects=0` and that a redirect response is rejected. It is not an observed network-level redirect integration result.
+
+## Environment
+
+- Python: {results['environment']['python']}
+- Playwright: {results['environment']['playwright']}
+- OS: {results['environment']['system']}
+- Chromium: 144.0.7559.96 reported by the installed browser during setup.
+- Test adapter: `{results['fixture_transport']}`
+- Synthetic PNG profile: 24 by 24 pixels, 8-bit RGB, generated locally.
+
+These small files are not representative of large image downloads, variable networks, or public website behavior. Windows, macOS and mobile execution were not tested.
+
+## Sample executed collection
+
+The standalone CLI run in `evidence/sample-run.json` produced **{sample['verified_count']} verified files**, reported **{sample['model_calls']} model calls**, and ended with **{sample['status']}**. Its elapsed time was **{sample['elapsed_seconds']} seconds** in the offline fixture. Do not extrapolate that time to internet tasks.
+
+The zero-model observation is structural: the runner has no model provider code or API client. The report's zero field is not a general inference-cost metering implementation.
+
+## What the teaching test actually did
+
+Playwright drove a Topic input and a Search click. The recorder captured those browser events. The compiler replaced the explicitly identified example topic with a variable, added a reviewer-supplied result-ready check, and produced a reviewable recipe. A checksum receipt was required before replaying that recipe with a new topic.
+
+The generated search recipe reported `REPLAYED`, not `VERIFIED`: it did not include a file-effect contract. The collection loop and file verifier in the separate download recipe were engineer-authored. No generalized intent inference, model training, or human usability study took place.
+
+## Selected assurance claims
+
+| Mechanism | Observed evidence | Not established |
+|---|---|---|
+| Targeting | Moved controls and changed IDs retained exact semantic targets | Arbitrary redesign tolerance |
+| Alternatives | An explicitly approved exact label worked | Learned or AI-authored repair |
+| Ambiguity | Multiple Search matches stopped before download | Universal target identity resolution |
+| File verification | Wrong hash, invalid/truncated PNG and byte-budget failures were rejected | Independent semantic image identity or rights |
+| Duplicate handling | Duplicate IDs and matching file content were skipped | Global cross-day deduplication |
+| Resume | Three checked files were reused and seven new ones downloaded | Arbitrary power-loss recovery or exactly-once remote writes |
+| False success | A banner with no download did not satisfy the contract | Verification for every application type |
+| Page text | A fixture instruction could not change the deterministic plan | General prompt-injection resistance of a future AI path |
+| API controls | Unreviewed/unauthorized local mutation requests were rejected | Multi-user production authorization |
+
+## Full recorded run observations
+
+| Scenario | Expected | Observed | Verified files |
+|---|---|---|---|
+''' + '\n'.join(rows) + '''
+
+## Qualification limits
+
+No real account, paid service, external customer data, Pinterest workflow, Instagram action, unattended daily schedule, remote write, mobile app, cloud worker or model-assisted repair was tested.
+
+The expected content hash is provided by the owned fixture. Agreement with that metadata is not an independent statement about the truth of a website's description. The PNG verifier intentionally supports a minimal fixture profile, not every valid PNG variant or arbitrary media formats.
+
+The initial failed HTTP attempt is retained in `evidence/http-environment-attempt.json` and its console output. It is historical environment evidence from an earlier build, not the latest suite result and not a successful integration qualification.
+
+A shared-browser test run also stalled during development. The final suite uses a fresh browser per test, matching isolated-run behavior more closely. Passing the final suite does not establish the exact cause of the earlier stall or resolve every possible browser resource leak.
+
+## Reproduction
+
+Run `python run_tests.py` for the measured offline adapter. Set `HANDNAVIGATE_TEST_TRANSPORT=http` to qualify the localhost browser-HTTP adapter on a supported unrestricted machine. Keep those result sets separate.
+
+A test report is evidence for its recorded environment and cases, not a promise of future error-free automation.
+'''
+(ROOT / 'research/TEST_REPORT.md').write_text(report)
+(OUT / 'HandNavigate_Test_Report.md').write_text(report)
+state = {'busy': False, 'history': [sample], 'recipe': load_default(),
+         'recipe_sha256': digest(load_default()), 'fixture_transport': 'memory',
+         'cases': CASES, 'fixture_origin': 'owned offline browser fixture'}
+preview_data = json.dumps({'state': state, 'evidence': results}, separators=(',', ':')).replace('</', '<\\/')
+html = (ROOT / 'ui/index.html').read_text()
+html = html.replace('</head>', '<script>window.__HANDNAVIGATE_PREVIEW=' + preview_data + ';</script></head>')
+html = html.replace('__CSRF_TOKEN__', 'READ_ONLY_PREVIEW')
+(OUT / 'HandNavigate_Studio_Preview.html').write_text(html)
+(ROOT / 'ui/read-only-preview.html').write_text(html)
+(OUT / 'HandNavigate_Product_Decisions.md').write_text((ROOT / 'research/PRODUCT_DECISIONS.md').read_text())
+print('Created test report, product decisions, and standalone studio preview.')

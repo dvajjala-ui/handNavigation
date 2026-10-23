@@ -1,0 +1,8 @@
+<div id="owned-workspace" class="practice-surface">
+  <div class="practice-heading"><span class="practice-eyebrow">OWNED PRACTICE PAGE</span><h3>Build a topic preview</h3><p>This form only changes its local preview. It does not contact a website.</p></div>
+  <label class="practice-label">Topic<input data-hn-field="topic" type="text" maxlength="80" placeholder="For example, architecture" autocomplete="off"></label>
+  <label class="practice-label">Layout<select data-hn-field="layout" aria-label="Layout"><option value="compact">Compact</option><option value="detailed">Detailed</option></select></label>
+  <label class="practice-check"><input data-hn-field="captions" type="checkbox">Include captions</label>
+  <button type="button" data-hn-control="prepare">Prepare preview</button>
+  <div data-testid="preview-output" class="practice-result" hidden aria-live="polite"><strong>Preview prepared</strong><dl><dt>Topic</dt><dd data-testid="result-topic"></dd><dt>Layout</dt><dd data-testid="result-layout"></dd><dt>Captions</dt><dd data-testid="result-captions"></dd></dl></div>
+</div>

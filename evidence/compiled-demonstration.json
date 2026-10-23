@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "id": "recorded-search",
+  "revision": 1,
+  "name": "Recorded search - explicit review required",
+  "parameters": {
+    "topic": "string",
+    "limit": "integer"
+  },
+  "steps": [
+    {
+      "op": "fill",
+      "target": [
+        {
+          "by": "label",
+          "value": "Topic"
+        }
+      ],
+      "value": "{{topic}}",
+      "id": "recorded-1"
+    },
+    {
+      "op": "click",
+      "target": [
+        {
+          "by": "role",
+          "role": "button",
+          "name": "Search"
+        }
+      ],
+      "id": "recorded-2"
+    },
+    {
+      "id": "reviewed-postcondition",
+      "op": "wait",
+      "target": [
+        {
+          "by": "testid",
+          "value": "results-ready"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "generated_at": "2026-10-23T07:02:52.053937+00:00",
+  "checks": [
+    {
+      "name": "Measured ten-file result displayed",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Preview cannot run a workflow",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Preview has an explicit read-only notice",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Preview does not claim worker is online",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Desktop layout has no horizontal overflow",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Navigation: teaching",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Navigation: schedules",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Navigation: connections",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Navigation: activity",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Navigation: evidence",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Navigation: overview",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Phone layout has no horizontal overflow",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Phone run button remains disabled in preview",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Phone overflow: teaching",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Phone overflow: schedules",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Phone overflow: connections",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Phone overflow: activity",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Phone overflow: evidence",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Browser outcome visibly distinguished from HTTP component success",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Imported profile is not shown as qualified",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "No stored session invented in preview",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Read-only preview cannot approve connection",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Read-only preview cannot change connection consent",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Credentials entry not present in studio",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "No external browser requests from preview",
+      "passed": true,
+      "scope": "rendered read-only preview"
+    },
+    {
+      "name": "Rehearsal requires unchecked-by-default review",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Reviewed rehearsal becomes enabled",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Run payload binds topic, count and exact checksum",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Schedule consent is initially required",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Schedule preview displays explicit timezone offset",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Daily schedule request preserves IANA timezone and policy",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Sample trace is explicitly labeled synthetic",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Compiler request records explicit effect-contract selection",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Editor starts a new revision, not an in-place edit",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Editor uses optimistic base-checksum validation",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Unreviewed profile approval disabled in live UI",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Explicit permission acknowledgement enables exact approval",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Connection approval binds profile checksum and permission acknowledgement",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Loaded example contains no authentication state",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "Import sends contract only, without sign-in or execution",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; no network"
+    },
+    {
+      "name": "No JavaScript runtime errors",
+      "passed": true,
+      "scope": "both rendered modes"
+    }
+  ],
+  "passed": 41,
+  "failed": 0,
+  "javascript_errors": [],
+  "preview_network_requests": [],
+  "limitations": [
+    "Browser HTTP navigation is blocked; this does not bypass that policy.",
+    "Editable controls use an in-memory fetch stub. Real localhost API integration is in run_tests.py.",
+    "Phone viewport emulation is not a native mobile app or device qualification."
+  ]
+}

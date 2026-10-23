@@ -1,0 +1,685 @@
+{
+  "generated_at": "2026-10-22T13:27:22.239226+00:00",
+  "scope": "Synthetic owned localhost fixture only; not a benchmark on real third-party websites.",
+  "environment": {
+    "python": "3.13.5",
+    "system": "Linux",
+    "playwright": "1.57.0"
+  },
+  "test_methods": 39,
+  "failures": 28,
+  "errors": 2,
+  "skipped": 0,
+  "all_passed": false,
+  "browser_observations": [
+    {
+      "test": "test_lab.BrowserTests.test_01_normal_ten_downloads",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 1.753,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_02_variable_topic_and_count",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.228,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_02_variable_topic_and_count",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.22,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_02_variable_topic_and_count",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.235,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_03_layout_drift",
+      "case": "layout",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=layout\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=layout\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.24,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_04_approved_alternative",
+      "case": "alternative",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=alternative\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=alternative\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.215,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_05_delayed_results",
+      "case": "slow",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=slow\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=slow\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.209,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_06_duplicate_identity_and_content",
+      "case": "duplicates",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=duplicates\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=duplicates\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.228,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_07_shortfall_is_not_success",
+      "case": "few",
+      "expected": "PARTIAL",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=few\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=few\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.28,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_08_ambiguous_search_stops",
+      "case": "ambiguous",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=ambiguous\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=ambiguous\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.238,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_09_unknown_button_stops",
+      "case": "unknown",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=unknown\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=unknown\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.246,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_10_html_download_stops",
+      "case": "corrupt",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=corrupt\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=corrupt\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.215,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_11_wrong_valid_image_stops",
+      "case": "wrong_file",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=wrong_file\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=wrong_file\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.206,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_12_truncated_download_stops",
+      "case": "truncated",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=truncated\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=truncated\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.264,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_13_fake_success_banner_stops",
+      "case": "fake_success",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=fake_success\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=fake_success\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.211,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_14_expired_session_stops",
+      "case": "expired",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=expired\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=expired\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.194,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_15_egress_blocked",
+      "case": "egress",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=egress\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=egress\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.216,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_16_redirect_blocked",
+      "case": "redirect",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=redirect\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=redirect\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.196,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_17_page_instruction_text_does_not_control_runner",
+      "case": "injection",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=injection\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=injection\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.2,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_18_conflicting_duplicate_ids_stop",
+      "case": "conflicting_id",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=conflicting_id\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=conflicting_id\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.196,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_19_missing_download_is_explicit_skip",
+      "case": "missing_download",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=missing_download\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=missing_download\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.2,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_20_oversized_download_stops",
+      "case": "oversized",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=oversized\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=oversized\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.22,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_21_reordered_results",
+      "case": "reordered",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=reordered\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=reordered\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.211,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_22_checkpoint_resume_without_redownload",
+      "case": "normal",
+      "expected": "PAUSED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.201,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_23_completed_job_resume_is_idempotent_for_files",
+      "case": "normal",
+      "expected": "VERIFIED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.195,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_24_tampered_checkpoint_is_rejected",
+      "case": "normal",
+      "expected": "PAUSED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.183,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_25_resume_contract_cannot_silently_change",
+      "case": "normal",
+      "expected": "PAUSED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.2,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_26_overlap_lock",
+      "case": "normal",
+      "expected": "HALTED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNNER_BUSY",
+        "message": "The runner is busy or a stale lock needs manual review"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.0,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_27_operator_stop",
+      "case": "normal",
+      "expected": "CANCELLED",
+      "actual": "CANCELLED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "CANCELLED",
+        "message": "The operator stopped the run"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.007,
+      "events": [],
+      "skipped": []
+    },
+    {
+      "test": "test_lab.BrowserTests.test_30_missing_checkpoint_file_stops",
+      "case": "normal",
+      "expected": "PAUSED",
+      "actual": "HALTED",
+      "verified_count": 0,
+      "new_downloads": 0,
+      "resumed_files": 0,
+      "error": {
+        "code": "RUNTIME_ERROR",
+        "message": "Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\n"
+      },
+      "model_calls": 0,
+      "blocked_requests": [],
+      "elapsed_seconds": 0.239,
+      "events": [],
+      "skipped": []
+    }
+  ],
+  "failure_details": [
+    {
+      "test": "test_01_normal_ten_downloads (test_lab.BrowserTests.test_01_normal_ten_downloads)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 65, in test_01_normal_ten_downloads\n    report = self.run_case()\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': '82ea2eb0-519c-48d2-b56a-5580b5d04bc9', 'job_key': 'fd802bd9-9ed8-41cf-93af-54701e153502', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'normal', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:14.025742+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\\n'}, 'finished_at': '2026-10-22T13:27:15.779419+00:00', 'elapsed_seconds': 1.753, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-srdl3ypp/reports/82ea2eb0-519c-48d2-b56a-5580b5d04bc9.json'}\n"
+    },
+    {
+      "test": "test_02_variable_topic_and_count (test_lab.BrowserTests.test_02_variable_topic_and_count) (topic='flowers')",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 74, in test_02_variable_topic_and_count\n    self.assertEqual(self.run_case(topic=topic, limit=limit)[\"verified_count\"], limit)\n                     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': '82d0b3a4-385d-45b8-b46c-095a2e5704b4', 'job_key': 'bdb6d66b-8f07-4a3b-8733-0827e96308de', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'normal', 'parameters': {'topic': 'flowers', 'limit': 1}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:15.781048+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-82d0b3a4-385d-45b8-b46c-095a2e5704b4.png', 'finished_at': '2026-10-22T13:27:16.008825+00:00', 'elapsed_seconds': 0.228, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-u6e1r5w6/reports/82d0b3a4-385d-45b8-b46c-095a2e5704b4.json'}\n"
+    },
+    {
+      "test": "test_02_variable_topic_and_count (test_lab.BrowserTests.test_02_variable_topic_and_count) (topic='spaces and + symbols')",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 74, in test_02_variable_topic_and_count\n    self.assertEqual(self.run_case(topic=topic, limit=limit)[\"verified_count\"], limit)\n                     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': 'c5f3665b-15fa-4918-b5b2-3b173fb82ccf', 'job_key': '3f8502aa-f566-40e0-8831-b80d08ed4346', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'normal', 'parameters': {'topic': 'spaces and + symbols', 'limit': 5}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:16.010539+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-c5f3665b-15fa-4918-b5b2-3b173fb82ccf.png', 'finished_at': '2026-10-22T13:27:16.230775+00:00', 'elapsed_seconds': 0.22, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-u6e1r5w6/reports/c5f3665b-15fa-4918-b5b2-3b173fb82ccf.json'}\n"
+    },
+    {
+      "test": "test_02_variable_topic_and_count (test_lab.BrowserTests.test_02_variable_topic_and_count) (topic='travel')",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 74, in test_02_variable_topic_and_count\n    self.assertEqual(self.run_case(topic=topic, limit=limit)[\"verified_count\"], limit)\n                     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': 'ec4339d0-f8fe-46dc-b474-c457ca6eb808', 'job_key': '849dce43-4aae-412f-8e05-e5089549e7d0', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'normal', 'parameters': {'topic': 'travel', 'limit': 12}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:16.231955+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-ec4339d0-f8fe-46dc-b474-c457ca6eb808.png', 'finished_at': '2026-10-22T13:27:16.467305+00:00', 'elapsed_seconds': 0.235, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-u6e1r5w6/reports/ec4339d0-f8fe-46dc-b474-c457ca6eb808.json'}\n"
+    },
+    {
+      "test": "test_03_layout_drift (test_lab.BrowserTests.test_03_layout_drift)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 77, in test_03_layout_drift\n    self.run_case(\"layout\")\n    ~~~~~~~~~~~~~^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': '8bae7e20-9fb2-41e9-b16d-458d68336f60', 'job_key': '85dc7380-0d13-47ed-a488-cc9100eed44f', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'layout', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:16.468825+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=layout\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=layout\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-8bae7e20-9fb2-41e9-b16d-458d68336f60.png', 'finished_at': '2026-10-22T13:27:16.708315+00:00', 'elapsed_seconds': 0.24, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-6071ortr/reports/8bae7e20-9fb2-41e9-b16d-458d68336f60.json'}\n"
+    },
+    {
+      "test": "test_04_approved_alternative (test_lab.BrowserTests.test_04_approved_alternative)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 80, in test_04_approved_alternative\n    result = self.run_case(\"alternative\")\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': '2e94c736-979a-4747-99ff-93ce16d2f821', 'job_key': 'ddee53cc-f8f1-4af4-bfa3-e5b8e5b605d8', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'alternative', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:16.710062+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=alternative\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=alternative\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-2e94c736-979a-4747-99ff-93ce16d2f821.png', 'finished_at': '2026-10-22T13:27:16.925332+00:00', 'elapsed_seconds': 0.215, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-5mgthtjh/reports/2e94c736-979a-4747-99ff-93ce16d2f821.json'}\n"
+    },
+    {
+      "test": "test_05_delayed_results (test_lab.BrowserTests.test_05_delayed_results)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 84, in test_05_delayed_results\n    self.run_case(\"slow\")\n    ~~~~~~~~~~~~~^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': '9ebdd9c2-b3e4-4ab6-b599-cec7957be1cf', 'job_key': 'cf4dd588-6425-475d-b5f8-d8dc5965f042', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'slow', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:16.926577+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=slow\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=slow\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-9ebdd9c2-b3e4-4ab6-b599-cec7957be1cf.png', 'finished_at': '2026-10-22T13:27:17.135964+00:00', 'elapsed_seconds': 0.209, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-_jcy0lgr/reports/9ebdd9c2-b3e4-4ab6-b599-cec7957be1cf.json'}\n"
+    },
+    {
+      "test": "test_06_duplicate_identity_and_content (test_lab.BrowserTests.test_06_duplicate_identity_and_content)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 87, in test_06_duplicate_identity_and_content\n    result = self.run_case(\"duplicates\")\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': '75bd6891-0e8a-4cfb-a0da-8cf95f3c5e3a', 'job_key': '86821eb3-1552-4d14-98e4-f2743979a709', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'duplicates', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:17.137309+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=duplicates\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=duplicates\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-75bd6891-0e8a-4cfb-a0da-8cf95f3c5e3a.png', 'finished_at': '2026-10-22T13:27:17.365318+00:00', 'elapsed_seconds': 0.228, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-3lt9213c/reports/75bd6891-0e8a-4cfb-a0da-8cf95f3c5e3a.json'}\n"
+    },
+    {
+      "test": "test_07_shortfall_is_not_success (test_lab.BrowserTests.test_07_shortfall_is_not_success)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 93, in test_07_shortfall_is_not_success\n    self.assertEqual(self.run_case(\"few\", \"PARTIAL\")[\"verified_count\"], 3)\n                     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'PARTIAL'\n- HALTED\n+ PARTIAL\n : {'run_id': '65c43330-fe93-47aa-b5e6-833893607198', 'job_key': '6e2ef025-e57d-4e36-a0d2-894c48a80e29', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'few', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:17.368929+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=few\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=few\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-65c43330-fe93-47aa-b5e6-833893607198.png', 'finished_at': '2026-10-22T13:27:17.649322+00:00', 'elapsed_seconds': 0.28, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-xao2b3fj/reports/65c43330-fe93-47aa-b5e6-833893607198.json'}\n"
+    },
+    {
+      "test": "test_08_ambiguous_search_stops (test_lab.BrowserTests.test_08_ambiguous_search_stops)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 96, in test_08_ambiguous_search_stops\n    self.assert_halt(\"ambiguous\", \"AMBIGUOUS_TARGET\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'AMBIGUOUS_TARGET'\n- RUNTIME_ERROR\n+ AMBIGUOUS_TARGET\n : {'run_id': '69c972ae-7b53-4077-a01b-d30afdebc7f1', 'job_key': '7e46bea1-f735-4f42-bb37-ecbb1a87f9ba', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'ambiguous', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:17.650682+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=ambiguous\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=ambiguous\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-69c972ae-7b53-4077-a01b-d30afdebc7f1.png', 'finished_at': '2026-10-22T13:27:17.889055+00:00', 'elapsed_seconds': 0.238, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-xz57t9v2/reports/69c972ae-7b53-4077-a01b-d30afdebc7f1.json'}\n"
+    },
+    {
+      "test": "test_09_unknown_button_stops (test_lab.BrowserTests.test_09_unknown_button_stops)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 99, in test_09_unknown_button_stops\n    self.assert_halt(\"unknown\", \"TARGET_NOT_FOUND\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'TARGET_NOT_FOUND'\n- RUNTIME_ERROR\n+ TARGET_NOT_FOUND\n : {'run_id': 'af14f95c-b29b-4c27-a1f8-43f8d8ae8f4d', 'job_key': 'ba6bc05f-9b33-4e3b-9a11-e502df92225e', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'unknown', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:17.890868+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=unknown\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=unknown\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-af14f95c-b29b-4c27-a1f8-43f8d8ae8f4d.png', 'finished_at': '2026-10-22T13:27:18.136537+00:00', 'elapsed_seconds': 0.246, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-lt2zld9v/reports/af14f95c-b29b-4c27-a1f8-43f8d8ae8f4d.json'}\n"
+    },
+    {
+      "test": "test_10_html_download_stops (test_lab.BrowserTests.test_10_html_download_stops)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 102, in test_10_html_download_stops\n    self.assert_halt(\"corrupt\", \"FILE_SIZE\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'FILE_SIZE'\n- RUNTIME_ERROR\n+ FILE_SIZE\n : {'run_id': '9de1a98b-8975-45a0-87d8-0f9841e95f0e', 'job_key': 'c349ce91-3607-486a-b325-7381e609df00', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'corrupt', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:18.138229+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=corrupt\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=corrupt\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-9de1a98b-8975-45a0-87d8-0f9841e95f0e.png', 'finished_at': '2026-10-22T13:27:18.353214+00:00', 'elapsed_seconds': 0.215, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-n7_f35dm/reports/9de1a98b-8975-45a0-87d8-0f9841e95f0e.json'}\n"
+    },
+    {
+      "test": "test_11_wrong_valid_image_stops (test_lab.BrowserTests.test_11_wrong_valid_image_stops)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 105, in test_11_wrong_valid_image_stops\n    self.assert_halt(\"wrong_file\", \"HASH_MISMATCH\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'HASH_MISMATCH'\n- RUNTIME_ERROR\n+ HASH_MISMATCH\n : {'run_id': '2c04fda6-2961-4181-aba0-64ea78251808', 'job_key': '5b572355-e34e-4489-87a4-18c682967df2', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'wrong_file', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:18.355067+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=wrong_file\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=wrong_file\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-2c04fda6-2961-4181-aba0-64ea78251808.png', 'finished_at': '2026-10-22T13:27:18.561086+00:00', 'elapsed_seconds': 0.206, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-f62ex_ri/reports/2c04fda6-2961-4181-aba0-64ea78251808.json'}\n"
+    },
+    {
+      "test": "test_12_truncated_download_stops (test_lab.BrowserTests.test_12_truncated_download_stops)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 108, in test_12_truncated_download_stops\n    self.assert_halt(\"truncated\", \"FILE_SIZE\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'FILE_SIZE'\n- RUNTIME_ERROR\n+ FILE_SIZE\n : {'run_id': 'b5f42a96-dc0b-42e4-9490-d2ca17c38bfe', 'job_key': '427ec080-2bf4-4e77-af6d-693b68b2024e', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'truncated', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:18.562335+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=truncated\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=truncated\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-b5f42a96-dc0b-42e4-9490-d2ca17c38bfe.png', 'finished_at': '2026-10-22T13:27:18.825890+00:00', 'elapsed_seconds': 0.264, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-d9tcbhx3/reports/b5f42a96-dc0b-42e4-9490-d2ca17c38bfe.json'}\n"
+    },
+    {
+      "test": "test_13_fake_success_banner_stops (test_lab.BrowserTests.test_13_fake_success_banner_stops)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 111, in test_13_fake_success_banner_stops\n    self.assert_halt(\"fake_success\", \"TIMEOUT\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'TIMEOUT'\n- RUNTIME_ERROR\n+ TIMEOUT\n : {'run_id': '8d89ec7e-8f37-4d5b-859c-b937e701fe3f', 'job_key': '96157cd2-9afa-4268-9d4b-4936dfa6a2fc', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'fake_success', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:18.827503+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=fake_success\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=fake_success\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-8d89ec7e-8f37-4d5b-859c-b937e701fe3f.png', 'finished_at': '2026-10-22T13:27:19.038869+00:00', 'elapsed_seconds': 0.211, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-qeod3vh4/reports/8d89ec7e-8f37-4d5b-859c-b937e701fe3f.json'}\n"
+    },
+    {
+      "test": "test_14_expired_session_stops (test_lab.BrowserTests.test_14_expired_session_stops)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 114, in test_14_expired_session_stops\n    self.assert_halt(\"expired\", \"AUTH_REQUIRED\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'AUTH_REQUIRED'\n- RUNTIME_ERROR\n+ AUTH_REQUIRED\n : {'run_id': 'f160cd2b-0f42-4895-af21-ea8694601c8d', 'job_key': 'ad323a9a-67ef-4748-99ff-8fa4adf88894', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'expired', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:19.040407+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=expired\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=expired\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-f160cd2b-0f42-4895-af21-ea8694601c8d.png', 'finished_at': '2026-10-22T13:27:19.234614+00:00', 'elapsed_seconds': 0.194, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-hh31rw_6/reports/f160cd2b-0f42-4895-af21-ea8694601c8d.json'}\n"
+    },
+    {
+      "test": "test_15_egress_blocked (test_lab.BrowserTests.test_15_egress_blocked)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 117, in test_15_egress_blocked\n    self.assert_halt(\"egress\", \"NETWORK_POLICY\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'NETWORK_POLICY'\n- RUNTIME_ERROR\n+ NETWORK_POLICY\n : {'run_id': 'b3c3ed06-f308-493c-a99c-b919caa5845f', 'job_key': '16b93fc4-3f6b-42be-a592-e56521243bc3', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'egress', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:19.235832+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=egress\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=egress\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-b3c3ed06-f308-493c-a99c-b919caa5845f.png', 'finished_at': '2026-10-22T13:27:19.451754+00:00', 'elapsed_seconds': 0.216, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-ux6mzrpp/reports/b3c3ed06-f308-493c-a99c-b919caa5845f.json'}\n"
+    },
+    {
+      "test": "test_16_redirect_blocked (test_lab.BrowserTests.test_16_redirect_blocked)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 121, in test_16_redirect_blocked\n    self.assertGreater(len(result[\"blocked_requests\"]), 0, result)\n    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0 not greater than 0 : {'run_id': '7f31cd2d-ee7e-4c88-95b9-743cc87107e6', 'job_key': '4ef8b83d-d93b-492d-8fc9-661cb2f3afd3', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'redirect', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:19.453262+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=redirect\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=redirect\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-7f31cd2d-ee7e-4c88-95b9-743cc87107e6.png', 'finished_at': '2026-10-22T13:27:19.649519+00:00', 'elapsed_seconds': 0.196, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-6c48rzq5/reports/7f31cd2d-ee7e-4c88-95b9-743cc87107e6.json'}\n"
+    },
+    {
+      "test": "test_17_page_instruction_text_does_not_control_runner (test_lab.BrowserTests.test_17_page_instruction_text_does_not_control_runner)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 125, in test_17_page_instruction_text_does_not_control_runner\n    self.assertEqual(self.run_case(\"injection\")[\"verified_count\"], 10)\n                     ~~~~~~~~~~~~~^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': '11bed556-cc84-4578-8e9a-f4a794cd1c9a', 'job_key': '012a6640-3f9e-45b0-9e21-92026a5444fe', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'injection', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:19.650690+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=injection\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=injection\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-11bed556-cc84-4578-8e9a-f4a794cd1c9a.png', 'finished_at': '2026-10-22T13:27:19.850938+00:00', 'elapsed_seconds': 0.2, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-0wvd_zgm/reports/11bed556-cc84-4578-8e9a-f4a794cd1c9a.json'}\n"
+    },
+    {
+      "test": "test_18_conflicting_duplicate_ids_stop (test_lab.BrowserTests.test_18_conflicting_duplicate_ids_stop)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 128, in test_18_conflicting_duplicate_ids_stop\n    self.assert_halt(\"conflicting_id\", \"ITEM_IDENTITY\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'ITEM_IDENTITY'\n- RUNTIME_ERROR\n+ ITEM_IDENTITY\n : {'run_id': 'd6db6449-e4e2-4c7c-8143-438f6cddecf5', 'job_key': 'a94d2dcd-a03b-44eb-82a8-9c78c9313796', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'conflicting_id', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:19.852120+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=conflicting_id\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=conflicting_id\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-d6db6449-e4e2-4c7c-8143-438f6cddecf5.png', 'finished_at': '2026-10-22T13:27:20.048542+00:00', 'elapsed_seconds': 0.196, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-b3h0q0lc/reports/d6db6449-e4e2-4c7c-8143-438f6cddecf5.json'}\n"
+    },
+    {
+      "test": "test_19_missing_download_is_explicit_skip (test_lab.BrowserTests.test_19_missing_download_is_explicit_skip)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 131, in test_19_missing_download_is_explicit_skip\n    result = self.run_case(\"missing_download\")\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': 'e768d535-455f-4b9c-bfce-4ec5076891dc', 'job_key': '2a423d4f-059a-4b31-9cdd-91766e2ba4d4', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'missing_download', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:20.049899+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=missing_download\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=missing_download\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-e768d535-455f-4b9c-bfce-4ec5076891dc.png', 'finished_at': '2026-10-22T13:27:20.249776+00:00', 'elapsed_seconds': 0.2, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-vpm2ju4n/reports/e768d535-455f-4b9c-bfce-4ec5076891dc.json'}\n"
+    },
+    {
+      "test": "test_20_oversized_download_stops (test_lab.BrowserTests.test_20_oversized_download_stops)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 136, in test_20_oversized_download_stops\n    self.assert_halt(\"oversized\", \"FILE_SIZE\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 61, in assert_halt\n    self.assertEqual(report[\"error\"][\"code\"], code, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'RUNTIME_ERROR' != 'FILE_SIZE'\n- RUNTIME_ERROR\n+ FILE_SIZE\n : {'run_id': '759eecf2-aba3-4807-8572-8315b2be7d08', 'job_key': '334a931f-3d6e-4360-ace7-6ad6494e2058', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'oversized', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:20.251593+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=oversized\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=oversized\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-759eecf2-aba3-4807-8572-8315b2be7d08.png', 'finished_at': '2026-10-22T13:27:20.471796+00:00', 'elapsed_seconds': 0.22, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-u8lfkajp/reports/759eecf2-aba3-4807-8572-8315b2be7d08.json'}\n"
+    },
+    {
+      "test": "test_21_reordered_results (test_lab.BrowserTests.test_21_reordered_results)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 139, in test_21_reordered_results\n    result = self.run_case(\"reordered\")\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': '9ecf6f8a-1f22-443c-8f6a-a6fade2d569e', 'job_key': 'e42af8e2-a4ce-493b-9d16-d596e23cfa61', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'reordered', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:20.473264+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=reordered\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=reordered\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-9ecf6f8a-1f22-443c-8f6a-a6fade2d569e.png', 'finished_at': '2026-10-22T13:27:20.684437+00:00', 'elapsed_seconds': 0.211, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-jd06uj_o/reports/9ecf6f8a-1f22-443c-8f6a-a6fade2d569e.json'}\n"
+    },
+    {
+      "test": "test_22_checkpoint_resume_without_redownload (test_lab.BrowserTests.test_22_checkpoint_resume_without_redownload)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 144, in test_22_checkpoint_resume_without_redownload\n    first = self.run_case(expected=\"PAUSED\", topic=topic, job_key=\"daily-job\", pause_after=3)\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'PAUSED'\n- HALTED\n+ PAUSED\n : {'run_id': '0e6f0388-4ed4-4b1a-a2b6-02f0679fc459', 'job_key': 'daily-job', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'normal', 'parameters': {'topic': 'resume-specific-test', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:20.686220+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-0e6f0388-4ed4-4b1a-a2b6-02f0679fc459.png', 'finished_at': '2026-10-22T13:27:20.887224+00:00', 'elapsed_seconds': 0.201, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-nikq495f/reports/0e6f0388-4ed4-4b1a-a2b6-02f0679fc459.json'}\n"
+    },
+    {
+      "test": "test_23_completed_job_resume_is_idempotent_for_files (test_lab.BrowserTests.test_23_completed_job_resume_is_idempotent_for_files)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 153, in test_23_completed_job_resume_is_idempotent_for_files\n    first = self.run_case(job_key=\"done-job\", topic=\"completed-job\")\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'VERIFIED'\n- HALTED\n+ VERIFIED\n : {'run_id': '2d0acc09-cb15-4c81-bac7-c4991c5cd2d9', 'job_key': 'done-job', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'normal', 'parameters': {'topic': 'completed-job', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:20.889091+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-2d0acc09-cb15-4c81-bac7-c4991c5cd2d9.png', 'finished_at': '2026-10-22T13:27:21.083892+00:00', 'elapsed_seconds': 0.195, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-8zlv3k_u/reports/2d0acc09-cb15-4c81-bac7-c4991c5cd2d9.json'}\n"
+    },
+    {
+      "test": "test_24_tampered_checkpoint_is_rejected (test_lab.BrowserTests.test_24_tampered_checkpoint_is_rejected)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 159, in test_24_tampered_checkpoint_is_rejected\n    first = self.run_case(expected=\"PAUSED\", job_key=\"tampered\", pause_after=2)\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'PAUSED'\n- HALTED\n+ PAUSED\n : {'run_id': '2a0597da-c345-4c86-90fd-661d727928a2', 'job_key': 'tampered', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'normal', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:21.085265+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-2a0597da-c345-4c86-90fd-661d727928a2.png', 'finished_at': '2026-10-22T13:27:21.268134+00:00', 'elapsed_seconds': 0.183, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-6kupy087/reports/2a0597da-c345-4c86-90fd-661d727928a2.json'}\n"
+    },
+    {
+      "test": "test_25_resume_contract_cannot_silently_change (test_lab.BrowserTests.test_25_resume_contract_cannot_silently_change)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 166, in test_25_resume_contract_cannot_silently_change\n    self.run_case(expected=\"PAUSED\", job_key=\"bound\", pause_after=1)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'PAUSED'\n- HALTED\n+ PAUSED\n : {'run_id': '16e0b46d-ba90-48d8-ac6c-bdeb34037568', 'job_key': 'bound', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'normal', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:21.269481+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-16e0b46d-ba90-48d8-ac6c-bdeb34037568.png', 'finished_at': '2026-10-22T13:27:21.469316+00:00', 'elapsed_seconds': 0.2, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-_cp5r7ep/reports/16e0b46d-ba90-48d8-ac6c-bdeb34037568.json'}\n"
+    },
+    {
+      "test": "test_30_missing_checkpoint_file_stops (test_lab.BrowserTests.test_30_missing_checkpoint_file_stops)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 222, in test_30_missing_checkpoint_file_stops\n    first = self.run_case(expected=\"PAUSED\", job_key=\"missing\", pause_after=1)\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 55, in run_case\n    self.assertEqual(report[\"status\"], expected, report)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'HALTED' != 'PAUSED'\n- HALTED\n+ PAUSED\n : {'run_id': '30af56fb-e36a-4f8f-8243-76a12c0ef088', 'job_key': 'missing', 'workflow': 'collect-local-images', 'recipe_sha256': '252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a', 'scenario': 'normal', 'parameters': {'topic': 'architecture', 'limit': 10}, 'status': 'HALTED', 'started_at': '2026-10-22T13:27:21.651114+00:00', 'model_calls': 0, 'model_call_basis': 'No model client or provider code exists in this runner.', 'verified_files': [], 'skipped': [], 'events': [], 'blocked_requests': [], 'resumed_files': 0, 'new_downloads': 0, 'error': {'code': 'RUNTIME_ERROR', 'message': 'Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library?case=normal\\nCall log:\\n  - navigating to \"http://127.0.0.1:37129/library?case=normal\", waiting until \"domcontentloaded\"\\n'}, 'failure_screenshot': 'failure-30af56fb-e36a-4f8f-8243-76a12c0ef088.png', 'finished_at': '2026-10-22T13:27:21.889974+00:00', 'elapsed_seconds': 0.239, 'verified_count': 0, 'report_path': '/tmp/handnavigate-test-mexsomen/reports/30af56fb-e36a-4f8f-8243-76a12c0ef088.json'}\n"
+    },
+    {
+      "test": "test_28_record_compile_review_replay (test_lab.BrowserTests.test_28_record_compile_review_replay)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 183, in test_28_record_compile_review_replay\n    page.goto(self.fixture.origin + \"/library\")\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/sync_api/_generated.py\", line 9050, in goto\n    self._sync(\n    ~~~~~~~~~~^\n        self._impl_obj.goto(\n        ^^^^^^^^^^^^^^^^^^^^\n            url=url, timeout=timeout, waitUntil=wait_until, referer=referer\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        )\n        ^\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ~~~~~~~~~~~^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_page.py\", line 552, in goto\n    return await self._main_frame.goto(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_frame.py\", line 153, in goto\n    await self._channel.send(\n        \"goto\", self._navigation_timeout, locals_to_params(locals())\n    )\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library\", waiting until \"load\"\n\n"
+    },
+    {
+      "test": "test_29_sensitive_field_is_not_recorded (test_lab.BrowserTests.test_29_sensitive_field_is_not_recorded)",
+      "traceback": "Traceback (most recent call last):\n  File \"/mnt/data/handnavigate-lab/tests/test_lab.py\", line 212, in test_29_sensitive_field_is_not_recorded\n    page.goto(self.fixture.origin + \"/library\")\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/sync_api/_generated.py\", line 9050, in goto\n    self._sync(\n    ~~~~~~~~~~^\n        self._impl_obj.goto(\n        ^^^^^^^^^^^^^^^^^^^^\n            url=url, timeout=timeout, waitUntil=wait_until, referer=referer\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        )\n        ^\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ~~~~~~~~~~~^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_page.py\", line 552, in goto\n    return await self._main_frame.goto(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_frame.py\", line 153, in goto\n    await self._channel.send(\n        \"goto\", self._navigation_timeout, locals_to_params(locals())\n    )\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    ...<3 lines>...\n    )\n    ^\n  File \"/opt/pyvenv/lib/python3.13/site-packages/playwright/_impl/_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: Page.goto: net::ERR_BLOCKED_BY_ADMINISTRATOR at http://127.0.0.1:37129/library\nCall log:\n  - navigating to \"http://127.0.0.1:37129/library\", waiting until \"load\"\n\n"
+    }
+  ],
+  "limitations": [
+    "Recorder actions in tests are driven by Playwright, not observed real-user teaching.",
+    "The collection loop and PNG verifier are explicitly authored, not inferred.",
+    "Controlled pause/resume is tested; arbitrary power-loss recovery is not.",
+    "No OS-level egress isolation or adversarial-site security certification.",
+    "No claim of Windows, macOS, mobile, or production-site validation."
+  ]
+}

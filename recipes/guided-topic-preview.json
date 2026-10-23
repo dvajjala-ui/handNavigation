@@ -1,0 +1,72 @@
+{
+  "schema_version": 2,
+  "kind": "guided-form",
+  "name": "Daily topic previews",
+  "adapter_id": "owned-form-v1",
+  "adapter_sha256": "4b08667091b8f6f629397358d9d676e58c10209b825654e9437122c5b0458d17",
+  "parameters": {
+    "topic": {
+      "type": "string",
+      "max_length": 80
+    },
+    "layout": {
+      "type": "enum",
+      "choices": [
+        "compact",
+        "detailed"
+      ]
+    },
+    "captions": {
+      "type": "boolean"
+    }
+  },
+  "steps": [
+    {
+      "id": "step-1",
+      "op": "fill",
+      "field": "topic",
+      "value": {
+        "parameter": "topic"
+      }
+    },
+    {
+      "id": "step-2",
+      "op": "select",
+      "field": "layout",
+      "value": {
+        "parameter": "layout"
+      }
+    },
+    {
+      "id": "step-3",
+      "op": "check",
+      "field": "captions",
+      "value": {
+        "parameter": "captions"
+      }
+    },
+    {
+      "id": "step-4",
+      "op": "click",
+      "control": "prepare"
+    }
+  ],
+  "verification": {
+    "contract": "inputs_match_preview_v1",
+    "expected": {
+      "topic": {
+        "parameter": "topic"
+      },
+      "layout": {
+        "parameter": "layout"
+      },
+      "captions": {
+        "parameter": "captions"
+      }
+    }
+  },
+  "repeat": {
+    "max_rows": 10,
+    "stop_on_error": true
+  }
+}

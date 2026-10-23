@@ -1,0 +1,51 @@
+test_ambiguous_control_halts_instead_of_first_match (test_v03.BrowserSemanticComponentTests.test_ambiguous_control_halts_instead_of_first_match) ... ok
+test_exact_account_identity_from_actual_dom (test_v03.BrowserSemanticComponentTests.test_exact_account_identity_from_actual_dom) ... ok
+test_hidden_control_does_not_override_visible_control (test_v03.BrowserSemanticComponentTests.test_hidden_control_does_not_override_visible_control) ... ok
+test_signin_indicator_prevents_action (test_v03.BrowserSemanticComponentTests.test_signin_indicator_prevents_action) ... ok
+test_actual_csv_content_passes_with_recorded_hash (test_v03.CSVVerificationTests.test_actual_csv_content_passes_with_recorded_hash) ... ok
+test_duplicate_identity_is_rejected (test_v03.CSVVerificationTests.test_duplicate_identity_is_rejected) ... ok
+test_formula_like_cells_are_rejected (test_v03.CSVVerificationTests.test_formula_like_cells_are_rejected) ... ok
+test_login_html_and_wrong_headers_are_not_csv (test_v03.CSVVerificationTests.test_login_html_and_wrong_headers_are_not_csv) ... ok
+test_rows_and_file_budget_checked (test_v03.CSVVerificationTests.test_rows_and_file_budget_checked) ... ok
+test_wrong_topic_is_not_success (test_v03.CSVVerificationTests.test_wrong_topic_is_not_success) ... ok
+test_csv_schema_and_budgets_are_explicit (test_v03.ConnectionContractTests.test_csv_schema_and_budgets_are_explicit) ... ok
+test_duplicate_and_encoded_paths_rejected (test_v03.ConnectionContractTests.test_duplicate_and_encoded_paths_rejected) ... ok
+test_only_reviewed_queries_and_methods_allowed (test_v03.ConnectionContractTests.test_only_reviewed_queries_and_methods_allowed) ... ok
+test_owned_and_remote_profile_shapes (test_v03.ConnectionContractTests.test_owned_and_remote_profile_shapes) ... ok
+test_scripts_credentials_and_wildcards_are_rejected (test_v03.ConnectionContractTests.test_scripts_credentials_and_wildcards_are_rejected) ... ok
+test_unsafe_origins_are_rejected (test_v03.ConnectionContractTests.test_unsafe_origins_are_rejected) ... ok
+test_compare_and_swap_rejects_concurrent_edit (test_v03.ConnectionRegistryTests.test_compare_and_swap_rejects_concurrent_edit) ... ok
+test_forgotten_approval_cannot_be_used_for_future_runs (test_v03.ConnectionRegistryTests.test_forgotten_approval_cannot_be_used_for_future_runs) ... ok
+test_import_is_unapproved_and_durable (test_v03.ConnectionRegistryTests.test_import_is_unapproved_and_durable) ... ok
+test_permission_and_current_checksum_required (test_v03.ConnectionRegistryTests.test_permission_and_current_checksum_required) ... ok
+test_revision_change_revokes_approval (test_v03.ConnectionRegistryTests.test_revision_change_revokes_approval) ... ok
+test_import_review_and_forget_api (test_v03.ConnectionStudioAPITests.test_import_review_and_forget_api) ... ok
+test_private_fields_rejected_before_persistence (test_v03.ConnectionStudioAPITests.test_private_fields_rejected_before_persistence) ... ok
+test_profile_mutation_requires_local_origin_and_token (test_v03.ConnectionStudioAPITests.test_profile_mutation_requires_local_origin_and_token) ... ok
+test_status_never_exposes_session_bytes (test_v03.ConnectionStudioAPITests.test_status_never_exposes_session_bytes) ... ok
+test_missing_session_does_not_launch_browser (test_v03.GuardAndFailureTests.test_missing_session_does_not_launch_browser) ... ok
+test_redirect_is_not_followed_by_application_route (test_v03.GuardAndFailureTests.test_redirect_is_not_followed_by_application_route) ... ok
+test_runtime_errors_do_not_leak_tokens (test_v03.GuardAndFailureTests.test_runtime_errors_do_not_leak_tokens) ... ok
+test_unapproved_request_is_blocked_before_fetch (test_v03.GuardAndFailureTests.test_unapproved_request_is_blocked_before_fetch) ... ok
+test_authentication_cookie_and_real_download (test_v03.OwnedHTTPTests.test_authentication_cookie_and_real_download) ... ok
+test_csrf_rejection_and_cookie_flags (test_v03.OwnedHTTPTests.test_csrf_rejection_and_cookie_flags) ... ok
+test_expiry_during_search_denies_export (test_v03.OwnedHTTPTests.test_expiry_during_search_denies_export) ... ok
+test_fixture_redirect_is_observed_not_followed (test_v03.OwnedHTTPTests.test_fixture_redirect_is_observed_not_followed) ... ok
+test_report_query_is_not_reflected_as_html (test_v03.OwnedHTTPTests.test_report_query_is_not_reflected_as_html) ... ok
+test_server_expiry_requires_reauthentication (test_v03.OwnedHTTPTests.test_server_expiry_requires_reauthentication) ... ok
+test_browser_signin_capture_and_separate_context_export (test_v03.RealBrowserHTTPGateTests.test_browser_signin_capture_and_separate_context_export) ... skipped 'Observed ERR_BLOCKED_BY_ADMINISTRATOR; no policy bypass; browser HTTP remains unqualified'
+test_encrypted_roundtrip_has_no_plaintext_secrets (test_v03.SessionVaultTests.test_encrypted_roundtrip_has_no_plaintext_secrets) ... ok
+test_local_forget_is_not_remote_logout (test_v03.SessionVaultTests.test_local_forget_is_not_remote_logout) ... ok
+test_profile_change_requires_new_signin (test_v03.SessionVaultTests.test_profile_change_requires_new_signin) ... ok
+test_secure_cookie_required_for_remote_https (test_v03.SessionVaultTests.test_secure_cookie_required_for_remote_https) ... ok
+test_state_cannot_include_other_origins_or_parent_cookies (test_v03.SessionVaultTests.test_state_cannot_include_other_origins_or_parent_cookies) ... ok
+test_ttl_expiry_and_expired_cookies_stop_reuse (test_v03.SessionVaultTests.test_ttl_expiry_and_expired_cookies_stop_reuse) ... ok
+test_unsupported_auth_storage_is_not_silently_dropped (test_v03.SessionVaultTests.test_unsupported_auth_storage_is_not_silently_dropped) ... ok
+test_untrusted_kdf_parameters_are_not_executed (test_v03.SessionVaultTests.test_untrusted_kdf_parameters_are_not_executed) ... ok
+test_weak_passphrase_and_unbounded_ttl_rejected (test_v03.SessionVaultTests.test_weak_passphrase_and_unbounded_ttl_rejected) ... ok
+test_wrong_passphrase_and_tamper_fail_closed (test_v03.SessionVaultTests.test_wrong_passphrase_and_tamper_fail_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 8.696s
+
+OK (skipped=1)

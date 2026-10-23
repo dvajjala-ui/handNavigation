@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+*.pyc
+runtime/
+.pytest_cache/
+*.db
+*.db-wal
+*.db-shm
+*.session.enc
+*.auth.json
+.env
+.env.*
+*.session.json
+
+# Local live-browser evidence and profiles can contain private data
+live-runs/
+live-profiles/
+.env
+*.approval.json
+.pytest_cache/
+__pycache__/

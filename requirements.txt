@@ -1,0 +1,6 @@
+# Exact runtime version used to test this proof of concept. Review updates before production.
+playwright==1.57.0
+# Cross-platform IANA timezone fallback; tested installed version.
+tzdata==2026.2
+# Authenticated encryption for profile-bound session state. Passphrases are not stored.
+cryptography==46.0.4

@@ -1,0 +1,225 @@
+{
+  "generated_at": "2026-10-23T07:02:55.716196+00:00",
+  "checks": [
+    {
+      "name": "Three verified rows displayed from real report",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Zero model calls displayed from real report",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Read-only notice is visible",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Read-only preview cannot run a lesson",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Read-only preview cannot grant plan consent",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Wrong-output halt remains visible with verified run",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Plan contains the reviewed false checkbox state",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Stage navigation record",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Desktop fits record",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Read-only practice action is disabled",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Stage navigation review",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Desktop fits review",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Stage navigation rehearse",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Desktop fits rehearse",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "390px fits record",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "390px fits review",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "390px fits rehearse",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "320px fits record",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "320px fits review",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "320px fits rehearse",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "768px fits record",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "768px fits review",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "768px fits rehearse",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Read-only preview issues no requests",
+      "passed": true,
+      "scope": "read-only rendered evidence, no API or browser HTTP"
+    },
+    {
+      "name": "Recording requires unchecked consent",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Recording indicator is active",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "All four actual DOM actions appear in timeline",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Compilation needs explicit verifier choice",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Compilation sends four events and typed checkbox",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Compilation sends explicit bindings and verification contract",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Approval remains unchecked after compile",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Approval submits exact checksum and acknowledgement",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Demo inputs are editable row records",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Execution still requires input-plan consent",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Reviewed recipe and input plan enable run",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Editing input clears plan review and disables run",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Run uses the current rows and a unique request ID",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Accepted plan cannot be submitted again with a second click",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Active batch exposes stop",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Stop names the actual active run",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "Lesson name is escaped, not executed as markup",
+      "passed": true,
+      "scope": "editable UI with in-memory API stub; actual DOM recording, no server execution"
+    },
+    {
+      "name": "No JavaScript runtime errors in either mode",
+      "passed": true,
+      "scope": "all teaching UI checks"
+    }
+  ],
+  "passed": 42,
+  "failed": 0,
+  "javascript_errors": [],
+  "preview_requests": [],
+  "limitations": [
+    "Editable UI uses an in-memory API stub, not browser HTTP.",
+    "Actual HTTP API integration is separately tested by test_v04.py.",
+    "Automated browser interactions are not a human usability study.",
+    "Phone-width rendering is not native mobile automation."
+  ]
+}

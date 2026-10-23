@@ -1,0 +1,32 @@
+{
+  "version": "0.3.0",
+  "generated_at": "2026-10-23T06:26:55.551172+00:00",
+  "delivery": "downloadable local source; not deployed; not pushed to GitHub",
+  "tests": {
+    "methods": 133,
+    "passed": 131,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 2
+  },
+  "ui": {
+    "passed": 41,
+    "failed": 0
+  },
+  "owned_qualification": "COMPONENTS_PASS_BROWSER_BLOCKED",
+  "browser_http_qualified": false,
+  "production_ready": false,
+  "third_party_sites_tested": 0,
+  "native_installers_built": 0,
+  "github_ci": "configured but not pushed or executed",
+  "live_sessions_or_vault_keys_distributed": false,
+  "primary_new_capabilities": [
+    "reviewed connection registry",
+    "passphrase-encrypted scoped sessions",
+    "owned authenticated HTTP portal",
+    "experimental browser CSV adapter",
+    "layered doctor command",
+    "Connections UI"
+  ],
+  "scheduled_authenticated_exports": false
+}

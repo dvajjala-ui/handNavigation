@@ -1,0 +1,205 @@
+{
+  "snapshot": "f73bad071e544ce9a59651d5bac85d5b",
+  "at": "2026-10-23T07:23:56.269973+00:00",
+  "url": "about:blank",
+  "title": "Explicit offline component test",
+  "label": "after-click",
+  "text": "Offline test form\nTopic\nSecond field\nMode\nCaptions\nPassword\nPrepare preview\nReady: architecture\nDownload example",
+  "elements": [
+    {
+      "tag": "input",
+      "type": "",
+      "role": "textbox",
+      "name": "Topic",
+      "label": "Topic",
+      "sensitive": false,
+      "value": "architecture",
+      "checked": null,
+      "options": [],
+      "href": null,
+      "disabled": false,
+      "box": {
+        "x": 48,
+        "y": 81,
+        "width": 205,
+        "height": 21
+      },
+      "style": {
+        "display": "inline-block",
+        "visibility": "visible",
+        "cursor": "text"
+      },
+      "id": "e0",
+      "locator": {
+        "kind": "label",
+        "value": "Topic"
+      }
+    },
+    {
+      "tag": "input",
+      "type": "",
+      "role": "textbox",
+      "name": "Second field",
+      "label": "Second field",
+      "sensitive": false,
+      "value": "",
+      "checked": null,
+      "options": [],
+      "href": null,
+      "disabled": false,
+      "box": {
+        "x": 342,
+        "y": 81,
+        "width": 205,
+        "height": 21
+      },
+      "style": {
+        "display": "inline-block",
+        "visibility": "visible",
+        "cursor": "text"
+      },
+      "id": "e1",
+      "locator": {
+        "kind": "label",
+        "value": "Second field"
+      }
+    },
+    {
+      "tag": "select",
+      "type": "",
+      "role": "combobox",
+      "name": "Mode",
+      "label": "Mode",
+      "sensitive": false,
+      "value": "brief",
+      "checked": null,
+      "options": [
+        {
+          "label": "Brief",
+          "value": "brief"
+        },
+        {
+          "label": "Full",
+          "value": "full"
+        }
+      ],
+      "href": null,
+      "disabled": false,
+      "box": {
+        "x": 592,
+        "y": 82,
+        "width": 50,
+        "height": 19
+      },
+      "style": {
+        "display": "inline-block",
+        "visibility": "visible",
+        "cursor": "default"
+      },
+      "id": "e2",
+      "locator": {
+        "kind": "role",
+        "role": "combobox",
+        "name": "Mode"
+      }
+    },
+    {
+      "tag": "input",
+      "type": "checkbox",
+      "role": "checkbox",
+      "name": "Captions",
+      "label": "Captions",
+      "sensitive": false,
+      "value": "on",
+      "checked": false,
+      "options": [],
+      "href": null,
+      "disabled": false,
+      "box": {
+        "x": 711,
+        "y": 83,
+        "width": 13,
+        "height": 13
+      },
+      "style": {
+        "display": "inline-block",
+        "visibility": "visible",
+        "cursor": "default"
+      },
+      "id": "e3",
+      "locator": {
+        "kind": "label",
+        "value": "Captions"
+      }
+    },
+    {
+      "tag": "button",
+      "type": "",
+      "role": "button",
+      "name": "Prepare preview",
+      "label": "",
+      "sensitive": false,
+      "value": null,
+      "checked": null,
+      "options": [],
+      "href": null,
+      "disabled": false,
+      "box": {
+        "x": 1005,
+        "y": 81,
+        "width": 113,
+        "height": 21
+      },
+      "style": {
+        "display": "inline-block",
+        "visibility": "visible",
+        "cursor": "default"
+      },
+      "id": "e4",
+      "locator": {
+        "kind": "role",
+        "role": "button",
+        "name": "Prepare preview"
+      }
+    },
+    {
+      "tag": "a",
+      "type": "",
+      "role": "link",
+      "name": "Download example",
+      "label": "",
+      "sensitive": false,
+      "value": null,
+      "checked": null,
+      "options": [],
+      "href": "data:text/plain,owned-test",
+      "disabled": false,
+      "box": {
+        "x": 8,
+        "y": 120,
+        "width": 125,
+        "height": 17
+      },
+      "style": {
+        "display": "inline",
+        "visibility": "visible",
+        "cursor": "pointer"
+      },
+      "id": "e5",
+      "locator": {
+        "kind": "role",
+        "role": "link",
+        "name": "Download example"
+      }
+    }
+  ],
+  "screenshot": "f73bad071e544ce9a59651d5bac85d5b.png",
+  "truncated": false,
+  "frame_count": 1,
+  "network": [],
+  "blocked_requests": [],
+  "limitations": [
+    "Main-frame semantic controls only; no iframe/canvas/popup automation",
+    "Text and screenshots may contain private information; redaction is heuristic"
+  ]
+}

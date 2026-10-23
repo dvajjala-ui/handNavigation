@@ -1,0 +1,26 @@
+[
+  {
+    "row_id": "architecture",
+    "values": {
+      "topic": "architecture",
+      "layout": "detailed",
+      "captions": true
+    }
+  },
+  {
+    "row_id": "gardens",
+    "values": {
+      "topic": "city gardens",
+      "layout": "compact",
+      "captions": false
+    }
+  },
+  {
+    "row_id": "interiors",
+    "values": {
+      "topic": "quiet interiors",
+      "layout": "detailed",
+      "captions": true
+    }
+  }
+]

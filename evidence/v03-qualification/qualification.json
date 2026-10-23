@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-23T06:17:08.838523+00:00",
+  "scope": "owned synthetic portal only",
+  "production_ready": false,
+  "third_party_sites_tested": 0,
+  "model_calls": 0,
+  "checks": [
+    {
+      "name": "Unauthenticated entry denied",
+      "status": "PASS",
+      "layer": "HTTP client -> owned server"
+    },
+    {
+      "name": "Synthetic sign-in sets an HttpOnly cookie",
+      "status": "PASS",
+      "layer": "HTTP client -> owned server"
+    },
+    {
+      "name": "Signed-in session reused with expected account",
+      "status": "PASS",
+      "layer": "HTTP client -> owned server"
+    },
+    {
+      "name": "Authenticated search returns export link",
+      "status": "PASS",
+      "layer": "HTTP client -> owned server"
+    },
+    {
+      "name": "Actual HTTP CSV passes content contract",
+      "status": "PASS",
+      "layer": "HTTP download + Python verifier"
+    },
+    {
+      "name": "Encrypted session round trip",
+      "status": "PASS",
+      "layer": "vault + real synthetic cookie"
+    },
+    {
+      "name": "Server-expired session rejected",
+      "status": "PASS",
+      "layer": "HTTP client -> owned server"
+    }
+  ],
+  "environment": {
+    "python": "3.13.5",
+    "system": "Linux",
+    "playwright": "1.57.0",
+    "cryptography": "46.0.4"
+  },
+  "limitations": [
+    "No browser-policy bypass or alternate engine",
+    "No third-party website or real customer account",
+    "HTTP client checks do not prove browser interactions",
+    "No authenticated unattended scheduling",
+    "No OS network sandbox or hardware-protected secret store",
+    "No Windows/macOS qualification unless run and reported on those platforms"
+  ],
+  "component_artifact": {
+    "sha256": "577071fcdfa85aa654fa93d4cee8da4a2d05309525e4eaa312a2afe8c11f3032",
+    "bytes": 235,
+    "rows": 5,
+    "columns": [
+      "item_id",
+      "topic",
+      "label"
+    ],
+    "verification": "schema, bounded rows, unique IDs, exact topic, conservative cell checks",
+    "path": "owned-http-component-export.csv",
+    "downloaded_by": "Python HTTP client, NOT browser"
+  },
+  "browser_probe": {
+    "status": "BLOCKED",
+    "error": {
+      "code": "ENVIRONMENT_BLOCKED",
+      "message": "Browser navigation is blocked by administrator policy. No policy was changed."
+    },
+    "layer": "real browser HTTP navigation",
+    "policy_changed": false
+  },
+  "browser_workflow": {
+    "status": "NOT_RUN",
+    "reason": "ENVIRONMENT_BLOCKED"
+  },
+  "http_request_audit": [
+    {
+      "method": "GET",
+      "path": "/reports",
+      "status": 401
+    },
+    {
+      "method": "GET",
+      "path": "/login",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/reports",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/reports",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/download",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/reports",
+      "status": 401
+    }
+  ],
+  "status": "COMPONENTS_PASS_BROWSER_BLOCKED"
+}

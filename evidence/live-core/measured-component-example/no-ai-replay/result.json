@@ -1,0 +1,12 @@
+{
+  "status": "VERIFIED",
+  "model_calls": 0,
+  "actions": 2,
+  "checks": [
+    {
+      "kind": "text_visible",
+      "passed": true
+    }
+  ],
+  "downloads": []
+}

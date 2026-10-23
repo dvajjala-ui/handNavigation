@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "run_id": "c33d94a0-d992-4514-a471-b7c36ebaf542",
+  "row_id": "interiors",
+  "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d",
+  "expected": {
+    "captions": true,
+    "layout": "detailed",
+    "topic": "quiet interiors"
+  },
+  "observed": {
+    "captions": true,
+    "layout": "detailed",
+    "topic": "quiet interiors"
+  },
+  "verified_at": "2026-10-23T07:02:47.316158+00:00",
+  "scope": "Owned in-memory form, actual Chromium actions; no HTTP or external site"
+}
