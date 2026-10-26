@@ -4,3 +4,5 @@ playwright==1.57.0
 tzdata==2026.2
 # Authenticated encryption for profile-bound session state. Passphrases are not stored.
 cryptography==46.0.4
+# Decode and validate real JPEG/PNG/WebP images before transferring them.
+Pillow==12.3.0

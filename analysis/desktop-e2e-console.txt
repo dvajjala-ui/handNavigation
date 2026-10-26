@@ -1,0 +1,19 @@
+
+> handnavigate-desktop@0.5.0 test:desktop
+> node desktop/test/e2e.cjs
+
+Step changes saved. Review the result checks before approving.
+AssertionError [ERR_ASSERTION]: {"id":"b2eccacf-e3a3-4ed9-a2ee-5170b5075558","taskId":"ace06528-7195-4876-b021-2211494d53c8","taskName":"Taught form replay","sha":"c085c4c48068b79df458bab510a2e659df9c9ed3c5a926927a3c5d37a7ec4795","rowIndex":1,"inputs":{"topic":"architecture"},"trigger":"manual","status":"RUNNING","startedAt":"2026-10-25T20:23:37.223Z","items":[],"events":[],"error":null}
++ actual - expected
+
++ 'RUNNING'
+- 'VERIFIED'
+
+    at main (D:\5. GitUploaded\hand\desktop\test\e2e.cjs:46:91) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'RUNNING',
+  expected: 'VERIFIED',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

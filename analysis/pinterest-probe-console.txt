@@ -1,0 +1,452 @@
+{
+  "url": "https://www.pinterest.com/search/pins/?q=nature%20landscape",
+  "title": "Pinterest",
+  "text": "Skip to content\nExplore\nLog in\nSign up\nSearch\nLess AI\nPainting\nPc wallpaper 1920x1080 full hd aesthetic\nPhotography\nWallpaper desktop\nPencil art drawings easy simple\nDrawing\nDesign\nBeautiful paintings\nCinematic photography aesthetic\nDrawing easy\nVideo\nSwitzerland\nWallpaper\nAesthetic\nIdeas\nArt\nBackground\nBeautiful\nAutumn photography\nGreen\nRealistic colored pencil drawings\nScenic wallpaper\nAcrylic painting\nSketch\nDrawing ideas colored pencil easy\nYou are signed out\nSign in to get the best experience\nContinue with email\nContinue with Google\nBy continuing, you agree to Pinterest's Terms of Service and acknowledge you've read our Privacy Policy. Notice at collection.\nWelcome to Pinterest\nLog in to discover more ideas just for you\nEmail\nPassword\nForgot password?\nLog in\nOR\nContinue with Google\nContinue with QR code\nNew to Pinterest? Join for free\nTerms of Service \u00b7 Privacy Policy \u00b7 Notice at Collection",
+  "images": [
+    {
+      "src": "https://i.pinimg.com/60x60/9e/30/4f/9e304ff255d9b8eb8f561094bdd77e40.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/54/45/b2/5445b2a52e9b281ff53c6b479ce36f63.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/22/53/6e/22536e69688c8f745f24438727dfc202.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/9d/6b/af/9d6baf6d9fbc4aa810f9f78b8f42616a.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/8b/52/58/8b5258e08cc59f11b1d67188774c6c37.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/1b/7b/0a/1b7b0a7642995db31aefcdf70d25cd31.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/5e/2f/5c/5e2f5c8665ee47801c0a616c49bf884c.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/44/66/e9/4466e9141ba2c7602dfc6323df419b6d.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/89/04/06/89040662341753f4b4800d58232014cb.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/79/a7/fd/79a7fda0812c50df1b418511b1f78a6a.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/d4/d6/33/d4d633b24914198ae9d92b6925c56f9f.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/b0/5f/89/b05f89a50f5d16ffd2761341027024e7.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/a7/27/01/a72701280410c8492e04741f585c15ff.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/46/90/6f/46906f59f8fb549fba1377d9b007f570.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/7e/e6/64/7ee664aa21639bdbbb1177d9058a134b.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/7f/41/e0/7f41e01c01b03c666e4d5ab0da4e4778.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/06/23/50/062350c88473334c815561a92658db79.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/0f/67/4d/0f674db78018901501c6852e5e395d08.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/2c/cb/34/2ccb348a9d5dea49fa18bdd360bdf16e.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/34/b4/40/34b44095da149e8eacd26ecc921e0d8f.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/12/9e/08/129e08840accb6c04f7bc37afe8968b8.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/2e/0e/54/2e0e5438fea40ba4e65b948f0e5e9ff0.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/44/66/e9/4466e9141ba2c7602dfc6323df419b6d.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/f2/36/ae/f236aeba64a9e6c64b629d38b7b0ce21.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/60x60/2c/d3/31/2cd3310c72ed5af6a6d97cba8e9909ca.jpg",
+      "alt": "",
+      "srcset": "",
+      "width": 60,
+      "height": 60
+    },
+    {
+      "src": "https://i.pinimg.com/236x/c5/bb/4e/c5bb4e020a45e4d976e3f2243c0f8ed4.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/c5/bb/4e/c5bb4e020a45e4d976e3f2243c0f8ed4.jpg 1x, https://i.pinimg.com/474x/c5/bb/4e/c5bb4e020a45e4d976e3f2243c0f8ed4.jpg 2x, https://i.pinimg.com/736x/c5/bb/4e/c5bb4e020a45e4d976e3f2243c0f8ed4.jpg 3x, https://i.pinimg.com/originals/c5/bb/4e/c5bb4e020a45e4d976e3f2243c0f8ed4.jpg 4x",
+      "width": 236,
+      "height": 419
+    },
+    {
+      "src": "https://i.pinimg.com/236x/84/b5/27/84b5274977f42b7a66aadd3c81d913ad.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/84/b5/27/84b5274977f42b7a66aadd3c81d913ad.jpg 1x, https://i.pinimg.com/474x/84/b5/27/84b5274977f42b7a66aadd3c81d913ad.jpg 2x, https://i.pinimg.com/736x/84/b5/27/84b5274977f42b7a66aadd3c81d913ad.jpg 3x, https://i.pinimg.com/originals/84/b5/27/84b5274977f42b7a66aadd3c81d913ad.jpg 4x",
+      "width": 236,
+      "height": 419
+    },
+    {
+      "src": "https://i.pinimg.com/236x/79/af/c8/79afc8b2ff427da84da7657b0da2c2ae.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/79/af/c8/79afc8b2ff427da84da7657b0da2c2ae.jpg 1x, https://i.pinimg.com/474x/79/af/c8/79afc8b2ff427da84da7657b0da2c2ae.jpg 2x, https://i.pinimg.com/736x/79/af/c8/79afc8b2ff427da84da7657b0da2c2ae.jpg 3x, https://i.pinimg.com/originals/79/af/c8/79afc8b2ff427da84da7657b0da2c2ae.jpg 4x",
+      "width": 236,
+      "height": 419
+    },
+    {
+      "src": "https://i.pinimg.com/236x/54/45/b2/5445b2a52e9b281ff53c6b479ce36f63.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/54/45/b2/5445b2a52e9b281ff53c6b479ce36f63.jpg 1x, https://i.pinimg.com/474x/54/45/b2/5445b2a52e9b281ff53c6b479ce36f63.jpg 2x, https://i.pinimg.com/736x/54/45/b2/5445b2a52e9b281ff53c6b479ce36f63.jpg 3x, https://i.pinimg.com/originals/54/45/b2/5445b2a52e9b281ff53c6b479ce36f63.jpg 4x",
+      "width": 236,
+      "height": 419
+    },
+    {
+      "src": "https://i.pinimg.com/236x/ea/90/7d/ea907dc9e6fcaa1ee5a064750c601ace.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/ea/90/7d/ea907dc9e6fcaa1ee5a064750c601ace.jpg 1x, https://i.pinimg.com/474x/ea/90/7d/ea907dc9e6fcaa1ee5a064750c601ace.jpg 2x, https://i.pinimg.com/736x/ea/90/7d/ea907dc9e6fcaa1ee5a064750c601ace.jpg 3x, https://i.pinimg.com/originals/ea/90/7d/ea907dc9e6fcaa1ee5a064750c601ace.jpg 4x",
+      "width": 236,
+      "height": 419
+    },
+    {
+      "src": "https://i.pinimg.com/236x/ab/f1/5d/abf15d762cf5cf55579d3845fe20e275.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/ab/f1/5d/abf15d762cf5cf55579d3845fe20e275.jpg 1x, https://i.pinimg.com/474x/ab/f1/5d/abf15d762cf5cf55579d3845fe20e275.jpg 2x, https://i.pinimg.com/736x/ab/f1/5d/abf15d762cf5cf55579d3845fe20e275.jpg 3x, https://i.pinimg.com/originals/ab/f1/5d/abf15d762cf5cf55579d3845fe20e275.jpg 4x",
+      "width": 236,
+      "height": 419
+    },
+    {
+      "src": "https://i.pinimg.com/236x/00/41/3d/00413d2de56f398c999f9917057fb9dc.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/00/41/3d/00413d2de56f398c999f9917057fb9dc.jpg 1x, https://i.pinimg.com/474x/00/41/3d/00413d2de56f398c999f9917057fb9dc.jpg 2x, https://i.pinimg.com/736x/00/41/3d/00413d2de56f398c999f9917057fb9dc.jpg 3x, https://i.pinimg.com/originals/00/41/3d/00413d2de56f398c999f9917057fb9dc.jpg 4x",
+      "width": 236,
+      "height": 419
+    },
+    {
+      "src": "https://i.pinimg.com/236x/4d/5e/f9/4d5ef94f9a038da39c34db143e5b98e0.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/4d/5e/f9/4d5ef94f9a038da39c34db143e5b98e0.jpg 1x, https://i.pinimg.com/474x/4d/5e/f9/4d5ef94f9a038da39c34db143e5b98e0.jpg 2x, https://i.pinimg.com/736x/4d/5e/f9/4d5ef94f9a038da39c34db143e5b98e0.jpg 3x, https://i.pinimg.com/originals/4d/5e/f9/4d5ef94f9a038da39c34db143e5b98e0.png 4x",
+      "width": 236,
+      "height": 157
+    },
+    {
+      "src": "https://i.pinimg.com/236x/f1/a5/d5/f1a5d5d8161fc6dbc0d9b21105cef864.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/f1/a5/d5/f1a5d5d8161fc6dbc0d9b21105cef864.jpg 1x, https://i.pinimg.com/474x/f1/a5/d5/f1a5d5d8161fc6dbc0d9b21105cef864.jpg 2x, https://i.pinimg.com/736x/f1/a5/d5/f1a5d5d8161fc6dbc0d9b21105cef864.jpg 3x, https://i.pinimg.com/originals/f1/a5/d5/f1a5d5d8161fc6dbc0d9b21105cef864.jpg 4x",
+      "width": 236,
+      "height": 419
+    },
+    {
+      "src": "https://i.pinimg.com/236x/f7/20/6b/f7206b6a8e7aec1a86a48c053da6daa3.jpg",
+      "alt": "Pin",
+      "srcset": "https://i.pinimg.com/236x/f7/20/6b/f7206b6a8e7aec1a86a48c053da6daa3.jpg 1x, https://i.pinimg.com/474x/f7/20/6b/f7206b6a8e7aec1a86a48c053da6daa3.jpg 2x, https://i.pinimg.com/736x/f7/20/6b/f7206b6a8e7aec1a86a48c053da6daa3.jpg 3x, https://i.pinimg.com/originals/f7/20/6b/f7206b6a8e7aec1a86a48c053da6daa3.jpg 4x",
+      "width": 236,
+      "height": 145
+    }
+  ],
+  "controls": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "label": "Search",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": "Remove search input",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Log in"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Sign up"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": "Setting",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": "Show filters",
+      "text": ""
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Less AI"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Painting"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Pc wallpaper 1920x1080 full hd aesthetic"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Photography"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Wallpaper desktop"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Pencil art drawings easy simple"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Drawing"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Design"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Beautiful paintings"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Cinematic photography aesthetic"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Drawing easy"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Video"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Switzerland"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Wallpaper"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Aesthetic"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Ideas"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Art"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Background"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Beautiful"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Autumn photography"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Green"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Realistic colored pencil drawings"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Scenic wallpaper"
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null,
+      "text": "Acrylic painting"
+    }
+  ],
+  "blocked_requests": [
+    {
+      "method": "GET",
+      "url": "https://accounts.google.com/gsi/client?hl=%5BREDACTED%5D"
+    },
+    {
+      "method": "GET",
+      "url": "https://ct.pinterest.com/ct.html"
+    },
+    {
+      "method": "GET",
+      "url": "https://okra.pinterest.com/v2/F5675B21-025B-4843-983C-38D86DEB394B/api.js"
+    },
+    {
+      "method": "GET",
+      "url": "https://www.recaptcha.net/recaptcha/enterprise.js?onload=%5BREDACTED%5D&render=%5BREDACTED%5D"
+    }
+  ]
+}

@@ -1,26 +1,22 @@
 {
-  "generated_at": "2026-10-23T06:59:54.131174+00:00",
-  "scope": "Synthetic owned fixture only; not a benchmark on real third-party websites.",
+  "generated_at": "2026-10-24T20:57:24.547459+00:00",
+  "scope": "Complete legacy/live/transfer suite, including real browser HTTP uploads between owned sites; not third-party site qualification.",
   "fixture_transport": "memory",
   "environment": {
-    "python": "3.13.5",
-    "system": "Linux",
+    "python": "3.12.14",
+    "system": "Windows",
     "playwright": "1.57.0",
     "cryptography": "46.0.4"
   },
-  "test_methods": 174,
+  "test_methods": 239,
   "failures": 0,
   "errors": 0,
-  "skipped": 2,
+  "skipped": 1,
   "all_passed": true,
   "skipped_tests": [
     {
-      "test": "test_16_redirect_blocked (test_lab.BrowserTests.test_16_redirect_blocked)",
+      "test": "tests.test_lab.BrowserTests.test_16_redirect_blocked",
       "reason": "HTTP redirect integration cannot be represented by an offline Blob fixture; policy unit-tested separately"
-    },
-    {
-      "test": "test_browser_signin_capture_and_separate_context_export (test_v03.RealBrowserHTTPGateTests.test_browser_signin_capture_and_separate_context_export)",
-      "reason": "Observed ERR_BLOCKED_BY_ADMINISTRATOR; no policy bypass; browser HTTP remains unqualified"
     }
   ],
   "browser_observations": [
@@ -35,7 +31,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.557,
+      "elapsed_seconds": 3.343,
       "events": [
         {
           "step": "enter-topic",
@@ -107,7 +103,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.593,
+      "elapsed_seconds": 0.812,
       "events": [
         {
           "step": "enter-topic",
@@ -143,7 +139,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 1.298,
+      "elapsed_seconds": 1.719,
       "events": [
         {
           "step": "enter-topic",
@@ -195,7 +191,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.61,
+      "elapsed_seconds": 3.656,
       "events": [
         {
           "step": "enter-topic",
@@ -275,7 +271,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.343,
+      "elapsed_seconds": 3.344,
       "events": [
         {
           "step": "enter-topic",
@@ -347,7 +343,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.346,
+      "elapsed_seconds": 3.469,
       "events": [
         {
           "step": "enter-topic",
@@ -427,7 +423,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.458,
+      "elapsed_seconds": 3.578,
       "events": [
         {
           "step": "enter-topic",
@@ -499,7 +495,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.171,
+      "elapsed_seconds": 3.281,
       "events": [
         {
           "step": "enter-topic",
@@ -580,7 +576,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.893,
+      "elapsed_seconds": 1.406,
       "events": [
         {
           "step": "enter-topic",
@@ -627,7 +623,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.269,
+      "elapsed_seconds": 0.313,
       "events": [
         {
           "step": "enter-topic",
@@ -650,7 +646,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 1.766,
+      "elapsed_seconds": 1.796,
       "events": [
         {
           "step": "enter-topic",
@@ -673,7 +669,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.466,
+      "elapsed_seconds": 0.703,
       "events": [
         {
           "step": "enter-topic",
@@ -704,7 +700,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.442,
+      "elapsed_seconds": 0.719,
       "events": [
         {
           "step": "enter-topic",
@@ -735,7 +731,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.43,
+      "elapsed_seconds": 0.703,
       "events": [
         {
           "step": "enter-topic",
@@ -766,7 +762,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 1.884,
+      "elapsed_seconds": 1.985,
       "events": [
         {
           "step": "enter-topic",
@@ -797,7 +793,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.241,
+      "elapsed_seconds": 0.25,
       "events": [],
       "skipped": []
     },
@@ -820,7 +816,7 @@
           "destination": "https://example.invalid/collect"
         }
       ],
-      "elapsed_seconds": 0.412,
+      "elapsed_seconds": 0.438,
       "events": [
         {
           "step": "enter-topic",
@@ -840,7 +836,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.154,
+      "elapsed_seconds": 3.547,
       "events": [
         {
           "step": "enter-topic",
@@ -915,7 +911,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.399,
+      "elapsed_seconds": 0.469,
       "events": [
         {
           "step": "enter-topic",
@@ -943,7 +939,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.222,
+      "elapsed_seconds": 3.578,
       "events": [
         {
           "step": "enter-topic",
@@ -1023,7 +1019,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.685,
+      "elapsed_seconds": 0.875,
       "events": [
         {
           "step": "enter-topic",
@@ -1051,7 +1047,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.213,
+      "elapsed_seconds": 3.688,
       "events": [
         {
           "step": "enter-topic",
@@ -1126,7 +1122,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.977,
+      "elapsed_seconds": 1.39,
       "events": [
         {
           "step": "enter-topic",
@@ -1166,7 +1162,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 1.572,
+      "elapsed_seconds": 2.406,
       "events": [
         {
           "step": "enter-topic",
@@ -1226,7 +1222,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 2.16,
+      "elapsed_seconds": 3.594,
       "events": [
         {
           "step": "enter-topic",
@@ -1298,7 +1294,7 @@
       "error": null,
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.307,
+      "elapsed_seconds": 0.281,
       "events": [
         {
           "step": "enter-topic",
@@ -1333,7 +1329,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.791,
+      "elapsed_seconds": 1.313,
       "events": [
         {
           "step": "enter-topic",
@@ -1372,7 +1368,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.002,
+      "elapsed_seconds": 0.015,
       "events": [],
       "skipped": []
     },
@@ -1390,7 +1386,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.604,
+      "elapsed_seconds": 0.953,
       "events": [
         {
           "step": "enter-topic",
@@ -1425,7 +1421,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.002,
+      "elapsed_seconds": 0.016,
       "events": [],
       "skipped": []
     },
@@ -1461,7 +1457,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.01,
+      "elapsed_seconds": 0.047,
       "events": [],
       "skipped": []
     },
@@ -1538,7 +1534,7 @@
       },
       "model_calls": 0,
       "verified_count": 0,
-      "elapsed_seconds": 0.203
+      "elapsed_seconds": 0.313
     },
     {
       "test": "test_lab.BrowserTests.test_30_missing_checkpoint_file_stops",
@@ -1554,7 +1550,7 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.544,
+      "elapsed_seconds": 1.0,
       "events": [
         {
           "step": "enter-topic",
@@ -1589,17 +1585,12 @@
       },
       "model_calls": 0,
       "blocked_requests": [],
-      "elapsed_seconds": 0.001,
+      "elapsed_seconds": 0.016,
       "events": [],
       "skipped": []
     }
   ],
   "v02_observations": [
-    {
-      "check": "teaching API pipeline",
-      "result": "import -> explicit parameter -> authored collection selection -> checksum approval -> VERIFIED rehearsal -> daily schedule saved",
-      "scope": "actual HTTP API and offline Chromium; not inferred intent"
-    },
     {
       "check": "forced process exit",
       "result": "NEEDS_REVIEW; simulated effect not repeated",
@@ -1611,11 +1602,11 @@
       "clock": "injected UTC clock, actual background controller thread; not an overnight soak",
       "rehearsal": "VERIFIED",
       "scheduled": {
-        "attempt_id": "60dcf90f-8a1b-4cfd-8cc0-046cb6114a00",
+        "attempt_id": "524bdb09-2710-4c43-bc55-096b1bf8b481",
         "blocked_requests": [],
         "completion_note": "Verified local file count, format, bounded decode, and declared hash.",
         "due_at": "2026-10-23T02:30:00.000000+00:00",
-        "elapsed_seconds": 1.24,
+        "elapsed_seconds": 1.688,
         "error": null,
         "events": [
           {
@@ -1643,9 +1634,9 @@
             "step": "collect"
           }
         ],
-        "finished_at": "2026-10-23T06:59:22.201899+00:00",
+        "finished_at": "2026-10-24T20:56:33.170935+00:00",
         "fixture_transport": "memory",
-        "job_key": "schedule:f133b6d1-0b38-416d-917f-f7a291fe3411:2026-10-23T02:30:00.000000+00:00",
+        "job_key": "schedule:57bb1488-10b9-49ed-982f-ecb5e7f9183c:2026-10-23T02:30:00.000000+00:00",
         "model_call_basis": "No model client or provider code exists in this runner.",
         "model_calls": 0,
         "new_downloads": 2,
@@ -1654,13 +1645,13 @@
           "topic": "architecture"
         },
         "recipe_sha256": "252d5e9b2175db8528c263259878fc971fd3a89c4345e24c4bd0004828e7083a",
-        "report_path": "/tmp/tmpv23pv0oz/reports/3ba90f10-38c9-491d-a7aa-c5961b65e525.json",
+        "report_path": "C:\\Users\\dvajj\\AppData\\Local\\Temp\\tmpu2em2tut\\reports\\b385e314-6b64-49fb-a88a-5864977a58cc.json",
         "resumed_files": 0,
-        "run_id": "3ba90f10-38c9-491d-a7aa-c5961b65e525",
+        "run_id": "b385e314-6b64-49fb-a88a-5864977a58cc",
         "scenario": "normal",
-        "schedule_id": "f133b6d1-0b38-416d-917f-f7a291fe3411",
+        "schedule_id": "57bb1488-10b9-49ed-982f-ecb5e7f9183c",
         "skipped": [],
-        "started_at": "2026-10-23T06:59:20.961647+00:00",
+        "started_at": "2026-10-24T20:56:31.481786+00:00",
         "status": "VERIFIED",
         "trigger": "schedule",
         "verified_count": 2,
@@ -1669,7 +1660,7 @@
             "bytes": 1498,
             "height": 24,
             "item_id": "asset-01",
-            "path": "artifacts/1f8866d23ed071372a55/asset-01-786b7b42d37d.png",
+            "path": "artifacts/08ffa36ccb3cedb7835a/asset-01-786b7b42d37d.png",
             "reused": false,
             "sha256": "786b7b42d37d2b25dcd469b0592034e2a71dffe0b9e6bc087265f00700bb4fce",
             "width": 24
@@ -1678,7 +1669,7 @@
             "bytes": 1535,
             "height": 24,
             "item_id": "asset-02",
-            "path": "artifacts/1f8866d23ed071372a55/asset-02-c9fe7cb1f161.png",
+            "path": "artifacts/08ffa36ccb3cedb7835a/asset-02-c9fe7cb1f161.png",
             "reused": false,
             "sha256": "c9fe7cb1f16196bc2936b4baa0e773713280d0f1ccda40695980ff758adaa630",
             "width": 24
@@ -1687,6 +1678,11 @@
         "workflow": "collect-local-images"
       },
       "duplicate_tick": "no second execution"
+    },
+    {
+      "check": "teaching API pipeline",
+      "result": "import -> explicit parameter -> authored collection selection -> checksum approval -> VERIFIED rehearsal -> daily schedule saved",
+      "scope": "actual HTTP API and offline Chromium; not inferred intent"
     }
   ],
   "v03_observations": [
@@ -1697,13 +1693,16 @@
       "sha256": "076a51e055e2cb8f151858e412b640ef479476dc5c368d391ee2a185a12497a9"
     },
     {
-      "status": "BLOCKED",
-      "error": {
-        "code": "ENVIRONMENT_BLOCKED",
-        "message": "Browser navigation is blocked by administrator policy. No policy was changed."
-      },
+      "status": "PASS",
+      "http_status": 200,
       "layer": "real browser HTTP navigation",
       "policy_changed": false
+    },
+    {
+      "layer": "real browser HTTP",
+      "status": "VERIFIED_EXPORT",
+      "rows": 5,
+      "expired_session": "AUTH_REQUIRED"
     }
   ],
   "v04_observations": [
@@ -1737,10 +1736,10 @@
       "layer": "real Chromium owned DOM + local verified JSON files",
       "report": {
         "schema_version": 1,
-        "run_id": "8ac30dd0-ef67-455e-a451-d0e5f649d90d",
+        "run_id": "b50aeff8-7ec9-4722-86e0-015976b00cd9",
         "status": "VERIFIED",
-        "started_at": "2026-10-23T06:59:40.498093+00:00",
-        "finished_at": "2026-10-23T06:59:41.923740+00:00",
+        "started_at": "2026-10-24T20:57:07.078040+00:00",
+        "finished_at": "2026-10-24T20:57:08.649547+00:00",
         "recipe_sha256": "8a6950068f3f208f3e6fe49f3f330a551e4c261785096515188a18f49b1d3c7d",
         "plan_sha256": "47cb70e2b95e9281c185bd7f228cef422b48800745658d394d5214c5a3a226ca",
         "input_rows": 3,
@@ -1755,8 +1754,8 @@
               "captions": true
             },
             "artifact": {
-              "path": "lesson-artifacts/8ac30dd0-ef67-455e-a451-d0e5f649d90d-architecture.json",
-              "sha256": "48bb38080f5bec13981b5d898faa5232ff21146c9611aa2a6851c03423eb6474",
+              "path": "lesson-artifacts\\b50aeff8-7ec9-4722-86e0-015976b00cd9-architecture.json",
+              "sha256": "ddbe47f19caca26b501799e44b6ff107a50085a248147fcbdda3b4bfe73ed534",
               "bytes": 526
             }
           },
@@ -1769,8 +1768,8 @@
               "captions": false
             },
             "artifact": {
-              "path": "lesson-artifacts/8ac30dd0-ef67-455e-a451-d0e5f649d90d-gardens.json",
-              "sha256": "323374671f9337ca9e5057ed9c1b5fd32e425878c7f11d40d1fd065ef8dc50e7",
+              "path": "lesson-artifacts\\b50aeff8-7ec9-4722-86e0-015976b00cd9-gardens.json",
+              "sha256": "c66d1b9cf7128c5c755ea2ba8c8c1319765c933d62ceb0e1d124f2a461790b85",
               "bytes": 521
             }
           },
@@ -1783,8 +1782,8 @@
               "captions": true
             },
             "artifact": {
-              "path": "lesson-artifacts/8ac30dd0-ef67-455e-a451-d0e5f649d90d-interiors.json",
-              "sha256": "153e3084766228d5d0d793761023a66ef3599bb13d7b64fea214ce7ae574588f",
+              "path": "lesson-artifacts\\b50aeff8-7ec9-4722-86e0-015976b00cd9-interiors.json",
+              "sha256": "974a5082028ad39d13a6e316f0cfc558c7f58959d3c74c8e202eb749a3d0f967",
               "bytes": 529
             }
           }
@@ -1868,8 +1867,8 @@
         "scope": "Owned in-memory form, actual Chromium actions; no HTTP or external site",
         "verification": "Three exact output values per row, not a success banner",
         "error": null,
-        "browser_version": "144.0.7559.96",
-        "duration_ms": 1426,
+        "browser_version": "143.0.7499.4",
+        "duration_ms": 1578,
         "unstarted_or_unverified_rows": 0
       }
     },
@@ -1899,8 +1898,9 @@
     "Controlled pause/resume and an injected process exit are tested; arbitrary power-loss and remote exactly-once effects are not.",
     "Scheduling tests use injected clocks, including one actual offline Chromium scheduled execution; no overnight soak.",
     "No OS-level egress isolation or adversarial-site security certification.",
-    "No claim of Windows, macOS, mobile, or production-site validation.",
+    "Windows is locally tested; macOS/Linux CI and third-party site qualification are separate gates.",
     "Owned HTTP-client checks do not qualify browser HTTP; full browser sign-in/export test is a separate gate.",
-    "Session vault is passphrase-based, not an OS keychain; no authenticated recurring schedules."
+    "Legacy vault is passphrase-based. Live transfer schedules use dedicated browser profiles, not an OS keychain.",
+    "Transfer verification requires byte-identical destination originals; sites that recompress images need another reviewed verifier."
   ]
 }

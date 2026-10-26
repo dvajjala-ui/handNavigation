@@ -1,0 +1,12 @@
+{
+  "schema": "handnavigate.local-download.v1",
+  "status": "AUTH_REQUIRED",
+  "source": "https://www.pinterest.com/search/pins/?q=%5BREDACTED%5D",
+  "request_sha256": "9cc83079e541d62863806515c845b324e55e0e9129248c1167b1644984438a61",
+  "requested": 20,
+  "downloaded": 0,
+  "folder": "C:\\Users\\dvajj\\Downloads\\Pinterest-nature-landscape",
+  "model_calls": 0,
+  "items": [],
+  "error": "PINTEREST_LOGIN_REQUIRED: search images are gated; sign in manually to continue"
+}

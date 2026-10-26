@@ -1,0 +1,35 @@
+{
+  "responses": [
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/",
+      "status": 200,
+      "at": 1792873669.5467525
+    },
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/index.css",
+      "status": 200,
+      "at": 1792873669.609113
+    },
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/base.css",
+      "status": 200,
+      "at": 1792873669.6106296
+    },
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/js/director.js",
+      "status": 200,
+      "at": 1792873669.6180382
+    },
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/js/bundle.js",
+      "status": 200,
+      "at": 1792873669.7190764
+    }
+  ],
+  "blocked": []
+}

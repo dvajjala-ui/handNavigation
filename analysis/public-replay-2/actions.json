@@ -1,0 +1,36 @@
+[
+  {
+    "index": 0,
+    "before": "ae0b93f7b6114c508dd2b3baa13980eb",
+    "action": {
+      "op": "fill",
+      "value": "HandNavigate audit example 2",
+      "target_description": {
+        "role": "textbox",
+        "name": "",
+        "tag": "input"
+      }
+    },
+    "status": "EXECUTED",
+    "network_start": 5,
+    "after": "7c042fc0868447419a75dd318a36857a",
+    "network": []
+  },
+  {
+    "index": 1,
+    "before": "7c042fc0868447419a75dd318a36857a",
+    "action": {
+      "op": "press",
+      "value": "Enter",
+      "target_description": {
+        "role": "textbox",
+        "name": "",
+        "tag": "input"
+      }
+    },
+    "status": "EXECUTED",
+    "network_start": 5,
+    "after": "dfac14c2ccc64e3f9e54bd0462f21f4b",
+    "network": []
+  }
+]

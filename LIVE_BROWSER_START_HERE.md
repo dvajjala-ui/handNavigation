@@ -1,5 +1,7 @@
 # HandNavigate live-browser core: local run guide
 
+For the implemented image download/upload core, start with [CORE_WORKFLOW.md](CORE_WORKFLOW.md). Windows: `handnavigate.cmd demo` runs a complete owned two-site transfer. `live transfer init/teach/run` configures real site pairs; `schedule/worker` repeats verified recipes without AI. The older experimental browser guide below remains relevant for individual actions and recordings.
+
 **Status: experimental development module, not a qualified release.** The code accepts real URLs and has no synthetic-site fallback. External browser navigation and live-model operation could not be validated in this environment. The old studio UI still opens its practice workflow; use the `live` CLI below for the new browser core.
 
 ## Setup

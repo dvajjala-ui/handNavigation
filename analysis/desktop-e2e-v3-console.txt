@@ -1,0 +1,19 @@
+
+> handnavigate-desktop@0.5.0 test:desktop
+> node desktop/test/e2e.cjs
+
+App launched
+20 images verified
+Second topic verified
+Taught replay verified
+
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByText('Private gallery', { exact: true }) to be visible
+
+    at main (D:\5. GitUploaded\hand\desktop\test\e2e.cjs:70:150) {
+  log: [
+    "  - waiting for getByText('Private gallery', { exact: true }) to be visible"
+  ],
+  name: 'TimeoutError'
+}

@@ -1,7 +1,7 @@
 """Real Playwright observations/actions. The CLI never loads a fixture as fallback."""
 from __future__ import annotations
 
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
@@ -306,9 +306,9 @@ class Driver:
 
 
 @contextmanager
-def open_driver(scope: Scope, output: Path, *, headless: bool = False, profile: Path | None = None):
+def open_driver(scope: Scope, output: Path, *, headless: bool = False, profile: Path | None = None, playwright=None):
     """Uses installed browser policy as-is; never switches engine to bypass a URL block."""
-    with sync_playwright() as p:
+    with (nullcontext(playwright) if playwright is not None else sync_playwright()) as p:
         browser = None
         if profile:
             profile = profile.resolve()

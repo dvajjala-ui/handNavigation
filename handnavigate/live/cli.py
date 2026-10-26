@@ -38,8 +38,13 @@ def checks_args(parser):
 
 
 def main(argv=None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    if argv and argv[0] == 'transfer':
+        from ..transfer.cli import main as transfer_main
+        return transfer_main(argv[1:])
     p = argparse.ArgumentParser(description='HandNavigate experimental live-browser core; no synthetic-site fallback')
     subs = p.add_subparsers(dest='command', required=True)
+    subs.add_parser('transfer', help='Core image collection, upload, verification, teaching and daily repetition')
     for name in ('inspect','record','agent','doctor'):
         parser = subs.add_parser(name)
         common(parser)

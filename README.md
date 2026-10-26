@@ -1,3 +1,15 @@
+# HandNavigate Desktop
+
+**Open `dist/HandNavigate-0.5.0-Windows.exe` to use the desktop app and its persistent browser.** No Python, Node or AI key is needed for the packaged build. See [DESKTOP_START_HERE.md](DESKTOP_START_HERE.md) for the teach → review → run → daily workflow, uploads, supported sites and testing evidence. Source: `desktop/`.
+
+The Python source and historical delivery below remain available. Their Studio screens and browser sessions are separate from the new desktop app.
+
+# Core image transfer implementation
+
+Start with [CORE_WORKFLOW.md](CORE_WORKFLOW.md). The new `live transfer` engine collects and validates real images, uploads through a browser form, verifies persisted destination image bytes, resumes through a durable journal, and runs pinned daily jobs without AI. Windows quick check: `handnavigate.cmd demo`.
+
+The sections below describe the older delivery and its historical qualification boundaries. They do not describe the new transfer implementation; consult the core workflow guide for current behavior and limits.
+
 # Experimental live-browser core patch
 
 This bundle preserves v0.4 and adds `python -m handnavigate live ...`. The old studio is still practice-only.

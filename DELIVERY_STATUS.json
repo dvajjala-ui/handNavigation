@@ -1,28 +1,84 @@
 {
-  "build": "v0.4 + experimental live-browser core",
-  "new_component_suite": {
-    "tests": 42,
-    "failures": 0,
-    "errors": 0,
-    "skipped": 0
+  "build": "HandNavigate Desktop 0.5.0 and core image transfer implementation",
+  "review_date": "2026-10-27",
+  "environment": "Windows, Electron 45.0.0, Playwright 1.64.1, Node 24.16.0; Python core retained",
+  "desktop": {
+    "artifact": "dist/HandNavigate-0.5.0-Windows.exe",
+    "artifact_bytes": 116423427,
+    "artifact_sha256": "31A2A3DE43A237A5A5942326485DE97228C02F10AEC3DA549618DF5CB05F4D19",
+    "core_tests": "16 passed, 0 failed",
+    "electron_acceptance": "16 passed, 0 failed",
+    "packaged_smoke": "3 real fixture images downloaded and independently decoded with matching SHA-256",
+    "owned_site_scope": true,
+    "external_site_qualified": false,
+    "daily_worker": "one real scheduled execution with an injected future clock; no overnight endurance run",
+    "requires_python_node_or_ai_key": false
   },
-  "real_browser_navigation_probe": {
-    "status": "ENVIRONMENT_BLOCKED",
-    "error_type": "Error",
-    "error": "Browser URL navigation is blocked by administrator policy; no fallback was attempted",
-    "live_site_qualified": false
+  "test_results": {
+    "distinct_cases": 241,
+    "passed": 240,
+    "skipped": 1,
+    "full_suite": "238 passed, 1 skipped; 91 passing subtests",
+    "later_regression_checks": "2 passed: reuse existing files and empty listing"
   },
-  "real_llm_requests": 0,
-  "vision_provider_tested": false,
-  "real_site_e2e_qualified": false,
-  "legacy_full_regression": "INCOMPLETE_TIMEOUT",
-  "legacy_completed_before_timeout": {
-    "passed": 19,
-    "skipped": 1
+  "owned_http_demo": {
+    "status": "VERIFIED",
+    "requested": 10,
+    "downloaded": 10,
+    "uploaded": 10,
+    "confirmed": 10,
+    "model_calls": 0,
+    "demo_http_upload_requests": 10,
+    "demo_persisted_images": 10
   },
-  "studio_integration": "not wired; previous studio remains practice-only",
-  "source_reference_archive": "trustudio_capture.zip",
-  "reference_session_imported": false,
-  "uploaded_secret_used": false,
-  "uploaded_secret_in_deliverable": false
+  "implemented": [
+    "real PNG/JPEG/WebP validation",
+    "bounded listing/pagination",
+    "browser file upload",
+    "persisted destination byte verification",
+    "durable per-item journal",
+    "duplicate prevention and interruption reconciliation",
+    "real-site setup recording and image-group picker",
+    "separate persistent login profiles",
+    "pinned daily schedule and process watchdog",
+    "complete test entry point and CI integration"
+  ],
+  "third_party_site_pairs_qualified": [],
+  "live_model_requests": 0,
+  "limits": [
+    "exact original-image bytes required for destination verification",
+    "main-frame controls and a unique normal file input",
+    "site-specific selectors, dependencies and account rules require review",
+    "no multi-day soak or human usability study",
+    "application network guard is not OS isolation",
+    "persistent browser sessions are sensitive; no OS credential-store integration"
+  ],
+  "previous_delivery_status": {
+    "build": "v0.4 + experimental live-browser core",
+    "new_component_suite": {
+      "tests": 42,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "real_browser_navigation_probe": {
+      "status": "ENVIRONMENT_BLOCKED",
+      "error_type": "Error",
+      "error": "Browser URL navigation is blocked by administrator policy; no fallback was attempted",
+      "live_site_qualified": false
+    },
+    "real_llm_requests": 0,
+    "vision_provider_tested": false,
+    "real_site_e2e_qualified": false,
+    "legacy_full_regression": "INCOMPLETE_TIMEOUT",
+    "legacy_completed_before_timeout": {
+      "passed": 19,
+      "skipped": 1
+    },
+    "studio_integration": "not wired; previous studio remains practice-only",
+    "source_reference_archive": "trustudio_capture.zip",
+    "reference_session_imported": false,
+    "uploaded_secret_used": false,
+    "uploaded_secret_in_deliverable": false
+  }
 }

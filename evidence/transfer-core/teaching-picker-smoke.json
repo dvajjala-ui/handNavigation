@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "scope": "Playwright-driven picker on real owned HTTP pages; not observed human teaching",
+  "choices": {
+    "source": {
+      "selector": "img",
+      "attribute": "src",
+      "matches": 4
+    },
+    "target": {
+      "selector": "#gallery img",
+      "matches": 0
+    }
+  }
+}

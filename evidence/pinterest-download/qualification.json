@@ -1,0 +1,17 @@
+{
+  "requested_site": "Pinterest",
+  "requested_images": 20,
+  "live_status": "VERIFIED_IN_APP_BROWSER",
+  "pinterest_images_saved": 20,
+  "reason": "Downloaded actual signed-in Pinterest search images through the in-app browser and independently validated all 20 local files.",
+  "planned_folder": "C:\\Users\\dvajj\\Downloads\\Pinterest-nature-landscape",
+  "download_only_tests": {
+    "passed": 47,
+    "failed": 0,
+    "scope": "42 existing live-browser tests plus 5 new local-download tests, including 20-image owned HTTP acceptance"
+  },
+  "command": "handnavigate.cmd download --query nature-landscape --count 20 --login",
+  "actual_folder": "C:\\Users\\dvajj\\Downloads\\Pinterest-nature-landscape",
+  "unique_image_hashes": 20,
+  "standalone_pinterest_login_qualified": false
+}

@@ -1,0 +1,8 @@
+{
+  "output": "analysis\\public-browser-probe",
+  "status": "OBSERVED",
+  "url": "https://demo.playwright.dev/todomvc/",
+  "controls": 4,
+  "model_calls": 0,
+  "notice": "Navigation/observation only, not an automation success"
+}

@@ -1,0 +1,28 @@
+
+> handnavigate-desktop@0.5.0 test
+> node --test desktop/test/*.test.cjs
+
+✔ variable interpolation is explicit and URL values cannot change origins (2.7748ms)
+✔ approval binds all execution fields and changes invalidate rehearsals (35.771ms)
+✔ changing a workflow title preserves exact executable approval (13.7228ms)
+✔ replay drafts can be saved but require output checks before approval (6.6262ms)
+✔ invalid primitives, unknown actions and blocked recordings are rejected (0.5872ms)
+✔ restarting preserves task state and marks interrupted remote work for review (19.0356ms)
+✔ corrupt primary database restores its last integrity-checked backup (18.8476ms)
+✔ uncertain uploads need explicit absence confirmation before later retries (24.5427ms)
+✔ schedule requires every row to have a verified rehearsal (97.0706ms)
+✔ daily runs rotate variable rows and never replay the same occurrence (39.664ms)
+✔ missed days materialize only the latest occurrence (27.3315ms)
+✔ non-verified daily outcomes pause the workflow (24.5075ms)
+✔ DST nonexistent times skip and repeated times choose first occurrence (4.0688ms)
+✔ real JPEG PNG and WebP decoding checks content and rejects HTML (1343.4642ms)
+✔ image collection skips invalid gallery candidates and saves the next real image (1324.4901ms)
+✔ destination inventory considers a linked original after invalid and resized images (569.0695ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14402.8633

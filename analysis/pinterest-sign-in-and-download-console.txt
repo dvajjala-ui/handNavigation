@@ -1,0 +1,18 @@
+Sign in in the Pinterest window. The download starts automatically after Pinterest confirms login.
+Traceback (most recent call last):
+  File "D:\5. GitUploaded\hand\analysis\pinterest_sign_in_and_download.py", line 41, in <module>
+    context.close()
+  File "D:\5. GitUploaded\hand\.venv\Lib\site-packages\playwright\sync_api\_generated.py", line 13548, in close
+    return mapping.from_maybe_impl(self._sync(self._impl_obj.close(reason=reason)))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\5. GitUploaded\hand\.venv\Lib\site-packages\playwright\_impl\_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "D:\5. GitUploaded\hand\.venv\Lib\site-packages\playwright\_impl\_browser_context.py", line 616, in close
+    await self._channel.send("close", None, {"reason": reason})
+  File "D:\5. GitUploaded\hand\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\5. GitUploaded\hand\.venv\Lib\site-packages\playwright\_impl\_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TargetClosedError: BrowserContext.close: Target page, context or browser has been closed

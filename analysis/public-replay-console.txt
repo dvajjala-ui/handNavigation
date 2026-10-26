@@ -1,0 +1,49 @@
+{
+  "scope": "Public TodoMVC demo only; temporary browser contexts; receipts issued by audit harness, not an interactive operator review",
+  "runs": [
+    {
+      "run": 1,
+      "inputs": {
+        "todo_text": "HandNavigate audit example 1"
+      },
+      "result": {
+        "status": "VERIFIED",
+        "model_calls": 0,
+        "actions": 2,
+        "checks": [
+          {
+            "kind": "text_visible",
+            "passed": true
+          },
+          {
+            "kind": "input_value",
+            "passed": true
+          }
+        ],
+        "downloads": []
+      }
+    },
+    {
+      "run": 2,
+      "inputs": {
+        "todo_text": "HandNavigate audit example 2"
+      },
+      "result": {
+        "status": "VERIFIED",
+        "model_calls": 0,
+        "actions": 2,
+        "checks": [
+          {
+            "kind": "text_visible",
+            "passed": true
+          },
+          {
+            "kind": "input_value",
+            "passed": true
+          }
+        ],
+        "downloads": []
+      }
+    }
+  ]
+}

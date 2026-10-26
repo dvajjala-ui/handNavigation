@@ -1,0 +1,169 @@
+{
+  "snapshot": "ae0b93f7b6114c508dd2b3baa13980eb",
+  "at": "2026-10-24T20:27:54.109972+00:00",
+  "url": "https://demo.playwright.dev/todomvc/",
+  "title": "React \u2022 TodoMVC",
+  "label": "replay-initial",
+  "text": "This is just a demo of TodoMVC for testing, not the\nreal TodoMVC app.\ntodos\nDouble-click to edit a todo\nCreated by\nRemo H. Jansen\nPart of\nTodoMVC",
+  "elements": [
+    {
+      "tag": "a",
+      "type": "",
+      "role": "link",
+      "name": "real TodoMVC app.",
+      "label": "",
+      "sensitive": false,
+      "value": null,
+      "checked": null,
+      "options": [],
+      "href": "https://todomvc.com/",
+      "disabled": false,
+      "box": {
+        "x": 739,
+        "y": 13,
+        "width": 120,
+        "height": 16
+      },
+      "style": {
+        "display": "inline",
+        "visibility": "visible",
+        "cursor": "pointer"
+      },
+      "id": "e0",
+      "locator": {
+        "kind": "role",
+        "role": "link",
+        "name": "real TodoMVC app."
+      }
+    },
+    {
+      "tag": "input",
+      "type": "",
+      "role": "textbox",
+      "name": "",
+      "label": "",
+      "sensitive": false,
+      "value": "",
+      "checked": null,
+      "options": [],
+      "href": null,
+      "disabled": false,
+      "box": {
+        "x": 365,
+        "y": 175,
+        "width": 550,
+        "height": 66
+      },
+      "style": {
+        "display": "inline-block",
+        "visibility": "visible",
+        "cursor": "text"
+      },
+      "id": "e1",
+      "locator": {
+        "kind": "placeholder",
+        "value": "What needs to be done?"
+      }
+    },
+    {
+      "tag": "a",
+      "type": "",
+      "role": "link",
+      "name": "Remo H. Jansen",
+      "label": "",
+      "sensitive": false,
+      "value": null,
+      "checked": null,
+      "options": [],
+      "href": "http://github.com/remojansen/",
+      "disabled": false,
+      "box": {
+        "x": 629,
+        "y": 324,
+        "width": 74,
+        "height": 11
+      },
+      "style": {
+        "display": "inline",
+        "visibility": "visible",
+        "cursor": "pointer"
+      },
+      "id": "e2",
+      "locator": {
+        "kind": "role",
+        "role": "link",
+        "name": "Remo H. Jansen"
+      }
+    },
+    {
+      "tag": "a",
+      "type": "",
+      "role": "link",
+      "name": "TodoMVC",
+      "label": "",
+      "sensitive": false,
+      "value": null,
+      "checked": null,
+      "options": [],
+      "href": "http://todomvc.com/",
+      "disabled": false,
+      "box": {
+        "x": 634,
+        "y": 344,
+        "width": 44,
+        "height": 11
+      },
+      "style": {
+        "display": "inline",
+        "visibility": "visible",
+        "cursor": "pointer"
+      },
+      "id": "e3",
+      "locator": {
+        "kind": "role",
+        "role": "link",
+        "name": "TodoMVC"
+      }
+    }
+  ],
+  "screenshot": "ae0b93f7b6114c508dd2b3baa13980eb.png",
+  "truncated": false,
+  "frame_count": 1,
+  "network": [
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/",
+      "status": 200,
+      "at": 1792873673.3319802
+    },
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/index.css",
+      "status": 200,
+      "at": 1792873673.4151099
+    },
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/base.css",
+      "status": 200,
+      "at": 1792873673.4161086
+    },
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/js/director.js",
+      "status": 200,
+      "at": 1792873673.4171124
+    },
+    {
+      "method": "GET",
+      "url": "https://demo.playwright.dev/todomvc/js/bundle.js",
+      "status": 200,
+      "at": 1792873673.5489383
+    }
+  ],
+  "blocked_requests": [],
+  "limitations": [
+    "Main-frame semantic controls only; no iframe/canvas/popup automation",
+    "Text and screenshots may contain private information; redaction is heuristic"
+  ]
+}

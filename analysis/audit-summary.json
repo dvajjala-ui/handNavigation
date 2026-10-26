@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-25",
+  "commit": "b9961fb6c135c6306a79d3248da8e3e27c881a56",
+  "platform": "Windows / Python 3.12.14 / Playwright 1.57.0 / Chromium 143.0.7499.4",
+  "tests": {
+    "total": 216,
+    "passed": 215,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "live_component_cases": 42
+  },
+  "public_probe": {
+    "status": "OBSERVED",
+    "url": "https://demo.playwright.dev/todomvc/",
+    "controls": 4,
+    "model_calls": 0,
+    "notice": "Navigation/observation only, not an automation success"
+  },
+  "public_replays": {
+    "scope": "Public TodoMVC demo only; temporary browser contexts; receipts issued by audit harness, not an interactive operator review",
+    "runs": [
+      {
+        "run": 1,
+        "inputs": {
+          "todo_text": "HandNavigate audit example 1"
+        },
+        "result": {
+          "status": "VERIFIED",
+          "model_calls": 0,
+          "actions": 2,
+          "checks": [
+            {
+              "kind": "text_visible",
+              "passed": true
+            },
+            {
+              "kind": "input_value",
+              "passed": true
+            }
+          ],
+          "downloads": []
+        }
+      },
+      {
+        "run": 2,
+        "inputs": {
+          "todo_text": "HandNavigate audit example 2"
+        },
+        "result": {
+          "status": "VERIFIED",
+          "model_calls": 0,
+          "actions": 2,
+          "checks": [
+            {
+              "kind": "text_visible",
+              "passed": true
+            },
+            {
+              "kind": "input_value",
+              "passed": true
+            }
+          ],
+          "downloads": []
+        }
+      }
+    ]
+  }
+}

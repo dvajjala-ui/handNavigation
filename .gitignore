@@ -1,4 +1,9 @@
 .venv/
+node_modules/
+dist/
+desktop/evidence/*
+!desktop/evidence/e2e-results.json
+!desktop/evidence/packaged-results.json
 __pycache__/
 *.pyc
 runtime/

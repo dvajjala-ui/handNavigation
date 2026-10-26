@@ -1,0 +1,73 @@
+{
+  "passed": 16,
+  "failed": 0,
+  "scope": "Real Electron UI and embedded browser, actual owned HTTP pages and image bytes",
+  "results": [
+    {
+      "test": "real desktop UI source -> 20 independently validated files",
+      "passed": true,
+      "images": 20
+    },
+    {
+      "test": "same approved workflow, second variable row, 20 distinct new files",
+      "passed": true
+    },
+    {
+      "test": "daily schedule enabled through UI after both rows verified",
+      "passed": true
+    },
+    {
+      "test": "actual teaching recorder -> parameter binding -> independent visible-result check",
+      "passed": true,
+      "steps": 2
+    },
+    {
+      "test": "embedded browser reuses the same authenticated session",
+      "passed": true
+    },
+    {
+      "test": "desktop engine downloads two images, uploads through real file input and verifies remote originals",
+      "passed": true
+    },
+    {
+      "test": "repeating transfer confirms remote copies without duplicate uploads",
+      "passed": true
+    },
+    {
+      "test": "insufficient source images returns PARTIAL with real files preserved",
+      "passed": true
+    },
+    {
+      "test": "HTML pretending to be an image is rejected",
+      "passed": true
+    },
+    {
+      "test": "image from an unreviewed origin is rejected before transfer",
+      "passed": true
+    },
+    {
+      "test": "fake upload success cannot pass; uncertain write is never blindly repeated",
+      "passed": true
+    },
+    {
+      "test": "explicitly resolved missing upload retries once and verifies the original without duplicates",
+      "passed": true
+    },
+    {
+      "test": "recorded workflow replays with a different variable value",
+      "passed": true
+    },
+    {
+      "test": "daily queue executes the real embedded-browser downloader and selects a new image",
+      "passed": true
+    },
+    {
+      "test": "app restart restores workflows and verified run history",
+      "passed": true
+    },
+    {
+      "test": "same browser login survives app restart",
+      "passed": true
+    }
+  ]
+}

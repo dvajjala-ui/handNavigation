@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'">
+<title>HandNavigate</title><link rel="stylesheet" href="styles.css"></head>
+<body><div class="app">
+<aside class="sidebar"><div class="brand"><span class="brand-mark">H<span>↗</span></span><div>HandNavigate<small>YOUR LOCAL WORKSPACE</small></div></div>
+<button id="new-workflow" class="button primary wide">＋ New workflow</button>
+<div class="side-label">YOUR WORKFLOWS <span id="task-count">0</span></div><div id="workflow-list" class="workflow-list"></div>
+<div class="side-bottom"><div class="online-dot"></div><span>Runs on this computer<small>Keep the app open for daily runs</small></span><button id="about" aria-label="About this app">ⓘ</button></div></aside>
+<main><header class="topbar"><div><div class="eyebrow">TEACH ONCE. REPEAT WITH CONFIDENCE.</div><h1 id="workflow-title">Daily images</h1></div><div class="top-actions"><span id="approval-status" class="pill amber">Draft</span><button id="open-folder" class="button subtle">↗ Downloads</button></div></header>
+<div id="notice" class="notice" role="status" hidden></div>
+<div class="workspace">
+<section class="control-panel"><nav class="tabs" aria-label="Workflow sections"><button class="selected" data-tab="setup">Set up</button><button data-tab="review">Review</button><button data-tab="schedule">Daily</button><button data-tab="history">History</button></nav>
+<div class="panel-scroll">
+<section id="tab-setup" class="tab-content">
+<div class="section-heading"><span class="step-number">01</span><div><h2>What should it do?</h2><p>A real browser, with your saved login.</p></div></div>
+<label class="field">Workflow name<input id="task-name" maxlength="100" placeholder="e.g. My daily inspiration"></label>
+<label class="field">Task<select id="task-type"><option value="images">Download images</option><option value="replay">Repeat a taught task</option><option value="transfer">Download and upload images</option></select></label>
+<label class="field">Starting website<input id="task-url" placeholder="https://example.com/search?q={{topic}}"><span class="hint">Use {{topic}} where a search value changes.</span></label>
+<label class="field">Values to repeat<textarea id="task-values" rows="3" placeholder="nature landscape&#10;modern architecture&#10;interior design"></textarea><span class="hint">One topic per line. Daily runs rotate through these values.</span></label>
+<div class="form-row"><label class="field image-settings">Images per run<input id="task-count-input" type="number" min="1" max="100" value="20"></label><label class="field">Choose values<select id="run-row"></select></label></div><div class="image-settings">
+<label class="field">Save files to<div class="folder-input"><input id="task-folder" readonly><button id="choose-folder" title="Choose download folder">…</button></div></label>
+<label class="check"><input id="new-only" type="checkbox" checked><span>Collect new images each time<small>Skip files already verified in earlier runs.</small></span></label></div>
+<div class="actions"><button id="save-task" class="button primary">Save workflow</button><button id="open-site" class="button">Open website →</button></div>
+<div class="divider"></div>
+<div class="section-heading"><span class="step-number">02</span><div><h2>Show it the steps</h2><p>Sign in first. Then demonstrate the task.</p></div></div>
+<div class="teaching-card"><div class="teaching-icon">◎</div><div><strong id="record-label">Ready to learn</strong><p id="record-help">Record searches, clicks, selections and form inputs. A direct results URL needs no recording.</p></div></div>
+<div class="actions"><button id="record" class="button">● Start teaching</button><button id="stop-record" class="button danger" hidden>■ Stop teaching</button><button id="pick-images" class="button">⌖ Choose images</button></div>
+<div id="transfer-controls" hidden><div class="divider"></div><h3>Upload destination</h3><p class="hint">Open the destination upload form in the browser. Select its input, then choose its saved-image gallery.</p><div class="actions"><button id="choose-upload" class="button">Use this upload form</button><button id="pick-gallery" class="button">Choose saved gallery</button></div><div id="target-summary" class="hint"></div></div>
+<div class="small-note">Nothing is trained in the background. Your demonstration becomes visible steps you can inspect and reuse.</div>
+</section>
+<section id="tab-review" class="tab-content" hidden>
+<div class="section-heading"><span class="step-number">03</span><div><h2>Review the workflow</h2><p>Check once. Repeating uses no AI.</p></div></div>
+<div class="review-summary" id="review-summary"></div><h3>Recorded steps <span id="steps-count" class="muted"></span></h3><div id="steps-list"></div>
+<p class="hint">Change an input value to <code>{{topic}}</code> to use the configured topics. Other named variables are available in Advanced.</p>
+<div class="actions"><button id="save-steps" class="button">Save step changes</button><button id="add-wait" class="button subtle">＋ Wait</button></div>
+<div class="divider"></div><h3>What proves success?</h3><div id="image-verification" class="verification"><span>✓</span><p>Exactly the requested image count, independently decoded files and unique SHA-256 hashes.</p></div>
+<label class="field">Visible result text (optional for images)<input id="check-text" placeholder="e.g. Ready: {{topic}}"><span class="hint">Required for a taught task unless you provide a final URL check.</span></label>
+<label class="field">Final URL check (optional)<input id="check-url" placeholder="https://example.com/done"></label>
+<details class="advanced"><summary>Advanced: websites, selectors and variables</summary>
+<label class="field">Image selector<input id="source-selector" placeholder="img"></label><label class="field">Reviewed websites<textarea id="allowed-origins" rows="3"></textarea></label><label class="field">Image websites<textarea id="image-origins" rows="2"></textarea></label>
+<label class="field">Variable rows (JSON)<textarea id="rows-json" rows="4" spellcheck="false"></textarea></label><button id="apply-advanced" class="button">Save advanced changes</button></details>
+<div class="divider"></div><label class="check approval-check"><input id="review-ack" type="checkbox"><span>I reviewed these sites, actions and result checks.</span></label>
+<button id="approve-run" class="button primary wide">Approve & run</button><p class="hint centered">Only these reviewed steps and values will run.</p>
+</section>
+<section id="tab-schedule" class="tab-content" hidden>
+<div class="section-heading"><span class="step-number">04</span><div><h2>Put it on a daily loop</h2><p>One verified run for each value comes first.</p></div></div>
+<div id="schedule-readiness" class="verification"></div><label class="field">Every day at<input id="schedule-time" type="time" value="09:00"></label><label class="field">Timezone<input id="schedule-zone" value="Asia/Kolkata"></label>
+<div id="schedule-values" class="value-rotation"></div><div class="actions"><button id="schedule-enable" class="button primary">Turn on daily runs</button><button id="schedule-pause" class="button" hidden>Pause daily runs</button></div>
+<div class="small-note"><strong>This computer is the runner.</strong><p>Keep HandNavigate open and the computer awake. After downtime it runs at most the latest occurrence. An incomplete or failed run pauses the schedule for review.</p></div>
+</section>
+<section id="tab-history" class="tab-content" hidden><div class="section-heading"><div><h2>Results, with proof</h2><p>Verified output is what counts.</p></div></div><div id="history-list"></div></section>
+</div><footer class="run-footer"><div><strong id="run-state">Ready when you are</strong><span id="run-detail">Review before the first run</span></div><button id="run-now" class="button primary">▶ Run now</button><button id="stop-run" class="button danger" hidden>■ Stop</button></footer>
+</section>
+<section class="browser-panel"><div class="browser-toolbar"><button id="browser-back" aria-label="Back">←</button><button id="browser-forward" aria-label="Forward">→</button><button id="browser-reload" aria-label="Reload">↻</button><form id="address-form"><span class="browser-lock">◈</span><input id="browser-address" aria-label="Browser address" placeholder="Open any website"><button type="submit">Go</button></form><span class="browser-badge">YOUR BROWSER</span></div><div id="browser-slot"></div><div class="browser-footer"><span id="browser-status"><span class="online-dot"></span> Sign in here once. Runs use this same session.</span><span>Local · private by default</span></div></section>
+</div></main></div>
+<div id="new-dialog" class="modal-overlay" hidden><section class="modal" role="dialog" aria-labelledby="new-title"><button id="new-close" class="modal-close" aria-label="Close">×</button><span class="eyebrow">NEW WORKFLOW</span><h2 id="new-title">What would you like to repeat?</h2><p>Start with a website. Teach the part that changes.</p><label class="field">Name<input id="new-name" placeholder="Daily inspiration"></label><label class="field">Website address<input id="new-url" placeholder="https://example.com"></label><label class="field">Task<select id="new-type"><option value="images">Download images</option><option value="transfer">Download and upload images</option><option value="replay">Repeat a taught task</option></select></label><button id="new-create" class="button primary wide">Create workflow →</button><button id="new-pinterest" class="button subtle wide">Start with the Pinterest image template</button></section></div>
+<script src="renderer.js"></script></body></html>
