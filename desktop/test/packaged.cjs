@@ -25,7 +25,7 @@ async function main(){
     for(let i=0;i<150;i++){ui=context.pages().find(p=>p.url().endsWith('/index.html'));if(ui)break;await pause(200);}
     assert.ok(ui,'Packaged UI did not open');await ui.waitForSelector('#workflow-title');
     assert.match(await ui.title(),/HandNavigate/);
-    const task={...draft({startUrl:site.origin+'/images?count=3',outputFolder:output,imageOrigins:[]}),name:'Packaged smoke test',count:3,sourceSelector:'#gallery img'};
+    const task={...draft({startUrl:site.origin+'/images?count=3',outputFolder:output,imageOrigins:[]}),name:'Packaged smoke test',count:3,sourceSelector:'#gallery img',newOnly:false};
     const saved=await ui.evaluate(arg=>window.handnavigate.saveTask({task:arg}),task);assert.equal(saved.ok,true,JSON.stringify(saved));
     const approved=await ui.evaluate(arg=>window.handnavigate.approve(arg),{id:saved.value.id,sha:saved.value.sha});assert.equal(approved.ok,true,JSON.stringify(approved));
     const started=await ui.evaluate(id=>window.handnavigate.run({id,rowIndex:0}),saved.value.id);assert.equal(started.ok,true,JSON.stringify(started));
@@ -34,7 +34,14 @@ async function main(){
     assert.equal(run?.status,'VERIFIED',JSON.stringify(run));assert.equal(run.items.length,3);
     for(const item of run.items){assert.ok(fs.existsSync(item.file));assert.equal((await imageInfo(fs.readFileSync(item.file))).sha256,item.sha256);}
     assert.equal(new Set(run.items.map(i=>i.sha256)).size,3);
-    const result={passed:true,executable,files:run.items.length,sha256:run.items.map(i=>i.sha256),portablePath:path.resolve('dist/HandNavigate-0.5.0-Windows.exe')};
+    const apiPort=await freePort(),enabled=await ui.evaluate(port=>window.handnavigate.configureAPI({enabled:true,port}),apiPort);assert.equal(enabled.ok,true,JSON.stringify(enabled));
+    const state=await ui.evaluate(()=>window.handnavigate.state());assert.equal(state.value.integration.clientAvailable,true);
+    const settings=JSON.parse(fs.readFileSync(path.join(temp,'profile','integration.json'),'utf8')),headers={Authorization:'Bearer '+settings.token,'Content-Type':'application/json'},apiEndpoint='http://127.0.0.1:'+apiPort+'/v1';
+    const request={workflowId:saved.value.id,rowIndex:0,requestId:'packaged-approved-once'},start=await (await fetch(apiEndpoint+'/runs',{method:'POST',headers,body:JSON.stringify(request)})).json();
+    let apiRun;for(let i=0;i<300;i++){apiRun=await (await fetch(apiEndpoint+'/runs/'+start.id,{headers})).json();if(apiRun.status!=='RUNNING')break;await pause(200);}
+    assert.equal(apiRun.status,'VERIFIED',JSON.stringify(apiRun));assert.equal(apiRun.items.length,3);
+    const repeat=await (await fetch(apiEndpoint+'/runs',{method:'POST',headers,body:JSON.stringify(request)})).json();assert.equal(repeat.id,start.id);assert.equal(repeat.reused,true);
+    const result={passed:true,executable,files:run.items.length,sha256:run.items.map(i=>i.sha256),apiVerified:true,idempotencyVerified:true,scriptClientBundled:true,portablePath:path.resolve('dist/HandNavigate-'+require('../../package.json').version+'-Windows.exe')};
     fs.mkdirSync(path.resolve('desktop/evidence'),{recursive:true});fs.writeFileSync(path.resolve('desktop/evidence/packaged-results.json'),JSON.stringify(result,null,2));
     console.log(JSON.stringify(result,null,2));
     await ui.evaluate(()=>window.close()).catch(()=>{});

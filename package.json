@@ -1,6 +1,6 @@
 {
   "name": "handnavigate-desktop",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Teach browser workflows once and repeat them locally with verified results.",
   "author": "HandNavigate",
   "private": true,
@@ -8,7 +8,7 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test desktop/test/*.test.cjs",
-    "test:desktop": "node desktop/test/e2e.cjs",
+    "test:desktop": "node desktop/test/e2e.cjs && node desktop/test/workflows.cjs",
     "icons": "node desktop/build-icons.cjs",
     "dist": "npm run icons && electron-builder --win portable --x64",
     "pack": "npm run icons && electron-builder --dir --win --x64"
@@ -21,6 +21,7 @@
     "directories": { "output": "dist", "buildResources": "desktop/assets" },
     "files": ["desktop/**", "!desktop/test/**", "!desktop/evidence/**", "package.json"],
     "asarUnpack": ["node_modules/sharp/**", "node_modules/@img/**"],
+    "extraResources": [{"from":"Invoke-HandNavigate.ps1","to":"Invoke-HandNavigate.ps1"}],
     "win": { "target": ["portable"], "icon": "desktop/assets/icon.ico", "signAndEditExecutable": false },
     "portable": { "artifactName": "HandNavigate-${version}-Windows.exe" },
     "npmRebuild": false

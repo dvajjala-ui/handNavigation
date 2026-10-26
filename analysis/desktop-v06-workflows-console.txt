@@ -1,0 +1,50 @@
+[
+  {
+    "test": "real image and Next-control pickers collect 20 images across four HTTP pages",
+    "passed": true
+  },
+  {
+    "test": "next daily-style run scans past old pages and saves 20 new images",
+    "passed": true
+  },
+  {
+    "test": "saving ordinary UI edits preserves multiple named variable columns",
+    "passed": true
+  },
+  {
+    "test": "UI-enabled authenticated API runs real downloader once per request ID and rejects unapproved/invalid requests",
+    "passed": true
+  },
+  {
+    "test": "partial downloads remain in duplicate history on the next run",
+    "passed": true
+  },
+  {
+    "test": "library scope skips images previously saved by other workflows",
+    "passed": true
+  },
+  {
+    "test": "partial transfer reuses two validated local files and uploads all three once to an asynchronous gallery",
+    "passed": true
+  },
+  {
+    "test": "paginated destination verification finds existing originals without resending them",
+    "passed": true
+  },
+  {
+    "test": "destination page-limit exhaustion stops before any duplicate upload",
+    "passed": true
+  },
+  {
+    "test": "a late persisted upload can be rechecked and resolved without resending it",
+    "passed": true
+  },
+  {
+    "test": "API settings and request idempotency survive an app restart",
+    "passed": true
+  },
+  {
+    "test": "the supplied PowerShell client invokes and waits for a real approved download",
+    "passed": true
+  }
+]

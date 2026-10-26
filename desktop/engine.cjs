@@ -16,8 +16,21 @@ async function imageInfo(bytes) {
     if(!['jpeg','png','webp'].includes(meta.format)||meta.pages>1||!meta.width||!meta.height||meta.width*meta.height>MAX_PIXELS)throw new Error('format');
     await sharp(bytes,{failOn:'warning',limitInputPixels:MAX_PIXELS}).stats();
   }catch{throw new TaskError('The downloaded content is not a valid bounded JPEG, PNG, or WebP image.');}
-  return {sha256:crypto.createHash('sha256').update(bytes).digest('hex'),bytes:bytes.length,width:meta.width,height:meta.height,
+  const pixels=await sharp(bytes).rotate().resize(9,8,{fit:'fill'}).flatten({background:'#ffffff'}).removeAlpha().toColourspace('srgb').raw().toBuffer();
+  const gray=[],color=[0,0,0];for(let i=0;i<pixels.length;i+=3){gray.push((pixels[i]*299+pixels[i+1]*587+pixels[i+2]*114)/1000);for(let c=0;c<3;c++)color[c]+=pixels[i+c]/72;}
+  const mean=gray.reduce((a,b)=>a+b,0)/72,contrast=Math.sqrt(gray.reduce((a,b)=>a+(b-mean)**2,0)/72);
+  let bits=0n;for(let y=0;y<8;y++)for(let x=0;x<8;x++)bits=(bits<<1n)|(gray[y*9+x]>gray[y*9+x+1]?1n:0n);
+  const normalized=await sharp(bytes).rotate().resize(32,32,{fit:'fill'}).flatten({background:'#ffffff'}).removeAlpha().toColourspace('srgb').raw().toBuffer();
+  return {sha256:crypto.createHash('sha256').update(bytes).digest('hex'),pixelSha256:crypto.createHash('sha256').update(normalized).digest('hex'),visualHash:bits.toString(16).padStart(16,'0'),color:color.map(Math.round),contrast,
+    bytes:bytes.length,width:meta.width,height:meta.height,
     format:meta.format,extension:{jpeg:'.jpg',png:'.png',webp:'.webp'}[meta.format],mime:'image/'+meta.format};
+}
+function duplicateImage(a,b,similar=false) {
+  if(a.sha256===b.sha256||a.pixelSha256&&a.pixelSha256===b.pixelSha256)return true;
+  if(!similar||!a.visualHash||!b.visualHash||a.contrast<8||b.contrast<8||!a.color||!b.color)return false;
+  if(Math.abs(a.width/a.height-b.width/b.height)>0.1||Math.max(...a.color.map((v,i)=>Math.abs(v-b.color[i])))>16)return false;
+  let value=BigInt('0x'+a.visualHash)^BigInt('0x'+b.visualHash),distance=0;while(value){distance++;value&=value-1n;}
+  return distance<=4;
 }
 async function fetchImage(browserSession,url,origins,signal) {
   let current=url;
@@ -51,7 +64,7 @@ class Runner {
   constructor(store,browser,notify=()=>{}){this.store=store;this.browser=browser;this.notify=notify;this.active=null;}
   check() {
     if(!this.active||this.active.abort.signal.aborted)throw new TaskError('Run stopped.','CANCELLED');
-    if(Date.now()>this.active.deadline)throw new TaskError('This run reached its 10 minute limit.','NEEDS_REVIEW');
+    if(Date.now()>this.active.deadline)throw new TaskError('This run reached its time limit.','NEEDS_REVIEW');
     if(this.store.get(this.active.task.id).sha!==this.active.run.sha)throw new TaskError('The workflow changed while running.');
     if(this.browser.effectError)throw new TaskError(this.browser.effectError,'NEEDS_REVIEW');
   }
@@ -65,6 +78,7 @@ class Runner {
     this.check();const u=webUrl(url);if(!this.active.task.allowedOrigins.includes(u.origin))throw new TaskError('This navigation leaves the reviewed websites.');
     await this.browser.load(u.href);this.check();
     await this.until(async()=>this.browser.wc.executeJavaScript('document.readyState!=="loading"'), 'The website did not load.');
+    if(this.browser.settle)await this.browser.settle();this.check();
   }
   async step(step,row,index) {
     this.check();const wc=this.browser.wc;
@@ -114,20 +128,51 @@ class Runner {
     if(result.authRequired)throw new TaskError('Sign in inside the app browser first, then run again. Your login is kept in this browser.','AUTH_REQUIRED');
     return result.items;
   }
+  async advance(spec,selector,items) {
+    if(spec.kind==='none')return false;
+    const signature=JSON.stringify(items.map(i=>[i.sourceId,i.urls])),beforeUrl=this.browser.wc.getURL();
+    if(spec.kind==='next'){
+      const next=await this.browser.wc.executeJavaScript(script('nextControl',{locator:spec.locator}));
+      if(!next.available)return false;
+      if(next.href){await this.navigate(next.href);return true;}
+      await this.step({op:'click',locator:spec.locator,label:'Next results page'},this.active.run.inputs,0);
+    }else await this.browser.wc.executeJavaScript(script('scrollPage'));
+    const end=Math.min(this.active.deadline,Date.now()+(spec.kind==='next'?10000:4000));
+    while(Date.now()<end){this.check();await delay(250);try{const next=await this.candidates(selector);if(this.browser.wc.getURL()!==beforeUrl||JSON.stringify(next.map(i=>[i.sourceId,i.urls]))!==signature){if(this.browser.settle)await this.browser.settle();return true;}}catch(e){if(this.browser.effectError||e.code==='AUTH_REQUIRED')throw e;}}
+    if(spec.kind==='next')throw new TaskError('The Next control did not produce a new results page. Teach or select the changed control again.');
+    return false;
+  }
   async collect(task) {
-    const run=this.active.run,seen=new Set(),known=task.newOnly?this.store.known(task.id):new Set();
-    const hashes=new Set();const safeName=task.name.replace(/[^a-zA-Z0-9_-]+/g,'-').slice(0,70)||'images';
+    const run=this.active.run,seen=new Set(),pageKeys=new Set(),saved=[];
+    const pending=task.type==='transfer'&&task.newOnly?this.store.pendingItems(task,run.rowIndex):[];
+    const pendingHashes=new Set(pending.map(i=>i.sha256));
+    const history=task.newOnly?(this.store.knownItems?this.store.knownItems(task.id,task.dedupeScope||'workflow').filter(i=>!pendingHashes.has(i.sha256)):[...this.store.known(task.id)].map(sha256=>({sha256}))):[];
+    const knownSources=new Set(history.map(i=>i.source).filter(Boolean)),paging=task.pagination||{kind:'scroll',maxPages:50};
+    const safeName=task.name.replace(/[^a-zA-Z0-9_-]+/g,'-').slice(0,70)||'images';
     const folder=path.join(task.outputFolder,safeName,new Date(run.startedAt).toISOString().slice(0,10)+'-'+run.id.slice(0,8));
     fs.mkdirSync(folder,{recursive:true});run.folder=folder;this.store.flush();
-    let stagnant=0,validCandidates=0,invalidCandidates=0;
-    for(let page=0;page<50&&run.items.length<task.count;page++) {
+    run.duplicatesSkipped=0;run.pagesVisited=0;
+    const save=(data,meta,item,extra={})=>{
+      const file=String(run.items.length+1).padStart(2,'0')+'-'+meta.sha256.slice(0,16)+meta.extension,filePath=path.join(folder,file);
+      fs.writeFileSync(filePath+'.part',data,{flag:'wx'});fs.renameSync(filePath+'.part',filePath);
+      run.items.push({...meta,file:filePath,source:item.sourceId,imageUrl:item.imageUrl,postUrl:item.postUrl||null,state:'DOWNLOADED',...extra});saved.push(meta);
+      this.event(`Downloaded and validated ${run.items.length}/${task.count}`);atomicWrite(path.join(folder,'manifest.json'),{runId:run.id,status:'RUNNING',items:run.items});
+    };
+    for(const item of pending){
+      if(run.items.length>=task.count)break;this.check();if(saved.some(i=>duplicateImage(item,i,false))||!fs.existsSync(item.file))continue;
+      const data=fs.readFileSync(item.file),meta=await imageInfo(data);if(meta.sha256!==item.sha256)throw new TaskError('A pending image changed on disk. Review its earlier download before continuing.');
+      save(data,meta,{sourceId:item.source,imageUrl:item.imageUrl,postUrl:item.postUrl},{reusedFrom:item.file});
+    }
+    let validCandidates=0,invalidCandidates=0;
+    for(let page=0;page<paging.maxPages&&run.items.length<task.count;page++) {
       this.check();let items=await this.candidates(task.sourceSelector);
       if(page===0&&!items.length)items=await this.until(async()=>{const value=await this.candidates(task.sourceSelector);return value.length?value:false;}, 'The selected image group did not appear.',15000);
-      const before=seen.size;
+      const key=this.browser.wc.getURL()+'|'+JSON.stringify(items.map(i=>i.sourceId));if(pageKeys.has(key))break;pageKeys.add(key);run.pagesVisited++;
       for(const item of items) {
         this.check();if(run.items.length>=task.count)break;
         if(item.gated||!item.sourceId||seen.has(item.sourceId))continue;seen.add(item.sourceId);
         if(seen.size>1000)break;
+        if(task.newOnly&&knownSources.has(item.sourceId)){run.duplicatesSkipped++;continue;}
         let data,chosen,meta;
         for(const url of item.urls) {
           try {
@@ -140,27 +185,24 @@ class Runner {
         }
         if(!data)continue;
         this.check();
-        if(known.has(meta.sha256)||hashes.has(meta.sha256))continue;
-        const file=String(run.items.length+1).padStart(2,'0')+'-'+meta.sha256.slice(0,16)+meta.extension;
-        const filePath=path.join(folder,file);fs.writeFileSync(filePath+'.part',data,{flag:'wx'});fs.renameSync(filePath+'.part',filePath);
-        run.items.push({...meta,file:filePath,source:item.sourceId,imageUrl:chosen,state:'DOWNLOADED'});hashes.add(meta.sha256);
-        this.event(`Downloaded and validated ${run.items.length}/${task.count}`);atomicWrite(path.join(folder,'manifest.json'),{runId:run.id,status:'RUNNING',items:run.items});
+        if([...history,...saved].some(old=>duplicateImage(meta,old,!!task.skipSimilar))){run.duplicatesSkipped++;continue;}
+        save(data,meta,{...item,imageUrl:chosen});
       }
       if(run.items.length>=task.count||seen.size>1000)break;
-      const signature=JSON.stringify(items.map(i=>i.sourceId));
-      await this.browser.wc.executeJavaScript(script('scrollPage'));
-      let changed=false;
-      const until=Math.min(Date.now()+7000,this.active.deadline);
-      while(Date.now()<until){this.check();await delay(350);items=await this.candidates(task.sourceSelector);if(JSON.stringify(items.map(i=>i.sourceId))!==signature){changed=true;break;}}
-      stagnant=(!changed||before===seen.size)?stagnant+1:0;if(stagnant>=2)break;
+      if(page+1<paging.maxPages&&!await this.advance(paging,task.sourceSelector,items))break;
     }
     if(run.items.length===0&&validCandidates===0&&invalidCandidates>0)throw new TaskError('No valid JPEG, PNG, or WebP images were found in the chosen image group.');
     return run.items.length===task.count;
   }
   async inventory(target,expectedHashes) {
     await this.navigate(target.galleryUrl);await delay(500);
-    const items=await this.candidates(target.gallerySelector),result=new Map();
-    for(const item of items.slice(0,500)) {
+    const result=new Map(),sources=new Set(),pages=new Set(),paging=target.pagination||{kind:'none',maxPages:1};let candidates=0;
+    for(let page=0;page<paging.maxPages;page++){
+      const items=await this.candidates(target.gallerySelector),key=this.browser.wc.getURL()+'|'+JSON.stringify(items.map(i=>i.sourceId));
+      if(pages.has(key))break;pages.add(key);
+      for(const item of items) {
+      if(sources.has(item.sourceId))continue;sources.add(item.sourceId);
+      if(++candidates>500)throw new TaskError('The destination gallery exceeded its 500-image verification limit. Choose a smaller complete gallery.','NEEDS_REVIEW');
       const ownHashes=new Set();
       for(const url of item.urls) {
         let meta;
@@ -172,6 +214,9 @@ class Runner {
         ownHashes.add(meta.sha256);
         result.set(meta.sha256,item.sourceId);
       }
+      }
+      if(!await this.advance(paging,target.gallerySelector,items))break;
+      if(page+1===paging.maxPages)throw new TaskError('The destination has more pages than the reviewed verification limit. Increase its limit before uploading.','NEEDS_REVIEW');
     }
     return result;
   }
@@ -208,12 +253,36 @@ class Runner {
     }
     inventory=await this.inventory(target,expected);if(!run.items.every(i=>inventory.has(i.sha256)))throw new TaskError('A destination image changed before final verification.','NEEDS_REVIEW');
   }
-  async run(id,rowIndex=0,trigger='manual') {
+  async recheck(runId){
+    if(this.active)throw new TaskError('Wait for the active run first.');
+    const run=this.store.data.runs.find(r=>r.id===runId);if(!run||run.status!=='NEEDS_REVIEW')throw new TaskError('Choose an upload run that needs review.');
+    const task=clone(this.store.get(run.taskId));
+    if(task.type!=='transfer'||task.sha!==run.sha||task.approvedSha!==task.sha)throw new TaskError('Rechecking needs the same approved transfer definition as the original run.');
+    const unresolved=run.items.filter(i=>['UPLOADING','NEEDS_REVIEW'].includes(i.state));if(!unresolved.length)throw new TaskError('This run has no unresolved uploads.');
+    const abort=new AbortController();this.active={task,run,abort,deadline:Date.now()+60000,effectStarted:false};this.browser.beginRun(task);this.notify();
+    const timer=setTimeout(()=>{abort.abort();this.browser.wc.stop();},60000);
+    try{
+      const found=await this.inventory(task.target,new Set(unresolved.map(i=>i.sha256)));let confirmed=0;
+      for(const item of unresolved)if(found.has(item.sha256)){item.state='CONFIRMED';item.targetId=found.get(item.sha256);confirmed++;}
+      const missing=unresolved.length-confirmed;run.reviewOutcome=missing?`${missing} upload(s) are still unverified.`:'The persisted originals were independently confirmed after the run.';
+      if(!missing){run.acknowledged=true;run.acknowledgedAt=new Date().toISOString();}
+      this.event(run.reviewOutcome);return {confirmed,missing};
+    }finally{
+      clearTimeout(timer);try{this.store.flush();if(run.folder)atomicWrite(path.join(run.folder,'manifest.json'),{runId:run.id,status:run.status,items:run.items,error:run.error,reviewOutcome:run.reviewOutcome||null});}
+      finally{this.browser.endRun();this.active=null;this.notify();}
+    }
+  }
+  start(id,rowIndex=0,trigger='manual',requestId=null) {
     if(this.active)throw new TaskError('A workflow is already running. Stop it or wait for it to finish.');
     const task=clone(this.store.get(id));
     if(this.store.data.runs.some(r=>r.taskId===id&&r.status==='NEEDS_REVIEW'&&!r.acknowledged))throw new TaskError('Review the interrupted or uncertain run in History before running this workflow again.');
-    const run=this.store.begin(id,rowIndex,trigger),abort=new AbortController();
+    const run=this.store.begin(id,rowIndex,trigger,requestId),abort=new AbortController();
     this.active={task,run,abort,deadline:Date.now()+600000,effectStarted:false};this.browser.beginRun(task);this.notify();
+    return {run,completion:this.execute()};
+  }
+  async run(id,rowIndex=0,trigger='manual',requestId=null){return this.start(id,rowIndex,trigger,requestId).completion;}
+  async execute(){
+    const {task,run,abort}=this.active;
     const timer=setTimeout(()=>{abort.abort();this.browser.wc.stop();},600000);
     try {
       await this.navigate(siteUrl(task.startUrl,run.inputs));
@@ -230,10 +299,10 @@ class Runner {
       const status=uncertain?'NEEDS_REVIEW':e.code==='AUTH_REQUIRED'?'AUTH_REQUIRED':abort.signal.aborted?'CANCELLED':e.code==='NEEDS_REVIEW'?'NEEDS_REVIEW':'HALTED';
       this.store.finish(run,status,e.message||'The browser task stopped.');return clone(run);
     }finally {
-      clearTimeout(timer);if(run.folder)atomicWrite(path.join(run.folder,'manifest.json'),{runId:run.id,status:run.status,items:run.items,error:run.error});
-      this.browser.endRun();this.active=null;this.notify();
+      clearTimeout(timer);try{if(run.folder)atomicWrite(path.join(run.folder,'manifest.json'),{runId:run.id,status:run.status,items:run.items,error:run.error});}
+      finally{this.browser.endRun();this.active=null;this.notify();}
     }
   }
   stop(){if(this.active){this.active.abort.abort();this.browser.wc.stop();this.notify();}}
 }
-module.exports={Runner,imageInfo,fetchImage,MAX_BYTES,MAX_PIXELS,delay};
+module.exports={Runner,imageInfo,fetchImage,duplicateImage,MAX_BYTES,MAX_PIXELS,delay};

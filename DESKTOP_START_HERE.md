@@ -1,6 +1,6 @@
 # HandNavigate Desktop
 
-Open **dist/HandNavigate-0.5.0-Windows.exe**. It includes the app, Chromium browser, image decoder and local runner. You do not need Python, Node, a terminal, a separate browser install or an AI key to use the packaged app.
+Open **dist/HandNavigate-0.6.0-Windows.exe**. It includes the app, Chromium browser, image decoder, script client and local runner. You do not need Python, Node, a terminal, a separate browser install or an AI key to use the packaged app.
 
 ## Your first workflow
 
@@ -11,6 +11,10 @@ Open **dist/HandNavigate-0.5.0-Windows.exe**. It includes the app, Chromium brow
 
 Files appear in your chosen Downloads location, grouped by workflow and run. **History** shows verified image hashes, dimensions, source URLs, result checks and failures. Open the output folder directly from the app.
 
+Choose **More results** according to the site: scroll, Next page / Load more, or only this page. For Next, click **Choose Next control** and point to the actual button or link in the browser. A page limit bounds the search. The app stops on missing/disabled Next controls or repeated pages and reports a partial result when fewer images are available.
+
+**Collect new images each time** remembers saved files even from partial runs. **Duplicate history** can cover this workflow or every workflow in the app. Exact file bytes, normalized decoded pixels and previously saved source identities prevent repeat downloads. **Also skip similar images** adds approximate visual matching for many resized or recompressed copies. It can exclude similar-looking images and does not guarantee recognition of every crop or edit. Older history without visual fingerprints retains its file/source checks.
+
 ## Different values and daily runs
 
 Enter one topic or prompt value per line in **Values to repeat**. `{{topic}}` can appear in a starting search URL or in a taught input. A direct search URL encodes the value safely. **Advanced** accepts named variable rows when you need several changing fields.
@@ -19,11 +23,15 @@ Run each configured value once and inspect the result. In **Daily**, choose the 
 
 Editing executable steps, variables, websites, image count or result checks invalidates the earlier approval and rehearsal. This prevents a changed draft from silently altering an active daily workflow.
 
+For a script or another local program, enable the local API in **Daily**, copy the workflow ID and use **Save script client**. [API.md](API.md) contains commands and endpoints. Repeating an API request ID returns the original run, so a network retry does not silently start another download/upload job.
+
 ## Uploading images to another site
 
 Choose **Download and upload images**. Set up the source as above, then open the destination's upload form in the same browser and click **Use this upload form**. Navigate to its saved-image gallery and click **Choose saved gallery**. Review both sites and the selected file input before running.
 
 Only validated files from this run can be submitted. The app reloads the saved gallery and downloads its persisted images to verify byte-identical originals. An interrupted or unverifiable upload is marked **Needs review** and is not blindly repeated. Repeating a successful transfer confirms matching remote files without creating another copy.
+
+Configure **Saved gallery pages** when persisted images span several pages. Verification stops before uploading if the destination exceeds the reviewed page limit. A partial source transfer reuses its validated pending files when the same approved row runs again. **Recheck uploaded originals** resolves a late upload by reading the destination without submitting it again. If an upload is absent, the explicit missing-upload confirmation allows a later retry. A recheck preserves the original run's review status and does not automatically enable a schedule.
 
 ## Supported boundaries
 

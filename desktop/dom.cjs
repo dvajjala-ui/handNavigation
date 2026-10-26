@@ -57,14 +57,20 @@ function recorder(args) {
 function picker(args) {
   const H=HELPERS();
   if(window.__hnPickerStop)window.__hnPickerStop();
-  const banner=document.createElement('div');banner.textContent=args.purpose==='gallery'?'HandNavigate: click a saved gallery image or its empty container. Esc cancels.':'HandNavigate: click one image from the group you want to download. Esc cancels.';
+  const banner=document.createElement('div');banner.textContent=['next','galleryNext'].includes(args.purpose)?'HandNavigate: click the Next page or Load more control. Esc cancels.':args.purpose==='gallery'?'HandNavigate: click a saved gallery image or its empty container. Esc cancels.':'HandNavigate: click one image from the group you want to download. Esc cancels.';
   banner.style.cssText='position:fixed;top:0;left:0;right:0;z-index:2147483647;background:#172f29;color:white;font:14px system-ui;padding:16px;pointer-events:none;';document.documentElement.appendChild(banner);
   function stop(){document.removeEventListener('click',click,true);document.removeEventListener('keydown',key,true);banner.remove();delete window.__hnPickerStop;}
   const group=e=>{
     const classes=[...e.classList].filter(c=>/^[A-Za-z_][\w-]{0,45}$/.test(c)).slice(0,3);
     return e.tagName.toLowerCase()+classes.map(c=>'.'+CSS.escape(c)).join('');
   };
-  function click(e){e.preventDefault();e.stopImmediatePropagation();const image=e.target.closest('img');if(!image&&args.purpose!=='gallery')return;
+  function click(e){e.preventDefault();e.stopImmediatePropagation();
+    if(['next','galleryNext'].includes(args.purpose)){
+      const control=e.target.closest('a[href],button,[role=button]'),locator=control&&!H.sensitive(control)?H.locate(control):null;
+      if(!locator){banner.textContent='Choose a uniquely identifiable Next button or link. Esc cancels.';return;}
+      stop();window.handnavigateRecord?.send({token:args.token,kind:'picked-next',locator,url:location.href});return;
+    }
+    const image=e.target.closest('img');if(!image&&args.purpose!=='gallery')return;
     let selector;
     if(image&&image.closest('a[href*="/pin/"]'))selector='a[href*="/pin/"] img';
     else {const container=(image?image.parentElement:e.target).closest('[id]');const own=image?group(image):'img';selector=container?'#'+CSS.escape(container.id)+' '+own:own;if(image&&document.querySelectorAll(selector).length===1&&document.querySelectorAll(own).length>1)selector=own;}
@@ -106,9 +112,16 @@ function imageCandidates(args) {
     if(linked)try {const u=new URL(linked,location.href);if(/^https?:$/.test(u.protocol)&&u.origin===location.origin)linkedOriginal=u.href;}catch{}
     const raw=[...String(img.srcset||'').split(',').map(s=>{const p=s.trim().split(/\s+/);return {url:p[0],score:Number.parseFloat(p[1])||1};}).sort((a,b)=>b.score-a.score).map(a=>a.url),img.currentSrc||img.src,linkedOriginal].filter(Boolean);
     const urls=[...new Set(raw.map(s=>{try{return new URL(s,location.href).href;}catch{return '';}}).filter(s=>/^https?:/.test(s)))];
-    return {sourceId:pin?.href||urls[0],pin:pin?.href||null,urls,alt:H.clean(img.alt),gated:!!img.closest('[data-test-id="gated-pin-image"]')};
+    return {sourceId:pin?.href||urls[0],postUrl:linkedOriginal||null,pin:pin?.href||null,urls,alt:H.clean(img.alt),gated:!!img.closest('[data-test-id="gated-pin-image"]')};
   }).filter(Boolean);
   return {authRequired:false,url:location.href,items};
+}
+function nextControl(args) {
+  const H=HELPERS();let el;
+  try{el=H.resolve(args.locator);}catch(e){if(e.message.includes('missing'))return {available:false};throw e;}
+  if(H.sensitive(el))throw new Error('A private control cannot be used for pagination.');
+  if(el.disabled||el.getAttribute('aria-disabled')==='true'||el.closest('[inert]'))return {available:false};
+  return {available:true,href:el.tagName==='A'?el.href:null};
 }
 function inspectUpload() {
   const H=HELPERS(),inputs=[...document.querySelectorAll('input[type=file]')];
@@ -125,7 +138,7 @@ function verifyCheck(args) {
   return false;
 }
 function scrollPage(){const node=document.scrollingElement||document.documentElement;node.scrollBy({top:Math.max(600,innerHeight*.85),behavior:'instant'});return {top:node.scrollTop,height:node.scrollHeight};}
-const functions={recorder,picker,findTarget,focusTarget,selectTarget,imageCandidates,inspectUpload,verifyCheck,scrollPage};
+const functions={recorder,picker,findTarget,focusTarget,selectTarget,imageCandidates,nextControl,inspectUpload,verifyCheck,scrollPage};
 function script(name,args={}) {
   if(!functions[name])throw new Error('Unknown browser operation.');
   return '('+functions[name].toString().replace('HELPERS()', '('+helpers.toString()+')()')+')('+JSON.stringify(args)+')';

@@ -33,9 +33,16 @@ function locator(spec) {
   if(spec.kind==='css' && (!spec.value||spec.value.startsWith('xpath=')||spec.value.startsWith('//'))) throw new TaskError('Teach this control again with a supported selector.');
 }
 function definition(task) {
-  return Object.fromEntries(['type','startUrl','steps','rows','count','outputFolder','sourceSelector','checks','newOnly','allowedOrigins','imageOrigins','target'].map(k=>[k,task[k]??null]));
+  const result=Object.fromEntries(['type','startUrl','steps','rows','count','outputFolder','sourceSelector','checks','newOnly','allowedOrigins','imageOrigins','target'].map(k=>[k,task[k]??null]));
+  for(const key of ['pagination','dedupeScope','skipSimilar'])if(task[key]!==undefined)result[key]=task[key];
+  return result;
 }
 const taskHash = task => hash(definition(task));
+function pagination(spec,options={}) {
+  if(spec===undefined)return;
+  if(!spec||!['scroll','next','none'].includes(spec.kind)||!Number.isInteger(spec.maxPages)||spec.maxPages<1||spec.maxPages>100)throw new TaskError('Choose scrolling, a Next control, or one page, with a 1–100 page limit.');
+  if(spec.kind==='next'&&(!options.draft||spec.locator))locator(spec.locator);
+}
 function validate(task,options={}) {
   if(!task||!['images','replay','transfer'].includes(task.type)) throw new TaskError('Choose image downloads or a taught task.');
   if(typeof task.name!=='string'||!task.name.trim()||task.name.length>100) throw new TaskError('Give this workflow a name (up to 100 characters).');
@@ -68,6 +75,9 @@ function validate(task,options={}) {
     if(typeof task.sourceSelector!=='string'||!task.sourceSelector||task.sourceSelector.length>500) throw new TaskError('Choose an image group in the browser.');
     if(typeof task.outputFolder!=='string'||!path.isAbsolute(task.outputFolder)) throw new TaskError('Choose a local download folder.');
     if(typeof task.newOnly!=='boolean') throw new TaskError('Choose whether each run collects new images.');
+    pagination(task.pagination,options);
+    if(task.dedupeScope!==undefined&&!['workflow','library'].includes(task.dedupeScope))throw new TaskError('Choose this workflow or the whole library for duplicate history.');
+    if(task.skipSimilar!==undefined&&typeof task.skipSimilar!=='boolean')throw new TaskError('Choose whether to skip visually similar images.');
   }
   if(task.type==='transfer') {
     const t=task.target;
@@ -75,6 +85,7 @@ function validate(task,options={}) {
     if(!t||!task.allowedOrigins.includes(webUrl(t.url).origin)||!task.allowedOrigins.includes(webUrl(t.galleryUrl).origin)) throw new TaskError('Review the destination upload and gallery websites.');
     locator(t.fileInput); if(t.submit) locator(t.submit);
     if(typeof t.gallerySelector!=='string'||!t.gallerySelector) throw new TaskError('Choose the destination gallery image group.');
+    pagination(t.pagination,options);
   }
   return task;
 }
@@ -126,11 +137,12 @@ class Store {
     this.flush();return task;
   }
   approve(id,sha) {const t=this.get(id);if(taskHash(t)!==sha||t.sha!==sha)throw new TaskError('The workflow changed. Review its current actions before approving.');validate(t);t.approvedSha=sha;this.flush();return t;}
-  begin(id,rowIndex,trigger='manual') {
+  begin(id,rowIndex,trigger='manual',requestId=null) {
     const t=this.get(id);validate(t);
+    if(t.archived)throw new TaskError('This workflow is archived.');
     if(t.approvedSha!==taskHash(t))throw new TaskError('Review and approve this workflow first.');
     if(!Number.isInteger(rowIndex)||rowIndex<0||rowIndex>=t.rows.length)throw new TaskError('Choose a row of variable values.');
-    const run={id:crypto.randomUUID(),taskId:id,taskName:t.name,sha:t.sha,rowIndex,inputs:clone(t.rows[rowIndex]),trigger,status:'RUNNING',startedAt:new Date().toISOString(),items:[],events:[],error:null};
+    const run={id:crypto.randomUUID(),taskId:id,taskName:t.name,sha:t.sha,rowIndex,inputs:clone(t.rows[rowIndex]),trigger,status:'RUNNING',startedAt:new Date().toISOString(),items:[],events:[],error:null,...(requestId?{requestId}:{})};
     this.data.runs.unshift(run);this.flush();return run;
   }
   finish(run,status,error=null) {
@@ -149,7 +161,13 @@ class Store {
     for(const item of unresolved){item.state='RESOLVED_NOT_UPLOADED';item.resolvedAt=at;}
     run.acknowledged=true;run.acknowledgedAt=at;this.flush();return run;
   }
-  known(taskId){return new Set(this.data.runs.filter(r=>r.taskId===taskId&&r.status==='VERIFIED').flatMap(r=>r.items.map(i=>i.sha256)));}
+  knownItems(taskId,scope='workflow'){return this.data.runs.filter(r=>scope==='library'||r.taskId===taskId).flatMap(r=>r.items.filter(i=>i.sha256&&i.file));}
+  known(taskId){return new Set(this.knownItems(taskId).map(i=>i.sha256));}
+  pendingItems(task,rowIndex){
+    const confirmed=new Set(this.data.runs.filter(r=>r.taskId===task.id).flatMap(r=>r.items.filter(i=>i.state==='CONFIRMED').map(i=>i.sha256)));
+    return this.data.runs.filter(r=>r.taskId===task.id&&r.sha===task.sha&&r.rowIndex===rowIndex&&r.status!=='RUNNING')
+      .flatMap(r=>r.items.filter(i=>['DOWNLOADED','RESOLVED_NOT_UPLOADED'].includes(i.state)&&!confirmed.has(i.sha256)));
+  }
   snapshot(){return clone({tasks:this.data.tasks,runs:this.data.runs.slice(0,100)});}
 }
 
@@ -208,7 +226,7 @@ function draft(options={}) {
   const url=options.startUrl||'https://www.pinterest.com/search/pins/?q={{topic}}';
   const pinterest=/(^|\.)pinterest\.com$/.test(new URL(siteUrl(url,{topic:'example'})).hostname);
   return {name:options.name||'Daily images',type:options.type||'images',startUrl:url,steps:[],rows:[{topic:options.topic||'nature landscape'}],count:20,
-    outputFolder:options.outputFolder||'',sourceSelector:pinterest?'a[href*="/pin/"] img':'img',checks:[],newOnly:true,
+    outputFolder:options.outputFolder||'',sourceSelector:pinterest?'a[href*="/pin/"] img':'img',checks:[],newOnly:true,pagination:{kind:'scroll',maxPages:50},dedupeScope:'workflow',skipSimilar:false,
     allowedOrigins:pinterest?['https://www.pinterest.com','https://in.pinterest.com','https://s.pinimg.com']:[new URL(siteUrl(url,{topic:'example'})).origin],imageOrigins:options.imageOrigins||(pinterest?['https://i.pinimg.com']:[]),target:null,schedule:null};
 }
-module.exports={TaskError,hash,clone,webUrl,interpolate,siteUrl,PRIVATE,locator,definition,taskHash,validate,atomicWrite,Store,zoneParts,occurrenceOn,dueAt,DailyQueue,draft};
+module.exports={TaskError,hash,clone,webUrl,interpolate,siteUrl,PRIVATE,locator,definition,taskHash,validate,pagination,atomicWrite,Store,zoneParts,occurrenceOn,dueAt,DailyQueue,draft};

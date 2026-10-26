@@ -20,13 +20,20 @@
 <label class="field">Values to repeat<textarea id="task-values" rows="3" placeholder="nature landscape&#10;modern architecture&#10;interior design"></textarea><span class="hint">One topic per line. Daily runs rotate through these values.</span></label>
 <div class="form-row"><label class="field image-settings">Images per run<input id="task-count-input" type="number" min="1" max="100" value="20"></label><label class="field">Choose values<select id="run-row"></select></label></div><div class="image-settings">
 <label class="field">Save files to<div class="folder-input"><input id="task-folder" readonly><button id="choose-folder" title="Choose download folder">…</button></div></label>
-<label class="check"><input id="new-only" type="checkbox" checked><span>Collect new images each time<small>Skip files already verified in earlier runs.</small></span></label></div>
+<label class="check"><input id="new-only" type="checkbox" checked><span>Collect new images each time<small>Remember saved images, including partial runs.</small></span></label>
+<label class="field">Duplicate history<select id="dedupe-scope"><option value="workflow">This workflow</option><option value="library">All workflows in this app</option></select></label>
+<label class="check"><input id="skip-similar" type="checkbox"><span>Also skip similar images<small>Detect many resized or recompressed copies. Similarity is approximate.</small></span></label>
+<div class="form-row"><label class="field">More results<select id="page-mode"><option value="scroll">Scroll to load more</option><option value="next">Next page / Load more</option><option value="none">Only this page</option></select></label><label class="field">Page limit<input id="page-limit" type="number" min="1" max="100" value="50"></label></div>
+<div id="next-settings" hidden><label class="field">Next control selector (or choose it below)<input id="next-selector" placeholder="e.g. a[rel=next]"></label><button id="pick-next" class="button">Choose Next control</button></div></div>
 <div class="actions"><button id="save-task" class="button primary">Save workflow</button><button id="open-site" class="button">Open website →</button></div>
 <div class="divider"></div>
 <div class="section-heading"><span class="step-number">02</span><div><h2>Show it the steps</h2><p>Sign in first. Then demonstrate the task.</p></div></div>
 <div class="teaching-card"><div class="teaching-icon">◎</div><div><strong id="record-label">Ready to learn</strong><p id="record-help">Record searches, clicks, selections and form inputs. A direct results URL needs no recording.</p></div></div>
 <div class="actions"><button id="record" class="button">● Start teaching</button><button id="stop-record" class="button danger" hidden>■ Stop teaching</button><button id="pick-images" class="button">⌖ Choose images</button></div>
-<div id="transfer-controls" hidden><div class="divider"></div><h3>Upload destination</h3><p class="hint">Open the destination upload form in the browser. Select its input, then choose its saved-image gallery.</p><div class="actions"><button id="choose-upload" class="button">Use this upload form</button><button id="pick-gallery" class="button">Choose saved gallery</button></div><div id="target-summary" class="hint"></div></div>
+<div id="transfer-controls" hidden><div class="divider"></div><h3>Upload destination</h3><p class="hint">Open the destination upload form in the browser. Select its input, then choose its saved-image gallery.</p><div class="actions"><button id="choose-upload" class="button">Use this upload form</button><button id="pick-gallery" class="button">Choose saved gallery</button></div><div id="target-summary" class="hint"></div>
+<label class="field">Saved gallery pages<select id="gallery-mode"><option value="none">Complete gallery on this page</option><option value="scroll">Scroll to load more</option><option value="next">Next page / Load more</option></select></label>
+<label class="field">Gallery page limit<input id="gallery-limit" type="number" min="1" max="100" value="20"></label>
+<div id="gallery-next-settings" hidden><label class="field">Gallery Next selector<input id="gallery-next-selector" placeholder="e.g. a[rel=next]"></label><button id="pick-gallery-next" class="button">Choose gallery Next control</button></div></div>
 <div class="small-note">Nothing is trained in the background. Your demonstration becomes visible steps you can inspect and reuse.</div>
 </section>
 <section id="tab-review" class="tab-content" hidden>
@@ -48,6 +55,10 @@
 <div id="schedule-readiness" class="verification"></div><label class="field">Every day at<input id="schedule-time" type="time" value="09:00"></label><label class="field">Timezone<input id="schedule-zone" value="Asia/Kolkata"></label>
 <div id="schedule-values" class="value-rotation"></div><div class="actions"><button id="schedule-enable" class="button primary">Turn on daily runs</button><button id="schedule-pause" class="button" hidden>Pause daily runs</button></div>
 <div class="small-note"><strong>This computer is the runner.</strong><p>Keep HandNavigate open and the computer awake. After downtime it runs at most the latest occurrence. An incomplete or failed run pauses the schedule for review.</p></div>
+<div class="divider"></div><h3>Run from a script</h3><p class="hint">The local API runs saved, approved values using this same browser. Keep the app open. Use Invoke-HandNavigate.ps1 from the repository for a ready-made client.</p>
+<label class="field">Workflow ID<input id="workflow-id" readonly></label><label class="field">Local API port<input id="api-port" type="number" min="1024" max="65535" value="47831"></label>
+<div id="api-status" class="hint"></div><div class="actions"><button id="api-enable" class="button">Turn on local API</button><button id="api-disable" class="button" hidden>Turn off API</button><button id="api-copy" class="button" hidden>Copy API token</button><button id="api-export" class="button">Save script client</button></div>
+<p class="hint">It listens only on 127.0.0.1 and requires a bearer token. Each run request needs a unique requestId; reusing it returns the same run.</p>
 </section>
 <section id="tab-history" class="tab-content" hidden><div class="section-heading"><div><h2>Results, with proof</h2><p>Verified output is what counts.</p></div></div><div id="history-list"></div></section>
 </div><footer class="run-footer"><div><strong id="run-state">Ready when you are</strong><span id="run-detail">Review before the first run</span></div><button id="run-now" class="button primary">▶ Run now</button><button id="stop-run" class="button danger" hidden>■ Stop</button></footer>

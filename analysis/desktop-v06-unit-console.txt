@@ -1,0 +1,33 @@
+
+> handnavigate-desktop@0.6.0 test
+> node --test desktop/test/*.test.cjs
+
+✔ variable interpolation is explicit and URL values cannot change origins (4.3272ms)
+✔ approval binds all execution fields and changes invalidate rehearsals (64.3171ms)
+✔ changing a workflow title preserves exact executable approval (33.1178ms)
+✔ replay drafts can be saved but require output checks before approval (12.2945ms)
+✔ invalid primitives, unknown actions and blocked recordings are rejected (1.5333ms)
+✔ restarting preserves task state and marks interrupted remote work for review (39.8178ms)
+✔ corrupt primary database restores its last integrity-checked backup (34.1232ms)
+✔ uncertain uploads need explicit absence confirmation before later retries (53.0127ms)
+✔ schedule requires every row to have a verified rehearsal (118.7877ms)
+✔ daily runs rotate variable rows and never replay the same occurrence (85.3851ms)
+✔ missed days materialize only the latest occurrence (53.0451ms)
+✔ non-verified daily outcomes pause the workflow (49.9419ms)
+✔ DST nonexistent times skip and repeated times choose first occurrence (9.601ms)
+✔ real JPEG PNG and WebP decoding checks content and rejects HTML (234.8092ms)
+✔ duplicate history includes partial downloads and can span the library (75.0393ms)
+✔ pixel identity detects alternate encodings and optional similarity detects a resized photo (1133.5333ms)
+✔ pagination and duplicate settings invalidate approval; incomplete Next drafts cannot run (50.6158ms)
+✔ image collection skips invalid gallery candidates and saves the next real image (340.694ms)
+✔ receipt write failure still releases the browser and active runner (47.4994ms)
+✔ destination inventory considers a linked original after invalid and resized images (718.9014ms)
+✔ local API authenticates, rejects website origins, validates requests and keeps its token out of state (320.2749ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1762.9897

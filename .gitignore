@@ -4,6 +4,7 @@ dist/
 desktop/evidence/*
 !desktop/evidence/e2e-results.json
 !desktop/evidence/packaged-results.json
+!desktop/evidence/workflow-results.json
 __pycache__/
 *.pyc
 runtime/
@@ -16,6 +17,8 @@ runtime/
 .env
 .env.*
 *.session.json
+integration.json*
+workflows.json*
 
 # Local live-browser evidence and profiles can contain private data
 live-runs/

@@ -1,5 +1,5 @@
 'use strict';
-const {app,BrowserWindow,WebContentsView,ipcMain,session,dialog,shell,Menu}=require('electron');
+const {app,BrowserWindow,WebContentsView,ipcMain,session,dialog,shell,Menu,clipboard}=require('electron');
 const fs=require('node:fs');
 const path=require('node:path');
 const crypto=require('node:crypto');
@@ -7,27 +7,39 @@ const {pathToFileURL}=require('node:url');
 const {Store,TaskError,clone,webUrl,taskHash,draft,DailyQueue,PRIVATE,siteUrl}=require('./core.cjs');
 const {Runner}=require('./engine.cjs');
 const {script}=require('./dom.cjs');
+const {LocalAPI,validRequestId}=require('./integration.cjs');
 
 if(process.env.HANDNAVIGATE_USER_DATA)app.setPath('userData',path.resolve(process.env.HANDNAVIGATE_USER_DATA));
 app.setName('HandNavigate');
 const ownUI=pathToFileURL(path.join(__dirname,'index.html')).href;
-let win,browser,store,runner,queue,timer,selectedId=null,recording=null,picking=null,lastError=null,browserHidden=false,exitAllowed=false;
+let win,browser,store,runner,queue,timer,localAPI,selectedId=null,recording=null,picking=null,lastError=null,browserHidden=false,exitAllowed=false;
 let flushedExit=false;
 const popups=new Set();
+function apiClientPath(){return app.isPackaged?path.join(process.resourcesPath,'Invoke-HandNavigate.ps1'):path.join(__dirname,'..','Invoke-HandNavigate.ps1');}
 function snapshot(){return {...store.snapshot(),selectedId,recording:recording?{taskId:recording.taskId,events:recording.events.length}:null,
   picking:picking?.purpose||null,busy:runner.active?{taskId:runner.active.task.id,runId:runner.active.run.id}:null,
-  browser:{url:browser.wc.getURL(),title:browser.wc.getTitle(),loading:browser.wc.isLoading(),hidden:browserHidden},
-  downloads:app.getPath('downloads'),appVersion:app.getVersion(),error:lastError};}
+  browser:{url:browser.wc.getURL().startsWith('data:')?'about:blank':browser.wc.getURL(),title:browser.wc.getTitle(),loading:browser.wc.isLoading(),hidden:browserHidden},
+  downloads:app.getPath('downloads'),integration:{...(localAPI?.snapshot()||{enabled:false,port:47831}),clientAvailable:fs.existsSync(apiClientPath())},appVersion:app.getVersion(),error:lastError};}
 function notify(){if(win&&!win.isDestroyed()&&store&&runner&&browser)win.webContents.send('app:state',snapshot());}
 function fail(error){lastError=error.message||String(error);notify();}
 function idle(){if(runner.active)throw new TaskError('Wait for the active run or stop it first.');}
 function current(){if(!selectedId)throw new TaskError('Choose a workflow first.');return store.get(selectedId);}
 function sourceSender(event){return win&&!win.isDestroyed()&&event.sender.id===win.webContents.id&&event.senderFrame?.url===ownUI;}
 async function action(event,fn,arg){if(!sourceSender(event))throw new Error('Only the local HandNavigate interface may perform this action.');lastError=null;try{const value=await fn(arg||{});notify();return {ok:true,value};}catch(e){fail(e);return {ok:false,error:e.message};}}
+function startSavedRun(id,rowIndex=0,requestId=null,trigger='manual'){
+  const task=store.get(id);
+  if(requestId){
+    if(!validRequestId(requestId))throw new TaskError('Enter a valid request ID.');
+    const previous=store.data.runs.find(r=>r.requestId===requestId);
+    if(previous){if(previous.taskId!==id||previous.rowIndex!==rowIndex||previous.sha!==task.sha)throw new TaskError('That request ID belongs to a different workflow, value row, or revision.');return {run:previous,reused:true};}
+  }
+  idle();if(recording||picking||popups.size)throw new TaskError('Finish teaching, choosing images, or signing in before starting a run.');
+  const started=runner.start(id,rowIndex,trigger,requestId);started.completion.catch(fail);return {run:started.run,reused:false};
+}
 
 class Browser {
   constructor() {
-    this.session=session.fromPartition('persist:handnavigate-browser');this.observed=new Set();this.runTask=null;this.effectError=null;
+    this.session=session.fromPartition('persist:handnavigate-browser');this.observed=new Set();this.pending=new Set();this.lastNetworkAt=Date.now();this.runTask=null;this.effectError=null;
     this.session.setPermissionRequestHandler((_wc,_permission,callback)=>callback(false));
     this.session.setPermissionCheckHandler(()=>false);
     this.view=new WebContentsView({webPreferences:{session:this.session,preload:path.join(__dirname,'preload-browser.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,backgroundThrottling:false}});
@@ -40,8 +52,11 @@ class Browser {
         if(['ws:','wss:'].includes(u.protocol)||!allowed.includes(u.origin))return callback({cancel:true});
       }
       if(!['http:','https:','data:','blob:','about:','devtools:'].includes(u.protocol))return callback({cancel:true});
+      if(details.webContentsId===this.wc.id&&['http:','https:'].includes(u.protocol)){this.pending.add(details.id);this.lastNetworkAt=Date.now();}
       callback({cancel:false});
     });
+    const finished=details=>{if(this.pending.delete(details.id))this.lastNetworkAt=Date.now();};
+    this.session.webRequest.onCompleted(finished);this.session.webRequest.onErrorOccurred(finished);
     this.session.on('will-download',(event,item,wc)=>{
       if(this.runTask){event.preventDefault();this.effectError='The site triggered an unexpected file download. Use the verified image download workflow.';return;}
       // Ordinary manual downloads stay in this app's local Downloads folder.
@@ -72,7 +87,8 @@ class Browser {
     this.wc.on('render-process-gone',()=>{this.effectError='The browser process stopped. Restart the workflow after reviewing its outcome.';runner?.stop();fail(new TaskError(this.effectError));});
     this.wc.on('will-attach-webview',event=>event.preventDefault());
   }
-  async load(url){webUrl(url);this.effectError=null;await this.wc.loadURL(url);}
+  async load(url){webUrl(url);this.effectError=null;this.pending.clear();await this.wc.loadURL(url);}
+  async settle(){const until=Date.now()+8000;while(Date.now()<until){if(runner?.active?.abort.signal.aborted)break;if(!this.pending.size&&Date.now()-this.lastNetworkAt>=250)return;await new Promise(resolve=>setTimeout(resolve,100));}}
   beginRun(task){this.runTask=task;this.effectError=null;}
   endRun(){this.runTask=null;this.effectError=null;}
   async injectRecorder(){if(recording)await this.wc.executeJavaScript(script('recorder',{token:recording.token}));}
@@ -108,14 +124,16 @@ function registerIPC(){
       task.startUrl=url;task.allowedOrigins=[...new Set([...task.allowedOrigins,new URL(url).origin])];task.approvedSha=null;task.rehearsals=[];if(task.schedule)task.schedule.enabled=false;task.sha=taskHash(task);store.flush();
       await browser.injectRecorder();return true;},
     stopRecord:()=>stopRecording(),
-    pick:async arg=>{idle();if(recording)throw new TaskError('Stop teaching before choosing images.');const task=current();picking={taskId:task.id,purpose:arg.purpose==='gallery'?'gallery':'source',token:crypto.randomBytes(24).toString('hex')};await browser.wc.executeJavaScript(script('picker',picking));return true;},
+    pick:async arg=>{idle();if(recording)throw new TaskError('Stop teaching before choosing controls.');const task=current();picking={taskId:task.id,purpose:['gallery','next','galleryNext'].includes(arg.purpose)?arg.purpose:'source',token:crypto.randomBytes(24).toString('hex')};await browser.wc.executeJavaScript(script('picker',picking));return true;},
     chooseUpload:async()=>{idle();if(recording)throw new TaskError('Stop teaching first.');const task=clone(current()),info=await browser.wc.executeJavaScript(script('inspectUpload'));
       task.type='transfer';task.target={...info,galleryUrl:info.url,gallerySelector:'img'};task.allowedOrigins=[...new Set([...task.allowedOrigins,webUrl(info.url).origin,...browser.observed])].slice(0,30);return store.save(task);},
-    run:arg=>{idle();if(recording||picking)throw new TaskError('Finish teaching or choosing images first.');const task=store.get(arg.id);
-      if(!task.approvedSha)throw new TaskError('Review and approve the workflow before running.');
-      runner.run(arg.id,Number(arg.rowIndex||0),'manual').catch(fail);return {started:true};},
+    run:arg=>{const result=startSavedRun(arg.id,Number(arg.rowIndex??0));return {started:true,runId:result.run.id};},
     stop:()=>{runner.stop();return true;},
     schedule:arg=>{idle();queue.enable(arg.id,!!arg.enabled,arg.time,arg.timezone);return store.get(arg.id);},
+    configureAPI:async arg=>{idle();if(!localAPI)throw new TaskError('The API settings need repair before enabling integration.');return arg.enabled?localAPI.enable(Number(arg.port)):localAPI.disable();},
+    copyAPIToken:()=>{if(!localAPI?.server)throw new TaskError('Turn on the local API first.');clipboard.writeText(localAPI.config.token);return true;},
+    exportAPIClient:async()=>{const result=await dialog.showSaveDialog(win,{title:'Save the HandNavigate script client',defaultPath:path.join(app.getPath('downloads'),'Invoke-HandNavigate.ps1'),filters:[{name:'PowerShell script',extensions:['ps1']}]});if(result.canceled||!result.filePath)return null;fs.copyFileSync(apiClientPath(),result.filePath);return result.filePath;},
+    recheckUploads:arg=>{idle();if(recording||picking||popups.size)throw new TaskError('Finish teaching, choosing controls, or signing in first.');return runner.recheck(arg.runId);},
     chooseFolder:async()=>{idle();const result=await dialog.showOpenDialog(win,{title:'Choose where image files should be saved',defaultPath:app.getPath('downloads'),properties:['openDirectory','createDirectory']});return result.canceled?null:result.filePaths[0];},
     showFolder:async arg=>{const task=store.data.tasks.find(t=>t.id===arg.id),run=store.data.runs.find(r=>r.id===arg.runId);const folder=run?.folder||task?.outputFolder;if(!folder||!path.isAbsolute(folder))throw new TaskError('No output folder is available.');fs.mkdirSync(folder,{recursive:true});const error=await shell.openPath(folder);if(error)throw new TaskError(error);return true;},
     setBrowserBounds:arg=>{const [w,h]=win.getContentSize();const bounds={x:Math.max(0,Math.floor(arg.x||0)),y:Math.max(0,Math.floor(arg.y||0)),width:Math.max(0,Math.min(w,Math.floor(arg.width||0))),height:Math.max(0,Math.min(h,Math.floor(arg.height||0)))};bounds.width=Math.min(bounds.width,w-bounds.x);bounds.height=Math.min(bounds.height,h-bounds.y);if(bounds.width>0&&bounds.height>0)browser.view.setBounds(bounds);return true;},
@@ -132,6 +150,12 @@ function registerIPC(){
       if(event.sender.id!==browser.wc.id||event.senderFrame!==browser.wc.mainFrame||!payload||typeof payload!=='object'||JSON.stringify(payload).length>15000)return;
       if(picking&&payload.token===picking.token){
         if(payload.kind==='pick-cancelled'){picking=null;notify();return;}
+        if(payload.kind==='picked-next'&&['next','galleryNext'].includes(picking.purpose)){
+          const task=clone(store.get(picking.taskId)),pagination={kind:'next',maxPages:50,locator:payload.locator};
+          if(picking.purpose==='galleryNext'){if(!task.target)throw new TaskError('Choose an upload form first.');task.target.pagination=pagination;}else task.pagination=pagination;
+          task.allowedOrigins=[...new Set([...task.allowedOrigins,webUrl(payload.url).origin,...browser.observed])].slice(0,30);
+          store.save(task);picking=null;notify();return;
+        }
         if(payload.kind!=='picked'||typeof payload.selector!=='string'||payload.selector.length>500)return;
         const task=clone(store.get(picking.taskId));
         if(picking.purpose==='gallery'){if(!task.target)throw new TaskError('Choose the upload form first.');task.target.galleryUrl=webUrl(payload.url).href;task.target.gallerySelector=payload.selector;}
@@ -165,7 +189,9 @@ async function main(){
   win=new BrowserWindow({width:1520,height:980,minWidth:1100,minHeight:740,title:'HandNavigate',icon:path.join(__dirname,'assets/icon.png'),backgroundColor:'#f4f4ee',show:false,
     webPreferences:{preload:path.join(__dirname,'preload-ui.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true,webSecurity:true}});
   Menu.setApplicationMenu(null);browser=new Browser();win.contentView.addChildView(browser.view);browser.view.setBounds({x:650,y:138,width:850,height:800});
-  runner=new Runner(store,browser,notify);queue=new DailyQueue(store,(id,row,trigger)=>runner.run(id,row,trigger));registerIPC();
+  runner=new Runner(store,browser,notify);queue=new DailyQueue(store,(id,row,trigger)=>runner.run(id,row,trigger));
+  try{localAPI=new LocalAPI(app.getPath('userData'),{store,busy:()=>!!runner.active,start:(id,row,requestId)=>startSavedRun(id,row,requestId,'api'),stop:id=>{if(runner.active?.run.id!==id)throw new TaskError('That run is not active.');runner.stop();},error:fail});}catch(error){lastError=error.message;}
+  registerIPC();
   win.webContents.on('will-navigate',(e,url)=>{if(url!==ownUI)e.preventDefault();});win.webContents.setWindowOpenHandler(()=>({action:'deny'}));
   win.on('close',event=>{
     if(!exitAllowed&&(runner.active||store.data.tasks.some(t=>t.schedule?.enabled))){
@@ -176,10 +202,11 @@ async function main(){
   win.on('closed',()=>{clearInterval(timer);for(const popup of popups)if(!popup.isDestroyed())popup.destroy();if(browser&&!browser.wc.isDestroyed())browser.wc.close();app.quit();});
   app.on('second-instance',()=>{if(win.isMinimized())win.restore();win.show();win.focus();});
   await win.loadFile(path.join(__dirname,'index.html'));win.show();
-  if(!process.env.HANDNAVIGATE_TEST)await browser.load('https://www.pinterest.com/').catch(fail);
+  if(!process.env.HANDNAVIGATE_TEST)await browser.wc.loadURL('data:text/html,'+encodeURIComponent('<!doctype html><html><head><meta charset="utf-8"><title>Your browser</title></head><body style="font:16px Segoe UI,system-ui;color:#274f3b;background:#fafbf6;display:grid;place-content:center;min-height:90vh;margin:0;padding:40px;box-sizing:border-box"><div style="max-width:430px"><h1 style="font-size:30px;font-weight:600">Your workflow starts here.</h1><p style="line-height:1.7;color:#75806e">Enter a website in the address bar, or use Open website in Set up. Sign in here once, choose your images and the way to load more, then review and run.</p><p style="font-size:13px;color:#89937e">Saved workflows use this same local browser.</p></div></body></html>')).catch(fail);
+  if(localAPI?.config.enabled)await localAPI.enable().catch(fail);
   timer=setInterval(()=>{if(!runner.active&&!recording&&!picking)queue.tick().then(()=>notify()).catch(fail);},5000);timer.unref();
-  if(process.env.HANDNAVIGATE_TEST)global.__handnavigateTest={get store(){return store;},get browser(){return browser;},get runner(){return runner;},get queue(){return queue;},get window(){return win;},setSelected:id=>{selectedId=id;notify();},flush:()=>notify(),shutdown:async()=>{exitAllowed=true;runner.stop();await browser.session.cookies.flushStore();browser.session.flushStorageData();win.destroy();}};
+  if(process.env.HANDNAVIGATE_TEST)global.__handnavigateTest={get store(){return store;},get browser(){return browser;},get runner(){return runner;},get queue(){return queue;},get localAPI(){return localAPI;},get window(){return win;},setSelected:id=>{selectedId=id;notify();},flush:()=>notify(),shutdown:async()=>{exitAllowed=true;runner.stop();await localAPI?.close();await browser.session.cookies.flushStore();browser.session.flushStorageData();win.destroy();}};
 }
 main().catch(e=>{dialog.showErrorBox('HandNavigate could not start',e.message);app.quit();});
-app.on('before-quit',event=>{if(browser&&!flushedExit){event.preventDefault();flushedExit=true;browser.session.cookies.flushStore().catch(()=>{}).finally(()=>{browser.session.flushStorageData();app.quit();});}});
+app.on('before-quit',event=>{if(browser&&!flushedExit){event.preventDefault();flushedExit=true;Promise.allSettled([localAPI?.close(),browser.session.cookies.flushStore()]).finally(()=>{browser.session.flushStorageData();app.quit();});}});
 app.on('window-all-closed',()=>app.quit());
