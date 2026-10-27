@@ -17,9 +17,9 @@ class QueueBridge{
     if(this.stopped)return;
     if(!this.pending){
       if(this.collections.active||this.collections.data.jobs.some(j=>j.status==='QUEUED'))return;
-      const {job}=await this.sink.call('ingest',{action:'claim',worker_id:this.workerId});
+      const claimedAt=Date.now(),{job}=await this.sink.call('ingest',{action:'claim',worker_id:this.workerId});
       if(!job)return;
-      this.pending={cloud:job,local:null,lastConfirmed:Date.now()};
+      this.pending={cloud:job,local:null,lastConfirmed:claimedAt};
       try{
         let {job:local,reused}=this.collections.create({requestId:'cloud:'+job.id,topics:job.topics,sources:job.sources,limit:job.image_limit,destination:'stickerdock'});
         if(reused&&!ACTIVE.has(local.status)&&local.status!=='VERIFIED_STORAGE')local=this.collections.resume(local.id);
@@ -34,20 +34,21 @@ class QueueBridge{
     if(live&&ACTIVE.has(live.status))this.collections.recover(live);
     const local=this.collections.get(pending.local);
     const report=this.report(local);if(report.status==='QUEUED')report.status='RUNNING';
-    const result=await this.sink.call('ingest',{action:'report',worker_id:this.workerId,id:pending.cloud.id,report});
-    pending.lastConfirmed=Date.now();
+    const reportedAt=Date.now(),result=await this.sink.call('ingest',{action:'report',worker_id:this.workerId,id:pending.cloud.id,report});
+    pending.lastConfirmed=reportedAt;
     if(result.job.cancel_requested&&ACTIVE.has(local.status))this.collections.stop(local.id);
     if(!ACTIVE.has(local.status))this.pending=null;
   }
   start(){
     if(this.loop)return this;
+    this.watchdog=setInterval(()=>{if(this.pending?.local&&Date.now()-this.pending.lastConfirmed>90000){this.collections.stop(this.pending.local);this.pending=null;this.options.onError?.(new Error('Worker heartbeat could not be confirmed; local run stopped before lease expiry.'));}},1000);
     this.loop=(async()=>{while(!this.stopped){try{await this.tick();}catch(error){
       this.options.onError?.(error);
-      if(this.pending?.local&&Date.now()-this.pending.lastConfirmed>70000){this.collections.stop(this.pending.local);this.pending=null;}
+      if(this.pending?.local&&(/HTTP 400/.test(error.message)||Date.now()-this.pending.lastConfirmed>90000)){this.collections.stop(this.pending.local);this.pending=null;}
     }
     if(!this.stopped)await new Promise(resolve=>{this.wake=resolve;this.timer=setTimeout(resolve,this.options.intervalMs||15000);});
     }})();return this;
   }
-  async close(){this.stopped=true;clearTimeout(this.timer);this.wake?.();await this.loop;}
+  async close(){this.stopped=true;clearInterval(this.watchdog);clearTimeout(this.timer);this.wake?.();await this.loop;}
 }
 module.exports={QueueBridge};

@@ -32,8 +32,8 @@ class StickerDock{
     const [a,b]=await Promise.all([pixels(staged),pixels(stored)]);let difference=0;for(let i=0;i<a.length;i++)difference+=Math.abs(a[i]-b[i]);
     if(difference/a.length>12)throw new Error('The persisted source no longer matches the prepared image.');
     const row=fetched.item;
-    if(row?.rights_status!=='UNREVIEWED'||row.generation_eligible!==false||row.original_sha256!==item.sha256||row.source_url!==link||row.platform!==item.platform)throw new Error('Stored source review metadata differs from this collection.');
-    return {id:receipt.id,path:receipt.storage_path,sha256:receipt.stored_sha256,verifiedAt:new Date().toISOString(),rightsStatus:'UNREVIEWED',generationEligible:false,
+    if(!['UNREVIEWED','APPROVED','REJECTED'].includes(row?.rights_status)||row.generation_eligible!==false||row.original_sha256!==item.sha256||row.source_url!==link||row.platform!==item.platform)throw new Error('Stored source review metadata differs from this collection.');
+    return {id:receipt.id,path:receipt.storage_path,sha256:receipt.stored_sha256,verifiedAt:new Date().toISOString(),rightsStatus:row.rights_status,generationEligible:false,
       provenanceStorage:'Supabase media_intake_items row and HandNavigate manifest',preparedSha256:crypto.createHash('sha256').update(staged).digest('hex')};
   }
 }

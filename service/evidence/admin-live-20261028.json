@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-27T20:50:27.871Z",
+  "scope": "Live hosted Admin and Supabase, real HandNavigate-downloaded candidate",
+  "passed": true,
+  "checks": [
+    "topic plan saved daily at 20 total",
+    "candidate title edit",
+    "downloaded bytes SHA256 equals database digest",
+    "archive",
+    "restore",
+    "source provenance retained",
+    "desktop/mobile layout"
+  ],
+  "candidate": "792dac99-be70-5379-b3d8-c6142ea1689d",
+  "plan": "5a1aaafc-01d9-458d-8b6b-f20fe0708c8f",
+  "pageErrors": []
+}

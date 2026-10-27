@@ -1,5 +1,7 @@
 # HandNavigate collection worker and StickerDock integration
 
+**Current operations and live production proof: [COLLECTION_WORKSPACE.md](COLLECTION_WORKSPACE.md).** The sections below record the earlier pre-activation implementation and deployment plan. Its pending migration, Admin UI and daily-activation statements have been superseded by that guide; its local-only evidence remains identified as local.
+
 28 October 2026. This adds an always-on worker mode to HandNavigate, using the same download/verification `Runner` as the desktop app. The portable desktop EXE remains a separate entry point; its loopback saved-workflow API is not this parameterized collection API.
 
 ## The intended daily flow

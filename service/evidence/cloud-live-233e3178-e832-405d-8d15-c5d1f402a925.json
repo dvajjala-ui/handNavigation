@@ -1,0 +1,96 @@
+{
+  "checkedAt": "2026-10-27T20:38:01.723Z",
+  "executor": "Production StickerDock Admin API -> Supabase queue -> HandNavigate QueueBridge/ServiceBrowser/Runner -> authenticated production intake -> verified Supabase blob and row read-back",
+  "request": {
+    "topics": [
+      "cute cat",
+      "cute dog"
+    ],
+    "sources": [
+      "reddit"
+    ],
+    "image_limit": 4,
+    "request_id": "live-cloud-cb1abf36-421c-4487-9ec5-9d322a3aba58"
+  },
+  "id": "233e3178-e832-405d-8d15-c5d1f402a925",
+  "localId": "7786b7ac-cd86-4912-adaa-7054c6582982",
+  "status": "VERIFIED_STORAGE",
+  "saved": 4,
+  "delivered": 4,
+  "error": null,
+  "sourceStatus": {
+    "reddit": {
+      "status": "VERIFIED",
+      "lastError": null
+    }
+  },
+  "productionSupabaseWritten": true,
+  "aiCalls": 0,
+  "publications": 0,
+  "items": [
+    {
+      "platform": "reddit",
+      "topic": "cute cat",
+      "source": "https://www.reddit.com/r/cats/comments/1llnq8o/can_we_just_have_a_big_thread_of_cute_cat/",
+      "originalSha256": "6850697451a31013bf4927a666e0ef45b17bca5819d9a43f29808c93f504cf59",
+      "delivery": {
+        "id": "5c84ffaa-f320-556a-be21-b84908df6bbb",
+        "path": "handnavigate/candidates/866ffaa2557b645a081feed4cf2db907001db78b2ad5deb8688bda3d066e5fc2.webp",
+        "sha256": "866ffaa2557b645a081feed4cf2db907001db78b2ad5deb8688bda3d066e5fc2",
+        "verifiedAt": "2026-10-27T20:37:26.105Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "dadf758960b6354197c181333e3593506f719fbff148bd5d17375adbde0151f8"
+      }
+    },
+    {
+      "platform": "reddit",
+      "topic": "cute cat",
+      "source": "https://www.reddit.com/r/cats/comments/193588w/ive_been_told_by_reddit_that_my_cat_is_very_cute/",
+      "originalSha256": "e6bc8d2a001beef67f89e75d1dd49e4a48164fe0128d82cb609d18099ef6cd99",
+      "delivery": {
+        "id": "a416e5e7-5350-5054-ad4e-cb1736302fe2",
+        "path": "handnavigate/candidates/578824ad16023bb0bb86474a31d06053b37ce2f8c6bea4abb1757c44178a4aca.webp",
+        "sha256": "578824ad16023bb0bb86474a31d06053b37ce2f8c6bea4abb1757c44178a4aca",
+        "verifiedAt": "2026-10-27T20:37:34.212Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "996fb448bef6a51993962dd2de37c8bee048e0c65520a0caa1b0203ba56c6471"
+      }
+    },
+    {
+      "platform": "reddit",
+      "topic": "cute dog",
+      "source": "https://www.reddit.com/r/5050/comments/asy4lo/5050_fungus_infrcted_spider_sfw_or_a_cute_puppy/",
+      "originalSha256": "46d55931a264b981ed38b595dc6c852a2559f41d17cfc938267512fc64b8d317",
+      "delivery": {
+        "id": "bd518757-4bd7-583b-a012-8e70d38ffee6",
+        "path": "handnavigate/candidates/781ba3fe2077a79e1077d15d5202b5732ef483e27ffbf323020d3c345208e730.webp",
+        "sha256": "781ba3fe2077a79e1077d15d5202b5732ef483e27ffbf323020d3c345208e730",
+        "verifiedAt": "2026-10-27T20:37:43.680Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "a78f83662a2b1b588f6af4b80e4c53033eedcaeadc18bd3b1cde615dc7cb1bf4"
+      }
+    },
+    {
+      "platform": "reddit",
+      "topic": "cute dog",
+      "source": "https://www.reddit.com/r/photoshopbattles/comments/7zkdrz/psbattle_this_uglycute_dog/",
+      "originalSha256": "9021d8f5362fb490900cf43015ec0bfbe34b6f4bf90f54d706ce0715ca0eb183",
+      "delivery": {
+        "id": "792dac99-be70-5379-b3d8-c6142ea1689d",
+        "path": "handnavigate/candidates/2c0fa643f0c41e29d6057d6f5019ffa64abaaa4b6c3421a1769fbb602e2227f5.webp",
+        "sha256": "2c0fa643f0c41e29d6057d6f5019ffa64abaaa4b6c3421a1769fbb602e2227f5",
+        "verifiedAt": "2026-10-27T20:37:53.553Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "828c3ca581287e80a2894af0f33a4197809b49fb6b68f9930ba581c429a7c92e"
+      }
+    }
+  ]
+}

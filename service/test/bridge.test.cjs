@@ -12,3 +12,13 @@ test('outbound bridge reuses durable jobs, reports only verified deliveries, and
     assert.equal(new QueueBridge(collections,sink).workerId,bridge.workerId);
   }finally{if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true});}
 });
+test('an in-flight failed heartbeat cannot keep a browser running past its lease safety window',async()=>{
+  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'hand-bridge-'));
+  let bridge;
+  try{
+    let stoppedAt=0;const started=Date.now(),collections={folder,data:{jobs:[]},get:()=>({id:'12345678-1234-1234-1234-123456789012',status:'RUNNING',items:[]}),stop:()=>{stoppedAt=Date.now();}};
+    const sink={call:async()=>{await new Promise(r=>setTimeout(r,1800));throw new Error('StickerDock HTTP 503');}};
+    bridge=new QueueBridge(collections,sink,{intervalMs:20});bridge.pending={cloud:{id:'12345678-1234-1234-1234-123456789012'},local:'12345678-1234-1234-1234-123456789012',lastConfirmed:started-91000};bridge.start();
+    await new Promise(r=>setTimeout(r,1250));assert.ok(stoppedAt>0);assert.ok(stoppedAt-started<1700);assert.equal(bridge.pending,null);
+  }finally{await bridge?.close();if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true});}
+});

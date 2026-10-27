@@ -1,0 +1,356 @@
+{
+  "checkedAt": "2026-10-27T20:35:39.984Z",
+  "executor": "Production StickerDock Admin API -> Supabase queue -> HandNavigate QueueBridge/ServiceBrowser/Runner -> authenticated production intake -> verified Supabase blob and row read-back",
+  "request": {
+    "topics": [
+      "funny dog reaction"
+    ],
+    "sources": [
+      "reddit",
+      "pinterest"
+    ],
+    "image_limit": 20,
+    "request_id": "live-cloud-c11be201-0dbe-4001-8d22-f590fe48c837"
+  },
+  "id": "70843e7f-cac6-44d2-8be2-ef9a6ff7eb16",
+  "localId": "0918a72f-82cc-4dda-8762-b4d6ffd827ba",
+  "status": "VERIFIED_STORAGE",
+  "saved": 20,
+  "delivered": 20,
+  "error": null,
+  "sourceStatus": {
+    "reddit": {
+      "status": "HALTED",
+      "lastError": "This image comes from https://external-preview.redd.it. Add it to the reviewed image websites first."
+    },
+    "pinterest": {
+      "status": "VERIFIED",
+      "lastError": null
+    }
+  },
+  "productionSupabaseWritten": true,
+  "aiCalls": 0,
+  "publications": 0,
+  "items": [
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/944770828085722149/",
+      "originalSha256": "b18ad26d2e360defb2340f2666a5679b6d63053dbb9b7d484e83f72559491efe",
+      "delivery": {
+        "id": "68e895d1-50f8-5235-8613-8d1650af2d15",
+        "path": "handnavigate/candidates/1ee12a63aae0e5ffad233264472f4232e02cda242bf5e8379a94a5b2aa479a89.webp",
+        "sha256": "1ee12a63aae0e5ffad233264472f4232e02cda242bf5e8379a94a5b2aa479a89",
+        "verifiedAt": "2026-10-27T20:32:42.059Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "cfa203b93e2a5b4e860c3e477a6eaa3a1328ccbe5148b418b9b7717f7dcdd13a"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1035898351819672053/",
+      "originalSha256": "170e58650504b97f44a984846b06f25a778ddee23dbb330c2e96e8fcd1516c52",
+      "delivery": {
+        "id": "57a56de7-c28f-5db6-9419-beb8f4060adb",
+        "path": "handnavigate/candidates/fa6729084bac096106f5138caa6e7af02056e59e6bfd19669e64aea59cf6fb4c.webp",
+        "sha256": "fa6729084bac096106f5138caa6e7af02056e59e6bfd19669e64aea59cf6fb4c",
+        "verifiedAt": "2026-10-27T20:32:51.454Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "c0320bf06a905882217cce4945ecce740fcb96611391b3cfe3c25ddbc3cd2915"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1091982240871389666/",
+      "originalSha256": "5a8cfb1fe789e2b4ebec05f99cc56ee69f4539bd49f6075b344bd20c23bf3978",
+      "delivery": {
+        "id": "59c8c6b3-f733-58a0-ad98-1d9c7862771b",
+        "path": "handnavigate/candidates/e72e10d1ca4cc790842fa2ab0afcc807820a20e1b0cfce9dbe4eb1116540d51b.webp",
+        "sha256": "e72e10d1ca4cc790842fa2ab0afcc807820a20e1b0cfce9dbe4eb1116540d51b",
+        "verifiedAt": "2026-10-27T20:33:00.016Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "b2191d10150103fe9a157612f269246a9b9bc3ae7a8ca4e2d46e88fc24f99e3e"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/303430093656999866/",
+      "originalSha256": "5474ea56858e891547eed067abc456402d4d10ffa29f62638bd402739c3923c2",
+      "delivery": {
+        "id": "e1bcf12a-3b2f-5b90-937e-a5b187389625",
+        "path": "handnavigate/candidates/6cafb4bff0c2b7169aac2692944db2cc7d755f9e61930b3642d9cebc8b6574dc.webp",
+        "sha256": "6cafb4bff0c2b7169aac2692944db2cc7d755f9e61930b3642d9cebc8b6574dc",
+        "verifiedAt": "2026-10-27T20:33:08.603Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "4f2d5084a89f465454c5d960912dfca9feabf9646d1d9ce283651ab55c105472"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/901001469213140920/",
+      "originalSha256": "06aa3984450a0c657ebf85c149a29a039419593a209e82100238ca8b3fc458f6",
+      "delivery": {
+        "id": "8ce95628-8ccf-587a-b8bd-92c8b42d0054",
+        "path": "handnavigate/candidates/3cee3f841c2ef17c6504b94d4689b7273b7fed294f66f9bb4a9d16a4e4bba368.webp",
+        "sha256": "3cee3f841c2ef17c6504b94d4689b7273b7fed294f66f9bb4a9d16a4e4bba368",
+        "verifiedAt": "2026-10-27T20:33:16.820Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "663b0717146f831f6cc1dbcfb6ee8a1df7134dbfb8638d6c425c578d43b72c2a"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1071153092645565525/",
+      "originalSha256": "0507c2a033774634d4d3eb91d92d1a10bab51883e08a1e866d046f598c1aa70d",
+      "delivery": {
+        "id": "68687e7d-7533-5826-a847-88880bfc4197",
+        "path": "handnavigate/candidates/c74d95da100f8da5444092fd246be973152855a73a2625831ec99e1c9459052f.webp",
+        "sha256": "c74d95da100f8da5444092fd246be973152855a73a2625831ec99e1c9459052f",
+        "verifiedAt": "2026-10-27T20:33:25.997Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "a672e54d4a02c5017762bfdedb2c31049e93048ceb7c46a548cea56609290c62"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1001136192177037594/",
+      "originalSha256": "eca1f91d9a242890b71f12400e199733de516cf995bbbd3ce5b6f34f8617592e",
+      "delivery": {
+        "id": "e9c3c1e3-c40d-5cee-bd07-2df35b5502e2",
+        "path": "handnavigate/candidates/08d134e32b32259491b73d1923535cbdaa1d654e0ffab622b84c45390fe4e145.webp",
+        "sha256": "08d134e32b32259491b73d1923535cbdaa1d654e0ffab622b84c45390fe4e145",
+        "verifiedAt": "2026-10-27T20:33:34.141Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "2a902fcc0b463b4228826c47e1f647906fc69ca166d8502294579c8ad92b3abd"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/983192162552321785/",
+      "originalSha256": "b76d07404d83d012f6aed2d7dbf2a064fba94b44dd3b0e59c3f097018f6329f7",
+      "delivery": {
+        "id": "ee39ce79-50c9-5b63-882f-6c1d31bb52bd",
+        "path": "handnavigate/candidates/252114af7830d5b920915c4860e643722dba1548ddce2654f5aa975fbd0ee98a.webp",
+        "sha256": "252114af7830d5b920915c4860e643722dba1548ddce2654f5aa975fbd0ee98a",
+        "verifiedAt": "2026-10-27T20:33:42.932Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "af2b6687c39a507b6d2292e15623840a0fb5dd852dd881cee39f7d06036285e7"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1124703706971567716/",
+      "originalSha256": "54b8986c93b2eefcef4d987bd2021c05ea549eb9990ad43f286e4a80b3c79a98",
+      "delivery": {
+        "id": "56645858-62b7-5b47-92af-55ee06092878",
+        "path": "handnavigate/candidates/a2199564e436ac0575a2c3073f8196629dca1902be77aface6cbcea05efc68f1.webp",
+        "sha256": "a2199564e436ac0575a2c3073f8196629dca1902be77aface6cbcea05efc68f1",
+        "verifiedAt": "2026-10-27T20:33:51.793Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "1a84c4ea7c60011c317dbc1638d67ed349bc2e29cc230223ee3ee9fbe71d3446"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1053701644099021568/",
+      "originalSha256": "c35ed96c377fe65594b4183bf3e23f2ec38ba74f88775ff192a5dc5d6e6124f6",
+      "delivery": {
+        "id": "8ffcc93c-51d3-5c9b-a29b-f0ad0d1e92b8",
+        "path": "handnavigate/candidates/6575edd888dfafd504bd9db251eb3f53151bdffc48fc066bdcdbeaa8917f4cab.webp",
+        "sha256": "6575edd888dfafd504bd9db251eb3f53151bdffc48fc066bdcdbeaa8917f4cab",
+        "verifiedAt": "2026-10-27T20:33:58.746Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "f99bae319a5c75537d07878b1a3d603800fed8262f7f27a2f38bde52697af7d1"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/954200239808549962/",
+      "originalSha256": "02b769ccb13376ed5239450ff3104bfb9fd41433b9504f6d904fa264ded67eab",
+      "delivery": {
+        "id": "19ab74d6-86d1-5688-9d00-d7926f266954",
+        "path": "handnavigate/candidates/62a4c4c747a87a11a3c635f9cc04bbc1d83b3acfe6711ea0428947f86c5add1e.webp",
+        "sha256": "62a4c4c747a87a11a3c635f9cc04bbc1d83b3acfe6711ea0428947f86c5add1e",
+        "verifiedAt": "2026-10-27T20:34:04.248Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "75108cdfae83abaf2dd4afd909f890fcc8f0035380fffddd5e094c2156c73ef5"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/375558056449013120/",
+      "originalSha256": "2a81957594129f44b427ebfc5d6664bdbd39891d39bb122bcafd305406bf9f27",
+      "delivery": {
+        "id": "5f4a7d41-a5c0-54c1-a3af-9173de804020",
+        "path": "handnavigate/candidates/04c8ae04045ca3c0bdc71a5bd7de5b4aac3a7b8a0a0f50fd1f6228df56fa923c.webp",
+        "sha256": "04c8ae04045ca3c0bdc71a5bd7de5b4aac3a7b8a0a0f50fd1f6228df56fa923c",
+        "verifiedAt": "2026-10-27T20:34:14.126Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "9b2e7b059ef481ec84dc093a80bf59c37148b2ca4d2bb666f70b967a890d9437"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1037516832913497851/",
+      "originalSha256": "06edddb994444d7865168a1f36f8358740d1f8488d85382dd42ceaf490c532f3",
+      "delivery": {
+        "id": "313b4ef1-3c68-5ca0-99a5-774d860cfee3",
+        "path": "handnavigate/candidates/bb62843b1796babf1d5f822efe5ae4ebe1ac3b24b564fc65b634f63e451d9465.webp",
+        "sha256": "bb62843b1796babf1d5f822efe5ae4ebe1ac3b24b564fc65b634f63e451d9465",
+        "verifiedAt": "2026-10-27T20:34:21.851Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "36ec9720139f252459116b4bcf7b9b844619dbcfeb9c3888df46f3244b7f9b39"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/870602171731610058/",
+      "originalSha256": "a0561438dfe3d6ecfb1dd4e55c109a032453fa5b214823257b39668fc91ed4dc",
+      "delivery": {
+        "id": "b2ed725d-d08e-58dd-9d97-ce80abbda7b0",
+        "path": "handnavigate/candidates/96a0040d7e92c3078ef0932ca5ad967f7fff614c994554b2cd2ee6f3a286eb4a.webp",
+        "sha256": "96a0040d7e92c3078ef0932ca5ad967f7fff614c994554b2cd2ee6f3a286eb4a",
+        "verifiedAt": "2026-10-27T20:34:31.231Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "8ca7df6ff86bc24236d1acbd3aa06d743d1346ff219f0289e5a34637ced87fe5"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1115485401490094783/",
+      "originalSha256": "790dc6f7d268e495629fa93c03dd2a9e4f7228092ea374d9b6135e7c1cc71408",
+      "delivery": {
+        "id": "b2b26db3-95ff-51b9-af8a-932539681aea",
+        "path": "handnavigate/candidates/cddc6c39e04eebd8d2d1c9a8e52349897207fd05091b4ef5d31fe965a51c2937.webp",
+        "sha256": "cddc6c39e04eebd8d2d1c9a8e52349897207fd05091b4ef5d31fe965a51c2937",
+        "verifiedAt": "2026-10-27T20:34:39.596Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "28a5a551cb769bd80f655b5a0d8aacb4db4ebaeb08b6c1363032ba57e91a3ec9"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/887138826622844117/",
+      "originalSha256": "8850890d19d8b84c003032512eff9578b14f7df36e7f880a63224b72c3ac7076",
+      "delivery": {
+        "id": "f2d4342c-65ff-5f34-be5b-b6ba60c7d9a0",
+        "path": "handnavigate/candidates/71bddd3ec542ab261242597d160603b95358aaf9436bd06ea28a128c7e1c7fd9.webp",
+        "sha256": "71bddd3ec542ab261242597d160603b95358aaf9436bd06ea28a128c7e1c7fd9",
+        "verifiedAt": "2026-10-27T20:34:48.331Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "8dfa3f008411532b28c6971e14ca87421223c3f089d4e6cff3cbee82bc0c6bc5"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1066086543091392812/",
+      "originalSha256": "993b8b8f9e16df6578685b04ef212478ffc6629a4b30a1a668fe7121fac74b2c",
+      "delivery": {
+        "id": "db32da32-123e-5b0d-842d-278dedf2321a",
+        "path": "handnavigate/candidates/9437eb7c78a855130eb7883bc3949a32c8c4eb810fdb55d4f86e6efc133eae38.webp",
+        "sha256": "9437eb7c78a855130eb7883bc3949a32c8c4eb810fdb55d4f86e6efc133eae38",
+        "verifiedAt": "2026-10-27T20:34:56.798Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "11e30feac9ebf08ca90a177eba20a30f3da78d9235d35d41f1fdd9b48e8dd13b"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1081426929293730695/",
+      "originalSha256": "1f3784e9a7d5d6e952b162f335aa547648ed598297916dc5cbdfe05861fe0191",
+      "delivery": {
+        "id": "91aa4bbf-57f8-59e9-b276-5fecd251ce08",
+        "path": "handnavigate/candidates/3c137ef928268000ee57e13cb0b3dbc65f5da6e2d89f9a8530bfb79a0c0eb0e7.webp",
+        "sha256": "3c137ef928268000ee57e13cb0b3dbc65f5da6e2d89f9a8530bfb79a0c0eb0e7",
+        "verifiedAt": "2026-10-27T20:35:04.358Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "42f33750ee5d1fa77057e0f28d1db75e6150f53bdd39980e3f124e2dbcd74b1a"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1115626138970536539/",
+      "originalSha256": "5a6c5a9fdbcbf715811414537e8f9fd477a5a2b9a13e26c303bf38d83d2d97c5",
+      "delivery": {
+        "id": "dee130e9-45ff-5ae0-896a-a3482ee59313",
+        "path": "handnavigate/candidates/8b5db9fec00ffdf595b6c7e76cf4b096f7920d1ed114ffb6bb9277c117915e0f.webp",
+        "sha256": "8b5db9fec00ffdf595b6c7e76cf4b096f7920d1ed114ffb6bb9277c117915e0f",
+        "verifiedAt": "2026-10-27T20:35:14.133Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "3671468bc06e72a2ec3a05afdd63ed0c179c12ef9947dafa5e27798a1e7a0dc8"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny dog reaction",
+      "source": "https://in.pinterest.com/pin/1151303092290668697/",
+      "originalSha256": "d264ce441eb2a780169915e1d19314b552f9bc9a968d54e7dde5934f621783c7",
+      "delivery": {
+        "id": "94e0b9dc-2328-5cb9-b3f3-0a079e31fd0c",
+        "path": "handnavigate/candidates/034e53c2161d644d1f7612a2c887cbf7fe9e13a06871b0fb1119f985802ee24f.webp",
+        "sha256": "034e53c2161d644d1f7612a2c887cbf7fe9e13a06871b0fb1119f985802ee24f",
+        "verifiedAt": "2026-10-27T20:35:22.287Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "04904943ff521a3d5a640cbae06d2f0a2482d53cb3e5a10117d6d164b35ab8cf"
+      }
+    }
+  ]
+}

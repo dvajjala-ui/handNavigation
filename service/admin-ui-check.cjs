@@ -31,6 +31,7 @@ async function main(){
     await page.locator('#collection-form textarea').fill('funny cat reaction');await page.locator('#collection-form input[name=name]').fill('Daily cats');
     await page.getByRole('button',{name:'Save plan',exact:true}).click();await page.locator('.collect-plan').waitFor();
     await page.locator('.collect-plan').getByRole('button',{name:'Run',exact:true}).click();await page.getByText('queued',{exact:true}).waitFor();
+    await page.locator('.collect-preview').first().scrollIntoViewIfNeeded();try{await page.waitForFunction(()=>document.querySelector('.collect-image img')?.naturalWidth>0,null,{timeout:15000});}catch(error){console.error(JSON.stringify({errors,calls:calls.map(c=>c.action),state:await page.locator('.collect-preview').first().evaluate(e=>({html:e.outerHTML,rect:e.getBoundingClientRect().toJSON(),height:innerHeight}))}));throw error;}
     await page.locator('.collect-image').getByRole('button',{name:'Edit',exact:true}).click();await page.locator('#collection-edit-form input[name=title]').fill('Happy cat');
     await page.getByRole('button',{name:'Save image details'}).click();await page.locator('.collect-image strong').getByText('Happy cat',{exact:true}).waitFor();
     const download=page.waitForEvent('download');await page.locator('.collect-image').getByRole('button',{name:'Download',exact:true}).click();assert.ok((await download).suggestedFilename().endsWith('.webp'));

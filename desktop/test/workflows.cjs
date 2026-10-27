@@ -5,7 +5,7 @@ const {fixture}=require('./fixture.cjs'),{draft}=require('../core.cjs'),{imageIn
 const {closeApp,removeFixture}=require('./cleanup.cjs');
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 async function freePort(){const s=net.createServer();await new Promise(r=>s.listen(0,'127.0.0.1',r));const p=s.address().port;await new Promise(r=>s.close(r));return p;}
-async function finished(app,id,after){for(let n=0;n<600;n++){const s=await app.evaluate(()=>({active:!!global.__handnavigateTest.runner.active,runs:global.__handnavigateTest.store.data.runs}));if(!s.active&&s.runs.length>after&&s.runs[0].taskId===id)return s.runs[0];await pause(150);}throw new Error('Run did not finish: '+id);}
+async function finished(app,id,after){for(let n=0;n<600;n++){const s=await app.evaluate(()=>({active:!!global.__handnavigateTest.runner.active,runs:structuredClone(global.__handnavigateTest.store.data.runs)}));if(!s.active&&s.runs.length>after&&s.runs[0].taskId===id&&s.runs[0].status!=='RUNNING')return s.runs[0];await pause(150);}throw new Error('Run did not finish: '+id);}
 async function main(){
   const site=await fixture(),folder=fs.mkdtempSync(path.join(os.tmpdir(),'handnavigate-workflows-')),output=path.join(folder,'Downloads'),profile=path.join(folder,'profile'),results=[];fs.mkdirSync(output);
   let app;const launch=()=>electron.launch({args:[path.resolve('.')],env:{...process.env,HANDNAVIGATE_TEST:'1',HANDNAVIGATE_USER_DATA:profile},timeout:60000});

@@ -24,7 +24,7 @@ async function main(){
     }
     const local=job.local_id?app.collections.get(job.local_id):null;
     const result={checkedAt:new Date().toISOString(),executor:'Production StickerDock Admin API -> Supabase queue -> HandNavigate QueueBridge/ServiceBrowser/Runner -> authenticated production intake -> verified Supabase blob and row read-back',request,id:job.id,localId:job.local_id,status:job.status,saved:job.saved,delivered:job.delivered,error:job.error,sourceStatus:job.source_status,productionSupabaseWritten:true,aiCalls:0,publications:0,items:local?.items.map(i=>({platform:i.platform,topic:i.topic,source:i.postUrl||i.source,originalSha256:i.sha256,delivery:i.delivery||null}))||[]};
-    fs.mkdirSync('service/evidence',{recursive:true});fs.writeFileSync('service/evidence/cloud-live-20261028.json',JSON.stringify(result,null,2));console.log(JSON.stringify({status:job.status,saved:job.saved,delivered:job.delivered,error:job.error,sourceStatus:job.source_status}));
+    fs.mkdirSync('service/evidence',{recursive:true});fs.writeFileSync('service/evidence/cloud-live-'+job.id+'.json',JSON.stringify(result,null,2));console.log(JSON.stringify({status:job.status,saved:job.saved,delivered:job.delivered,error:job.error,sourceStatus:job.source_status}));
     assert.equal(job.status,'VERIFIED_STORAGE');assert.equal(job.delivered,request.image_limit);assert.ok(local.items.every(i=>i.delivery?.verifiedAt));
     const repeat=await admin({action:'collection_create',...request});assert.equal(repeat.job.id,id);assert.equal(repeat.reused,true);
   }finally{await app.close();release();}
