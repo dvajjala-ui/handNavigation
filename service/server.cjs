@@ -4,6 +4,7 @@ const {atomicWrite}=require('../desktop/core.cjs');
 const {Collections}=require('./collections.cjs');
 const {StickerDock}=require('./stickerdock.cjs');
 const {lock}=require('./lock.cjs');
+const {QueueBridge}=require('./bridge.cjs');
 function tokenEqual(actual,expected){const a=Buffer.from(actual||''),b=Buffer.from('Bearer '+expected);return a.length===b.length&&crypto.timingSafeEqual(a,b);}
 async function body(req){let size=0,text='';for await(const part of req){size+=part.length;if(size>16000)throw new Error('Request exceeds 16 KB.');text+=part;}try{return JSON.parse(text);}catch{throw new Error('Send a JSON object.');}}
 function createServer(options={}){
@@ -35,13 +36,17 @@ function createServer(options={}){
     }catch(error){send(res,409,{error:String(error.message).slice(0,500)});}
   });
   server.requestTimeout=30000;server.headersTimeout=10000;
+  const bridge=options.cloudQueue&&sink?new QueueBridge(collections,sink,{onError:error=>console.error('Cloud queue:',String(error.message).slice(0,200))}).start():null;
   queueMicrotask(()=>collections.pump().catch(error=>options.onError?.(error)));
-  return {server,collections,token,folder,async close(){await collections.close();await new Promise(resolve=>server.close(resolve));}};
+  return {server,collections,token,folder,bridge,async close(){await bridge?.close();await collections.close();await new Promise(resolve=>server.close(resolve));}};
 }
 if(require.main===module){
   const folder=path.resolve(process.env.HANDNAVIGATE_DATA||path.join(__dirname,'..','runtime','service')),release=lock(folder);
   process.once('exit',release);
-  const app=createServer(),host=process.env.HANDNAVIGATE_HOST||'127.0.0.1',port=Number(process.env.HANDNAVIGATE_PORT||47832);
+  const configFile=process.env.HANDNAVIGATE_CONFIG||path.join(folder,'stickerdock.json');
+  const config=fs.existsSync(configFile)?JSON.parse(fs.readFileSync(configFile,'utf8')):{};
+  const sink=config.baseUrl?new StickerDock(config.baseUrl,config.token):undefined;
+  const app=createServer({sink,cloudQueue:config.cloudQueue===true||process.env.HANDNAVIGATE_CLOUD_QUEUE==='1'}),host=process.env.HANDNAVIGATE_HOST||'127.0.0.1',port=Number(process.env.HANDNAVIGATE_PORT||47832);
   app.server.listen(port,host,()=>console.log(JSON.stringify({service:'HandNavigate',host,port,profiles:path.join(app.folder,'profiles'),keyFile:path.join(app.folder,'service-key.json'),dailyLimit:app.collections.options.dailyLimit,storageConfigured:!!app.collections.options.sink})));
   for(const signal of ['SIGINT','SIGTERM'])process.once(signal,()=>app.close().then(()=>process.exit(0)));
 }
