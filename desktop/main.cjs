@@ -9,11 +9,12 @@ const {Runner}=require('./engine.cjs');
 const {script}=require('./dom.cjs');
 const {LocalAPI,validRequestId}=require('./integration.cjs');
 const {sameLocalDocument}=require('./trust.cjs');
+const {CollectionManager}=require('./collection-manager.cjs');
 
 if(process.env.HANDNAVIGATE_USER_DATA)app.setPath('userData',path.resolve(process.env.HANDNAVIGATE_USER_DATA));
 app.setName('HandNavigate');
 const ownUI=pathToFileURL(path.join(__dirname,'index.html')).href;
-let win,browser,store,runner,queue,timer,localAPI,selectedId=null,recording=null,picking=null,lastError=null,browserHidden=false,exitAllowed=false;
+let win,browser,store,runner,queue,timer,localAPI,collectionManager,selectedId=null,recording=null,picking=null,lastError=null,browserHidden=false,exitAllowed=false;
 let flushedExit=false;
 const popups=new Set();
 function apiClientPath(){return app.isPackaged?path.join(process.resourcesPath,'Invoke-HandNavigate.ps1'):path.join(__dirname,'..','Invoke-HandNavigate.ps1');}
@@ -120,6 +121,16 @@ async function stopRecording() {
 
 function registerIPC(){
   const handlers={
+    collectionStatus:()=>collectionManager.status(),
+    collectionConfigure:arg=>collectionManager.configure(arg),
+    collectionStart:()=>collectionManager.start(),
+    collectionStop:()=>collectionManager.stop(true),
+    collectionRun:arg=>collectionManager.collect(arg),
+    collectionStopJob:arg=>collectionManager.stopJob(arg.id),
+    collectionResumeJob:arg=>collectionManager.resumeJob(arg.id),
+    collectionChooseFolder:async()=>{const result=await dialog.showOpenDialog(win,{properties:['openDirectory','createDirectory'],defaultPath:collectionManager.settings.folder});return result.canceled?null:result.filePaths[0];},
+    collectionShowFolder:async()=>{const info=await collectionManager.status(),folder=info.downloadFolder;fs.mkdirSync(folder,{recursive:true});if(!fs.statSync(folder).isDirectory())throw new TaskError('This is not a download folder.');return shell.openPath(folder);},
+    collectionOpenAdmin:()=>{const url=collectionManager.config().baseUrl;if(!url)throw new TaskError('Connect StickerDock first.');new (require('../service/stickerdock.cjs').StickerDock)(url,collectionManager.config().token);return shell.openExternal(url.replace(/\/$/,'')+'/admin');},
     state:()=>snapshot(),
     newTask:arg=>{idle();if(recording)throw new TaskError('Stop teaching before creating another workflow.');const options={...arg,outputFolder:app.getPath('downloads')};const t=store.save(draft(options));selectedId=t.id;return t;},
     selectTask:arg=>{idle();if(recording)throw new TaskError('Stop teaching first.');store.get(arg.id);selectedId=arg.id;return current();},
@@ -197,6 +208,8 @@ async function main(){
   if(!app.requestSingleInstanceLock()){app.quit();return;}
   await app.whenReady();
   store=new Store(app.getPath('userData'));
+  const legacyFolders=process.env.HANDNAVIGATE_TEST?[]:[path.join(app.getAppPath(),'runtime/service-live'),...(process.env.PORTABLE_EXECUTABLE_DIR?[path.resolve(process.env.PORTABLE_EXECUTABLE_DIR,'..','runtime/service-live')]:[])];
+  collectionManager=new CollectionManager(app.getPath('userData'),{downloads:process.env.HANDNAVIGATE_TEST&&process.env.HANDNAVIGATE_TEST_DOWNLOADS?path.resolve(process.env.HANDNAVIGATE_TEST_DOWNLOADS):app.getPath('downloads'),legacyFolders,headless:process.env.HANDNAVIGATE_TEST==='1'});
   const saved=store.data.tasks.find(t=>!t.archived);if(saved)selectedId=saved.id;
   else {const t=store.save(draft({outputFolder:app.getPath('downloads')}));selectedId=t.id;}
   win=new BrowserWindow({width:1520,height:980,minWidth:1100,minHeight:740,title:'HandNavigate',icon:path.join(__dirname,'assets/icon.png'),backgroundColor:'#f4f4ee',show:false,
@@ -207,8 +220,8 @@ async function main(){
   registerIPC();
   win.webContents.on('will-navigate',(e,url)=>{if(url!==ownUI)e.preventDefault();});win.webContents.setWindowOpenHandler(()=>({action:'deny'}));
   win.on('close',event=>{
-    if(!exitAllowed&&(runner.active||store.data.tasks.some(t=>t.schedule?.enabled))){
-      const choice=dialog.showMessageBoxSync(win,{type:'question',title:'Close HandNavigate?',message:runner.active?'A workflow is running. Closing stops the runner.':'Daily workflows run while HandNavigate is open.',detail:'You can minimize the app to keep the local worker running. Closing keeps your saved workflows and pauses work until you reopen it.',buttons:['Keep open','Close app'],defaultId:0,cancelId:0});
+    if(!exitAllowed&&(runner.active||store.data.tasks.some(t=>t.schedule?.enabled)||collectionManager.app)){
+      const choice=dialog.showMessageBoxSync(win,{type:'question',title:'Close HandNavigate?',message:runner.active?'A workflow is running. Closing stops the runner.':collectionManager.app?'Closing stops this app’s image collection worker.':'Daily workflows run while HandNavigate is open.',detail:'You can minimize the app to keep the local worker running. Closing keeps your saved workflows and pauses work until you reopen it.',buttons:['Keep open','Close app'],defaultId:0,cancelId:0});
       if(choice===0){event.preventDefault();return;}exitAllowed=true;runner.stop();
     }
   });
@@ -218,8 +231,8 @@ async function main(){
   if(!process.env.HANDNAVIGATE_TEST)await browser.wc.loadURL('data:text/html,'+encodeURIComponent('<!doctype html><html><head><meta charset="utf-8"><title>Your browser</title></head><body style="font:16px Segoe UI,system-ui;color:#274f3b;background:#fafbf6;display:grid;place-content:center;min-height:90vh;margin:0;padding:40px;box-sizing:border-box"><div style="max-width:430px"><h1 style="font-size:30px;font-weight:600">Your workflow starts here.</h1><p style="line-height:1.7;color:#75806e">Enter a website in the address bar, or use Open website in Set up. Sign in here once, choose your images and the way to load more, then review and run.</p><p style="font-size:13px;color:#89937e">Saved workflows use this same local browser.</p></div></body></html>')).catch(fail);
   if(localAPI?.config.enabled)await localAPI.enable().catch(fail);
   timer=setInterval(()=>{if(!runner.active&&!recording&&!picking)queue.tick().then(()=>notify()).catch(fail);},5000);timer.unref();
-  if(process.env.HANDNAVIGATE_TEST)global.__handnavigateTest={get store(){return store;},get browser(){return browser;},get runner(){return runner;},get queue(){return queue;},get localAPI(){return localAPI;},get window(){return win;},setSelected:id=>{selectedId=id;notify();},flush:()=>notify(),shutdown:async()=>{exitAllowed=true;runner.stop();await localAPI?.close();await browser.session.cookies.flushStore();browser.session.flushStorageData();win.destroy();}};
+  if(process.env.HANDNAVIGATE_TEST)global.__handnavigateTest={get store(){return store;},get browser(){return browser;},get runner(){return runner;},get queue(){return queue;},get localAPI(){return localAPI;},get collectionManager(){return collectionManager;},get window(){return win;},setSelected:id=>{selectedId=id;notify();},flush:()=>notify(),shutdown:async()=>{exitAllowed=true;runner.stop();await collectionManager.close();await localAPI?.close();await browser.session.cookies.flushStore();browser.session.flushStorageData();win.destroy();}};
 }
 main().catch(e=>{dialog.showErrorBox('HandNavigate could not start',e.message);app.quit();});
-app.on('before-quit',event=>{if(browser&&!flushedExit){event.preventDefault();flushedExit=true;Promise.allSettled([localAPI?.close(),browser.session.cookies.flushStore()]).finally(()=>{browser.session.flushStorageData();app.quit();});}});
+app.on('before-quit',event=>{if(browser&&!flushedExit){event.preventDefault();flushedExit=true;Promise.allSettled([collectionManager?.close(),localAPI?.close(),browser.session.cookies.flushStore()]).finally(()=>{browser.session.flushStorageData();app.quit();});}});
 app.on('window-all-closed',()=>app.quit());

@@ -64,7 +64,7 @@ class Collections{
           if(job.cancelled)break;
           job.status='RUNNING';
           const task=this.runs.save({...draft({startUrl:source.searchUrl,outputFolder:path.join(this.folder,'downloads'),imageOrigins:source.imageOrigins||[]}),
-            name:'Collection '+job.id.slice(0,8)+' '+source.id,type:'images',count:allowance,rows:[{topic}],sourceSelector:source.selector,
+            name:'Collection '+job.id.slice(0,8)+' '+source.id,type:'images',count:allowance,rows:[{topic}],sourceSelector:source.selector,outputFolder:this.options.outputFolder||path.join(this.folder,'downloads'),
             allowedOrigins:source.allowedOrigins,pagination:source.pagination||{kind:'scroll',maxPages:30},dedupeScope:'library',skipSimilar:true,
             collectionId:job.id,collectionDay:this.day(),platform:source.id});
           this.runs.approve(task.id,task.sha);const runner=new Runner(this.runs,browser);browser.runner=runner;this.active.runner=runner;

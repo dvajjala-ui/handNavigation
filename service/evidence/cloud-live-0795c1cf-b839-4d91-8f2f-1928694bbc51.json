@@ -1,0 +1,64 @@
+{
+  "checkedAt": "2026-10-27T21:21:52.958Z",
+  "executor": "Production StickerDock Admin API -> Supabase queue -> HandNavigate QueueBridge/ServiceBrowser/Runner -> authenticated production intake -> verified Supabase blob and row read-back",
+  "request": {
+    "topics": [
+      "Distracted",
+      "Cat"
+    ],
+    "sources": [
+      "imgflip"
+    ],
+    "image_limit": 2,
+    "request_id": "live-cloud-f8b59af3-9c1e-4532-bdb5-e28a53767b91"
+  },
+  "id": "0795c1cf-b839-4d91-8f2f-1928694bbc51",
+  "localId": "1b3a0ed6-009d-4118-8c95-0a640ee53fc2",
+  "status": "VERIFIED_STORAGE",
+  "saved": 2,
+  "delivered": 2,
+  "error": null,
+  "sourceStatus": {
+    "imgflip": {
+      "status": "VERIFIED",
+      "lastError": null
+    }
+  },
+  "productionSupabaseWritten": true,
+  "aiCalls": 0,
+  "publications": 0,
+  "items": [
+    {
+      "platform": "imgflip",
+      "topic": "Distracted",
+      "source": "https://imgflip.com/memegenerator/112126428",
+      "originalSha256": "4b498053b2748b2b6e5cce79d84b5c0ed060ad4edcc90c62ba08f3cb8eb13796",
+      "delivery": {
+        "id": "e11e7d00-c5f6-5a81-91cb-729966e6c599",
+        "path": "handnavigate/candidates/8a84ac94e3c554f37279737ed2f02c544ddce3baba5bead59f2ed4ae7a91c1d5.webp",
+        "sha256": "8a84ac94e3c554f37279737ed2f02c544ddce3baba5bead59f2ed4ae7a91c1d5",
+        "verifiedAt": "2026-10-27T21:21:24.459Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "7316b0a09f6f9b2aa8e863f2585f408d0517a299709320d478fd207ade392102"
+      }
+    },
+    {
+      "platform": "imgflip",
+      "topic": "Cat",
+      "source": "https://imgflip.com/memegenerator/188390779",
+      "originalSha256": "715798139c5deb743ab3e3a24f477e4c97fd5184ea43648a3d1fffb7b193ce07",
+      "delivery": {
+        "id": "78db9dc0-5274-54f2-8b0d-0d49da949ab2",
+        "path": "handnavigate/candidates/8adfb084e0e9e03686bc3290906ed2b198c291643b29fbbff838a7657e210fe3.webp",
+        "sha256": "8adfb084e0e9e03686bc3290906ed2b198c291643b29fbbff838a7657e210fe3",
+        "verifiedAt": "2026-10-27T21:21:32.559Z",
+        "rightsStatus": "UNREVIEWED",
+        "generationEligible": false,
+        "provenanceStorage": "Supabase media_intake_items row and HandNavigate manifest",
+        "preparedSha256": "ba67de3a6808974024516530acd5898596b37650f0f26a9997424528f308e188"
+      }
+    }
+  ]
+}

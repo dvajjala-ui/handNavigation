@@ -6,6 +6,7 @@ desktop/evidence/*
 !desktop/evidence/packaged-results.json
 !desktop/evidence/workflow-results.json
 !desktop/evidence/reliability-results.json
+!desktop/evidence/collection-results.json
 __pycache__/
 *.pyc
 runtime/
@@ -21,6 +22,9 @@ runtime/
 integration.json*
 workflows.json*
 service-key.json*
+service-endpoint.json*
+collection-desktop.json*
+stickerdock.json*
 collections.json*
 worker.lock
 

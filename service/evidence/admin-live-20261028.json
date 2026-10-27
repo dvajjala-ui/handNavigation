@@ -1,17 +1,18 @@
 {
-  "checkedAt": "2026-10-27T20:50:27.871Z",
-  "scope": "Live hosted Admin and Supabase, real HandNavigate-downloaded candidate",
+  "checkedAt": "2026-10-27T21:27:12.339Z",
+  "scope": "Live hosted Admin and Supabase, real HandNavigate-downloaded candidate; test plan archived and original candidate title restored",
   "passed": true,
   "checks": [
-    "topic plan saved daily at 20 total",
+    "temporary plan with planner mode and Imgflip source",
+    "unsaved plan edits survive refresh",
     "candidate title edit",
-    "downloaded bytes SHA256 equals database digest",
+    "downloaded original SHA256 equals database digest",
     "archive",
     "restore",
-    "source provenance retained",
+    "decoded thumbnail gallery",
     "desktop/mobile layout"
   ],
-  "candidate": "792dac99-be70-5379-b3d8-c6142ea1689d",
-  "plan": "5a1aaafc-01d9-458d-8b6b-f20fe0708c8f",
+  "candidate": "78db9dc0-5274-54f2-8b0d-0d49da949ab2",
+  "plan": "8f38d04f-64a5-406b-aa7b-24c56dd1f68f",
   "pageErrors": []
 }

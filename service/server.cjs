@@ -25,6 +25,11 @@ function createServer(options={}){
     try{
       const url=new URL(req.url,'http://localhost');
       if(req.method==='GET'&&url.pathname==='/v1/health')return send(res,200,{ready:true,busy:!!collections.active,dailyUsed:collections.used(),dailyLimit:collections.options.dailyLimit,storageConfigured:!!sink});
+      if(req.method==='GET'&&url.pathname==='/v1/collections')return send(res,200,{jobs:collections.data.jobs.slice(0,20).map(j=>({id:j.id,status:j.status,topics:j.topics,sources:j.sources,limit:j.limit,destination:j.destination,createdAt:j.createdAt,error:j.error,saved:j.items.length,delivered:j.items.filter(i=>i.delivery).length,sourceStatus:j.sourceStatus}))});
+      if(req.method==='POST'&&url.pathname==='/v1/shutdown'){
+        const input=await body(req);if(collections.active&&input.allowBusy!==true)return send(res,409,{error:'A collection is active. Stop it first or explicitly confirm stopping the worker.'});
+        send(res,202,{stopping:true});setImmediate(()=>close().catch(error=>options.onError?.(error)));return;
+      }
       if(req.method==='GET'&&url.pathname==='/v1/sources')return send(res,200,{sources:collections.sources.map(s=>({id:s.id,name:s.name||s.id})),totalLimitAppliesAcrossAllTopicsAndSources:true});
       if(req.method==='POST'&&url.pathname==='/v1/collections'){
         const result=collections.create(await body(req));return send(res,result.reused?200:202,{...result.job,reused:result.reused});
@@ -37,8 +42,10 @@ function createServer(options={}){
   });
   server.requestTimeout=30000;server.headersTimeout=10000;
   const bridge=options.cloudQueue&&sink?new QueueBridge(collections,sink,{onError:error=>console.error('Cloud queue:',String(error.message).slice(0,200))}).start():null;
+  let closing;
+  function close(){if(!closing)closing=(async()=>{await collections.close();await bridge?.close();if(server.listening)await new Promise(resolve=>server.close(resolve));})();return closing;}
   queueMicrotask(()=>collections.pump().catch(error=>options.onError?.(error)));
-  return {server,collections,token,folder,bridge,async close(){await bridge?.close();await collections.close();await new Promise(resolve=>server.close(resolve));}};
+  return {server,collections,token,folder,bridge,close};
 }
 if(require.main===module){
   const folder=path.resolve(process.env.HANDNAVIGATE_DATA||path.join(__dirname,'..','runtime','service')),release=lock(folder);
@@ -47,7 +54,7 @@ if(require.main===module){
   const config=fs.existsSync(configFile)?JSON.parse(fs.readFileSync(configFile,'utf8')):{};
   const sink=config.baseUrl?new StickerDock(config.baseUrl,config.token):undefined;
   const app=createServer({sink,cloudQueue:config.cloudQueue===true||process.env.HANDNAVIGATE_CLOUD_QUEUE==='1'}),host=process.env.HANDNAVIGATE_HOST||'127.0.0.1',port=Number(process.env.HANDNAVIGATE_PORT||47832);
-  app.server.listen(port,host,()=>console.log(JSON.stringify({service:'HandNavigate',host,port,profiles:path.join(app.folder,'profiles'),keyFile:path.join(app.folder,'service-key.json'),dailyLimit:app.collections.options.dailyLimit,storageConfigured:!!app.collections.options.sink})));
+  app.server.listen(port,host,()=>{const actualPort=app.server.address().port;atomicWrite(path.join(folder,'service-endpoint.json'),{port:actualPort,downloadFolder:path.join(folder,'downloads')});console.log(JSON.stringify({service:'HandNavigate',host,port:actualPort,profiles:path.join(app.folder,'profiles'),keyFile:path.join(app.folder,'service-key.json'),dailyLimit:app.collections.options.dailyLimit,storageConfigured:!!app.collections.options.sink}));});
   for(const signal of ['SIGINT','SIGTERM'])process.once(signal,()=>app.close().then(()=>process.exit(0)));
 }
 module.exports={createServer,tokenEqual};

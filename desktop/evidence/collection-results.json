@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-27T22:02:04.530Z",
+  "passed": true,
+  "checks": [
+    "desktop collection panel",
+    "managed worker start/stop/restart",
+    "two actual decoded owned-source downloads",
+    "Downloads destination",
+    "private API credential omitted from UI",
+    "durable history after restart",
+    "embedded browser restored after panel close"
+  ],
+  "pageErrors": []
+}

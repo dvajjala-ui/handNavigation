@@ -1,8 +1,8 @@
 # HandNavigate Desktop
 
-StickerDock's [collection workspace is live](COLLECTION_WORKSPACE.md): HandNavigate downloaded and verified **20 Pinterest + 4 Reddit images in production Supabase**. Admin has topic plans, a daily queue and image management. Use the **HandNavigate StickerDock worker** shortcut for this flow; the portable EXE remains separate. This computer must stay awake for scheduled work.
+StickerDock's [collection workspace is live](COLLECTION_WORKSPACE.md): **20 Pinterest + 4 Reddit + 2 Imgflip images** were downloaded and verified in production Supabase. Admin supports fresh planner topics, a shared daily quota, verified completion monitoring and image management. Desktop **0.7.0** now includes the collection worker: open **Image collections** to start it, collect locally or connect StickerDock. This computer must stay awake for scheduled work.
 
-**Open `dist/HandNavigate-0.6.1-Windows.exe` to use the desktop app and its persistent browser.** No Python, Node or AI key is needed for the packaged build. Version 0.6.1 fixes background input, waits for slow uploads, retries temporary image-read failures and Windows save locks, and defers daily jobs while sign-in is open. It includes Next-page/Load-more controls, durable duplicate history, resumable partial transfers, and a local script API. See [DESKTOP_START_HERE.md](DESKTOP_START_HERE.md) and [API.md](API.md). Source: `desktop/`.
+**Open `dist/HandNavigate-0.7.0-Windows.exe`.** No Python, Node command or AI key is needed for local collection. Pinterest/Reddit collection uses installed Chrome or Edge with saved sessions; teaching and saved workflows use the app's embedded browser. Version 0.7 retains verified transfers, pagination, duplicate history and the script API, and adds worker start/stop, connection settings, recent collection results and local Downloads output. See [DESKTOP_START_HERE.md](DESKTOP_START_HERE.md) and [API.md](API.md). Source: `desktop/` and `service/`.
 
 The Python source and historical delivery below remain available. Their Studio screens and browser sessions are separate from the new desktop app.
 

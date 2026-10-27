@@ -14,7 +14,8 @@ async function main(){
   const site=await fixture(),port=await freePort();
   const temp=fs.mkdtempSync(path.join(os.tmpdir(),'handnavigate-packaged-'));
   const output=path.join(temp,'Downloads');fs.mkdirSync(output);
-  const child=cp.spawn(executable,[`--remote-debugging-port=${port}`],{env:{...process.env,HANDNAVIGATE_TEST:'1',HANDNAVIGATE_USER_DATA:path.join(temp,'profile')},windowsHide:true,stdio:'ignore'});
+  const sourcesFile=path.join(temp,'sources.json');fs.writeFileSync(sourcesFile,JSON.stringify([{id:'owned',name:'Owned HTTP images',searchUrl:site.origin+'/images?topic={{topic}}&count=2',selector:'#gallery img',allowedOrigins:[site.origin],imageOrigins:[],pagination:{kind:'none',maxPages:1}}]));
+  const child=cp.spawn(executable,[`--remote-debugging-port=${port}`],{env:{...process.env,HANDNAVIGATE_TEST:'1',HANDNAVIGATE_USER_DATA:path.join(temp,'profile'),HANDNAVIGATE_TEST_DOWNLOADS:output,HANDNAVIGATE_SOURCES_FILE:sourcesFile},windowsHide:true,stdio:'ignore'});
   let browser,primaryError;
   try{
     const endpoint=`http://127.0.0.1:${port}`;let ready=false;
@@ -25,6 +26,7 @@ async function main(){
     for(let i=0;i<150;i++){ui=context.pages().find(p=>p.url().endsWith('/index.html'));if(ui)break;await pause(200);}
     assert.ok(ui,'Packaged UI did not open');await ui.waitForSelector('#workflow-title');
     assert.match(await ui.title(),/HandNavigate/);
+    assert.equal((await ui.evaluate(()=>window.handnavigate.state())).value.appVersion,require('../../package.json').version,'The packaged runtime must match the advertised app version');
     const task={...draft({startUrl:site.origin+'/images?count=3',outputFolder:output,imageOrigins:[]}),name:'Packaged smoke test',count:3,sourceSelector:'#gallery img',newOnly:false};
     const saved=await ui.evaluate(arg=>window.handnavigate.saveTask({task:arg}),task);assert.equal(saved.ok,true,JSON.stringify(saved));
     const approved=await ui.evaluate(arg=>window.handnavigate.approve(arg),{id:saved.value.id,sha:saved.value.sha});assert.equal(approved.ok,true,JSON.stringify(approved));
@@ -52,7 +54,12 @@ async function main(){
     const savedState=JSON.parse(fs.readFileSync(path.join(temp,'profile','workflows.json'),'utf8'));assert.equal(savedState.sha,hash(savedState.data));
     const savedTransfer=savedState.data.runs.find(r=>r.id===transferred.id);assert.equal(savedTransfer.status,'VERIFIED');assert.equal(savedTransfer.items[0].state,'CONFIRMED');
     assert.equal(JSON.parse(fs.readFileSync(path.join(transferred.folder,'manifest.json'),'utf8')).status,'VERIFIED');
-    const result={passed:true,executable,files:run.items.length,sha256:run.items.map(i=>i.sha256),apiVerified:true,idempotencyVerified:true,scriptClientBundled:true,slowUploadVerified:true,durableResultVerified:true,portablePath:path.resolve('dist/HandNavigate-'+require('../../package.json').version+'-Windows.exe')};
+    await ui.locator('#collections-open').click();await ui.locator('#collections-dialog').waitFor({state:'visible'});await ui.locator('#collections-start').click();await ui.locator('#collections-status').getByText(/Worker running/).waitFor();
+    await ui.locator('#collections-run-form textarea').fill('nature');await ui.locator('#collections-run-form input[name=limit]').fill('2');await ui.getByRole('button',{name:'Collect images',exact:true}).click();await ui.locator('#collections-jobs').getByText(/Verified locally/).waitFor({timeout:60000});
+    const collections=(await ui.evaluate(()=>window.handnavigate.collectionStatus())).value;assert.equal(collections.jobs[0].saved,2);assert.equal(collections.managed,true);
+    const collectionJournal=JSON.parse(fs.readFileSync(path.join(collections.folder,'collections.json'))).data;for(const item of collectionJournal.jobs[0].items){assert.ok(item.file.startsWith(output));assert.equal((await imageInfo(fs.readFileSync(item.file))).sha256,item.sha256);}
+    const collectionKey=JSON.parse(fs.readFileSync(path.join(collections.folder,'service-key.json'))).token;assert.equal(JSON.stringify(collections).includes(collectionKey),false);await ui.locator('#collections-stop').click();await ui.locator('#collections-close').click();
+    const result={passed:true,executable,files:run.items.length,sha256:run.items.map(i=>i.sha256),apiVerified:true,idempotencyVerified:true,scriptClientBundled:true,slowUploadVerified:true,durableResultVerified:true,collectionWorkerBundled:true,collectionDownloadsVerified:2,collectionCredentialPrivate:true,portablePath:path.resolve('dist/HandNavigate-'+require('../../package.json').version+'-Windows.exe')};
     fs.mkdirSync(path.resolve('desktop/evidence'),{recursive:true});fs.writeFileSync(path.resolve('desktop/evidence/packaged-results.json'),JSON.stringify(result,null,2));
     console.log(JSON.stringify(result,null,2));
     await ui.evaluate(()=>window.close()).catch(()=>{});

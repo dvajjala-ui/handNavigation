@@ -2,9 +2,9 @@ name: HandNavigate Desktop
 on:
   workflow_dispatch:
   push:
-    paths: ['desktop/**', 'package.json', 'package-lock.json', 'Invoke-HandNavigate.ps1', '.github/workflows/desktop.yml']
+    paths: ['desktop/**', 'service/**', 'package.json', 'package-lock.json', 'Invoke-HandNavigate.ps1', '.github/workflows/desktop.yml']
   pull_request:
-    paths: ['desktop/**', 'package.json', 'package-lock.json', 'Invoke-HandNavigate.ps1', '.github/workflows/desktop.yml']
+    paths: ['desktop/**', 'service/**', 'package.json', 'package-lock.json', 'Invoke-HandNavigate.ps1', '.github/workflows/desktop.yml']
 permissions:
   contents: read
 jobs:

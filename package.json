@@ -1,6 +1,6 @@
 {
   "name": "handnavigate-desktop",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Teach browser workflows once and repeat them locally with verified results.",
   "author": "HandNavigate",
   "private": true,
@@ -8,7 +8,7 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test desktop/test/*.test.cjs",
-    "test:desktop": "node desktop/test/e2e.cjs && node desktop/test/workflows.cjs && node desktop/test/reliability.cjs",
+    "test:desktop": "node desktop/test/e2e.cjs && node desktop/test/workflows.cjs && node desktop/test/reliability.cjs && node desktop/test/collections.cjs",
     "test:packaged": "node desktop/test/packaged.cjs",
     "service": "node service/server.cjs",
     "service:login": "node service/login.cjs",
@@ -17,16 +17,16 @@
     "dist": "npm run icons && electron-builder --win portable --x64",
     "pack": "npm run icons && electron-builder --dir --win --x64"
   },
-  "dependencies": { "sharp": "0.35.5" },
-  "devDependencies": { "electron": "45.0.0", "electron-builder": "26.18.0", "playwright": "1.64.1" },
+  "dependencies": { "sharp": "0.35.5", "playwright": "1.64.1" },
+  "devDependencies": { "electron": "45.0.0", "electron-builder": "26.18.0" },
   "build": {
     "appId": "com.handnavigate.desktop",
     "productName": "HandNavigate",
     "directories": { "output": "dist", "buildResources": "desktop/assets" },
-    "files": ["desktop/**", "!desktop/test/**", "!desktop/evidence/**", "package.json"],
-    "asarUnpack": ["node_modules/sharp/**", "node_modules/@img/**"],
+    "files": ["desktop/**", "service/**", "!desktop/test/**", "!desktop/evidence/**", "!service/test/**", "!service/evidence/**", "!service/*check.cjs", "package.json"],
+    "asarUnpack": ["node_modules/sharp/**", "node_modules/@img/**", "node_modules/playwright/**", "node_modules/playwright-core/**"],
     "extraResources": [{"from":"Invoke-HandNavigate.ps1","to":"Invoke-HandNavigate.ps1"}],
-    "win": { "target": ["portable"], "icon": "desktop/assets/icon.ico", "signAndEditExecutable": false },
+    "win": { "target": ["portable"], "icon": "desktop/assets/icon.ico", "signExecutable": false },
     "portable": { "artifactName": "HandNavigate-${version}-Windows.exe" },
     "npmRebuild": false
   }
