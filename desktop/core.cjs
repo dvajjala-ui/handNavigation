@@ -90,12 +90,24 @@ function validate(task,options={}) {
   return task;
 }
 
+function retryFileOperation(operation) {
+  // Windows scanners can briefly hold either side of an atomic replacement.
+  // Keep the old file intact and retry only sharing/permission locks, for ~1 second.
+  const waits=[20,40,80,160,320,500];
+  for(let attempt=0;;attempt++){
+    try{return operation();}
+    catch(error){
+      if(!['EBUSY','EACCES','EPERM'].includes(error.code)||attempt===waits.length)throw error;
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,waits[attempt]);
+    }
+  }
+}
 function atomicWrite(file,data) {
   fs.mkdirSync(path.dirname(file),{recursive:true}); const temp=file+'.tmp';
-  const fd=fs.openSync(temp,'w',0o600);
+  const fd=retryFileOperation(()=>fs.openSync(temp,'w',0o600));
   try {fs.writeFileSync(fd,JSON.stringify(data,null,2));fs.fsyncSync(fd);} finally {fs.closeSync(fd);}
-  if(fs.existsSync(file)) fs.copyFileSync(file,file+'.bak');
-  fs.renameSync(temp,file);
+  if(fs.existsSync(file))retryFileOperation(()=>fs.copyFileSync(file,file+'.bak'));
+  retryFileOperation(()=>fs.renameSync(temp,file));
 }
 class Store {
   constructor(folder) {
@@ -195,17 +207,18 @@ function dueAt(spec,after,direction=1) {
   throw new TaskError('No daily occurrence found.');
 }
 class DailyQueue {
-  constructor(store,execute,clock=()=>Date.now()){this.store=store;this.execute=execute;this.clock=clock;this.ticking=false;}
+  constructor(store,execute,clock=()=>Date.now(),canStart=()=>true){this.store=store;this.execute=execute;this.clock=clock;this.canStart=canStart;this.ticking=false;}
   enable(id,enabled,time,timezone) {
     const t=this.store.get(id),spec={time,timezone};validateSchedule(spec);
     if(enabled&&(t.approvedSha!==taskHash(t)||t.rehearsals?.length!==t.rows.length))throw new TaskError('Run and verify every configured value row before turning on daily automation.');
     t.schedule={...spec,enabled:!!enabled,nextDue:new Date(dueAt(spec,this.clock())).toISOString(),rowCursor:t.schedule?.rowCursor||0};this.store.flush();
   }
   async tick() {
-    if(this.ticking)return [];this.ticking=true;const reports=[];
+    if(this.ticking||!this.canStart())return [];this.ticking=true;const reports=[];
     try {
       const now=this.clock();
       for(const t of this.store.data.tasks) {
+        if(!this.canStart())break;
         if(!t.schedule?.enabled||Date.parse(t.schedule.nextDue)>now)continue;
         const at=dueAt(t.schedule,now,-1),key=t.id+':'+new Date(at).toISOString();
         t.schedule.nextDue=new Date(dueAt(t.schedule,now)).toISOString();

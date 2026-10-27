@@ -39,7 +39,7 @@ function startSavedRun(id,rowIndex=0,requestId=null,trigger='manual'){
 
 class Browser {
   constructor() {
-    this.session=session.fromPartition('persist:handnavigate-browser');this.observed=new Set();this.pending=new Set();this.lastNetworkAt=Date.now();this.runTask=null;this.effectError=null;
+    this.session=session.fromPartition('persist:handnavigate-browser');this.observed=new Set();this.pending=new Set();this.mutations=new Set();this.lastNetworkAt=Date.now();this.runTask=null;this.effectError=null;
     this.session.setPermissionRequestHandler((_wc,_permission,callback)=>callback(false));
     this.session.setPermissionCheckHandler(()=>false);
     this.view=new WebContentsView({webPreferences:{session:this.session,preload:path.join(__dirname,'preload-browser.cjs'),nodeIntegration:false,contextIsolation:true,sandbox:true,webSecurity:true,backgroundThrottling:false}});
@@ -53,9 +53,10 @@ class Browser {
       }
       if(!['http:','https:','data:','blob:','about:','devtools:'].includes(u.protocol))return callback({cancel:true});
       if(details.webContentsId===this.wc.id&&['http:','https:'].includes(u.protocol)){this.pending.add(details.id);this.lastNetworkAt=Date.now();}
+      if(this.runTask&&details.webContentsId===this.wc.id&&['http:','https:'].includes(u.protocol)&&!['GET','HEAD','OPTIONS'].includes(details.method))this.mutations.add(details.id);
       callback({cancel:false});
     });
-    const finished=details=>{if(this.pending.delete(details.id))this.lastNetworkAt=Date.now();};
+    const finished=details=>{this.mutations.delete(details.id);if(this.pending.delete(details.id))this.lastNetworkAt=Date.now();};
     this.session.webRequest.onCompleted(finished);this.session.webRequest.onErrorOccurred(finished);
     this.session.on('will-download',(event,item,wc)=>{
       if(this.runTask){event.preventDefault();this.effectError='The site triggered an unexpected file download. Use the verified image download workflow.';return;}
@@ -89,6 +90,17 @@ class Browser {
   }
   async load(url){webUrl(url);this.effectError=null;this.pending.clear();await this.wc.loadURL(url);}
   async settle(){const until=Date.now()+8000;while(Date.now()<until){if(runner?.active?.abort.signal.aborted)break;if(!this.pending.size&&Date.now()-this.lastNetworkAt>=250)return;await new Promise(resolve=>setTimeout(resolve,100));}}
+  async waitForUploads(signal){
+    const until=Date.now()+45000;
+    while(Date.now()<until){
+      if(signal.aborted)throw new TaskError('Run stopped.','CANCELLED');
+      if(this.effectError)throw new TaskError(this.effectError,'NEEDS_REVIEW');
+      const quiet=Date.now()-this.lastNetworkAt;
+      if(!this.mutations.size&&(!this.pending.size&&quiet>=250||quiet>=8000))return;
+      await new Promise(resolve=>setTimeout(resolve,100));
+    }
+    throw new TaskError('The destination upload did not finish within 45 seconds. Check its outcome in History before retrying.','NEEDS_REVIEW');
+  }
   beginRun(task){this.runTask=task;this.effectError=null;}
   endRun(){this.runTask=null;this.effectError=null;}
   async injectRecorder(){if(recording)await this.wc.executeJavaScript(script('recorder',{token:recording.token}));}
@@ -189,7 +201,7 @@ async function main(){
   win=new BrowserWindow({width:1520,height:980,minWidth:1100,minHeight:740,title:'HandNavigate',icon:path.join(__dirname,'assets/icon.png'),backgroundColor:'#f4f4ee',show:false,
     webPreferences:{preload:path.join(__dirname,'preload-ui.cjs'),contextIsolation:true,nodeIntegration:false,sandbox:true,webSecurity:true}});
   Menu.setApplicationMenu(null);browser=new Browser();win.contentView.addChildView(browser.view);browser.view.setBounds({x:650,y:138,width:850,height:800});
-  runner=new Runner(store,browser,notify);queue=new DailyQueue(store,(id,row,trigger)=>runner.run(id,row,trigger));
+  runner=new Runner(store,browser,notify);queue=new DailyQueue(store,(id,row,trigger)=>runner.run(id,row,trigger),()=>Date.now(),()=>!runner.active&&!recording&&!picking&&!popups.size);
   try{localAPI=new LocalAPI(app.getPath('userData'),{store,busy:()=>!!runner.active,start:(id,row,requestId)=>startSavedRun(id,row,requestId,'api'),stop:id=>{if(runner.active?.run.id!==id)throw new TaskError('That run is not active.');runner.stop();},error:fail});}catch(error){lastError=error.message;}
   registerIPC();
   win.webContents.on('will-navigate',(e,url)=>{if(url!==ownUI)e.preventDefault();});win.webContents.setWindowOpenHandler(()=>({action:'deny'}));

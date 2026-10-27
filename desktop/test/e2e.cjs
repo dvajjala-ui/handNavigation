@@ -4,6 +4,12 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),os=require('nod
 const {fixture}=require('./fixture.cjs');
 const {imageInfo}=require('../engine.cjs');
 const {draft}=require('../core.cjs');
+const {closeApp,removeFixture}=require('./cleanup.cjs');
+async function embeddedPage(application,urlPart){
+  const end=Date.now()+15000;
+  while(Date.now()<end){const page=application.context().pages().find(p=>p.url().includes(urlPart));if(page)return page;await new Promise(resolve=>setTimeout(resolve,50));}
+  throw new Error('The embedded browser page was not registered: '+urlPart);
+}
 async function finished(application,name,minimumRuns=1){
   const until=Date.now()+60000;
   while(Date.now()<until){const state=await application.evaluate(()=>({active:!!global.__handnavigateTest.runner.active,runs:JSON.parse(JSON.stringify(global.__handnavigateTest.store.data.runs))}));
@@ -19,7 +25,8 @@ async function main(){
   try{
     application=await electron.launch({args:[path.resolve('.')],env:{...process.env,HANDNAVIGATE_TEST:'1',HANDNAVIGATE_USER_DATA:path.join(dir,'app')},timeout:60000});
     application.process().stderr.on('data',data=>{fs.appendFileSync(path.join(evidence,'electron-console.txt'),data);});
-    const ui=await application.firstWindow();await ui.waitForSelector('#workflow-title');await ui.locator('#task-name').fill('Owned 20-image acceptance');
+    console.log('Electron connected',await application.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().map(w=>({title:w.getTitle(),url:w.webContents.getURL()}))));
+    const ui=await application.firstWindow({timeout:60000});await ui.waitForSelector('#workflow-title');await ui.locator('#task-name').fill('Owned 20-image acceptance');
     console.log('App launched');
     await ui.locator('#task-url').fill(site.origin+'/images?topic={{topic}}');await ui.locator('#task-values').fill('landscape\narchitecture');
     await ui.locator('#save-task').click();
@@ -50,7 +57,7 @@ async function main(){
     const replayDraft={...draft({startUrl:site.origin+'/result',outputFolder:output,type:'replay',imageOrigins:[]}),name:'Taught form replay',checks:[{kind:'text',expected:'Ready: {{topic}}'}],rows:[{topic:'gardens'},{topic:'architecture'}]};
     await application.evaluate(async(_electron,arg)=>{const api=global.__handnavigateTest;const t=api.store.save(arg);api.setSelected(t.id);await api.browser.load(t.startUrl);return t;},replayDraft);
     await ui.locator('[data-tab="setup"]').click();await ui.locator('#record').click();
-    const pages=application.context().pages();const website=pages.find(p=>p.url().includes('/result'));assert.ok(website,'embedded browser appears as a Playwright page');
+    const website=await embeddedPage(application,'/result');
     await website.getByLabel('Topic',{exact:true}).fill('gardens');await website.getByRole('button',{name:'Prepare preview',exact:true}).click();await ui.locator('#stop-record').click();
     await ui.locator('input[data-step-value]').first().fill('{{topic}}');await ui.locator('#save-steps').click();
     t=await application.evaluate(()=>global.__handnavigateTest.store.data.tasks.find(t=>t.name==='Taught form replay'));assert.ok(t.steps.some(s=>s.op==='fill'&&s.value==='{{topic}}'));assert.ok(t.steps.some(s=>s.op==='click'));
@@ -62,7 +69,7 @@ async function main(){
     // Shared app session: human-style ordinary navigation establishes an owned cookie.
     await application.evaluate(async(_e,url)=>{await global.__handnavigateTest.browser.load(url);},site.origin+'/login');
     await application.evaluate(async(_e,url)=>{await global.__handnavigateTest.browser.load(url);},site.origin+'/private');
-    const privatePage=application.context().pages().find(p=>p.url().includes('/private'));await privatePage.getByText('Private gallery',{exact:true}).waitFor();
+    const privatePage=await embeddedPage(application,'/private');await privatePage.getByText('Private gallery',{exact:true}).waitFor();
     results.push({test:'embedded browser reuses the same authenticated session',passed:true});
     // Actual desktop transfer path: browser upload and independent remote image reads.
     const transferDraft={...draft({name:'Desktop upload acceptance',startUrl:site.origin+'/images?count=2',outputFolder:output,imageOrigins:[]}),count:2,sourceSelector:'#gallery img',type:'transfer',newOnly:false,
@@ -95,16 +102,16 @@ async function main(){
     const daily=await executeDraft({...base,name:'Actual daily worker',startUrl:site.origin+'/images?count=10',count:1,sourceSelector:'#gallery img'});assert.equal(daily.result.status,'VERIFIED');
     const dailyRun=await application.evaluate(async(_e,id)=>{const q=global.__handnavigateTest.queue;q.enable(id,true,'09:00','UTC');q.clock=()=>Date.now()+2*86400000;try{return await q.tick();}finally{q.clock=()=>Date.now();const t=global.__handnavigateTest.store.get(id);t.schedule.enabled=false;global.__handnavigateTest.store.flush();}},daily.id);
     assert.equal(dailyRun.length,1);assert.equal(dailyRun[0].status,'VERIFIED',JSON.stringify(dailyRun));assert.notEqual(dailyRun[0].items[0].sha256,daily.result.items[0].sha256);results.push({test:'daily queue executes the real embedded-browser downloader and selects a new image',passed:true});
-    await application.evaluate(()=>global.__handnavigateTest.shutdown());await application.close();application=null;
+    await closeApp(application);application=null;
     const reopened=await electron.launch({args:[path.resolve('.')],env:{...process.env,HANDNAVIGATE_TEST:'1',HANDNAVIGATE_USER_DATA:path.join(dir,'app')},timeout:60000});application=reopened;
-    const restored=await reopened.firstWindow();await restored.waitForSelector('#workflow-title');
+    const restored=await reopened.firstWindow({timeout:60000});await restored.waitForSelector('#workflow-title');
     const snapshot=await reopened.evaluate(()=>({tasks:global.__handnavigateTest.store.data.tasks.length,runs:global.__handnavigateTest.store.data.runs.length}));assert.ok(snapshot.tasks>=3);assert.ok(snapshot.runs>=5);results.push({test:'app restart restores workflows and verified run history',passed:true});
     await reopened.evaluate(async(_e,url)=>global.__handnavigateTest.browser.load(url),site.origin+'/private');
-    const savedSession=reopened.context().pages().find(p=>p.url().includes('/private'));await savedSession.getByText('Private gallery',{exact:true}).waitFor();results.push({test:'same browser login survives app restart',passed:true});
+    const savedSession=await embeddedPage(reopened,'/private');await savedSession.getByText('Private gallery',{exact:true}).waitFor();results.push({test:'same browser login survives app restart',passed:true});
     fs.writeFileSync(path.join(evidence,'e2e-results.json'),JSON.stringify({passed:results.length,failed:0,scope:'Real Electron UI and embedded browser, actual owned HTTP pages and image bytes',results},null,2));
     console.log(JSON.stringify(results,null,2));
-    await reopened.evaluate(()=>global.__handnavigateTest.shutdown());await reopened.close();application=null;
+    await closeApp(reopened);application=null;
   }catch(e){if(application){try{const page=await application.firstWindow();await page.screenshot({path:path.join(evidence,'failure.png')});console.error(await page.locator('#notice').textContent());}catch{}}throw e;}
-  finally{if(application){await application.evaluate(()=>global.__handnavigateTest?.shutdown()).catch(()=>{});await application.close().catch(()=>{});}await site.close();fs.rmSync(dir,{recursive:true,force:true});}
+  finally{await closeApp(application);await site.close();removeFixture(dir);}
 }
 main().catch(e=>{console.error(e);process.exitCode=1;});

@@ -3,13 +3,13 @@ const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const cp=require('node:child_process'),fs=require('node:fs'),net=require('node:net'),os=require('node:os'),path=require('node:path');
 const {fixture}=require('./fixture.cjs');
-const {draft}=require('../core.cjs');
+const {draft,hash}=require('../core.cjs');
 const {imageInfo}=require('../engine.cjs');
 
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 async function freePort(){const server=net.createServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));const port=server.address().port;await new Promise(r=>server.close(r));return port;}
 async function main(){
-  const executable=path.resolve(process.argv[2]||'dist/win-unpacked/HandNavigate.exe');
+  const executable=path.resolve(process.argv[2]||'dist/HandNavigate-'+require('../../package.json').version+'-Windows.exe');
   assert.ok(fs.existsSync(executable),'Packaged Windows executable must exist');
   const site=await fixture(),port=await freePort();
   const temp=fs.mkdtempSync(path.join(os.tmpdir(),'handnavigate-packaged-'));
@@ -41,7 +41,18 @@ async function main(){
     let apiRun;for(let i=0;i<300;i++){apiRun=await (await fetch(apiEndpoint+'/runs/'+start.id,{headers})).json();if(apiRun.status!=='RUNNING')break;await pause(200);}
     assert.equal(apiRun.status,'VERIFIED',JSON.stringify(apiRun));assert.equal(apiRun.items.length,3);
     const repeat=await (await fetch(apiEndpoint+'/runs',{method:'POST',headers,body:JSON.stringify(request)})).json();assert.equal(repeat.id,start.id);assert.equal(repeat.reused,true);
-    const result={passed:true,executable,files:run.items.length,sha256:run.items.map(i=>i.sha256),apiVerified:true,idempotencyVerified:true,scriptClientBundled:true,portablePath:path.resolve('dist/HandNavigate-'+require('../../package.json').version+'-Windows.exe')};
+    site.controls.slowUploadMs=3200;
+    const transfer={...task,id:undefined,name:'Packaged slow upload',type:'transfer',startUrl:site.origin+'/images?count=1',count:1,target:{url:site.origin+'/target',fileInput:{kind:'css',value:'#upload'},submit:{kind:'css',value:'#send'},galleryUrl:site.origin+'/target',gallerySelector:'#gallery img'}};
+    const transferSaved=await ui.evaluate(task=>window.handnavigate.saveTask({task}),transfer);assert.equal(transferSaved.ok,true,JSON.stringify(transferSaved));
+    assert.equal((await ui.evaluate(arg=>window.handnavigate.approve(arg),{id:transferSaved.value.id,sha:transferSaved.value.sha})).ok,true);
+    const transferStart=await ui.evaluate(id=>window.handnavigate.run({id,rowIndex:0}),transferSaved.value.id);assert.equal(transferStart.ok,true,JSON.stringify(transferStart));
+    let transferred;for(let i=0;i<300;i++){const state=await ui.evaluate(()=>window.handnavigate.state());transferred=state.value.runs.find(r=>r.id===transferStart.value.runId);if(!state.value.busy&&transferred?.status!=='RUNNING')break;await pause(200);}
+    assert.equal(transferred?.status,'VERIFIED',JSON.stringify(transferred));assert.equal(site.writes,1);assert.equal(site.uploaded.length,1);assert.equal(site.controls.abortedUploads,0);assert.equal(transferred.items[0].state,'CONFIRMED');
+    assert.equal((await imageInfo(site.uploaded[0])).sha256,transferred.items[0].sha256);
+    const savedState=JSON.parse(fs.readFileSync(path.join(temp,'profile','workflows.json'),'utf8'));assert.equal(savedState.sha,hash(savedState.data));
+    const savedTransfer=savedState.data.runs.find(r=>r.id===transferred.id);assert.equal(savedTransfer.status,'VERIFIED');assert.equal(savedTransfer.items[0].state,'CONFIRMED');
+    assert.equal(JSON.parse(fs.readFileSync(path.join(transferred.folder,'manifest.json'),'utf8')).status,'VERIFIED');
+    const result={passed:true,executable,files:run.items.length,sha256:run.items.map(i=>i.sha256),apiVerified:true,idempotencyVerified:true,scriptClientBundled:true,slowUploadVerified:true,durableResultVerified:true,portablePath:path.resolve('dist/HandNavigate-'+require('../../package.json').version+'-Windows.exe')};
     fs.mkdirSync(path.resolve('desktop/evidence'),{recursive:true});fs.writeFileSync(path.resolve('desktop/evidence/packaged-results.json'),JSON.stringify(result,null,2));
     console.log(JSON.stringify(result,null,2));
     await ui.evaluate(()=>window.close()).catch(()=>{});

@@ -1,0 +1,46 @@
+
+> handnavigate-desktop@0.6.1 test
+> node --test desktop/test/*.test.cjs
+
+✔ variable interpolation is explicit and URL values cannot change origins (4.6253ms)
+✔ approval binds all execution fields and changes invalidate rehearsals (107.8888ms)
+✔ changing a workflow title preserves exact executable approval (16.3717ms)
+✔ replay drafts can be saved but require output checks before approval (5.8195ms)
+✔ invalid primitives, unknown actions and blocked recordings are rejected (0.5469ms)
+✔ restarting preserves task state and marks interrupted remote work for review (17.7117ms)
+✔ corrupt primary database restores its last integrity-checked backup (29.0256ms)
+✔ uncertain uploads need explicit absence confirmation before later retries (133.13ms)
+✔ schedule requires every row to have a verified rehearsal (215.7068ms)
+✔ daily runs rotate variable rows and never replay the same occurrence (505.7485ms)
+✔ missed days materialize only the latest occurrence (191.0547ms)
+✔ non-verified daily outcomes pause the workflow (114.7139ms)
+✔ a busy browser defers a due occurrence without consuming it or disabling the schedule (26.7268ms)
+✔ the queue checks browser availability again between due workflows (49.4669ms)
+✔ DST nonexistent times skip and repeated times choose first occurrence (4.0993ms)
+✔ real JPEG PNG and WebP decoding checks content and rejects HTML (1118.6574ms)
+✔ duplicate history includes partial downloads and can span the library (36.4686ms)
+✔ pixel identity detects alternate encodings and optional similarity detects a resized photo (5395.1123ms)
+✔ pagination and duplicate settings invalidate approval; incomplete Next drafts cannot run (90.4643ms)
+✔ a verified upload journal survives a temporary replacement lock (642.533ms)
+✔ an antivirus lock on the temporary file can recover before writing (95.6588ms)
+✔ a backup sharing lock recovers while preserving the prior complete state (90.1289ms)
+✔ persistent sharing locks stop after a bounded number of attempts and preserve the primary (1173.4018ms)
+✔ other filesystem failures stop immediately without replacing the primary (17.4855ms)
+✔ image collection skips invalid gallery candidates and saves the next real image (1745.361ms)
+✔ receipt write failure still releases the browser and active runner (1530.784ms)
+✔ destination inventory considers a linked original after invalid and resized images (570.234ms)
+✔ local API authenticates, rejects website origins, validates requests and keeps its token out of state (745.2634ms)
+✔ temporary HTTP image failures recover without changing the requested URL (35.269ms)
+✔ image retry budget is bounded and access denial is not retried (8.7386ms)
+✔ a long server rate limit is respected without an early retry (0.5288ms)
+✔ stopping during retry backoff prevents the next request promptly (29.2789ms)
+✔ a reset while reading an image body can recover from a fresh GET (518.744ms)
+✔ retry redirects are still checked against reviewed origins (7.9419ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22108.0722

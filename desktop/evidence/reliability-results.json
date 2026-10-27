@@ -1,0 +1,47 @@
+{
+  "passed": 10,
+  "failed": 0,
+  "scope": "Real Electron browser, actual transient HTTP failures, asynchronous search, slow HTTP file uploads and sign-in popup",
+  "results": [
+    {
+      "test": "two actual HTTP 503 image reads recover and save independently decoded bytes",
+      "passed": true
+    },
+    {
+      "test": "a persistent image failure stops after three reads without false success",
+      "passed": true
+    },
+    {
+      "test": "a taught asynchronous search waits for the new topic instead of downloading stale results",
+      "passed": true
+    },
+    {
+      "test": "two slow HTTP uploads finish before leaving the form, each submitted once and remotely verified",
+      "passed": true
+    },
+    {
+      "test": "repeating a slow transfer reads existing originals without another upload",
+      "passed": true
+    },
+    {
+      "test": "file-selection automatic upload also waits for the original HTTP write",
+      "passed": true
+    },
+    {
+      "test": "stopping an in-flight upload records uncertainty and blocks automatic resubmission",
+      "passed": true
+    },
+    {
+      "test": "a minimized app replays trusted text, checkbox, click, Space and Enter input without taking focus",
+      "passed": true
+    },
+    {
+      "test": "a minimized app downloads and submits one real file, then confirms its persisted original",
+      "passed": true
+    },
+    {
+      "test": "a real sign-in popup defers a due daily job, then it runs once after the popup closes",
+      "passed": true
+    }
+  ]
+}

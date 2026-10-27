@@ -1,6 +1,6 @@
 {
   "name": "handnavigate-desktop",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Teach browser workflows once and repeat them locally with verified results.",
   "author": "HandNavigate",
   "private": true,
@@ -8,7 +8,8 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test desktop/test/*.test.cjs",
-    "test:desktop": "node desktop/test/e2e.cjs && node desktop/test/workflows.cjs",
+    "test:desktop": "node desktop/test/e2e.cjs && node desktop/test/workflows.cjs && node desktop/test/reliability.cjs",
+    "test:packaged": "node desktop/test/packaged.cjs",
     "icons": "node desktop/build-icons.cjs",
     "dist": "npm run icons && electron-builder --win portable --x64",
     "pack": "npm run icons && electron-builder --dir --win --x64"

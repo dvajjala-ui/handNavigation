@@ -69,6 +69,25 @@ test('non-verified daily outcomes pause the workflow',async t=>{
   let now=Date.parse('2026-10-26T03:00:00Z');const q=new DailyQueue(store,async()=>({status:'PARTIAL'}),()=>now);
   q.enable(saved.id,true,'09:00','Asia/Kolkata');now+=3600000;await q.tick();assert.equal(saved.schedule.enabled,false);
 });
+
+test('a busy browser defers a due occurrence without consuming it or disabling the schedule',async t=>{
+  const {folder,store}=fixture(t),saved=store.save(task(folder));store.approve(saved.id,saved.sha);saved.rehearsals=[0];
+  let now=Date.parse('2026-10-26T03:00:00Z'),ready=false,calls=0;
+  const queue=new DailyQueue(store,async()=>{calls++;return {status:'VERIFIED'};},()=>now,()=>ready);
+  queue.enable(saved.id,true,'09:00','Asia/Kolkata');const due=saved.schedule.nextDue;now+=3600000;
+  assert.deepEqual(await queue.tick(),[]);assert.equal(saved.schedule.nextDue,due);assert.equal(saved.schedule.enabled,true);assert.equal(Object.keys(store.data.occurrences).length,0);
+  ready=true;await queue.tick();await queue.tick();assert.equal(calls,1);assert.equal(saved.schedule.enabled,true);
+});
+
+test('the queue checks browser availability again between due workflows',async t=>{
+  const {folder,store}=fixture(t),tasks=[store.save(task(folder)),store.save({...task(folder),name:'Second'})];
+  for(const saved of tasks){store.approve(saved.id,saved.sha);saved.rehearsals=[0];}
+  let now=Date.parse('2026-10-26T03:00:00Z'),ready=true;const calls=[];
+  const queue=new DailyQueue(store,async id=>{calls.push(id);ready=false;return {status:'VERIFIED'};},()=>now,()=>ready);
+  for(const saved of tasks)queue.enable(saved.id,true,'09:00','Asia/Kolkata');now+=3600000;
+  await queue.tick();assert.deepEqual(calls,[tasks[0].id]);assert.equal(tasks[1].schedule.enabled,true);
+  ready=true;await queue.tick();assert.deepEqual(calls,tasks.map(t=>t.id));
+});
 test('DST nonexistent times skip and repeated times choose first occurrence',()=>{
   assert.equal(occurrenceOn({year:2026,month:3,day:8},{time:'02:30',timezone:'America/New_York'}),null);
   assert.equal(new Date(occurrenceOn({year:2026,month:11,day:1},{time:'01:30',timezone:'America/New_York'})).toISOString(),'2026-11-01T05:30:00.000Z');

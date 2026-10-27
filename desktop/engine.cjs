@@ -5,7 +5,12 @@ const crypto=require('node:crypto');
 const sharp=require('sharp');
 const {TaskError,hash,clone,webUrl,interpolate,siteUrl,atomicWrite}=require('./core.cjs');
 const {script}=require('./dom.cjs');
-const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+const delay=(ms,signal)=>new Promise((resolve,reject)=>{
+  if(signal?.aborted)return reject(new TaskError('Run stopped.','CANCELLED'));
+  const stop=()=>{clearTimeout(timer);signal.removeEventListener('abort',stop);reject(new TaskError('Run stopped.','CANCELLED'));};
+  const timer=setTimeout(()=>{signal?.removeEventListener('abort',stop);resolve();},ms);
+  signal?.addEventListener('abort',stop,{once:true});
+});
 const MAX_BYTES=25*1024*1024, MAX_PIXELS=40000000;
 
 async function imageInfo(bytes) {
@@ -32,7 +37,23 @@ function duplicateImage(a,b,similar=false) {
   let value=BigInt('0x'+a.visualHash)^BigInt('0x'+b.visualHash),distance=0;while(value){distance++;value&=value-1n;}
   return distance<=4;
 }
-async function fetchImage(browserSession,url,origins,signal) {
+const RETRY_HTTP=new Set([408,429,500,502,503,504]);
+function transientNetwork(error){return /ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|UND_ERR_SOCKET|UND_ERR_CONNECT_TIMEOUT|net::ERR_(CONNECTION_RESET|CONNECTION_CLOSED|CONNECTION_ABORTED|CONNECTION_REFUSED|TIMED_OUT|NETWORK_CHANGED|EMPTY_RESPONSE|HTTP2_PROTOCOL_ERROR)/.test([error?.code,error?.cause?.code,error?.message].join(' '));}
+async function fetchImage(browserSession,url,origins,signal,onRetry=()=>{}) {
+  for(let attempt=0;attempt<3;attempt++){
+    try{return await readImage(browserSession,url,origins,signal);}
+    catch(error){
+      if(signal.aborted)throw new TaskError('Run stopped.','CANCELLED');
+      if(attempt===2||!(error.transient||transientNetwork(error)))throw error;
+      const wait=error.retryAfterMs??500*2**attempt;
+      // Long rate limits need a later run, rather than retrying before the server allows it.
+      if(wait>5000)throw error;
+      onRetry({attempt:attempt+1,wait,status:error.code||'NETWORK'});
+      await delay(wait,signal);
+    }
+  }
+}
+async function readImage(browserSession,url,origins,signal) {
   let current=url;
   for(let hop=0;hop<6;hop++) {
     if(signal.aborted)throw new TaskError('Run stopped.','CANCELLED');
@@ -44,7 +65,13 @@ async function fetchImage(browserSession,url,origins,signal) {
       const next=webUrl(new URL(loc,u).href);if(u.protocol==='https:'&&next.protocol!=='https:')throw new TaskError('The image tried to redirect from HTTPS to HTTP.');
       current=next.href;continue;
     }
-    if(!response.ok){await response.body?.cancel();throw new TaskError(`Image request returned HTTP ${response.status}.`,'HTTP_'+response.status);}
+    if(!response.ok){
+      const retryAfter=response.headers.get('retry-after');await response.body?.cancel();
+      const error=new TaskError(`Image request returned HTTP ${response.status}.`,'HTTP_'+response.status);
+      error.transient=RETRY_HTTP.has(response.status);
+      if(retryAfter!==null){const value=/^\d+(?:\.\d+)?$/.test(retryAfter)?Number(retryAfter)*1000:Date.parse(retryAfter)-Date.now();if(Number.isFinite(value))error.retryAfterMs=Math.max(0,value);}
+      throw error;
+    }
     const declared=response.headers.get('content-length');
     if(declared&&(!/^\d+$/.test(declared)||Number(declared)>MAX_BYTES)){await response.body?.cancel();throw new TaskError('The image exceeds the 25 MB transfer limit.');}
     const chunks=[];let size=0;
@@ -62,6 +89,12 @@ async function fetchImage(browserSession,url,origins,signal) {
 
 class Runner {
   constructor(store,browser,notify=()=>{}){this.store=store;this.browser=browser;this.notify=notify;this.active=null;}
+  async input(method,params){
+    // Chromium input targets this page even when the desktop window is minimized.
+    this.check();const debugger_=this.browser.wc.debugger;
+    if(!debugger_.isAttached())debugger_.attach('1.3');
+    return debugger_.sendCommand(method,params);
+  }
   check() {
     if(!this.active||this.active.abort.signal.aborted)throw new TaskError('Run stopped.','CANCELLED');
     if(Date.now()>this.active.deadline)throw new TaskError('This run reached its time limit.','NEEDS_REVIEW');
@@ -85,7 +118,6 @@ class Runner {
     this.event(`Step ${index+1}: ${step.op}${step.label?' '+step.label:''}`);
     if(step.op==='navigate'){await this.navigate(siteUrl(step.value,row));return;}
     if(step.op==='wait'){await delay(step.amount);this.check();return;}
-    wc.focus();
     const info=await this.until(()=>wc.executeJavaScript(script('findTarget',{locator:step.locator})), 'The taught control did not appear.');
     this.check();
     if(step.op==='select') {
@@ -95,16 +127,20 @@ class Runner {
       await wc.executeJavaScript(script('focusTarget',{...info,locator:step.locator}),true);this.check();
       if(step.op==='fill') {
         this.active.effectStarted=true;
-        await Promise.race([wc.insertText(interpolate(step.value,row)),delay(8000).then(()=>{throw new TaskError('The browser did not accept text input. Open the app browser and try again.');})]);
+        await Promise.race([this.input('Input.insertText',{text:interpolate(step.value,row)}),delay(8000).then(()=>{throw new TaskError('The browser did not accept text input. Open the app browser and try again.');})]);
       } else if(step.op==='press') {
         this.active.effectStarted=true;
-        wc.sendInputEvent({type:'keyDown',keyCode:step.value});wc.sendInputEvent({type:'keyUp',keyCode:step.value});
+        const key={key:step.value,code:step.value===' '?'Space':step.value,windowsVirtualKeyCode:{Enter:13,Tab:9,Escape:27,ArrowDown:40,ArrowUp:38,ArrowLeft:37,ArrowRight:39,' ':32}[step.value]};
+        const text=step.value==='Enter'?'\r':step.value===' '?' ':null;
+        await this.input('Input.dispatchKeyEvent',{...key,type:text?'keyDown':'rawKeyDown',...(text?{text,unmodifiedText:text}:{})});
+        await this.input('Input.dispatchKeyEvent',{...key,type:'keyUp'});
       } else if(step.op==='click'||step.op==='check'&&info.checked!==step.checked) {
         const fresh=await wc.executeJavaScript(script('findTarget',{locator:step.locator}));
         if(fresh.fingerprint!==info.fingerprint||fresh.url!==info.url)throw new TaskError('The control changed before the click.');
         this.check();this.active.effectStarted=true;
-        wc.sendInputEvent({type:'mouseDown',x:Math.round(fresh.x),y:Math.round(fresh.y),button:'left',clickCount:1});
-        wc.sendInputEvent({type:'mouseUp',x:Math.round(fresh.x),y:Math.round(fresh.y),button:'left',clickCount:1});
+        const pointer={x:fresh.x,y:fresh.y,button:'left',clickCount:1};
+        await this.input('Input.dispatchMouseEvent',{...pointer,type:'mousePressed',buttons:1});
+        await this.input('Input.dispatchMouseEvent',{...pointer,type:'mouseReleased',buttons:0});
       }
     }
     await delay(250);this.check();
@@ -120,7 +156,8 @@ class Runner {
     this.check();const controller=new AbortController();const parent=this.active.abort.signal;
     const abort=()=>controller.abort();parent.addEventListener('abort',abort,{once:true});
     const timer=setTimeout(abort,30000);
-    try {const data=await fetchImage(this.browser.session,url,[...new Set([...this.active.task.allowedOrigins,...this.active.task.imageOrigins])],controller.signal);this.check();return data;}
+    try {const data=await fetchImage(this.browser.session,url,[...new Set([...this.active.task.allowedOrigins,...this.active.task.imageOrigins])],controller.signal,retry=>{this.active.run.imageRetries=(this.active.run.imageRetries||0)+1;this.event(`Retrying an image read (${retry.status}), attempt ${retry.attempt+1}/3`);});this.check();return data;}
+    catch(error){if(controller.signal.aborted&&!parent.aborted)throw new TaskError('The image request timed out after 30 seconds.');throw error;}
     finally{clearTimeout(timer);parent.removeEventListener('abort',abort);}
   }
   async candidates(selector) {
@@ -144,6 +181,7 @@ class Runner {
   }
   async collect(task) {
     const run=this.active.run,seen=new Set(),pageKeys=new Set(),saved=[];
+    if(this.browser.settle)await this.browser.settle();this.check();
     const pending=task.type==='transfer'&&task.newOnly?this.store.pendingItems(task,run.rowIndex):[];
     const pendingHashes=new Set(pending.map(i=>i.sha256));
     const history=task.newOnly?(this.store.knownItems?this.store.knownItems(task.id,task.dedupeScope||'workflow').filter(i=>!pendingHashes.has(i.sha256)):[...this.store.known(task.id)].map(sha256=>({sha256}))):[];
@@ -246,6 +284,9 @@ class Runner {
       await this.setUpload(target.fileInput,item.file);await delay(400);
       if(target.submit)await this.step({op:'click',locator:target.submit,label:'Upload'},run.inputs,0);
       await delay(750);
+      // Leaving the page aborts many fetch/XHR uploads. Wait for the original request;
+      // never repeat a write just because its response or gallery update is slow.
+      if(this.browser.waitForUploads){this.event('Waiting for the destination to finish receiving the image');await this.browser.waitForUploads(this.active.abort.signal);this.check();}
       let found=false;
       for(let n=0;n<6;n++) {inventory=await this.inventory(target,expected);if(inventory.has(item.sha256)){found=true;break;}await delay(750);}
       if(!found){item.state='NEEDS_REVIEW';this.store.flush();throw new TaskError('The uploaded original could not be independently verified. The app will not resend it automatically.','NEEDS_REVIEW');}

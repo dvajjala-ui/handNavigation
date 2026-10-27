@@ -1,6 +1,6 @@
 # HandNavigate Desktop
 
-**Open `dist/HandNavigate-0.6.0-Windows.exe` to use the desktop app and its persistent browser.** No Python, Node or AI key is needed for the packaged build. Version 0.6 adds Next-page/Load-more controls, duplicate history across partial runs or the whole library, optional image similarity checks, resumable partial transfers, and a local script API. See [DESKTOP_START_HERE.md](DESKTOP_START_HERE.md) and [API.md](API.md). Source: `desktop/`.
+**Open `dist/HandNavigate-0.6.1-Windows.exe` to use the desktop app and its persistent browser.** No Python, Node or AI key is needed for the packaged build. Version 0.6.1 fixes background input, waits for slow uploads, retries temporary image-read failures and Windows save locks, and defers daily jobs while sign-in is open. It includes Next-page/Load-more controls, durable duplicate history, resumable partial transfers, and a local script API. See [DESKTOP_START_HERE.md](DESKTOP_START_HERE.md) and [API.md](API.md). Source: `desktop/`.
 
 The Python source and historical delivery below remain available. Their Studio screens and browser sessions are separate from the new desktop app.
 

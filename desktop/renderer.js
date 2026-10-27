@@ -62,7 +62,7 @@ function renderHistory(t){
     const review=r.status==='NEEDS_REVIEW'&&!r.acknowledged;
     return `<article class="history-card"><div class="history-title"><strong>${escape(Object.values(r.inputs).join(' · '))}</strong><span class="pill ${statusClass(r.status)}">${escape(r.status.replaceAll('_',' '))}</span></div>
       <p>${escape(new Date(r.startedAt).toLocaleString())} · ${escape(r.trigger)} · ${r.items.length} image${r.items.length===1?'':'s'}</p>
-      <p>${r.pagesVisited||0} pages · ${r.duplicatesSkipped||0} duplicates skipped · ${r.items.filter(i=>i.reusedFrom).length} files reused</p>
+      <p>${r.pagesVisited||0} pages · ${r.duplicatesSkipped||0} duplicates skipped · ${r.items.filter(i=>i.reusedFrom).length} files reused · ${r.imageRetries||0} image retries</p>
       ${r.error?`<p>${escape(r.error)}</p>`:''}${r.reviewOutcome?`<p>${escape(r.reviewOutcome)}</p>`:''}
       ${r.folder?`<button class="button" data-run-folder="${r.id}">Open files ↗</button>`:''}
       ${review?`<p>${unresolved?'Recheck the uploaded originals first. If they are absent, explicitly confirm that before retrying.':'Inspect the site outcome before running again.'}</p>

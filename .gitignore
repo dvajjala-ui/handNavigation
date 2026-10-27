@@ -5,6 +5,7 @@ desktop/evidence/*
 !desktop/evidence/e2e-results.json
 !desktop/evidence/packaged-results.json
 !desktop/evidence/workflow-results.json
+!desktop/evidence/reliability-results.json
 __pycache__/
 *.pyc
 runtime/

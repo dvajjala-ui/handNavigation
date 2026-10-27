@@ -2,6 +2,7 @@
 const {_electron:electron}=require('playwright'),assert=require('node:assert/strict');
 const fs=require('node:fs'),os=require('node:os'),path=require('node:path'),net=require('node:net'),cp=require('node:child_process');
 const {fixture}=require('./fixture.cjs'),{draft}=require('../core.cjs'),{imageInfo}=require('../engine.cjs');
+const {closeApp,removeFixture}=require('./cleanup.cjs');
 const pause=ms=>new Promise(r=>setTimeout(r,ms));
 async function freePort(){const s=net.createServer();await new Promise(r=>s.listen(0,'127.0.0.1',r));const p=s.address().port;await new Promise(r=>s.close(r));return p;}
 async function finished(app,id,after){for(let n=0;n<600;n++){const s=await app.evaluate(()=>({active:!!global.__handnavigateTest.runner.active,runs:global.__handnavigateTest.store.data.runs}));if(!s.active&&s.runs.length>after&&s.runs[0].taskId===id)return s.runs[0];await pause(150);}throw new Error('Run did not finish: '+id);}
@@ -9,7 +10,7 @@ async function main(){
   const site=await fixture(),folder=fs.mkdtempSync(path.join(os.tmpdir(),'handnavigate-workflows-')),output=path.join(folder,'Downloads'),profile=path.join(folder,'profile'),results=[];fs.mkdirSync(output);
   let app;const launch=()=>electron.launch({args:[path.resolve('.')],env:{...process.env,HANDNAVIGATE_TEST:'1',HANDNAVIGATE_USER_DATA:profile},timeout:60000});
   try{
-    app=await launch();let ui=await app.firstWindow();await ui.waitForSelector('#task-name');
+    app=await launch();let ui=await app.firstWindow({timeout:60000});await ui.waitForSelector('#task-name');
     await ui.locator('#task-name').fill('Twenty images across pages');await ui.locator('#task-url').fill(site.origin+'/pages');await ui.locator('#save-task').click();
     let task=await app.evaluate((_e,folder)=>{const a=global.__handnavigateTest,t=a.store.get(a.store.data.tasks[0].id);t.outputFolder=folder;t.imageOrigins=[];a.store.save(t);a.flush();return t;},output);
     await ui.locator('#open-site').click();await ui.waitForFunction(()=>document.querySelector('#browser-address').value.includes('/pages'));
@@ -63,15 +64,14 @@ async function main(){
     assert.equal(reviewed?.acknowledged,true,JSON.stringify(reviewed));assert.equal(reviewed.items[0].state,'CONFIRMED');assert.equal(site.writes,writesBeforeRecheck);
     assert.equal(JSON.parse(fs.readFileSync(path.join(profile,'workflows.json'),'utf8')).data.runs.find(r=>r.id===run.id).acknowledged,true);
     results.push({test:'a late persisted upload can be rechecked and resolved without resending it',passed:true});
-    await app.evaluate(()=>global.__handnavigateTest.shutdown());await app.close();app=await launch();ui=await app.firstWindow();await ui.waitForSelector('#workflow-title');
+    await closeApp(app);app=await launch();ui=await app.firstWindow({timeout:60000});await ui.waitForSelector('#workflow-title');
     for(let i=0;i<50;i++){try{if((await fetch(endpoint+'/health',{headers})).ok)break;}catch{}await pause(100);}
     const restored=await (await post(request)).json();assert.equal(restored.id,started.id);assert.equal(restored.reused,true);results.push({test:'API settings and request idempotency survive an app restart',passed:true});
     const outputJSON=await new Promise((resolve,reject)=>cp.execFile('powershell.exe',['-NoProfile','-File',path.resolve('Invoke-HandNavigate.ps1'),'-Action','run','-WorkflowId',apiTask.id,'-SettingsPath',path.join(profile,'integration.json'),'-RequestId','owned-powershell-001','-Wait'],{windowsHide:true,timeout:120000},(error,stdout,stderr)=>error?reject(new Error(stderr||error.message)):resolve(stdout)));
     assert.equal(JSON.parse(outputJSON).status,'VERIFIED');results.push({test:'the supplied PowerShell client invokes and waits for a real approved download',passed:true});
     fs.writeFileSync(path.resolve('desktop/evidence/workflow-results.json'),JSON.stringify({passed:results.length,failed:0,scope:'Real Electron browser with owned paginated HTTP sources and destinations, local HTTP API and PowerShell client',results},null,2));console.log(JSON.stringify(results,null,2));
   }finally{
-    if(app){await app.evaluate(()=>global.__handnavigateTest.shutdown()).catch(()=>{});await app.close().catch(()=>{});}await site.close();
-    const target=path.resolve(folder);if(target.startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(target,{recursive:true,force:true,maxRetries:10,retryDelay:500});
+    await closeApp(app);await site.close();removeFixture(folder);
   }
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

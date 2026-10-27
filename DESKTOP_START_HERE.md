@@ -1,6 +1,6 @@
 # HandNavigate Desktop
 
-Open **dist/HandNavigate-0.6.0-Windows.exe**. It includes the app, Chromium browser, image decoder, script client and local runner. You do not need Python, Node, a terminal, a separate browser install or an AI key to use the packaged app.
+Open **dist/HandNavigate-0.6.1-Windows.exe**. It includes the app, Chromium browser, image decoder, script client and local runner. You do not need Python, Node, a terminal, a separate browser install or an AI key to use the packaged app.
 
 ## Your first workflow
 
@@ -10,6 +10,8 @@ Open **dist/HandNavigate-0.6.0-Windows.exe**. It includes the app, Chromium brow
 4. In **Review**, check the recorded actions and output checks. Change a demonstrated input to `{{topic}}` to bind it to your values. For a repeated task, add the visible result text or exact final URL that proves completion. Click **Approve & run**.
 
 Files appear in your chosen Downloads location, grouped by workflow and run. **History** shows verified image hashes, dimensions, source URLs, result checks and failures. Open the output folder directly from the app.
+
+Temporary image-read failures get up to three read attempts within the 30-second request budget. Short server retry delays are respected; a longer rate limit stops the run for a later attempt. Access denial and invalid site scopes are not retried. History records the retries.
 
 Choose **More results** according to the site: scroll, Next page / Load more, or only this page. For Next, click **Choose Next control** and point to the actual button or link in the browser. A page limit bounds the search. The app stops on missing/disabled Next controls or repeated pages and reports a partial result when fewer images are available.
 
@@ -21,6 +23,10 @@ Enter one topic or prompt value per line in **Values to repeat**. `{{topic}}` ca
 
 Run each configured value once and inspect the result. In **Daily**, choose the time and timezone and turn on the schedule. It rotates through the configured rows, deduplicates each daily occurrence and collects new image bytes when that option is selected. It runs locally while the app is open and the computer is awake. After downtime it executes at most the latest occurrence rather than replaying every missed day. Failed or partial jobs pause the schedule.
 
+A due daily job waits while another job, teaching, control selection or a sign-in popup uses the browser. It keeps its due occurrence until the browser is available.
+
+You can minimize the app while supported workflows execute. Text, clicks and bounded keys target the embedded browser without needing the desktop window to hold focus. The computer must stay awake. Closing the app still stops its worker.
+
 Editing executable steps, variables, websites, image count or result checks invalidates the earlier approval and rehearsal. This prevents a changed draft from silently altering an active daily workflow.
 
 For a script or another local program, enable the local API in **Daily**, copy the workflow ID and use **Save script client**. [API.md](API.md) contains commands and endpoints. Repeating an API request ID returns the original run, so a network retry does not silently start another download/upload job.
@@ -30,6 +36,8 @@ For a script or another local program, enable the local API in **Daily**, copy t
 Choose **Download and upload images**. Set up the source as above, then open the destination's upload form in the same browser and click **Use this upload form**. Navigate to its saved-image gallery and click **Choose saved gallery**. Review both sites and the selected file input before running.
 
 Only validated files from this run can be submitted. The app reloads the saved gallery and downloads its persisted images to verify byte-identical originals. An interrupted or unverifiable upload is marked **Needs review** and is not blindly repeated. Repeating a successful transfer confirms matching remote files without creating another copy.
+
+Before opening the gallery, the runner waits up to 45 seconds for observed upload requests to finish. This also covers forms that upload when a file is selected. Slow or uncertain writes are never automatically resubmitted. A site's delayed background jobs can still require a later **Recheck uploaded originals**.
 
 Configure **Saved gallery pages** when persisted images span several pages. Verification stops before uploading if the destination exceeds the reviewed page limit. A partial source transfer reuses its validated pending files when the same approved row runs again. **Recheck uploaded originals** resolves a late upload by reading the destination without submitting it again. If an upload is absent, the explicit missing-upload confirmation allows a later retry. A recheck preserves the original run's review status and does not automatically enable a schedule.
 
@@ -54,6 +62,7 @@ npm install
 npm test
 npm run test:desktop
 npm run dist
+npm run test:packaged
 ```
 
 `npm test` verifies contracts, approvals, durable recovery, daily occurrence handling, timezone/DST and image decoding. The Electron acceptance tests operate the real desktop UI and embedded browser against owned HTTP sites: two topics with 20 downloads each, actual teaching and parameter replay, shared-session reuse across restart, browser uploads, remote-byte checks, duplicate prevention and failure handling. Those sites are explicit test targets and are never substituted for a failed third-party run.
