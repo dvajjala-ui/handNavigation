@@ -107,12 +107,18 @@ function imageCandidates(args) {
   const items=[...document.querySelectorAll(args.selector)].slice(0,1000).map(i=>{
     const img=i.tagName==='IMG'?i:i.querySelector('img');if(!img)return null;
     const pin=img.closest('a[href*="/pin/"]')||img.closest('[data-test-id="pin"]')?.querySelector('a[href*="/pin/"]');
+    const post=img.closest('shreddit-post');
+    let postUrl='';try{const value=post?.getAttribute('permalink')||post?.querySelector('a[id^="post-title-"]')?.href;if(value)postUrl=new URL(value,location.href).href;}catch{}
+    if(!postUrl&&/(^|\.)reddit\.com$/.test(location.hostname)){
+      let parent=img.parentElement;for(let depth=0;parent&&depth<7;depth++,parent=parent.parentElement){const link=parent.querySelector('a[href*="/comments/"]');if(link){postUrl=link.href;break;}}
+    }
     const linked=img.closest('a[href]')?.href;
     let linkedOriginal='';
     if(linked)try {const u=new URL(linked,location.href);if(/^https?:$/.test(u.protocol)&&u.origin===location.origin)linkedOriginal=u.href;}catch{}
-    const raw=[...String(img.srcset||'').split(',').map(s=>{const p=s.trim().split(/\s+/);return {url:p[0],score:Number.parseFloat(p[1])||1};}).sort((a,b)=>b.score-a.score).map(a=>a.url),img.currentSrc||img.src,linkedOriginal].filter(Boolean);
+    const originals=post?[...post.querySelectorAll('img')].filter(e=>e.alt===img.alt&&/^https:\/\/i\.redd\.it\//.test(e.currentSrc||e.src)).map(e=>e.currentSrc||e.src):[];
+    const raw=[...originals,...String(img.srcset||'').split(',').map(s=>{const p=s.trim().split(/\s+/);return {url:p[0],score:Number.parseFloat(p[1])||1};}).sort((a,b)=>b.score-a.score).map(a=>a.url),img.currentSrc||img.src,linkedOriginal].filter(Boolean);
     const urls=[...new Set(raw.map(s=>{try{return new URL(s,location.href).href;}catch{return '';}}).filter(s=>/^https?:/.test(s)))];
-    return {sourceId:pin?.href||urls[0],postUrl:linkedOriginal||null,pin:pin?.href||null,urls,alt:H.clean(img.alt),gated:!!img.closest('[data-test-id="gated-pin-image"]')};
+    return {sourceId:pin?.href||postUrl||urls[0],postUrl:postUrl||linkedOriginal||pin?.href||null,pin:pin?.href||null,urls,alt:H.clean(img.alt),gated:!!img.closest('[data-test-id="gated-pin-image"]')};
   }).filter(Boolean);
   return {authRequired:false,url:location.href,items};
 }

@@ -10,6 +10,9 @@
     "test": "node --test desktop/test/*.test.cjs",
     "test:desktop": "node desktop/test/e2e.cjs && node desktop/test/workflows.cjs && node desktop/test/reliability.cjs",
     "test:packaged": "node desktop/test/packaged.cjs",
+    "service": "node service/server.cjs",
+    "service:login": "node service/login.cjs",
+    "test:service": "node --test service/test/*.test.cjs",
     "icons": "node desktop/build-icons.cjs",
     "dist": "npm run icons && electron-builder --win portable --x64",
     "pack": "npm run icons && electron-builder --dir --win --x64"

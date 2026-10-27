@@ -1,6 +1,23 @@
 {
   "build": "HandNavigate Desktop 0.6.1 and core image transfer implementation",
   "review_date": "2026-10-28",
+  "collection_service": {
+    "version": "0.1.0",
+    "mode": "parameterized worker API using HandNavigate Runner and own persistent browsers",
+    "guide": "SERVICE.md",
+    "live_local_downloads": {"pinterest": 20, "reddit": 4, "independently_decoded_unique_files": 24},
+    "cross_repo_fixture": {"images": 20, "database_rows": 20, "read_back_verified": true, "scope": "owned HTTP media and disposable SQLite/blob sink using StickerDock production intake handler"},
+    "local_core_tests": 34,
+    "local_desktop_checks": 38,
+    "local_worker_tests": 5,
+    "stickerdock_local_backend_tests": 274,
+    "hosted_supabase_intake_deployed": false,
+    "hosted_supabase_candidate_writes": 0,
+    "daily_intake_activated": false,
+    "container_linux_qualified": false,
+    "candidate_generation_admission": "pending source rights/quality review and Admin admission into existing Factory inbox",
+    "desktop_exe_embeds_service": false
+  },
   "environment": "Windows, Electron 45.0.0, Playwright 1.64.1, Node 24.16.0; Python core retained",
   "desktop": {
     "artifact": "dist/HandNavigate-0.6.1-Windows.exe",

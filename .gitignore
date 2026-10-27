@@ -20,6 +20,9 @@ runtime/
 *.session.json
 integration.json*
 workflows.json*
+service-key.json*
+collections.json*
+worker.lock
 
 # Local live-browser evidence and profiles can contain private data
 live-runs/

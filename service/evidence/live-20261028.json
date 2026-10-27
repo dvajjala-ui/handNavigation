@@ -1,0 +1,208 @@
+{
+  "date": "2026-10-28",
+  "timezone": "Asia/Calcutta",
+  "executor": "HandNavigate service public HTTP API, ServiceBrowser and production Runner",
+  "source": "Live Pinterest and Reddit pages, no fixtures, no Codex browser downloads",
+  "status": "VERIFIED_LOCAL",
+  "images": 24,
+  "platforms": {
+    "pinterest": 20,
+    "reddit": 4
+  },
+  "productionSupabaseWritten": false,
+  "aiCalls": 0,
+  "items": [
+    {
+      "platform": "reddit",
+      "topic": "cute cat",
+      "source": "https://www.reddit.com/r/cats/comments/1p0vemv/what_makes_cats_so_cute/",
+      "sha256": "83bd12cd0463da7033bb9a105abad573377eaca024be0621d7b80ef052824bf9",
+      "width": 1080,
+      "height": 1566
+    },
+    {
+      "platform": "reddit",
+      "topic": "cute cat",
+      "source": "https://www.reddit.com/r/cats/comments/1lufeqk/a_cute_guide_about_cats_body_language/",
+      "sha256": "226ab522ceb37399638f85da519b96e618b4cdab294e6e8ac32c2acabddf4ae6",
+      "width": 640,
+      "height": 960
+    },
+    {
+      "platform": "reddit",
+      "topic": "cute dog",
+      "source": "https://www.reddit.com/r/Dachshund/comments/14lyjtq/why_is_there_such_a_cute_dog/",
+      "sha256": "b4ef9048f006ffb3466216e84c5e2638724753ea87273cf43a87debfec0acc64",
+      "width": 1080,
+      "height": 1440
+    },
+    {
+      "platform": "reddit",
+      "topic": "cute cat",
+      "source": "https://www.reddit.com/r/Take1Leave1/comments/1sg7hlx/pick_a_cute_cat/",
+      "sha256": "ac18ecdcea789ac8402f4e91ec3578399eb25be8f26269042dcf35995dcfb5f0",
+      "width": 1080,
+      "height": 1186
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1079667710680497215/",
+      "sha256": "6fffe6ca60e10c904bf183792b68e032fcccbbd711707d99d9d880c34b835cc7",
+      "width": 735,
+      "height": 793
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/911556780889098278/",
+      "sha256": "b8d81b011695b7d53aa5e483bb8e2d8bc1594f76e00b792ee8262ef2f96e972b",
+      "width": 736,
+      "height": 736
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1035687245576565224/",
+      "sha256": "b2084c336de99627d01cb6426851bf3637ef7703d67ee256af4eb77028ce2cba",
+      "width": 720,
+      "height": 720
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/923660204847205270/",
+      "sha256": "376c0ed678f5ceb68e8150be012b0ad08539e728d518d81257c96887a33ea991",
+      "width": 736,
+      "height": 736
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/925560160939331114/",
+      "sha256": "1107b0ea71c57330dfe533bcc2a98303aa0db51084a5bd2f1cc354092752d95f",
+      "width": 1254,
+      "height": 1254
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/947444840344505275/",
+      "sha256": "c1a8e265cf83cfdb4a28489855240416d6d91be5cc958814a343c675731942dc",
+      "width": 564,
+      "height": 564
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/707135578979035595/",
+      "sha256": "4a46be0d3c9e8af00b995d19956fa408e80289e4ca3383863d8cc6a2fe2b7420",
+      "width": 736,
+      "height": 706
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1147714286316482510/",
+      "sha256": "7ec24e6d53be4b3b463c11081b9f2fae55fd20de26c5590e8d251a60cb424e0f",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/611434086951900662/",
+      "sha256": "47607beafc0e8152ac447a5dd641574b28851beca2dd087e69aaae4cbb68f9fe",
+      "width": 615,
+      "height": 614
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1090011916093528316/",
+      "sha256": "92fd02f04a360fcc618ec0b23146f8df81abefdcde83a6905f5dc67428cff0ae",
+      "width": 1199,
+      "height": 1386
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/724305552589797120/",
+      "sha256": "eb61aaf8d73bf1e17f46fb00654fceed958fbcb562f3997c1989f891432789e3",
+      "width": 1080,
+      "height": 1189
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1062075524624783160/",
+      "sha256": "f1203fb69628a9cfae771f45964d01c346c060b30edb7bee894e3ecd5ff45b7e",
+      "width": 1308,
+      "height": 1585
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1099441327851298022/",
+      "sha256": "1f154bbcca0c57ebaab9acafca1fd0d9dbbfc41a4b17c31a6073a5cbe8211951",
+      "width": 712,
+      "height": 956
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1077415910897110300/",
+      "sha256": "1c4a78211dc16136082375b919fe6672dc3533f490e12136cedb732c31a330f2",
+      "width": 736,
+      "height": 889
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/139259813471439077/",
+      "sha256": "e25186a1a93005705f39a601668b86228558f29d0d0034a238985cbc259c1de7",
+      "width": 735,
+      "height": 734
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1152288254677169643/",
+      "sha256": "ee30d22cf1b41fb543ab3c10391692277dee23dbb3a44a6ecb19bd0100990794",
+      "width": 1278,
+      "height": 1335
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1040894532640254185/",
+      "sha256": "78ff34e7b572acf0f0116ef208a063300f16d991bea070a473d83108bbcf4b24",
+      "width": 341,
+      "height": 399
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/942659765764148322/",
+      "sha256": "7f55fd8a837d4d1f506bd0d4af7a1f07d088ff939b7355b6ceb90591c63bc546",
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1138284874575082458/",
+      "sha256": "49de44f16e580547c7ff7b84e4f476bdc2a0a949cb8944326363b22d652e11c5",
+      "width": 474,
+      "height": 474
+    },
+    {
+      "platform": "pinterest",
+      "topic": "funny cat reaction",
+      "source": "https://in.pinterest.com/pin/1066156911815933762/",
+      "sha256": "53373b87059db362762ba0faed1a9865107bbd773f6419eefc0ebf8e73e5f869",
+      "width": 572,
+      "height": 668
+    }
+  ]
+}

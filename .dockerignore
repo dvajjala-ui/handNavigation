@@ -1,0 +1,11 @@
+node_modules
+service/node_modules
+dist
+.git
+.venv
+runtime
+evidence
+analysis
+*.env
+.env*
+**/service-key.json*

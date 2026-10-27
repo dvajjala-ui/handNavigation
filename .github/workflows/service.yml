@@ -1,0 +1,22 @@
+name: HandNavigate worker API
+on:
+  workflow_dispatch:
+  push:
+    paths: ['service/**', 'desktop/core.cjs', 'desktop/engine.cjs', 'desktop/dom.cjs', '.github/workflows/service.yml']
+  pull_request:
+    paths: ['service/**', 'desktop/core.cjs', 'desktop/engine.cjs', 'desktop/dom.cjs', '.github/workflows/service.yml']
+permissions:
+  contents: read
+jobs:
+  collections:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - run: npm run test:service

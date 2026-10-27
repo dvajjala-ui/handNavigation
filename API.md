@@ -1,5 +1,7 @@
 # Run a saved HandNavigate workflow from a script
 
+For dynamic topics/platforms and remote StickerDock collection, use the separate [HandNavigate worker API](SERVICE.md). This document covers the portable desktop app's local, saved-row API.
+
 HandNavigate 0.6 adds a local HTTP API and a PowerShell client. The app must be running on the same Windows computer. The API uses the app's saved browser session and the same approved runner as **Run now** and **Daily**.
 
 In **Daily**, turn on the local API. Its default address is `http://127.0.0.1:47831/v1`. You can choose another port. **Save script client** exports `Invoke-HandNavigate.ps1` from the packaged app; the same script is included at the repository root. It reads the local API token from `%APPDATA%\HandNavigate\integration.json`, so the token does not need to appear in a command or log.

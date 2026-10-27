@@ -1,0 +1,17 @@
+
+> handnavigate-desktop@0.6.1 test:service
+> node --test service/test/*.test.cjs
+
+✔ real worker API collects 20 total across topics and sources, persists idempotency, dedup and a daily cap (12504.1691ms)
+✔ request contracts reject arbitrary sources and unsafe site recipes (1.9719ms)
+✔ delivery resumes saved sources after failure and a changed local file cannot become verified (2300.6993ms)
+✔ a second service or login process cannot reuse the active browser/state directory (17.6785ms)
+✔ storage handoff verifies actual decoded read-back, metadata and candidate admission status (805.057ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15721.5068

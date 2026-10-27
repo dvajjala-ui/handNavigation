@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-27T19:53:15.829Z",
+  "scope": "StickerDock Python caller -> HandNavigate API/Runner -> StickerDock production intake handler; owned HTTP source, disposable SQLite/blob sink (not live Supabase)",
+  "status": "VERIFIED_STORAGE",
+  "images": 20,
+  "databaseRows": 20,
+  "allReadBackVerified": true,
+  "idempotentRequest": true,
+  "publications": 0,
+  "aiCalls": 0
+}

@@ -1,5 +1,7 @@
 # HandNavigate Desktop
 
+For StickerDock's parameterized server integration, see [SERVICE.md](SERVICE.md). The new worker mode uses HandNavigate's own persistent browsers and download runner. It has saved 20 Pinterest and four Reddit images live; its production deployment and Supabase activation are separately pending.
+
 **Open `dist/HandNavigate-0.6.1-Windows.exe` to use the desktop app and its persistent browser.** No Python, Node or AI key is needed for the packaged build. Version 0.6.1 fixes background input, waits for slow uploads, retries temporary image-read failures and Windows save locks, and defers daily jobs while sign-in is open. It includes Next-page/Load-more controls, durable duplicate history, resumable partial transfers, and a local script API. See [DESKTOP_START_HERE.md](DESKTOP_START_HERE.md) and [API.md](API.md). Source: `desktop/`.
 
 The Python source and historical delivery below remain available. Their Studio screens and browser sessions are separate from the new desktop app.

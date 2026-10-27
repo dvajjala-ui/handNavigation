@@ -1,0 +1,18 @@
+services:
+  handnavigate:
+    build:
+      context: ..
+      dockerfile: service/Dockerfile
+    init: true
+    restart: unless-stopped
+    shm_size: 1gb
+    ports:
+      - "127.0.0.1:47832:47832"
+    environment:
+      STICKERDOCK_BASE_URL: https://stickerdock.vercel.app
+      STICKERDOCK_INGEST_TOKEN: ${STICKERDOCK_INGEST_TOKEN:?Set the matching StickerDock intake token}
+      HANDNAVIGATE_DAILY_LIMIT: "20"
+    volumes:
+      - handnavigate-data:/data
+volumes:
+  handnavigate-data:
