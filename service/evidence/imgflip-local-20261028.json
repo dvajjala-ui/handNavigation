@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-10-27T21:15:12.856Z",
+  "executor": "HandNavigate HTTP collection API -> documented Imgflip catalog adapter -> shared Runner",
+  "scope": "Actual public catalog and image bytes; local storage, not Supabase",
+  "status": "VERIFIED_LOCAL",
+  "count": 2,
+  "items": [
+    {
+      "platform": "imgflip",
+      "source": "https://imgflip.com/memegenerator/112126428",
+      "imageUrl": "https://i.imgflip.com/1ur9b0.jpg",
+      "sha256": "4b498053b2748b2b6e5cce79d84b5c0ed060ad4edcc90c62ba08f3cb8eb13796",
+      "width": 1200,
+      "height": 800
+    },
+    {
+      "platform": "imgflip",
+      "source": "https://imgflip.com/memegenerator/188390779",
+      "imageUrl": "https://i.imgflip.com/345v97.jpg",
+      "sha256": "715798139c5deb743ab3e3a24f477e4c97fd5184ea43648a3d1fffb7b193ce07",
+      "width": 680,
+      "height": 438
+    }
+  ],
+  "aiCalls": 0,
+  "paidEndpoints": 0
+}

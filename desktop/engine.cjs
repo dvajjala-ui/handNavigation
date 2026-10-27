@@ -204,7 +204,7 @@ class Runner {
     let validCandidates=0,invalidCandidates=0;
     for(let page=0;page<paging.maxPages&&run.items.length<task.count;page++) {
       this.check();let items=await this.candidates(task.sourceSelector);
-      if(page===0&&!items.length)items=await this.until(async()=>{const value=await this.candidates(task.sourceSelector);return value.length?value:false;}, 'The selected image group did not appear.',15000);
+      if(page===0&&!items.length&&!this.browser.catalogExhausted)items=await this.until(async()=>{const value=await this.candidates(task.sourceSelector);return value.length?value:false;}, 'The selected image group did not appear.',15000);
       const key=this.browser.wc.getURL()+'|'+JSON.stringify(items.map(i=>i.sourceId));if(pageKeys.has(key))break;pageKeys.add(key);run.pagesVisited++;
       for(const item of items) {
         this.check();if(run.items.length>=task.count)break;

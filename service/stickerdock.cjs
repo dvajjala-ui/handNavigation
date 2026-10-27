@@ -2,19 +2,42 @@
 const fs=require('node:fs'),crypto=require('node:crypto'),sharp=require('sharp');
 const {imageInfo}=require('../desktop/engine.cjs');
 const {webUrl}=require('../desktop/core.cjs');
+const {boundedText,wait}=require('./http.cjs');
 function sourceLink(value){
   const u=webUrl(value);u.hash='';u.search='';
   if(/(^|\.)reddit\.com$/.test(u.hostname)){const id=u.pathname.match(/\/comments\/([a-z0-9]+)\//i)?.[1];if(id)return u.origin+'/comments/'+id+'/';}
   return u.href;
 }
 class StickerDock{
-  constructor(url,token=process.env.STICKERDOCK_INGEST_TOKEN){this.url=webUrl(url).href.replace(/\/$/,'');if(typeof token!=='string'||token.length<32)throw new Error('Configure the server-only StickerDock ingest token (32+ characters).');this.token=token;}
+  constructor(url,token=process.env.STICKERDOCK_INGEST_TOKEN,options={}){
+    const base=webUrl(url);
+    if(base.protocol!=='https:'&&!['localhost','127.0.0.1','[::1]'].includes(base.hostname))throw new Error('Use HTTPS for a remote StickerDock server.');
+    if(base.search||base.hash||base.pathname!=='/')throw new Error('Use the StickerDock site origin without a path, query or fragment.');
+    this.url=base.origin;if(typeof token!=='string'||token.length<32)throw new Error('Configure the server-only StickerDock ingest token (32+ characters).');this.token=token;this.options=options;
+  }
   async call(endpoint,payload,signal){
+    const repeatable=endpoint==='ingest'&&['store','get','status'].includes(payload.action);
+    for(let attempt=0;;attempt++)try{return await this.request(endpoint,payload,signal);}catch(error){
+      if(signal?.aborted||!repeatable||attempt>=2||!error.retryable)throw error;
+      const delay=error.retryAfterMs??(this.options.retryDelayMs??1000)*2**attempt;
+      if(delay>30000)throw error; // Respect long Retry-After values by leaving the job resumable.
+      await wait(delay,signal);
+    }
+  }
+  async request(endpoint,payload,signal){
     const timeout=AbortSignal.timeout(60000);
-    const response=await fetch(this.url+'/api/'+endpoint,{method:'POST',redirect:'error',headers:{'Content-Type':'application/json',Authorization:'Bearer '+this.token},body:JSON.stringify(payload),signal:signal?AbortSignal.any([timeout,signal]):timeout});
-    const text=await response.text();if(text.length>4500000)throw new Error('StickerDock response exceeded its bound.');
-    let result;try{result=JSON.parse(text);}catch{throw new Error('StickerDock returned invalid JSON.');}
-    if(!response.ok)throw new Error('StickerDock HTTP '+response.status+': '+String(result.error||'storage unavailable').slice(0,200));return result;
+    let response,text;
+    try{
+      response=await fetch(this.url+'/api/'+endpoint,{method:'POST',redirect:'error',headers:{'Content-Type':'application/json',Authorization:'Bearer '+this.token},body:JSON.stringify(payload),signal:signal?AbortSignal.any([timeout,signal]):timeout});
+      text=await boundedText(response);
+    }catch(error){error.retryable=!signal?.aborted&&(error.name==='TypeError'||error.name==='TimeoutError'||error.name==='AbortError');throw error;}
+    let result;try{result=JSON.parse(text);}catch{result={error:'Server returned invalid JSON'};if(response.ok)throw new Error('StickerDock returned invalid JSON.');}
+    if(!response.ok){
+      const error=new Error('StickerDock HTTP '+response.status+': '+String(result.error||'storage unavailable').slice(0,200));
+      error.retryable=[408,429,500,502,503,504].includes(response.status);
+      const retry=response.headers.get('retry-after');if(retry){const seconds=Number(retry);error.retryAfterMs=Math.max(0,Number.isFinite(seconds)?seconds*1000:Date.parse(retry)-Date.now());if(!Number.isFinite(error.retryAfterMs))error.retryAfterMs=30001;}
+      throw error;
+    }return result;
   }
   async store(item,signal){
     const original=fs.readFileSync(item.file);if((await imageInfo(original)).sha256!==item.sha256)throw new Error('A downloaded image changed before delivery.');
