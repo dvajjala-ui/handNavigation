@@ -12,7 +12,7 @@ Date: 27–28 October 2026. This is a Windows Electron app with a persistent loc
 | Slow uploads, temporary HTTP failures, asynchronous search, minimized input and sign-in deferral | 10 passed, 0 failed | [results](../desktop/evidence/reliability-results.json), [console](../analysis/desktop-v061-reliability-console.txt) |
 | Combined desktop regression | 38 passed, 0 failed | [final console](../analysis/desktop-v061-desktop-console.txt) |
 | Production dependency audit | 0 reported vulnerabilities | [audit](../analysis/desktop-v061-production-audit.json) |
-| Exact portable EXE smoke | 3 decoded images, real API execution, idempotency, bundled script client and slow upload passed | [packaged result](../desktop/evidence/packaged-results.json), [console](../analysis/desktop-v061-packaged-console.txt) |
+| Exact portable EXE smoke | 3 decoded images, real API execution, idempotency, bundled script client and slow upload passed | [packaged result](../desktop/evidence/packaged-results.json), [current console](../analysis/service-packaged-console.txt) |
 
 The refreshed portable file is `dist/HandNavigate-0.6.1-Windows.exe` (116,436,578 bytes), SHA-256 `EAC53C8623CBB5E2678FD950EF7FC62BD12BD832C2752E16FD9B2AA1C25CC78F`. [Build log](../analysis/service-package-console.txt). This refresh includes the collection-source DOM observations and a canonical local-file URL check; the separate worker API is not embedded in the executable.
 
