@@ -8,6 +8,7 @@ const {Store,TaskError,clone,webUrl,taskHash,draft,DailyQueue,PRIVATE,siteUrl}=r
 const {Runner}=require('./engine.cjs');
 const {script}=require('./dom.cjs');
 const {LocalAPI,validRequestId}=require('./integration.cjs');
+const {sameLocalDocument}=require('./trust.cjs');
 
 if(process.env.HANDNAVIGATE_USER_DATA)app.setPath('userData',path.resolve(process.env.HANDNAVIGATE_USER_DATA));
 app.setName('HandNavigate');
@@ -24,7 +25,7 @@ function notify(){if(win&&!win.isDestroyed()&&store&&runner&&browser)win.webCont
 function fail(error){lastError=error.message||String(error);notify();}
 function idle(){if(runner.active)throw new TaskError('Wait for the active run or stop it first.');}
 function current(){if(!selectedId)throw new TaskError('Choose a workflow first.');return store.get(selectedId);}
-function sourceSender(event){return win&&!win.isDestroyed()&&event.sender.id===win.webContents.id&&event.senderFrame?.url===ownUI;}
+function sourceSender(event){return win&&!win.isDestroyed()&&event.sender.id===win.webContents.id&&event.senderFrame===win.webContents.mainFrame&&sameLocalDocument(event.senderFrame?.url,ownUI);}
 async function action(event,fn,arg){if(!sourceSender(event))throw new Error('Only the local HandNavigate interface may perform this action.');lastError=null;try{const value=await fn(arg||{});notify();return {ok:true,value};}catch(e){fail(e);return {ok:false,error:e.message};}}
 function startSavedRun(id,rowIndex=0,requestId=null,trigger='manual'){
   const task=store.get(id);

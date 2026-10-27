@@ -6,7 +6,7 @@ Date: 27–28 October 2026. This is a Windows Electron app with a persistent loc
 
 | Check | Result | Evidence |
 | --- | --- | --- |
-| Core contracts, recovery, image identity, transport and local API | 34 passed, 0 failed | [unit console](../analysis/desktop-v061-unit-console.txt) |
+| Core contracts, recovery, image identity, transport, local API and packaged UI identity | 36 passed, 0 failed | [unit console](../analysis/service-core-console.txt) |
 | Existing real Electron acceptance suite | 16 passed, 0 failed | [results](../desktop/evidence/e2e-results.json) |
 | Extended browser, pagination, API and script workflows | 12 passed, 0 failed | [results](../desktop/evidence/workflow-results.json), [final console](../analysis/desktop-v061-desktop-console.txt) |
 | Slow uploads, temporary HTTP failures, asynchronous search, minimized input and sign-in deferral | 10 passed, 0 failed | [results](../desktop/evidence/reliability-results.json), [console](../analysis/desktop-v061-reliability-console.txt) |
@@ -14,7 +14,7 @@ Date: 27–28 October 2026. This is a Windows Electron app with a persistent loc
 | Production dependency audit | 0 reported vulnerabilities | [audit](../analysis/desktop-v061-production-audit.json) |
 | Exact portable EXE smoke | 3 decoded images, real API execution, idempotency, bundled script client and slow upload passed | [packaged result](../desktop/evidence/packaged-results.json), [console](../analysis/desktop-v061-packaged-console.txt) |
 
-The portable file is `dist/HandNavigate-0.6.1-Windows.exe` (116,437,404 bytes), SHA-256 `ED6DB2B4A1360A6ED2D7C92903F64696234326039217FA7B72DE7C9A8B7B4402`. [Build log](../analysis/desktop-v061-package-console.txt).
+The refreshed portable file is `dist/HandNavigate-0.6.1-Windows.exe` (116,436,578 bytes), SHA-256 `EAC53C8623CBB5E2678FD950EF7FC62BD12BD832C2752E16FD9B2AA1C25CC78F`. [Build log](../analysis/service-package-console.txt). This refresh includes the collection-source DOM observations and a canonical local-file URL check; the separate worker API is not embedded in the executable.
 
 The existing suite covers two 20-image topics, actual teaching and variable replay, persistent login across restart, image decoding, real uploads, remote-byte verification, duplicate upload prevention, a real scheduled execution with an injected future clock, and failure handling.
 
