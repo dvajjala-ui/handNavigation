@@ -68,17 +68,18 @@ async function main(){
   const release=lock(folder),controller=new AbortController();
   const stop=()=>controller.abort();
   process.once('SIGTERM',stop);process.once('SIGINT',stop);
-  let bridgeError=false;
+  let bridgeError=false,app;
   try{
     const configFile=process.env.HANDNAVIGATE_CONFIG||path.join(folder,'stickerdock.json');
     const config=fs.existsSync(configFile)?JSON.parse(fs.readFileSync(configFile,'utf8')):{};
     const sink=new StickerDock(config.baseUrl||process.env.STICKERDOCK_BASE_URL,config.token||process.env.STICKERDOCK_INGEST_TOKEN);
     await syncHistory(sink,folder);
-    const app=createServer({folder,sink,cloudQueue:true,onBridgeError:()=>{bridgeError=true;}});
+    app=createServer({folder,sink,cloudQueue:true,onBridgeError:()=>{bridgeError=true;}});
+    if(process.env.HANDNAVIGATE_ENQUEUE_DAILY==='1')await sink.call('ingest',{action:'enqueue_daily'});
     const result=await runBatch(app,{maxRuntimeMs,idleMs,signal:controller.signal});
     console.log(JSON.stringify({batch:result.reason,jobs:result.jobs,bridgeError}));
     if(!result.ok||bridgeError)process.exitCode=1;
-  }finally{process.removeListener('SIGTERM',stop);process.removeListener('SIGINT',stop);release();}
+  }finally{await app?.close();process.removeListener('SIGTERM',stop);process.removeListener('SIGINT',stop);release();}
 }
 if(require.main===module)main().catch(error=>{console.error('Batch worker:',String(error.message).slice(0,200));process.exitCode=1;});
 module.exports={runBatch,seconds,syncHistory};

@@ -23,6 +23,10 @@ Do not apply a workspace-wide shutdown cap without checking other projects.
 Qualify guest access on the exact Railway host before enabling daily collection.
 True source challenges remain attention-required; this cron image has no public
 graphical console. For human interaction use the separate private VM deployment.
-When activating this host, the StickerDock scheduler must enqueue work without
-starting a competing GitHub browser worker. Seed cloud duplicate history and
-reconcile unfinished work before migration; do not copy live browser locks.
+Each batch refreshes duplicate hashes and source links through the authenticated
+intake endpoint before claiming work. It never receives a database admin key.
+Set `HANDNAVIGATE_ENQUEUE_DAILY=1` when activating the daily cron: the host enqueues
+the saved Admin plans itself, using the server's India date and existing SQL daily
+quota/idempotency. Disable the old GitHub browser worker only after qualification;
+there is no timing dependency on GitHub's separate scheduler. Reconcile unfinished
+work before migration; do not copy live browser locks.
