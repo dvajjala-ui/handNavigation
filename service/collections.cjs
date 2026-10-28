@@ -4,6 +4,7 @@ const {Store,draft,hash,clone,atomicWrite,zoneParts}=require('../desktop/core.cj
 const {Runner,imageInfo}=require('../desktop/engine.cjs');
 const {ServiceBrowser}=require('./browser.cjs');
 const {ImgflipCatalog}=require('./imgflip.cjs');
+const {FlickrFeed}=require('./flickr.cjs');
 const {sources,request}=require('./sources.cjs');
 class Collections{
   constructor(folder,options={}){
@@ -72,7 +73,7 @@ class Collections{
         if(allowance<=0)break;
         try{
           let browser=browsers.get(source.id);
-          if(!browser){const Provider=source.provider==='imgflip'?ImgflipCatalog:ServiceBrowser;browser=await Provider.open(path.join(this.folder,'profiles',source.id),{...this.options.browser,catalogFetch:this.options.catalogFetch,onAuth:url=>{job.status='WAITING_FOR_LOGIN';this.event(job,'Human sign-in/check required for '+source.id);this.options.onAuth?.({jobId:job.id,source:source.id,url});}});browsers.set(source.id,browser);}
+          if(!browser){const Provider=source.provider==='imgflip'?ImgflipCatalog:source.provider==='flickr'?FlickrFeed:ServiceBrowser;browser=await Provider.open(path.join(this.folder,'profiles',source.id),{...this.options.browser,catalogFetch:this.options.catalogFetch,catalogHistory:this.runs.knownItems('', 'library').map(i=>i.source).filter(Boolean),onAuth:url=>{job.status='WAITING_FOR_LOGIN';this.event(job,'Human sign-in/check required for '+source.id);this.options.onAuth?.({jobId:job.id,source:source.id,url});}});browsers.set(source.id,browser);}
           if(job.cancelled)break;
           job.status='RUNNING';
           const task=this.runs.save({...draft({startUrl:source.searchUrl,outputFolder:path.join(this.folder,'downloads'),imageOrigins:source.imageOrigins||[]}),

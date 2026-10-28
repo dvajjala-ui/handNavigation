@@ -6,13 +6,15 @@ const BUILTINS=[
   {id:'reddit',name:'Reddit',searchUrl:'https://www.reddit.com/search/?q={{topic}}&type=media&sort=relevance',selector:'.search-media-post-image img:not([role="presentation"]), shreddit-post img[alt^="r/"]',
     allowedOrigins:['https://www.reddit.com','https://www.redditstatic.com','https://styles.redditmedia.com'],imageOrigins:['https://i.redd.it','https://preview.redd.it','https://external-preview.redd.it'],pagination:{kind:'scroll',maxPages:40}},
   {id:'imgflip',name:'Imgflip meme templates',provider:'imgflip',searchUrl:'https://imgflip.com/memetemplates?query={{topic}}',selector:'img',
-    allowedOrigins:['https://imgflip.com','https://api.imgflip.com'],imageOrigins:['https://i.imgflip.com'],pagination:{kind:'none',maxPages:1}}
+    allowedOrigins:['https://imgflip.com','https://api.imgflip.com'],imageOrigins:['https://i.imgflip.com'],pagination:{kind:'none',maxPages:1}},
+  {id:'flickr',name:'Flickr public tag feed',provider:'flickr',searchUrl:'https://www.flickr.com/services/feeds/photos_public.gne?tags={{topic}}',selector:'img',
+    allowedOrigins:['https://www.flickr.com'],imageOrigins:['https://live.staticflickr.com'],pagination:{kind:'none',maxPages:1}}
 ];
 function sources(input=BUILTINS){
   if(!Array.isArray(input)||!input.length||input.length>20)throw new Error('Configure 1–20 source recipes.');
   const seen=new Set();
   for(const s of input){
-    if(s.provider!==undefined&&(s.provider!=='imgflip'||s.id!=='imgflip'))throw new Error('Unknown source provider.');
+    if(s.provider!==undefined&&(!['imgflip','flickr'].includes(s.provider)||s.id!==s.provider))throw new Error('Unknown source provider.');
     if(!/^[a-z][a-z0-9_-]{1,39}$/.test(s.id)||seen.has(s.id))throw new Error('Source IDs must be short and unique.');seen.add(s.id);
     const dynamic=JSON.stringify([s.searchUrl,s.steps||[],s.checks||[]]);
     if(typeof s.searchUrl!=='string'||!dynamic.includes('{{topic}}')||[...dynamic.matchAll(/\{\{([^}]+)\}\}/g)].some(m=>m[1]!=='topic'))throw new Error('A source must use {{topic}} as its only changing value.');
