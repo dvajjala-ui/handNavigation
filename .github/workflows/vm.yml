@@ -9,7 +9,11 @@ permissions:
   contents: read
 jobs:
   container:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -22,4 +26,6 @@ jobs:
           curl -fsS http://127.0.0.1:6080/vnc.html > /dev/null
           docker exec handnavigate-vm node -e "(async()=>{const b=await require('./service/browser.cjs').ServiceBrowser.open('/tmp/owned-browser-check',{headless:false});try{await b.page.setContent('<title>Owned VM check</title>');if(await b.page.title()!=='Owned VM check')throw Error('Wrong page');console.log('Headful Chromium passed on the private virtual display.');}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;})"
       - if: always()
-        run: docker logs handnavigate-vm; docker rm -f handnavigate-vm
+        run: |
+          docker logs handnavigate-vm
+          docker rm -f handnavigate-vm
