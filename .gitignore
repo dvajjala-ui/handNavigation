@@ -7,6 +7,7 @@ desktop/evidence/*
 !desktop/evidence/workflow-results.json
 !desktop/evidence/reliability-results.json
 !desktop/evidence/collection-results.json
+!desktop/evidence/release-*.json
 __pycache__/
 *.pyc
 runtime/

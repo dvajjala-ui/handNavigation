@@ -2,6 +2,8 @@
 
 October 29 integration: latest hosted-worker main is merged with desktop **0.8.0**. A reviewed, successfully tested image workflow can now become a reusable collection source. Preparation actions and result checks are retained, jobs freeze their recipes for retries, and cloud workers advertise compatible sources through the existing API. See [custom sources](CUSTOM_SOURCES.md). The Railway bounded batch, cloud duplicate history and browser-scope protections remain in place. Railway's current source-access and daily-yield limits are recorded in StickerDock's deployment handoff; the earlier GitHub/local-host records below are historical.
 
+Download the [Windows 0.8.0 portable preview](https://github.com/dvajjala-ui/handNavigation/releases/tag/desktop-v0.8.0). [Windows acceptance](https://github.com/dvajjala-ui/handNavigation/actions/runs/40752860359), [worker checks](https://github.com/dvajjala-ui/handNavigation/actions/runs/40752860361) and [AMD64/ARM64 batch checks](https://github.com/dvajjala-ui/handNavigation/actions/runs/40752860213) pass for its source. The desktop shortcut on this computer opens the locally tested 0.8.0 EXE.
+
 October 28 hosting update: StickerDock's scheduled GitHub worker now performs
 collection away from the local PC and preserves private retry/dedup checkpoints.
 A real two-image Imgflip delivery passed; Pinterest/Reddit required attention
