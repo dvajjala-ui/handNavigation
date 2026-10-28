@@ -8,7 +8,7 @@ test('browser blocks an unapproved redirect before transmission and accepts publ
   const site=http.createServer((q,s)=>{
     if(q.url==='/leave'){s.writeHead(302,{Location:'http://127.0.0.1:'+target.address().port+'/'});return s.end();}
     if(q.url==='/inside'){s.writeHead(302,{Location:'/public'});return s.end();}
-    s.setHeader('Content-Type','text/html');s.end(q.url==='/blocked'?'<title>Access denied</title><input type="password">':'<title>Public gallery</title><input type="password"><div id="gallery"><img src="/image.png"></div>');
+    s.setHeader('Content-Type','text/html');s.end(q.url==='/blocked'?'<title>Access denied</title><input type="password">':'<title>Public gallery</title><input type="password"><iframe src="http://127.0.0.1:'+target.address().port+'/optional-login"></iframe><div id="gallery"><img src="/image.png"></div>');
   });
   await new Promise(r=>site.listen(0,'127.0.0.1',r));
   const folder=fs.mkdtempSync(path.join(os.tmpdir(),'hand-boundaries-'));
@@ -21,5 +21,6 @@ test('browser blocks an unapproved redirect before transmission and accepts publ
   browser.beginRun({allowedOrigins:[origin],imageOrigins:[],sourceSelector:'#gallery img'});
   await browser.load(origin+'/inside');await browser.page.waitForSelector('#gallery img');assert.equal(await browser.gated(),false);
   const candidates=await browser.wc.executeJavaScript(script('imageCandidates',{selector:'#gallery img'}));assert.equal(candidates.authRequired,false);assert.equal(candidates.items.length,1);
+  await browser.page.waitForLoadState('load');assert.equal(browser.effectError,null);assert.equal(requests,0);
   await browser.page.goto(origin+'/blocked');assert.equal(await browser.gated(),true);
 });

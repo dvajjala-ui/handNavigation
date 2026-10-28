@@ -19,7 +19,8 @@ class ServiceBrowser{
     // Chromium pauses every redirect hop here. Playwright route.continue() only
     // intercepts the initial request and otherwise lets redirects leave scope.
     cdp.on('Fetch.requestPaused',event=>this.routeRequest(event).catch(()=>{}));
-    this.routeReady=cdp.send('Fetch.enable',{patterns:[{urlPattern:'*',requestStage:'Request'}]});
+    cdp.on('Page.frameNavigated',({frame})=>{if(!frame.parentId)this.mainFrameId=frame.id;});
+    this.routeReady=(async()=>{this.mainFrameId=(await cdp.send('Page.getFrameTree')).frameTree.frame.id;await cdp.send('Fetch.enable',{patterns:[{urlPattern:'*',requestStage:'Request'}]});})();
     context.on('page',popup=>{if(this.runTask&&!this.authPhase&&popup!==page){this.effectError='A source opened an unexpected popup. Sign in before running.';popup.close().catch(()=>{});}});
     this.wc={getURL:()=>page.url(),executeJavaScript:async expression=>{
       if(expression.includes('function imageCandidates')){
@@ -41,7 +42,7 @@ class ServiceBrowser{
       const u=new URL(event.request.url);
       if(this.runTask&&!this.authPhase&&['http:','https:'].includes(u.protocol)){
         allowed=[...this.runTask.allowedOrigins,...this.runTask.imageOrigins].includes(u.origin);
-        if(!allowed&&event.resourceType==='Document')this.effectError='Navigation tried to leave the reviewed source websites.';
+        if(!allowed&&event.resourceType==='Document'&&event.frameId===this.mainFrameId)this.effectError='Navigation tried to leave the reviewed source websites: '+u.origin;
       }
     }catch{allowed=false;}
     if(event.resourceType==='Media')allowed=false;
@@ -53,6 +54,7 @@ class ServiceBrowser{
     if(/prove your humanity|access denied|just a moment/i.test(title)||/we.re committed to safety and security[\s\S]{0,120}not for bots/i.test(text))return true;
     const publicImages=selector&&[...document.querySelectorAll(selector)].some(e=>{const i=e.tagName==='IMG'?e:e.querySelector('img');return i&&!i.closest('[data-test-id="gated-pin-image"]')&&!!(i.currentSrc||i.src||i.srcset);});
     if(publicImages)return false;
+    if(/blocked by network security|verify you are human/i.test(text)&&!document.querySelector('.search-media-post-image img,shreddit-post'))return true;
     return !!document.querySelector('[data-test-id="gated-pin-image"]')||[...document.querySelectorAll('input[type=password]')].some(e=>e.getClientRects().length);
   },this.runTask?.sourceSelector||null);}catch(error){if(!/Execution context was destroyed|navigation/i.test(error.message)||attempt===9)throw error;await pause(250);}}
   async load(url){
