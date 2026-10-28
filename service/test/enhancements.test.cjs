@@ -16,6 +16,21 @@ test('HTTP response bounds stop oversized bodies and remote worker credentials r
   assert.throws(()=>new StickerDock('http://remote.example','a'.repeat(40)),/HTTPS/);
   assert.throws(()=>new StickerDock('https://safe.example/?token=secret','a'.repeat(40)),/origin/);
 });
+
+test('a fresh hosted worker rejects cloud duplicates without consuming its local daily budget',async()=>{
+  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'hand-cloud-history-'));let collector;
+  try{
+    const bytes=await sharp({create:{width:300,height:220,channels:3,background:'#94a6bc'}}).jpeg().toBuffer();
+    const digest=require('node:crypto').createHash('sha256').update(bytes).digest('hex');let downloads=0;
+    fs.writeFileSync(path.join(folder,'cloud-history.json'),JSON.stringify([{sha256:digest,source:'https://imgflip.com/memegenerator/12'}]));
+    collector=new Collections(folder,{catalogFetch:async url=>{
+      if(url==='https://api.imgflip.com/get_memes')return Response.json({success:true,data:{memes:[{id:'12',name:'Cat reaction',url:'https://i.imgflip.com/example.jpg'}]}});
+      downloads++;return new Response(bytes);
+    }});
+    const {job}=collector.create({requestId:'cloud-duplicate-cat',topics:['cat'],sources:['imgflip'],limit:1,destination:'local'});
+    await collector.pumpTask;assert.equal(collector.get(job.id).items.length,0);assert.equal(collector.used(),0);assert.equal(downloads,0);
+  }finally{await collector?.close();if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true});}
+});
 test('Imgflip uses real Runner validation/dedup, rejects foreign media and finishes empty catalog results promptly',async()=>{
   const folder=fs.mkdtempSync(path.join(os.tmpdir(),'hand-catalog-'));let collector;
   try{

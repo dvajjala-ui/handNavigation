@@ -8,6 +8,14 @@ const {sources,request}=require('./sources.cjs');
 class Collections{
   constructor(folder,options={}){
     this.folder=path.resolve(folder);this.options=options;this.sources=sources(options.sources);this.runs=new Store(path.join(this.folder,'runner'));
+    const historyFile=path.join(this.folder,'cloud-history.json');
+    if(fs.existsSync(historyFile)){
+      if(fs.statSync(historyFile).size>4000000)throw new Error('Cloud duplicate history exceeds its bound.');
+      const history=JSON.parse(fs.readFileSync(historyFile,'utf8'));
+      if(!Array.isArray(history)||history.length>20000||history.some(i=>!i||!/^[0-9a-f]{64}$/.test(i.sha256)||typeof i.source!=='string'||i.source.length>2000))throw new Error('Invalid cloud duplicate history.');
+      const local=this.runs.knownItems.bind(this.runs);
+      this.runs.knownItems=(id,scope)=>[...local(id,scope),...(scope==='library'?history:[])];
+    }
     if(!Number.isInteger(options.dailyLimit??20)||(options.dailyLimit??20)<1||(options.dailyLimit??20)>10000)throw new Error('Daily image budget must be an integer from 1 to 10000.');
     this.file=path.join(this.folder,'collections.json');this.data={schema:1,jobs:[]};this.active=null;this.pumping=false;
     if(fs.existsSync(this.file)){const envelope=JSON.parse(fs.readFileSync(this.file,'utf8'));if(envelope.sha!==hash(envelope.data)||envelope.data?.schema!==1)throw new Error('Collection journal integrity failed. Preserve it before restoring a backup.');this.data=envelope.data;}
