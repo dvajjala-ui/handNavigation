@@ -30,7 +30,7 @@ class CollectionManager{
     try{health=await this.call('/health');const remote=await this.call('/sources');available=remote.sources;jobs=(await this.call('/collections')).jobs||[];}catch(error){this.lastError=health?error.message:null;}
     const endpointFile=path.join(this.settings.folder,'service-endpoint.json'),savedEndpoint=fs.existsSync(endpointFile)?JSON.parse(fs.readFileSync(endpointFile,'utf8')):{};
     const downloadFolder=typeof savedEndpoint.downloadFolder==='string'&&path.isAbsolute(savedEndpoint.downloadFolder)?savedEndpoint.downloadFolder:this.app?.collections.options.outputFolder||(health?path.join(this.settings.folder,'downloads'):path.join(this.options.downloads||this.settings.folder,'HandNavigate Collections'));
-    return {...this.settings,baseUrl:config.baseUrl||'',tokenSet:!!config.token,cloudQueue:config.cloudQueue===true,managed:!!this.app?.server.listening,running:!!health?.ready,health,sources:available,jobs,error:this.lastError||this.settingsWarning||null,downloadFolder};
+    return {...this.settings,baseUrl:config.baseUrl||'',tokenSet:!!config.token,cloudQueue:config.cloudQueue===true,managed:!!this.app?.server.listening,running:!!health?.ready,health,sources:available,jobs,error:this.lockError||this.lastError||this.settingsWarning||null,downloadFolder};
   }
   async configure(input){
     let running=!!this.app?.server.listening;if(!running)try{running=(await this.call('/health')).ready===true;}catch{}
@@ -46,7 +46,11 @@ class CollectionManager{
     if(this.app?.server.listening)return this.status();
     if(this.app)await this.close();
     if((await this.status()).running)return this.status();
-    this.release?.();this.release=lock(this.settings.folder);
+    this.release?.();this.release=lock(this.settings.folder,{onCompromised:error=>{
+      this.lockError=error.message;
+      this.app?.bridge?.close().catch(()=>{}); // Stop new claims before cancelling active work.
+      this.close().catch(failure=>{this.lastError=failure.message;});
+    }});
     try{
       const config=this.config(),sink=config.baseUrl?new StickerDock(config.baseUrl,config.token):undefined;
       const keyFile=path.join(this.settings.folder,'service-key.json');let token;
@@ -56,7 +60,7 @@ class CollectionManager{
         browser:{headless:this.options.headless===true,channel:this.settings.channel||undefined,interactiveWaitMs:180000}});
       const app=this.app,release=this.release;app.server.once('close',()=>{release();if(this.app===app){this.app=null;this.release=null;}});
       await new Promise((resolve,reject)=>{this.app.server.once('error',reject);this.app.server.listen(0,'127.0.0.1',resolve);});
-      atomicWrite(path.join(this.settings.folder,'service-endpoint.json'),{port:this.app.server.address().port,downloadFolder:this.app.collections.options.outputFolder});this.lastError=null;return this.status();
+      atomicWrite(path.join(this.settings.folder,'service-endpoint.json'),{port:this.app.server.address().port,downloadFolder:this.app.collections.options.outputFolder});this.lastError=null;this.lockError=null;return this.status();
     }catch(error){await this.app?.close().catch(()=>{});this.app=null;this.release?.();this.release=null;throw error;}
   }
   async stop(allowBusy=false){
@@ -65,6 +69,8 @@ class CollectionManager{
     if(this.app)await this.close();else{
       await this.call('/shutdown',{allowBusy});
       for(let n=0;n<100;n++){try{await this.call('/health');}catch{break;}if(n===99)throw new Error('The background worker is still closing. Refresh its status before restarting.');await new Promise(resolve=>setTimeout(resolve,50));}
+      const lockFile=path.join(this.settings.folder,'worker.lock');
+      for(let n=0;fs.existsSync(lockFile);n++){if(n>=150)throw new Error('The background worker has not released its data folder yet. Wait for it to finish closing before restarting.');await new Promise(resolve=>setTimeout(resolve,100));}
     }
     return this.status();
   }

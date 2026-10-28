@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path');
 const {performance}=require('node:perf_hooks');
 const {createServer}=require('./server.cjs');
 const {StickerDock}=require('./stickerdock.cjs');
-const {lock}=require('./lock.cjs');
+const {waitForLock}=require('./lock.cjs');
 const {atomicWrite}=require('../desktop/core.cjs');
 
 function seconds(value,fallback,max){
@@ -65,11 +65,12 @@ async function main(){
   const maxRuntimeMs=seconds(process.env.HANDNAVIGATE_BATCH_SECONDS,1500,1800);
   const idleMs=seconds(process.env.HANDNAVIGATE_BATCH_IDLE_SECONDS,90,600);
   const folder=path.resolve(process.env.HANDNAVIGATE_DATA||path.join(__dirname,'..','runtime','service'));
-  const release=lock(folder),controller=new AbortController();
+  const controller=new AbortController();
   const stop=()=>controller.abort();
   process.once('SIGTERM',stop);process.once('SIGINT',stop);
-  let bridgeError=false,app;
+  let bridgeError=false,app,release;
   try{
+    release=await waitForLock(folder,{signal:controller.signal});
     const configFile=process.env.HANDNAVIGATE_CONFIG||path.join(folder,'stickerdock.json');
     const config=fs.existsSync(configFile)?JSON.parse(fs.readFileSync(configFile,'utf8')):{};
     const sink=new StickerDock(config.baseUrl||process.env.STICKERDOCK_BASE_URL,config.token||process.env.STICKERDOCK_INGEST_TOKEN);
@@ -79,7 +80,7 @@ async function main(){
     const result=await runBatch(app,{maxRuntimeMs,idleMs,signal:controller.signal});
     console.log(JSON.stringify({batch:result.reason,jobs:result.jobs,bridgeError}));
     if(!result.ok||bridgeError)process.exitCode=1;
-  }finally{await app?.close();process.removeListener('SIGTERM',stop);process.removeListener('SIGINT',stop);release();}
+  }finally{await app?.close();process.removeListener('SIGTERM',stop);process.removeListener('SIGINT',stop);release?.();}
 }
 if(require.main===module)main().catch(error=>{console.error('Batch worker:',String(error.message).slice(0,200));process.exitCode=1;});
 module.exports={runBatch,seconds,syncHistory};

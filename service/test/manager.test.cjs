@@ -36,3 +36,13 @@ test('a damaged optional connection can be replaced by choosing a new folder wit
   try{const manager=new CollectionManager(folder),oldFolder=manager.settings.folder;fs.mkdirSync(oldFolder,{recursive:true});const oldFile=path.join(oldFolder,'stickerdock.json');fs.writeFileSync(oldFile,'broken connection');await assert.rejects(manager.status());const repaired=await manager.configure({folder:path.join(folder,'recovered'),dailyLimit:20,channel:''});assert.equal(repaired.running,false);assert.equal(fs.readFileSync(oldFile,'utf8'),'broken connection');}
   finally{if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true});}
 });
+
+test('the desktop manager stops only its worker on a lost lease, preserves its warning and can recover',async()=>{
+  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'hand-manager-lease-'));let manager;
+  try{
+    manager=new CollectionManager(folder);const started=await manager.start();assert.equal(started.running,true);fs.rmdirSync(path.join(started.folder,'worker.lock'));
+    const deadline=Date.now()+15000;while((await manager.status()).running&&Date.now()<deadline)await new Promise(resolve=>setTimeout(resolve,100));
+    const stopped=await manager.status();assert.equal(stopped.running,false);assert.match(stopped.error,/lost its data-folder lease/);assert.ok(fs.existsSync(path.join(started.folder,'collections.json')));
+    const recovered=await manager.start();assert.equal(recovered.running,true);assert.equal(recovered.error,null);
+  }finally{await manager?.close();if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true});}
+});

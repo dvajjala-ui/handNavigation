@@ -55,6 +55,7 @@ if(require.main===module){
   const config=fs.existsSync(configFile)?JSON.parse(fs.readFileSync(configFile,'utf8')):{};
   const sink=config.baseUrl?new StickerDock(config.baseUrl,config.token):undefined;
   const app=createServer({sink,cloudQueue:config.cloudQueue===true||process.env.HANDNAVIGATE_CLOUD_QUEUE==='1'}),host=process.env.HANDNAVIGATE_HOST||'127.0.0.1',port=Number(process.env.HANDNAVIGATE_PORT||47832);
+  app.server.once('close',release);
   app.server.listen(port,host,()=>{const actualPort=app.server.address().port;atomicWrite(path.join(folder,'service-endpoint.json'),{port:actualPort,downloadFolder:path.join(folder,'downloads')});console.log(JSON.stringify({service:'HandNavigate',host,port:actualPort,profiles:path.join(app.folder,'profiles'),keyFile:path.join(app.folder,'service-key.json'),dailyLimit:app.collections.options.dailyLimit,storageConfigured:!!app.collections.options.sink}));});
   for(const signal of ['SIGINT','SIGTERM'])process.once(signal,()=>app.close().then(()=>process.exit(0)));
 }

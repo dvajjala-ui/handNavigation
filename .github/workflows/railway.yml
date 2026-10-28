@@ -18,6 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker build -f deploy/railway/Dockerfile -t handnavigate-batch .
+      - name: Verify production dependencies and real crash recovery on mounted state
+        timeout-minutes: 2
+        run: >-
+          timeout 100s docker run --rm --user pwuser -v crash-fixture:/data -e TMPDIR=/data
+          handnavigate-batch node --test service/test/lock.test.cjs
       - name: Verify a real unprivileged headful browser
         timeout-minutes: 2
         run: >-

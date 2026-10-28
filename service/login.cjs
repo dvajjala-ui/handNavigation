@@ -4,6 +4,7 @@ const {ServiceBrowser}=require('./browser.cjs'),{BUILTINS}=require('./sources.cj
 const {lock}=require('./lock.cjs');
 async function main(){
   const source=BUILTINS.find(s=>s.id===process.argv[2]);if(!source)throw new Error('Choose pinterest or reddit.');
+  if(source.provider)throw new Error(source.name+' does not need a browser login. Start a collection directly.');
   const folder=path.resolve(process.env.HANDNAVIGATE_DATA||path.join(__dirname,'..','runtime','service'));
   const release=lock(folder);process.once('exit',release);
   const browser=await ServiceBrowser.open(path.join(folder,'profiles',source.id),{headless:false,channel:process.env.HANDNAVIGATE_BROWSER_CHANNEL||undefined});
