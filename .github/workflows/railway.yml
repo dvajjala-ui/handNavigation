@@ -19,12 +19,14 @@ jobs:
       - uses: actions/checkout@v4
       - run: docker build -f deploy/railway/Dockerfile -t handnavigate-batch .
       - name: Verify a real unprivileged headful browser
+        timeout-minutes: 2
         run: >-
-          docker run --rm --user pwuser handnavigate-batch xvfb-run -a node -e
-          "(async()=>{const b=await require('./service/browser.cjs').ServiceBrowser.open('/tmp/owned-browser-check',{headless:false});try{await b.page.setContent('<title>Owned batch check</title>');if(await b.page.title()!=='Owned batch check')throw Error('Wrong page');console.log('Headful Chromium passed.');}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;})"
+          timeout 90s docker run --rm --user pwuser handnavigate-batch xvfb-run -a node -e
+          "(async()=>{console.log('Opening headful Chromium');const b=await require('./service/browser.cjs').ServiceBrowser.open('/tmp/owned-browser-check',{headless:false});try{console.log('Browser opened');await b.page.setContent('<title>Owned batch check</title>');if(await b.page.title()!=='Owned batch check')throw Error('Wrong page');console.log('Headful Chromium passed.');}finally{console.log('Closing browser');await b.close();console.log('Browser closed');}})().catch(e=>{console.error(e);process.exitCode=1;})"
       - name: Verify mounted state and successful cron process exit against an owned queue
+        timeout-minutes: 2
         run: |
-          docker run --rm -v batch-fixture:/data -e HANDNAVIGATE_BATCH_IDLE_SECONDS=5 -e HANDNAVIGATE_BATCH_SECONDS=10 -e STICKERDOCK_BASE_URL=http://127.0.0.1:8123 -e STICKERDOCK_INGEST_TOKEN=owned-batch-fixture-token-32-characters handnavigate-batch bash -ec '
+          timeout 90s docker run --rm -v batch-fixture:/data -e HANDNAVIGATE_BATCH_IDLE_SECONDS=5 -e HANDNAVIGATE_BATCH_SECONDS=10 -e STICKERDOCK_BASE_URL=http://127.0.0.1:8123 -e STICKERDOCK_INGEST_TOKEN=owned-batch-fixture-token-32-characters handnavigate-batch bash -ec '
             node -e '\''require("http").createServer((q,s)=>{if(q.headers.authorization!=="Bearer owned-batch-fixture-token-32-characters")throw Error("Authentication missing");let body="";q.on("data",d=>body+=d);q.on("end",()=>{const input=JSON.parse(body);s.setHeader("Content-Type","application/json");s.end(JSON.stringify(input.action==="history"?{items:[],next_offset:null}:{job:null}));});}).listen(8123,"0.0.0.0")'\'' &
             mock_pid=$!
             trap "kill $mock_pid" EXIT
