@@ -18,6 +18,7 @@ runtime/
 *.auth.json
 .env
 .env.*
+worker.env
 *.session.json
 integration.json*
 workflows.json*
