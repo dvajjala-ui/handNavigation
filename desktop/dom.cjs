@@ -103,7 +103,6 @@ function selectTarget(args) {
 }
 function imageCandidates(args) {
   const H=HELPERS();
-  if(document.querySelector('[data-test-id="gated-pin-image"]')||[...document.querySelectorAll('input[type=password]')].some(H.visible))return {authRequired:true,items:[]};
   const items=[...document.querySelectorAll(args.selector)].slice(0,1000).map(i=>{
     const img=i.tagName==='IMG'?i:i.querySelector('img');if(!img)return null;
     const pin=img.closest('a[href*="/pin/"]')||img.closest('[data-test-id="pin"]')?.querySelector('a[href*="/pin/"]');
@@ -119,8 +118,9 @@ function imageCandidates(args) {
     const raw=[...originals,...String(img.srcset||'').split(',').map(s=>{const p=s.trim().split(/\s+/);return {url:p[0],score:Number.parseFloat(p[1])||1};}).sort((a,b)=>b.score-a.score).map(a=>a.url),img.currentSrc||img.src,linkedOriginal].filter(Boolean);
     const urls=[...new Set(raw.map(s=>{try{return new URL(s,location.href).href;}catch{return '';}}).filter(s=>/^https?:/.test(s)))];
     return {sourceId:pin?.href||postUrl||urls[0],postUrl:postUrl||linkedOriginal||pin?.href||null,pin:pin?.href||null,urls,alt:H.clean(img.alt),gated:!!img.closest('[data-test-id="gated-pin-image"]')};
-  }).filter(Boolean);
-  return {authRequired:false,url:location.href,items};
+  }).filter(i=>i&&!i.gated);
+  const authRequired=items.length===0&&(!!document.querySelector('[data-test-id="gated-pin-image"]')||[...document.querySelectorAll('input[type=password]')].some(H.visible));
+  return {authRequired,url:location.href,items};
 }
 function nextControl(args) {
   const H=HELPERS();let el;

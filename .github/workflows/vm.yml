@@ -1,0 +1,25 @@
+name: Persistent browser VM container
+on:
+  workflow_dispatch:
+  push:
+    paths: ['deploy/vm/**', '.github/workflows/vm.yml']
+  pull_request:
+    paths: ['deploy/vm/**', '.github/workflows/vm.yml']
+permissions:
+  contents: read
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f deploy/vm/Dockerfile -t handnavigate-vm .
+      - name: Check private console, worker health and a real headful browser
+        run: |
+          docker run -d --name handnavigate-vm --init --shm-size=1g -p 127.0.0.1:47832:47832 -p 127.0.0.1:6080:6080 -e HANDNAVIGATE_API_TOKEN=fixture-worker-token-for-owned-container-test handnavigate-vm
+          for attempt in $(seq 1 30); do curl -fsS -H 'Authorization: Bearer fixture-worker-token-for-owned-container-test' http://127.0.0.1:47832/v1/health && break; sleep 1; done
+          curl -fsS -H 'Authorization: Bearer fixture-worker-token-for-owned-container-test' http://127.0.0.1:47832/v1/health
+          curl -fsS http://127.0.0.1:6080/vnc.html > /dev/null
+          docker exec handnavigate-vm node -e "(async()=>{const b=await require('./service/browser.cjs').ServiceBrowser.open('/tmp/owned-browser-check',{headless:false});try{await b.page.setContent('<title>Owned VM check</title>');if(await b.page.title()!=='Owned VM check')throw Error('Wrong page');console.log('Headful Chromium passed on the private virtual display.');}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;})"
+      - if: always()
+        run: docker logs handnavigate-vm; docker rm -f handnavigate-vm

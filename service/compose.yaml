@@ -12,6 +12,7 @@ services:
       STICKERDOCK_BASE_URL: https://stickerdock.vercel.app
       STICKERDOCK_INGEST_TOKEN: ${STICKERDOCK_INGEST_TOKEN:?Set the matching StickerDock intake token}
       HANDNAVIGATE_DAILY_LIMIT: "20"
+      HANDNAVIGATE_CLOUD_QUEUE: "1"
     volumes:
       - handnavigate-data:/data
 volumes:

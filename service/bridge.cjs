@@ -17,7 +17,8 @@ class QueueBridge{
     if(this.stopped)return;
     if(!this.pending){
       if(this.collections.active||this.collections.data.jobs.some(j=>j.status==='QUEUED'))return;
-      const claimedAt=Date.now(),{job}=await this.sink.call('ingest',{action:'claim',worker_id:this.workerId});
+      const supported_sources=(this.collections.sources||[]).map(s=>({id:s.id,name:s.name||s.id}));
+      const claimedAt=Date.now(),{job}=await this.sink.call('ingest',{action:'claim',worker_id:this.workerId,...(supported_sources.length?{supported_sources}:{})});
       if(!job)return;
       this.pending={cloud:job,local:null,lastConfirmed:claimedAt};
       try{
