@@ -4,11 +4,27 @@ const {performance}=require('node:perf_hooks');
 const {createServer}=require('./server.cjs');
 const {StickerDock}=require('./stickerdock.cjs');
 const {lock}=require('./lock.cjs');
+const {atomicWrite}=require('../desktop/core.cjs');
 
 function seconds(value,fallback,max){
   const n=Number(value??fallback);
   if(!Number.isInteger(n)||n<5||n>max)throw new Error('Invalid batch time limit.');
   return n*1000;
+}
+
+async function syncHistory(sink,folder){
+  const history=[];let offset=0;
+  for(;;){
+    const page=await sink.call('ingest',{action:'history',offset});
+    if(!Array.isArray(page.items)||page.items.length>200)throw new Error('Invalid cloud duplicate-history page.');
+    history.push(...page.items);
+    if(history.length>20000||history.some(i=>!i||!/^[0-9a-f]{64}$/.test(i.sha256)||typeof i.source!=='string'||i.source.length>2000))throw new Error('Invalid or oversized cloud duplicate history.');
+    if(page.next_offset===null)break;
+    if(page.next_offset!==offset+200||page.items.length!==200)throw new Error('Invalid cloud duplicate-history cursor.');
+    offset=page.next_offset;
+  }
+  atomicWrite(path.join(folder,'cloud-history.json'),history);
+  return history.length;
 }
 
 // A scheduled host must release its browser, lease loop and data lock before
@@ -57,6 +73,7 @@ async function main(){
     const configFile=process.env.HANDNAVIGATE_CONFIG||path.join(folder,'stickerdock.json');
     const config=fs.existsSync(configFile)?JSON.parse(fs.readFileSync(configFile,'utf8')):{};
     const sink=new StickerDock(config.baseUrl||process.env.STICKERDOCK_BASE_URL,config.token||process.env.STICKERDOCK_INGEST_TOKEN);
+    await syncHistory(sink,folder);
     const app=createServer({folder,sink,cloudQueue:true,onBridgeError:()=>{bridgeError=true;}});
     const result=await runBatch(app,{maxRuntimeMs,idleMs,signal:controller.signal});
     console.log(JSON.stringify({batch:result.reason,jobs:result.jobs,bridgeError}));
@@ -64,4 +81,4 @@ async function main(){
   }finally{process.removeListener('SIGTERM',stop);process.removeListener('SIGINT',stop);release();}
 }
 if(require.main===module)main().catch(error=>{console.error('Batch worker:',String(error.message).slice(0,200));process.exitCode=1;});
-module.exports={runBatch,seconds};
+module.exports={runBatch,seconds,syncHistory};

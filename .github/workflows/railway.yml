@@ -25,7 +25,7 @@ jobs:
       - name: Verify mounted state and successful cron process exit against an owned queue
         run: |
           docker run --rm -v batch-fixture:/data -e HANDNAVIGATE_BATCH_IDLE_SECONDS=5 -e HANDNAVIGATE_BATCH_SECONDS=10 -e STICKERDOCK_BASE_URL=http://127.0.0.1:8123 -e STICKERDOCK_INGEST_TOKEN=owned-batch-fixture-token-32-characters handnavigate-batch bash -ec '
-            node -e '\''require("http").createServer((q,s)=>{if(q.headers.authorization!=="Bearer owned-batch-fixture-token-32-characters")throw Error("Authentication missing");s.setHeader("Content-Type","application/json");s.end(JSON.stringify({job:null}));}).listen(8123,"0.0.0.0")'\'' &
+            node -e '\''require("http").createServer((q,s)=>{if(q.headers.authorization!=="Bearer owned-batch-fixture-token-32-characters")throw Error("Authentication missing");let body="";q.on("data",d=>body+=d);q.on("end",()=>{const input=JSON.parse(body);s.setHeader("Content-Type","application/json");s.end(JSON.stringify(input.action==="history"?{items:[],next_offset:null}:{job:null}));});}).listen(8123,"0.0.0.0")'\'' &
             mock_pid=$!
             trap "kill $mock_pid" EXIT
             /app/deploy/railway/start.sh

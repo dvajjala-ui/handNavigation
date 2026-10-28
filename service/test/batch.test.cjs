@@ -1,6 +1,8 @@
 'use strict';
 const {test}=require('node:test'),assert=require('node:assert/strict');
 const {runBatch,seconds}=require('../batch.cjs');
+const {syncHistory}=require('../batch.cjs');
+const fs=require('node:fs'),os=require('node:os'),path=require('node:path');
 
 function fixture(){
   let time=0;const calls=[];
@@ -45,4 +47,16 @@ test('shutdown reports the cancelled local result to its existing cloud lease',a
 test('cron duration settings reject unbounded or malformed runtimes',()=>{
   assert.equal(seconds(undefined,1500,1800),1500000);
   for(const value of ['0','Infinity','1801','5.5','bad'])assert.throws(()=>seconds(value,1500,1800));
+});
+test('a fresh host seeds paginated cloud duplicates without downloading stored images',async()=>{
+  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'hand-history-'));
+  try{
+    const offsets=[],row={sha256:'a'.repeat(64),source:'https://example.com/source'};
+    const sink={call:async(endpoint,input)=>{offsets.push(input.offset);return input.offset===0?{items:Array(200).fill(row),next_offset:200}:{items:[row],next_offset:null};}};
+    assert.equal(await syncHistory(sink,folder),201);assert.deepEqual(offsets,[0,200]);
+    assert.equal(JSON.parse(fs.readFileSync(path.join(folder,'cloud-history.json'),'utf8')).length,201);
+    const saved=fs.readFileSync(path.join(folder,'cloud-history.json'),'utf8');
+    await assert.rejects(syncHistory({call:async()=>({items:[{sha256:'bad'}],next_offset:null})},folder));
+    assert.equal(fs.readFileSync(path.join(folder,'cloud-history.json'),'utf8'),saved);
+  }finally{if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true});}
 });
