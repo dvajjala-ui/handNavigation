@@ -23,3 +23,15 @@ test('an in-flight failed heartbeat cannot keep a browser running past its lease
     await new Promise(r=>setTimeout(r,1250));assert.ok(stoppedAt>0);assert.ok(stoppedAt-started<1700);assert.equal(bridge.pending,null);
   }finally{await bridge?.close();if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true});}
 });
+
+test('a claim resolving after shutdown cannot start an unleased browser run',async()=>{
+  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'hand-bridge-stop-'));
+  try{
+    let resolveClaim;const reports=[];
+    const collections={folder,sources:[],data:{jobs:[]},active:null,create:()=>assert.fail('A stopped worker must not start a browser')};
+    const sink={call:async(endpoint,payload)=>payload.action==='claim'?new Promise(resolve=>{resolveClaim=resolve;}):(reports.push(payload),{job:{}})};
+    const bridge=new QueueBridge(collections,sink),tick=bridge.tick();
+    await bridge.close();resolveClaim({job:{id:'12345678-1234-1234-1234-123456789012'}});await tick;
+    assert.equal(bridge.pending,null);assert.equal(reports.length,1);assert.equal(reports[0].report.status,'FAILED');
+  }finally{if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true});}
+});

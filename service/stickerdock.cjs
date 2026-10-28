@@ -16,7 +16,7 @@ class StickerDock{
     this.url=base.origin;if(typeof token!=='string'||token.length<32)throw new Error('Configure the server-only StickerDock ingest token (32+ characters).');this.token=token;this.options=options;
   }
   async call(endpoint,payload,signal){
-    const repeatable=endpoint==='ingest'&&['store','get','status'].includes(payload.action);
+    const repeatable=endpoint==='ingest'&&['store','get','status','history'].includes(payload.action);
     for(let attempt=0;;attempt++)try{return await this.request(endpoint,payload,signal);}catch(error){
       if(signal?.aborted||!repeatable||attempt>=2||!error.retryable)throw error;
       const delay=error.retryAfterMs??(this.options.retryDelayMs??1000)*2**attempt;
