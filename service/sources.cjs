@@ -14,8 +14,10 @@ function sources(input=BUILTINS){
   for(const s of input){
     if(s.provider!==undefined&&(s.provider!=='imgflip'||s.id!=='imgflip'))throw new Error('Unknown source provider.');
     if(!/^[a-z][a-z0-9_-]{1,39}$/.test(s.id)||seen.has(s.id))throw new Error('Source IDs must be short and unique.');seen.add(s.id);
-    if(typeof s.searchUrl!=='string'||!s.searchUrl.includes('{{topic}}'))throw new Error('A source needs an encoded {{topic}} search URL.');
-    validate({...draft({startUrl:s.searchUrl,outputFolder:require('node:os').tmpdir(),imageOrigins:s.imageOrigins||[]}),sourceSelector:s.selector,allowedOrigins:s.allowedOrigins,pagination:s.pagination||{kind:'scroll',maxPages:30}});
+    const dynamic=JSON.stringify([s.searchUrl,s.steps||[],s.checks||[]]);
+    if(typeof s.searchUrl!=='string'||!dynamic.includes('{{topic}}')||[...dynamic.matchAll(/\{\{([^}]+)\}\}/g)].some(m=>m[1]!=='topic'))throw new Error('A source must use {{topic}} as its only changing value.');
+    if(s.name!==undefined&&(typeof s.name!=='string'||!s.name.trim()||s.name.length>100))throw new Error('Give each source a short name.');
+    validate({...draft({startUrl:s.searchUrl,outputFolder:require('node:os').tmpdir(),imageOrigins:s.imageOrigins||[]}),steps:s.steps||[],checks:s.checks||[],sourceSelector:s.selector,allowedOrigins:s.allowedOrigins,pagination:s.pagination||{kind:'scroll',maxPages:30}});
     webUrl(s.searchUrl.replace('{{topic}}','example'));
   }
   return input;

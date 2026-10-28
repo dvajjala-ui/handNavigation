@@ -1,6 +1,6 @@
 # HandNavigate Desktop
 
-Open **dist/HandNavigate-0.7.0-Windows.exe**. It includes the app, embedded teaching browser, image decoder, script client and collection worker. You do not need Python, Node, a terminal or an AI key for local downloads. Pinterest/Reddit collection uses an installed Chrome or Edge browser; Imgflip's popular-template catalog needs no browser login.
+Open **dist/HandNavigate-0.8.0-Windows.exe**. It includes the app, embedded teaching browser, image decoder, script client and collection worker. You do not need Python, Node, a terminal or an AI key for local downloads. Pinterest/Reddit collection uses an installed Chrome or Edge browser; Imgflip's popular-template catalog needs no browser login.
 
 ## Collect images without teaching a workflow
 
@@ -19,6 +19,8 @@ Local collections appear under **Downloads/HandNavigate Collections**. Chrome/Ed
 4. In **Review**, check the recorded actions and output checks. Change a demonstrated input to `{{topic}}` to bind it to your values. For a repeated task, add the visible result text or exact final URL that proves completion. Click **Approve & run**.
 
 Files appear in your chosen Downloads location, grouped by workflow and run. **History** shows verified image hashes, dimensions, source URLs, result checks and failures. Open the output folder directly from the app.
+
+After a successful image workflow, **Review → Use for image collections** adds its website to the collection panel. Use `{{topic}}` as the only changing variable. See [custom source setup and worker boundaries](CUSTOM_SOURCES.md).
 
 Temporary image-read failures get up to three read attempts within the 30-second request budget. Short server retry delays are respected; a longer rate limit stops the run for a later attempt. Access denial and invalid site scopes are not retried. History records the retries.
 

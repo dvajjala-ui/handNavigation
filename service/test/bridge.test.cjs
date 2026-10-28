@@ -5,10 +5,10 @@ test('outbound bridge reuses durable jobs, reports only verified deliveries, and
   const folder=fs.mkdtempSync(path.join(os.tmpdir(),'hand-bridge-'));
   try{
     let stopped=false,local={id:'12345678-1234-1234-1234-123456789012',status:'RUNNING',items:[{}, {delivery:{id:'stored'}}],sourceStatus:{reddit:{status:'COMPLETED'}}};
-    const collections={folder,sources:[{id:'imgflip',name:'Imgflip'}],data:{jobs:[]},active:null,create:s=>{assert.equal(s.destination,'stickerdock');return {job:local,reused:false};},get:()=>local,stop:()=>{stopped=true;}};
+    const collections={folder,sources:[{id:'imgflip',name:'Imgflip',revision:'a'.repeat(64)}],data:{jobs:[]},active:null,create:s=>{assert.equal(s.destination,'stickerdock');return {job:local,reused:false};},get:()=>local,stop:()=>{stopped=true;}};
     const calls=[],sink={call:async(endpoint,payload)=>{calls.push(payload);return payload.action==='claim'?{job:{id:local.id,topics:['cats'],sources:['reddit'],image_limit:2}}:{job:{cancel_requested:true}};}};
     const bridge=new QueueBridge(collections,sink);await bridge.tick();assert.ok(stopped);assert.equal(calls[1].report.saved,2);assert.equal(calls[1].report.delivered,1);assert.equal(calls[1].report.status,'RUNNING');
-    assert.deepEqual(calls[0].supported_sources,[{id:'imgflip',name:'Imgflip'}]);
+    assert.deepEqual(calls[0].supported_sources,[{id:'imgflip',name:'Imgflip',revision:'a'.repeat(64)}]);
     local={...local,status:'PARTIAL'};await bridge.tick();assert.equal(bridge.pending,null);
     assert.equal(new QueueBridge(collections,sink).workerId,bridge.workerId);
   }finally{if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true});}

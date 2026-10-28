@@ -1,5 +1,7 @@
 # HandNavigate Desktop
 
+October 29 integration: latest hosted-worker main is merged with desktop **0.8.0**. A reviewed, successfully tested image workflow can now become a reusable collection source. Preparation actions and result checks are retained, jobs freeze their recipes for retries, and cloud workers advertise compatible sources through the existing API. See [custom sources](CUSTOM_SOURCES.md). The Railway bounded batch, cloud duplicate history and browser-scope protections remain in place. Railway's current source-access and daily-yield limits are recorded in StickerDock's deployment handoff; the earlier GitHub/local-host records below are historical.
+
 October 28 hosting update: StickerDock's scheduled GitHub worker now performs
 collection away from the local PC and preserves private retry/dedup checkpoints.
 A real two-image Imgflip delivery passed; Pinterest/Reddit required attention
@@ -11,7 +13,7 @@ The Windows worker records below remain useful historical qualification.
 
 StickerDock's [collection workspace is live](COLLECTION_WORKSPACE.md): **20 Pinterest + 4 Reddit + 2 Imgflip images** were downloaded and verified in production Supabase. Admin supports fresh planner topics, a shared daily quota, verified completion monitoring and image management. Desktop **0.7.0** now includes the collection worker: open **Image collections** to start it, collect locally or connect StickerDock. This computer must stay awake for scheduled work.
 
-**Open `dist/HandNavigate-0.7.0-Windows.exe`.** No Python, Node command or AI key is needed for local collection. Pinterest/Reddit collection uses installed Chrome or Edge with saved sessions; teaching and saved workflows use the app's embedded browser. Version 0.7 retains verified transfers, pagination, duplicate history and the script API, and adds worker start/stop, connection settings, recent collection results and local Downloads output. See [DESKTOP_START_HERE.md](DESKTOP_START_HERE.md) and [API.md](API.md). Source: `desktop/` and `service/`.
+**Open `dist/HandNavigate-0.8.0-Windows.exe`.** No Python, Node command or AI key is needed for local collection. Pinterest/Reddit collection uses installed Chrome or Edge with saved sessions; teaching and saved workflows use the app's embedded browser. Version 0.8 retains verified transfers, pagination, duplicate history, the script API and worker controls, and adds reusable verified website recipes. See [DESKTOP_START_HERE.md](DESKTOP_START_HERE.md) and [API.md](API.md). Source: `desktop/` and `service/`.
 
 The Python source and historical delivery below remain available. Their Studio screens and browser sessions are separate from the new desktop app.
 

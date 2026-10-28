@@ -1,9 +1,10 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
-const {atomicWrite}=require('./core.cjs'),{createServer}=require('../service/server.cjs'),{StickerDock}=require('../service/stickerdock.cjs'),{lock}=require('../service/lock.cjs'),{sources}=require('../service/sources.cjs');
+const {atomicWrite}=require('./core.cjs'),{createServer}=require('../service/server.cjs'),{StickerDock}=require('../service/stickerdock.cjs'),{lock}=require('../service/lock.cjs');
+const registry=require('../service/registry.cjs');
 class CollectionManager{
   constructor(folder,options={}){
-    this.options=options;this.file=path.join(folder,'collection-desktop.json');this.app=null;this.release=null;
+    this.options=options;this.file=path.join(folder,'collection-desktop.json');this.app=null;this.release=null;this.changingSources=false;
     const legacy=(options.legacyFolders||[]).find(p=>fs.existsSync(path.join(p,'stickerdock.json')));
     const roots=[process.env.PROGRAMFILES,process.env['PROGRAMFILES(X86)'],process.env.LOCALAPPDATA].filter(Boolean);
     const channel=process.platform!=='win32'?'':roots.some(p=>fs.existsSync(path.join(p,'Google/Chrome/Application/chrome.exe')))?'chrome':roots.some(p=>fs.existsSync(path.join(p,'Microsoft/Edge/Application/msedge.exe')))?'msedge':'chrome';
@@ -25,11 +26,11 @@ class CollectionManager{
     const result=await response.json();if(!response.ok)throw new Error(result.error||'Collection worker request failed.');return result;
   }
   async status(){
-    const config=this.config();let health=null,jobs=[],registry=sources().map(s=>({id:s.id,name:s.name}));
-    try{health=await this.call('/health');const remote=await this.call('/sources');registry=remote.sources;jobs=(await this.call('/collections')).jobs||[];}catch(error){this.lastError=health?error.message:null;}
+    const config=this.config();let health=null,jobs=[],available=registry.load(this.settings.folder).map(s=>({id:s.id,name:s.name,custom:s.id.startsWith('custom-')}));
+    try{health=await this.call('/health');const remote=await this.call('/sources');available=remote.sources;jobs=(await this.call('/collections')).jobs||[];}catch(error){this.lastError=health?error.message:null;}
     const endpointFile=path.join(this.settings.folder,'service-endpoint.json'),savedEndpoint=fs.existsSync(endpointFile)?JSON.parse(fs.readFileSync(endpointFile,'utf8')):{};
     const downloadFolder=typeof savedEndpoint.downloadFolder==='string'&&path.isAbsolute(savedEndpoint.downloadFolder)?savedEndpoint.downloadFolder:this.app?.collections.options.outputFolder||(health?path.join(this.settings.folder,'downloads'):path.join(this.options.downloads||this.settings.folder,'HandNavigate Collections'));
-    return {...this.settings,baseUrl:config.baseUrl||'',tokenSet:!!config.token,cloudQueue:config.cloudQueue===true,managed:!!this.app?.server.listening,running:!!health?.ready,health,sources:registry,jobs,error:this.lastError||this.settingsWarning||null,downloadFolder};
+    return {...this.settings,baseUrl:config.baseUrl||'',tokenSet:!!config.token,cloudQueue:config.cloudQueue===true,managed:!!this.app?.server.listening,running:!!health?.ready,health,sources:available,jobs,error:this.lastError||this.settingsWarning||null,downloadFolder};
   }
   async configure(input){
     let running=!!this.app?.server.listening;if(!running)try{running=(await this.call('/health')).ready===true;}catch{}
@@ -48,10 +49,9 @@ class CollectionManager{
     this.release?.();this.release=lock(this.settings.folder);
     try{
       const config=this.config(),sink=config.baseUrl?new StickerDock(config.baseUrl,config.token):undefined;
-      const configured=process.env.HANDNAVIGATE_SOURCES_FILE?JSON.parse(fs.readFileSync(process.env.HANDNAVIGATE_SOURCES_FILE,'utf8')):undefined;
       const keyFile=path.join(this.settings.folder,'service-key.json');let token;
       if(fs.existsSync(keyFile))token=JSON.parse(fs.readFileSync(keyFile,'utf8')).token;else{token=crypto.randomBytes(32).toString('hex');atomicWrite(keyFile,{token});}
-      this.app=createServer({folder:this.settings.folder,token,sink,cloudQueue:config.cloudQueue===true,dailyLimit:this.settings.dailyLimit,sources:configured,
+      this.app=createServer({folder:this.settings.folder,token,sink,cloudQueue:config.cloudQueue===true,dailyLimit:this.settings.dailyLimit,
         outputFolder:path.join(this.options.downloads||this.settings.folder,'HandNavigate Collections'),
         browser:{headless:this.options.headless===true,channel:this.settings.channel||undefined,interactiveWaitMs:180000}});
       const app=this.app,release=this.release;app.server.once('close',()=>{release();if(this.app===app){this.app=null;this.release=null;}});
@@ -62,14 +62,34 @@ class CollectionManager{
   async stop(allowBusy=false){
     const status=await this.status();if(!status.running){await this.close();return this.status();}
     if(status.health.busy&&!allowBusy)throw new Error('A collection is active. Stop that collection before stopping the worker.');
-    if(this.app)await this.close();else await this.call('/shutdown',{allowBusy});
+    if(this.app)await this.close();else{
+      await this.call('/shutdown',{allowBusy});
+      for(let n=0;n<100;n++){try{await this.call('/health');}catch{break;}if(n===99)throw new Error('The background worker is still closing. Refresh its status before restarting.');await new Promise(resolve=>setTimeout(resolve,50));}
+    }
     return this.status();
   }
   async close(){if(this.app){const app=this.app,release=this.release;this.app=null;this.release=null;try{await app.close();}finally{release?.();}}}
+  async importSource(task,runs){const recipe=registry.compile(task,runs);await this.editSources(()=>registry.save(this.settings.folder,recipe));return {source:{id:recipe.id,name:recipe.name,revision:recipe.revision}};}
+  async removeSource(id){if(typeof id!=='string'||!/^custom-[0-9a-f]{16}$/.test(id))throw new Error('Choose a custom source.');await this.editSources(()=>registry.remove(this.settings.folder,id));return this.status();}
+  async editSources(edit){
+    if(this.changingSources)throw new Error('Another source change is in progress. Wait for it to finish.');
+    this.changingSources=true;try{await this.updateRegistry(edit);}finally{this.changingSources=false;}
+  }
+  async updateRegistry(edit){
+    let state=await this.status();
+    // A verified result is recorded just before its browser has finished closing.
+    // Let that bounded cleanup finish instead of rejecting an already completed job.
+    for(let n=0;n<50&&state.health?.busy&&!state.jobs.some(j=>['QUEUED','RUNNING','WAITING_FOR_LOGIN'].includes(j.status));n++){await new Promise(resolve=>setTimeout(resolve,100));state=await this.status();}
+    if(state.health?.busy||state.jobs.some(j=>j.status==='QUEUED'))throw new Error('Finish or stop queued collections before changing sources.');
+    if(state.running)await this.stop();
+    // The same folder lock protects edits against a separately launched worker.
+    const release=lock(this.settings.folder);try{edit();}finally{release();if(state.running)await this.start();}
+  }
   async collect(input){
+    if(this.changingSources)throw new Error('Source changes are being saved. Try the collection again after they finish.');
     await this.start();return this.call('/collections',{requestId:input.requestId||crypto.randomUUID(),topics:input.topics,sources:input.sources,limit:input.limit,destination:input.destination||'local'});
   }
   async stopJob(id){if(!/^[0-9a-f-]{36}$/.test(id))throw new Error('Invalid collection ID.');await this.call('/collections/'+id+'/stop',{});return this.status();}
-  async resumeJob(id){if(!/^[0-9a-f-]{36}$/.test(id))throw new Error('Invalid collection ID.');await this.start();await this.call('/collections/'+id+'/resume',{});return this.status();}
+  async resumeJob(id){if(this.changingSources)throw new Error('Source changes are being saved. Try resuming after they finish.');if(!/^[0-9a-f-]{36}$/.test(id))throw new Error('Invalid collection ID.');await this.start();await this.call('/collections/'+id+'/resume',{});return this.status();}
 }
 module.exports={CollectionManager};

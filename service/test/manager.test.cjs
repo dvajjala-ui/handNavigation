@@ -15,6 +15,10 @@ test('desktop manager starts without a Node command, keeps credentials private, 
     adopted=new CollectionManager(folder,{headless:true});assert.equal((await adopted.status()).managed,false);assert.equal((await adopted.collect(input)).reused,true);await adopted.close();assert.equal((await manager.status()).running,true);
     await adopted.stop();for(let n=0;n<50&&(await manager.status()).running;n++)await new Promise(r=>setTimeout(r,20));assert.equal((await manager.status()).running,false);
     await manager.start();assert.equal(manager.app.collections.get(done.id).status,'VERIFIED_LOCAL');
+    const proofStore=manager.app.collections.runs,proofTask=proofStore.get(proofStore.data.runs[0].taskId),firstImport=manager.importSource(proofTask,proofStore.data.runs);
+    await assert.rejects(manager.importSource(proofTask,proofStore.data.runs),/source change/);
+    await assert.rejects(manager.collect({...input,requestId:'during-source-update'}),/Source changes/);
+    const imported=await firstImport;assert.equal((await manager.status()).sources.filter(s=>s.id===imported.source.id).length,1);assert.equal((await manager.status()).running,true);
   }finally{await adopted?.close();await manager?.close();await site.close();if(old===undefined)delete process.env.HANDNAVIGATE_SOURCES_FILE;else process.env.HANDNAVIGATE_SOURCES_FILE=old;if(path.resolve(folder).startsWith(path.resolve(os.tmpdir())+path.sep))fs.rmSync(folder,{recursive:true,force:true,maxRetries:10,retryDelay:200});}
 });
 test('a released profile lock cannot delete a newer lock owned by the same process',()=>{

@@ -328,6 +328,9 @@ class Runner {
     try {
       await this.navigate(siteUrl(task.startUrl,run.inputs));
       for(let i=0;i<task.steps.length;i++)await this.step(task.steps[i],run.inputs,i);
+      // Image-result checks also gate reading the gallery. Otherwise a delayed
+      // search could save old images and pass its check only after they changed.
+      if(task.type==='images'&&task.steps.length)await this.checks(task,run.inputs);
       if(['images','transfer'].includes(task.type)) {
         const complete=await this.collect(task);
         if(!complete){this.store.finish(run,'PARTIAL',`Found ${run.items.length} eligible new images; ${task.count} requested.`);return clone(run);}

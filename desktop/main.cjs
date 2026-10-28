@@ -54,8 +54,10 @@ class Browser {
         if(['ws:','wss:'].includes(u.protocol)||!allowed.includes(u.origin))return callback({cancel:true});
       }
       if(!['http:','https:','data:','blob:','about:','devtools:'].includes(u.protocol))return callback({cancel:true});
-      if(details.webContentsId===this.wc.id&&['http:','https:'].includes(u.protocol)){this.pending.add(details.id);this.lastNetworkAt=Date.now();}
-      if(this.runTask&&details.webContentsId===this.wc.id&&['http:','https:'].includes(u.protocol)&&!['GET','HEAD','OPTIONS'].includes(details.method))this.mutations.add(details.id);
+      // Chromium may attribute renderer fetches to webContentsId -1. This is a
+      // dedicated site session, so track every allowed request in that session.
+      if(['http:','https:'].includes(u.protocol)){this.pending.add(details.id);this.lastNetworkAt=Date.now();}
+      if(this.runTask&&['http:','https:'].includes(u.protocol)&&!['GET','HEAD','OPTIONS'].includes(details.method))this.mutations.add(details.id);
       callback({cancel:false});
     });
     const finished=details=>{this.mutations.delete(details.id);if(this.pending.delete(details.id))this.lastNetworkAt=Date.now();};
@@ -128,6 +130,8 @@ function registerIPC(){
     collectionRun:arg=>collectionManager.collect(arg),
     collectionStopJob:arg=>collectionManager.stopJob(arg.id),
     collectionResumeJob:arg=>collectionManager.resumeJob(arg.id),
+    collectionImportSource:arg=>{idle();if(recording||picking)throw new TaskError('Finish teaching or choosing controls first.');return collectionManager.importSource(store.get(arg.id),store.data.runs);},
+    collectionRemoveSource:arg=>collectionManager.removeSource(arg.id),
     collectionChooseFolder:async()=>{const result=await dialog.showOpenDialog(win,{properties:['openDirectory','createDirectory'],defaultPath:collectionManager.settings.folder});return result.canceled?null:result.filePaths[0];},
     collectionShowFolder:async()=>{const info=await collectionManager.status(),folder=info.downloadFolder;fs.mkdirSync(folder,{recursive:true});if(!fs.statSync(folder).isDirectory())throw new TaskError('This is not a download folder.');return shell.openPath(folder);},
     collectionOpenAdmin:()=>{const url=collectionManager.config().baseUrl;if(!url)throw new TaskError('Connect StickerDock first.');new (require('../service/stickerdock.cjs').StickerDock)(url,collectionManager.config().token);return shell.openExternal(url.replace(/\/$/,'')+'/admin');},

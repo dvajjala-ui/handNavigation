@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-27T22:02:04.530Z",
+  "checkedAt": "2026-10-28T19:06:39.579Z",
   "passed": true,
   "checks": [
     "desktop collection panel",
@@ -8,7 +8,10 @@
     "Downloads destination",
     "private API credential omitted from UI",
     "durable history after restart",
-    "embedded browser restored after panel close"
+    "embedded browser restored after panel close",
+    "real verified taught search imported through Review",
+    "custom source downloads with preparation steps and result checks",
+    "remove source retains collection history"
   ],
   "pageErrors": []
 }

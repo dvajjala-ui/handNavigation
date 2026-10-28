@@ -9,6 +9,14 @@ const {Store,draft}=require('../core.cjs');
 
 const picture=background=>sharp({create:{width:220,height:180,channels:3,background}}).png().toBuffer();
 
+test('a failed search result check blocks reading and saving the old image gallery',async t=>{
+  const folder=fs.mkdtempSync(path.join(os.tmpdir(),'handnavigate-search-gate-'));t.after(()=>fs.rmSync(folder,{recursive:true,force:true}));
+  const store=new Store(folder),task=store.save({...draft({startUrl:'https://owned.example/search?topic={{topic}}',outputFolder:folder}),steps:[{op:'wait',amount:0}],checks:[{kind:'text',expected:'Results: {{topic}}'}]});store.approve(task.id,task.sha);
+  let reads=0;const runner=new Runner(store,{beginRun:()=>{},endRun:()=>{},effectError:null},()=>{});
+  runner.navigate=async()=>{};runner.checks=async()=>{throw new Error('The new search result is not visible');};runner.collect=async()=>{reads++;return true;};
+  const run=await runner.run(task.id);assert.equal(run.status,'HALTED');assert.equal(reads,0);assert.equal(run.items.length,0);assert.match(run.error,/new search result/);
+});
+
 test('image collection skips invalid gallery candidates and saves the next real image',async t=>{
   const folder=fs.mkdtempSync(path.join(os.tmpdir(),'handnavigate-candidates-'));
   t.after(()=>fs.rmSync(folder,{recursive:true,force:true}));

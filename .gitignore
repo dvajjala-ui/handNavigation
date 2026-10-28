@@ -25,6 +25,7 @@ workflows.json*
 service-key.json*
 service-endpoint.json*
 collection-desktop.json*
+source-recipes.json*
 stickerdock.json*
 collections.json*
 worker.lock

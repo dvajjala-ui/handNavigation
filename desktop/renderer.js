@@ -88,6 +88,7 @@ function receive(value){
 function controls(){if(!state)return;const busy=!!state.busy,recording=!!state.recording;for(const id of ['new-workflow','save-task','open-site','record','choose-folder','choose-upload','pick-images','pick-gallery','pick-next','pick-gallery-next','save-steps','apply-advanced','browser-back','browser-forward','browser-reload','api-enable','api-disable'])$(id).disabled=pending>0||busy||(recording&&!['record'].includes(id));
   $('run-now').hidden=busy;$('stop-run').hidden=!busy;$('run-now').disabled=pending>0||recording||!!state.picking||!task()?.approvedSha||dirty;
   $('approve-run').disabled=pending>0||busy||recording||!$('review-ack').checked;$('schedule-enable').disabled=pending>0||busy||recording;$('stop-record').disabled=pending>0;
+  $('collection-import-source').disabled=pending>0||busy||recording||dirty||task()?.type!=='images'||!task()?.approvedSha||!state.runs.some(r=>r.taskId===task()?.id&&r.sha===task()?.sha&&r.status==='VERIFIED');
 }
 function syncBounds(){requestAnimationFrame(()=>{const r=$('browser-slot').getBoundingClientRect();api.setBrowserBounds({x:r.x,y:r.y,width:r.width,height:r.height});});}
 async function tab(name){currentTab=name;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('selected',b.dataset.tab===name));document.querySelectorAll('.tab-content').forEach(e=>e.hidden=e.id!=='tab-'+name);syncBounds();}
@@ -111,6 +112,7 @@ $('steps-list').addEventListener('click',event=>{const b=event.target.closest('[
 $('apply-advanced').addEventListener('click',act(async()=>{const t=formTask();t.sourceSelector=$('source-selector').value.trim();t.allowedOrigins=$('allowed-origins').value.split('\n').map(s=>s.trim()).filter(Boolean);t.imageOrigins=$('image-origins').value.split('\n').map(s=>s.trim()).filter(Boolean);t.rows=JSON.parse($('rows-json').value);await call('saveTask',{task:t});editingId=null;await refresh();message('Advanced settings saved. Changes need review before running.');}));
 $('approve-run').addEventListener('click',act(async()=>{const row=chosenRow(),t=await saveForm();await call('approve',{id:t.id,sha:t.sha});await call('run',{id:t.id,rowIndex:row});await tab('history');}));
 $('run-now').addEventListener('click',act(()=>call('run',{id:task().id,rowIndex:chosenRow()})));
+$('collection-import-source').addEventListener('click',act(async()=>{const result=await call('collectionImportSource',{id:task().id});message(`${result.source.name} is available in Image collections. Its worker browser may need a first sign-in.`);}));
 $('stop-run').addEventListener('click',act(()=>call('stop')));
 $('schedule-enable').addEventListener('click',act(async()=>{await call('schedule',{id:task().id,enabled:true,time:$('schedule-time').value,timezone:$('schedule-zone').value.trim()});message('Daily automation is on. Keep the app open and this computer awake.');}));
 $('schedule-pause').addEventListener('click',act(()=>call('schedule',{id:task().id,enabled:false,time:$('schedule-time').value,timezone:$('schedule-zone').value.trim()})));

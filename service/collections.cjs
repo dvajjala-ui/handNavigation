@@ -26,12 +26,12 @@ class Collections{
   day(){const p=zoneParts(Date.now(),this.options.timezone||'Asia/Kolkata');return `${p.year}-${String(p.month).padStart(2,'0')}-${String(p.day).padStart(2,'0')}`;}
   used(day=this.day()){return new Set(this.runs.data.runs.filter(r=>this.runs.get(r.taskId).collectionDay===day).flatMap(r=>r.items.map(i=>i.sha256))).size;}
   create(body){
-    const spec=request(body,this.sources,this.options.maxImages||100),digest=hash(spec),existing=this.data.jobs.find(j=>j.requestId===spec.requestId);
+    const existing=this.data.jobs.find(j=>j.requestId===body?.requestId),spec=request(body,existing?.sourceRecipes||this.sources,this.options.maxImages||100),digest=hash(spec);
     if(existing){if(existing.requestHash!==digest)throw new Error('That requestId belongs to different collection parameters.');if(existing.status==='QUEUED')this.pump().catch(error=>this.options.onError?.(error));return {job:clone(existing),reused:true};}
     if(spec.destination==='stickerdock'&&!this.options.sink)throw new Error('StickerDock storage is not configured on this worker.');
     if(this.used()>=(this.options.dailyLimit||20))throw new Error('The configured daily image budget is already used.');
     if(this.data.jobs.filter(j=>j.status==='QUEUED').length>=50)throw new Error('Collection queue is full.');
-    const job={id:crypto.randomUUID(),...spec,requestHash:digest,day:this.day(),status:'QUEUED',createdAt:new Date().toISOString(),items:[],events:[],sourceStatus:{},error:null};
+    const job={id:crypto.randomUUID(),...spec,sourceRecipes:clone(this.sources.filter(s=>spec.sources.includes(s.id))),requestHash:digest,day:this.day(),status:'QUEUED',createdAt:new Date().toISOString(),items:[],events:[],sourceStatus:{},error:null};
     this.data.jobs.unshift(job);this.flush();this.pump().catch(error=>this.options.onError?.(error));return {job:clone(job),reused:false};
   }
   get(id){const job=this.data.jobs.find(j=>j.id===id);if(!job)throw new Error('Collection not found.');return clone(job);}
@@ -57,10 +57,14 @@ class Collections{
   }
   async execute(job){
     job.status='RUNNING';job.startedAt||=new Date().toISOString();job.error=null;this.active={job,runner:null,abort:new AbortController()};this.recover(job);this.event(job,'Collection started: '+job.limit+' images total across all sources and topics.');
-    const quota=Math.max(1,Math.ceil(job.limit/(job.sources.length*job.topics.length))),pairs=job.topics.flatMap(topic=>job.sources.map(id=>({topic,source:this.sources.find(s=>s.id===id)})));
+    // Freeze the reviewed recipe once. Updating/removing a source never changes a queued retry.
+    const recipes=job.sourceRecipes||clone(this.sources.filter(s=>job.sources.includes(s.id)));
+    const quota=Math.max(1,Math.ceil(job.limit/(job.sources.length*job.topics.length))),pairs=job.topics.flatMap(topic=>job.sources.map(id=>({topic,source:recipes.find(s=>s.id===id)})));
     const browsers=new Map();let timedOut=false;
     const timer=setTimeout(()=>{timedOut=true;this.stop(job.id);},this.options.jobTimeoutMs||15*60*1000);
     try{
+      if(pairs.some(p=>!p.source))throw new Error('A source used by this legacy request is missing. Restore its original recipe before resuming.');
+      sources(recipes);job.sourceRecipes=recipes;this.flush();
       for(let round=0;round<2&&job.items.length<job.limit;round++)for(const {topic,source} of pairs){
         if(job.cancelled||job.items.length>=job.limit)break;
         if(['AUTH_REQUIRED','FAILED','HALTED'].includes(job.sourceStatus[source.id]?.status))continue;
@@ -73,7 +77,7 @@ class Collections{
           job.status='RUNNING';
           const task=this.runs.save({...draft({startUrl:source.searchUrl,outputFolder:path.join(this.folder,'downloads'),imageOrigins:source.imageOrigins||[]}),
             name:'Collection '+job.id.slice(0,8)+' '+source.id,type:'images',count:allowance,rows:[{topic}],sourceSelector:source.selector,outputFolder:this.options.outputFolder||path.join(this.folder,'downloads'),
-            allowedOrigins:source.allowedOrigins,pagination:source.pagination||{kind:'scroll',maxPages:30},dedupeScope:'library',skipSimilar:true,
+            allowedOrigins:source.allowedOrigins,steps:source.steps||[],checks:source.checks||[],pagination:source.pagination||{kind:'scroll',maxPages:30},dedupeScope:'library',skipSimilar:true,
             collectionId:job.id,collectionDay:this.day(),platform:source.id});
           this.runs.approve(task.id,task.sha);const runner=new Runner(this.runs,browser);browser.runner=runner;this.active.runner=runner;
           const result=await runner.run(task.id);job.status='RUNNING';this.recover(job);job.sourceStatus[source.id]={status:result.status,lastError:result.error||null};this.event(job,source.id+': '+result.items.length+' saved ('+result.status+').');

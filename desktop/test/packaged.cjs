@@ -27,7 +27,7 @@ async function main(){
     assert.ok(ui,'Packaged UI did not open');await ui.waitForSelector('#workflow-title');
     assert.match(await ui.title(),/HandNavigate/);
     assert.equal((await ui.evaluate(()=>window.handnavigate.state())).value.appVersion,require('../../package.json').version,'The packaged runtime must match the advertised app version');
-    const task={...draft({startUrl:site.origin+'/images?count=3',outputFolder:output,imageOrigins:[]}),name:'Packaged smoke test',count:3,sourceSelector:'#gallery img',newOnly:false};
+    const task={...draft({startUrl:site.origin+'/images?count=3&topic={{topic}}',outputFolder:output,imageOrigins:[]}),name:'Packaged smoke test',count:3,sourceSelector:'#gallery img',newOnly:false};
     const saved=await ui.evaluate(arg=>window.handnavigate.saveTask({task:arg}),task);assert.equal(saved.ok,true,JSON.stringify(saved));
     const approved=await ui.evaluate(arg=>window.handnavigate.approve(arg),{id:saved.value.id,sha:saved.value.sha});assert.equal(approved.ok,true,JSON.stringify(approved));
     const started=await ui.evaluate(id=>window.handnavigate.run({id,rowIndex:0}),saved.value.id);assert.equal(started.ok,true,JSON.stringify(started));
@@ -59,7 +59,11 @@ async function main(){
     const collections=(await ui.evaluate(()=>window.handnavigate.collectionStatus())).value;assert.equal(collections.jobs[0].saved,2);assert.equal(collections.managed,true);
     const collectionJournal=JSON.parse(fs.readFileSync(path.join(collections.folder,'collections.json'))).data;for(const item of collectionJournal.jobs[0].items){assert.ok(item.file.startsWith(output));assert.equal((await imageInfo(fs.readFileSync(item.file))).sha256,item.sha256);}
     const collectionKey=JSON.parse(fs.readFileSync(path.join(collections.folder,'service-key.json'))).token;assert.equal(JSON.stringify(collections).includes(collectionKey),false);await ui.locator('#collections-stop').click();await ui.locator('#collections-close').click();
-    const result={passed:true,executable,files:run.items.length,sha256:run.items.map(i=>i.sha256),apiVerified:true,idempotencyVerified:true,scriptClientBundled:true,slowUploadVerified:true,durableResultVerified:true,collectionWorkerBundled:true,collectionDownloadsVerified:2,collectionCredentialPrivate:true,portablePath:path.resolve('dist/HandNavigate-'+require('../../package.json').version+'-Windows.exe')};
+    const source=await ui.evaluate(id=>window.handnavigate.collectionImportSource({id}),saved.value.id);assert.equal(source.ok,true,JSON.stringify(source));
+    const imported=await ui.evaluate(id=>window.handnavigate.collectionRun({requestId:'packaged-custom-source-001',topics:['architecture'],sources:[id],limit:2,destination:'local'}),source.value.source.id);assert.equal(imported.ok,true,JSON.stringify(imported));
+    let custom;for(let n=0;n<300;n++){const result=await ui.evaluate(()=>window.handnavigate.collectionStatus());custom=result.value.jobs.find(j=>j.id===imported.value.id);if(custom&&custom.status!=='RUNNING'&&custom.status!=='QUEUED')break;await pause(200);}
+    assert.equal(custom?.status,'VERIFIED_LOCAL',JSON.stringify(custom));assert.equal(custom.saved,2);await ui.evaluate(()=>window.handnavigate.collectionStop());
+    const result={passed:true,executable,files:run.items.length,sha256:run.items.map(i=>i.sha256),apiVerified:true,idempotencyVerified:true,scriptClientBundled:true,slowUploadVerified:true,durableResultVerified:true,collectionWorkerBundled:true,collectionDownloadsVerified:2,collectionCredentialPrivate:true,customSourceImported:true,customSourceDownloadsVerified:2,portablePath:path.resolve('dist/HandNavigate-'+require('../../package.json').version+'-Windows.exe')};
     fs.mkdirSync(path.resolve('desktop/evidence'),{recursive:true});fs.writeFileSync(path.resolve('desktop/evidence/packaged-results.json'),JSON.stringify(result,null,2));
     console.log(JSON.stringify(result,null,2));
     await ui.evaluate(()=>window.close()).catch(()=>{});

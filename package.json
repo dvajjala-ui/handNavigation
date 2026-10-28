@@ -1,6 +1,6 @@
 {
   "name": "handnavigate-desktop",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Teach browser workflows once and repeat them locally with verified results.",
   "author": "HandNavigate",
   "private": true,

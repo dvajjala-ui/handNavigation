@@ -5,6 +5,7 @@ const {Collections}=require('./collections.cjs');
 const {StickerDock}=require('./stickerdock.cjs');
 const {lock}=require('./lock.cjs');
 const {QueueBridge}=require('./bridge.cjs');
+const registry=require('./registry.cjs');
 function tokenEqual(actual,expected){const a=Buffer.from(actual||''),b=Buffer.from('Bearer '+expected);return a.length===b.length&&crypto.timingSafeEqual(a,b);}
 async function body(req){let size=0,text='';for await(const part of req){size+=part.length;if(size>16000)throw new Error('Request exceeds 16 KB.');text+=part;}try{return JSON.parse(text);}catch{throw new Error('Send a JSON object.');}}
 function createServer(options={}){
@@ -14,8 +15,8 @@ function createServer(options={}){
   if(!token){if(fs.existsSync(file))token=JSON.parse(fs.readFileSync(file,'utf8')).token;else{token=crypto.randomBytes(32).toString('hex');atomicWrite(file,{token});}}
   if(typeof token!=='string'||token.length<32)throw new Error('Use a service token with at least 32 characters.');
   const sink=options.sink||(process.env.STICKERDOCK_BASE_URL?new StickerDock(process.env.STICKERDOCK_BASE_URL):null);
-  const configured=process.env.HANDNAVIGATE_SOURCES_FILE?JSON.parse(fs.readFileSync(process.env.HANDNAVIGATE_SOURCES_FILE,'utf8')):undefined;
-  const collections=new Collections(folder,{...options,sources:options.sources||configured,sink,dailyLimit:options.dailyLimit||Number(process.env.HANDNAVIGATE_DAILY_LIMIT||20),
+  const configured=registry.load(folder,options.sources);
+  const collections=new Collections(folder,{...options,sources:configured,sink,dailyLimit:options.dailyLimit||Number(process.env.HANDNAVIGATE_DAILY_LIMIT||20),
     browser:options.browser||{headless:process.env.HANDNAVIGATE_HEADLESS!=='0',channel:process.env.HANDNAVIGATE_BROWSER_CHANNEL||undefined,interactiveWaitMs:Number(process.env.HANDNAVIGATE_INTERACTIVE_WAIT_SECONDS||0)*1000},
     onError:error=>console.error('Collection error:',String(error.message).slice(0,200))});
   const send=(res,status,value)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify(value));};
@@ -30,7 +31,7 @@ function createServer(options={}){
         const input=await body(req);if(collections.active&&input.allowBusy!==true)return send(res,409,{error:'A collection is active. Stop it first or explicitly confirm stopping the worker.'});
         send(res,202,{stopping:true});setImmediate(()=>close().catch(error=>options.onError?.(error)));return;
       }
-      if(req.method==='GET'&&url.pathname==='/v1/sources')return send(res,200,{sources:collections.sources.map(s=>({id:s.id,name:s.name||s.id})),totalLimitAppliesAcrossAllTopicsAndSources:true});
+      if(req.method==='GET'&&url.pathname==='/v1/sources')return send(res,200,{sources:collections.sources.map(s=>({id:s.id,name:s.name||s.id,custom:s.id.startsWith('custom-'),revision:s.revision||null})),totalLimitAppliesAcrossAllTopicsAndSources:true});
       if(req.method==='POST'&&url.pathname==='/v1/collections'){
         const result=collections.create(await body(req));return send(res,result.reused?200:202,{...result.job,reused:result.reused});
       }
