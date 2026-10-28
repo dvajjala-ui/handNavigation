@@ -41,7 +41,7 @@ function createServer(options={}){
     }catch(error){send(res,409,{error:String(error.message).slice(0,500)});}
   });
   server.requestTimeout=30000;server.headersTimeout=10000;
-  const bridge=options.cloudQueue&&sink?new QueueBridge(collections,sink,{onError:error=>console.error('Cloud queue:',String(error.message).slice(0,200))}).start():null;
+  const bridge=options.cloudQueue&&sink?new QueueBridge(collections,sink,{onError:error=>{console.error('Cloud queue:',String(error.message).slice(0,200));options.onBridgeError?.(error);}}).start():null;
   let closing;
   function close(){if(!closing)closing=(async()=>{await collections.close();await bridge?.close();if(server.listening)await new Promise(resolve=>server.close(resolve));})();return closing;}
   queueMicrotask(()=>collections.pump().catch(error=>options.onError?.(error)));

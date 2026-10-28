@@ -20,6 +20,10 @@ class QueueBridge{
       const supported_sources=(this.collections.sources||[]).map(s=>({id:s.id,name:s.name||s.id}));
       const claimedAt=Date.now(),{job}=await this.sink.call('ingest',{action:'claim',worker_id:this.workerId,...(supported_sources.length?{supported_sources}:{})});
       if(!job)return;
+      if(this.stopped){
+        await this.sink.call('ingest',{action:'report',worker_id:this.workerId,id:job.id,report:{status:'FAILED',saved:0,delivered:0,error:'Worker stopped before starting this collection.'}});
+        return;
+      }
       this.pending={cloud:job,local:null,lastConfirmed:claimedAt};
       try{
         let {job:local,reused}=this.collections.create({requestId:'cloud:'+job.id,topics:job.topics,sources:job.sources,limit:job.image_limit,destination:'stickerdock'});

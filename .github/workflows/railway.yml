@@ -1,0 +1,32 @@
+name: Bounded Railway browser collector
+on:
+  workflow_dispatch:
+  push:
+    paths: ['deploy/railway/**', 'service/**', 'package*.json', '.github/workflows/railway.yml']
+  pull_request:
+    paths: ['deploy/railway/**', 'service/**', 'package*.json', '.github/workflows/railway.yml']
+permissions:
+  contents: read
+jobs:
+  container:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f deploy/railway/Dockerfile -t handnavigate-batch .
+      - name: Verify a real unprivileged headful browser
+        run: >-
+          docker run --rm --user pwuser handnavigate-batch xvfb-run -a node -e
+          "(async()=>{const b=await require('./service/browser.cjs').ServiceBrowser.open('/tmp/owned-browser-check',{headless:false});try{await b.page.setContent('<title>Owned batch check</title>');if(await b.page.title()!=='Owned batch check')throw Error('Wrong page');console.log('Headful Chromium passed.');}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;})"
+      - name: Verify mounted state and successful cron process exit against an owned queue
+        run: |
+          docker run --rm -v batch-fixture:/data -e HANDNAVIGATE_BATCH_IDLE_SECONDS=5 -e HANDNAVIGATE_BATCH_SECONDS=10 -e STICKERDOCK_BASE_URL=http://127.0.0.1:8123 -e STICKERDOCK_INGEST_TOKEN=owned-batch-fixture-token-32-characters handnavigate-batch bash -ec '
+            node -e '\''require("http").createServer((q,s)=>{if(q.headers.authorization!=="Bearer owned-batch-fixture-token-32-characters")throw Error("Authentication missing");s.setHeader("Content-Type","application/json");s.end(JSON.stringify({job:null}));}).listen(8123,"0.0.0.0")'\'' &
+            mock_pid=$!
+            trap "kill $mock_pid" EXIT
+            /app/deploy/railway/start.sh
+          '
