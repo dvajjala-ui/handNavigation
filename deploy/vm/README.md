@@ -1,8 +1,15 @@
 # Persistent worker with an interactive browser
 
-Target: one Ubuntu 24.04 x86-64 VM, initially 2 vCPU / 4 GB RAM, at least 40 GB
+Target: one Ubuntu 24.04 x86-64 or ARM64 VM, initially 2 vCPU / 4 GB RAM, at least 40 GB
 persistent disk. Sizing is an initial engineering estimate. Account/billing,
 server creation and source access still require qualification on the chosen host.
+
+Oracle Always Free candidate: A1 Flex ARM64, 1 OCPU / 6 GB RAM, Ubuntu 24.04
+Minimal aarch64 and a default boot volume within the tenancy's free storage
+allowance. This is below the current published A1 free allowance; check the
+tenancy's existing allocations and final estimate before creation. A resource
+covered only by expiring trial credit is not an Always Free deployment. The
+container workflow now tests both AMD64 and native ARM64 runners.
 
 The VM polls StickerDock outbound, so no public application, VNC or browser-debug
 port is needed. Docker preserves profiles, originals, retry state and duplicate
