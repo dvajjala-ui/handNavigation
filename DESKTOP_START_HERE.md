@@ -1,10 +1,10 @@
 # HandNavigate Desktop
 
-Open **dist/HandNavigate-0.8.0-Windows.exe**. It includes the app, embedded teaching browser, image decoder, script client and collection worker. You do not need Python, Node, a terminal or an AI key for local downloads. Pinterest/Reddit collection uses an installed Chrome or Edge browser; Imgflip's popular-template catalog needs no browser login.
+Open **dist/HandNavigate-0.9.0-Windows.exe**. It includes the app, embedded teaching browser, image decoder, script client and collection worker. You do not need Python, Node, a terminal or an AI key for local downloads. Pinterest/Reddit collection uses an installed Chrome or Edge browser; Flickr's public tag feed and Imgflip's popular-template catalog need no browser login.
 
 ## Collect images without teaching a workflow
 
-1. Open **Image collections** in the sidebar. Enter topics, choose sites, set one total count and select local Downloads or the connected StickerDock library.
+1. Open **Image collections** in the sidebar. Flickr is selected for a new local collection. Enter `cat` and `nature` on separate lines for a first 20-image run, or choose other sites/topics. Flickr uses exact tags; commas require all supplied tags. Set one total count and select local Downloads or the connected StickerDock library.
 2. Choose **Collect images**. The worker starts automatically. The panel shows downloaded/stored counts and the verified result, with Stop/Resume for incomplete work.
 3. Open **Connection & worker settings** to connect StickerDock once, choose a persistent data folder, or change the local daily image budget. The saved credential is never sent back to the UI. Existing configured background workers are adopted without starting a second process against their profiles.
 4. Use **Open Admin** for saved daily plans, fresh planner topics and the downloaded-image gallery. Keep this app open when it owns the worker. An independently running worker keeps running when this window closes.

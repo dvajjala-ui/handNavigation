@@ -1,5 +1,8 @@
 # StickerDock collection workspace — 28 October 2026
 
+October 29 current status: the Railway worker and Desktop 0.9 now support Flickr public tag feeds. One **20/20 actual Railway → Supabase batch** passed independent image read-back: [evidence](service/evidence/flickr-hosted-20261029.json). The daily animal plan now uses `cat`/`dog` Flickr tags at **10:00 India time**, twenty total. Its [activation record](service/evidence/flickr-daily-plan-20261029.json) preserves the earlier configuration. Railway's persistent volume, cloud duplicate history and bounded exit support runs without this PC. Pinterest/Reddit guest blocks on Railway remain open. The October 28 local-PC records below are historical and do not describe the current active source or schedule.
+
+
 The live flow is **StickerDock Admin → Supabase job queue → HandNavigate on this computer → Pinterest/Reddit/Imgflip → local originals → Supabase images and metadata → Admin library**. HandNavigate performs the source work itself. Codex browser tools and AI calls are not required to repeat it. Desktop0.7.0 now bundles the worker and its controls.
 
 ## Verified in production

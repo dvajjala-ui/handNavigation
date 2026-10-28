@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-28T19:49:20.729Z",
+  "qualification": "f3c745aa-c005-43b5-8fbf-76eb7bc5bf01",
+  "schedule": "10:00 Asia/Kolkata",
+  "before": {
+    "id": "5a1aaafc-01d9-458d-8b6b-f20fe0708c8f",
+    "name": "Daily animal reactions",
+    "topics": [
+      "funny cat reaction",
+      "funny dog reaction"
+    ],
+    "sources": [
+      "imgflip"
+    ],
+    "imageLimit": 20,
+    "daily": true,
+    "planner": false,
+    "version": 5
+  },
+  "after": {
+    "id": "5a1aaafc-01d9-458d-8b6b-f20fe0708c8f",
+    "name": "Daily animal reactions",
+    "topics": [
+      "cat",
+      "dog"
+    ],
+    "sources": [
+      "flickr"
+    ],
+    "imageLimit": 20,
+    "daily": true,
+    "planner": false,
+    "version": 6
+  },
+  "candidateApprovalChanges": 0,
+  "publications": 0
+}

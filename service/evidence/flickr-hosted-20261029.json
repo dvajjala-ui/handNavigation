@@ -1,0 +1,179 @@
+{
+  "checkedAt": "2026-10-28T19:48:21.130Z",
+  "executor": "Production Admin queue -> existing Railway HandNavigate worker -> Flickr public feed/oEmbed -> Supabase verified delivery",
+  "job": "f3c745aa-c005-43b5-8fbf-76eb7bc5bf01",
+  "localJob": "3a952529-5f9f-47a3-ac13-d3635a6a4fc1",
+  "worker": "99e899ac-7dba-464b-9f86-b9f51379065b",
+  "status": "VERIFIED_STORAGE",
+  "downloaded": 20,
+  "stored": 20,
+  "independentReadBack": [
+    {
+      "id": "feeb0f4a-8c0e-5266-a480-2c4009205c3f",
+      "source": "https://www.flickr.com/photos/crunchie-carruthers/55617933051/",
+      "sha256": "12808f415a6c158940f4f99777cda5d8be955313653cf3a9d8fb904413e57dfe",
+      "width": 768,
+      "height": 1024,
+      "generationEligible": false
+    },
+    {
+      "id": "0081a1b8-e260-546e-8355-dc5707102ea3",
+      "source": "https://www.flickr.com/photos/rpealit/55618161299/",
+      "sha256": "7e4ca73120ebab8bf7756cf6a1092a87e5ac63552578d793fa281fcb4e01ea89",
+      "width": 1024,
+      "height": 733,
+      "generationEligible": false
+    },
+    {
+      "id": "0c64b5e6-80f2-50c4-92e0-713f72b67391",
+      "source": "https://www.flickr.com/photos/rpealit/55618106348/",
+      "sha256": "92a1751bb22de581a40eb5c9a55e9bafd1ebe5bcf00901e706602e76e5be378c",
+      "width": 1024,
+      "height": 683,
+      "generationEligible": false
+    },
+    {
+      "id": "ac31b522-08ac-5580-81d3-022e523a74d8",
+      "source": "https://www.flickr.com/photos/hrpictures/55618169999/",
+      "sha256": "89d1552042a14430ad725804faab34ba2787b1b0c8de24b221d2885265d57c21",
+      "width": 1024,
+      "height": 683,
+      "generationEligible": false
+    },
+    {
+      "id": "dc7c3c7f-bdbd-54d7-90f9-db36b09231b9",
+      "source": "https://www.flickr.com/photos/rpealit/55618394915/",
+      "sha256": "71c2d0adfffaece75470e7f16cf589ebac6ae7daad7976a25c7e36b0abf24466",
+      "width": 1024,
+      "height": 768,
+      "generationEligible": false
+    },
+    {
+      "id": "7be83105-926a-59bd-b435-bd676d512f0c",
+      "source": "https://www.flickr.com/photos/totem-art-photo/55618117433/",
+      "sha256": "dcf5018dc8d613b5ce3ae9f455565994b3689f5406f4974cfb8b73e0878f0e2b",
+      "width": 1024,
+      "height": 683,
+      "generationEligible": false
+    },
+    {
+      "id": "24c87332-684e-5a69-8d5f-8b89ca1cba80",
+      "source": "https://www.flickr.com/photos/rpealit/55618394555/",
+      "sha256": "be965472115220f1726a952485a4beb177ff1e4630c8f00e731746cd65784acd",
+      "width": 1024,
+      "height": 683,
+      "generationEligible": false
+    },
+    {
+      "id": "0e612ed8-80c3-5db2-ad41-904aa8c585c2",
+      "source": "https://www.flickr.com/photos/204957901@N02/55618412845/",
+      "sha256": "97ae5e447ceb3d6a48244e8205431637882aa71f290a692988359637de21c217",
+      "width": 731,
+      "height": 1023,
+      "generationEligible": false
+    },
+    {
+      "id": "0583d0df-2040-5b17-8726-220e739fcab4",
+      "source": "https://www.flickr.com/photos/agathaharumi/55618203204/",
+      "sha256": "98fe536ed1478c0419b60cdacc91066df5789f87af133015727d7581c01cd637",
+      "width": 1024,
+      "height": 683,
+      "generationEligible": false
+    },
+    {
+      "id": "e24d6028-22d1-5b30-b3c4-3361e33b31d6",
+      "source": "https://www.flickr.com/photos/javiolano/55616957387/",
+      "sha256": "4988ebc7f040f2be010eb09cfec24e67a7a181959fcae92d3ba3a01050b36dd2",
+      "width": 768,
+      "height": 1024,
+      "generationEligible": false
+    },
+    {
+      "id": "f6da7a12-fce5-5e83-8b1a-305ae430ad41",
+      "source": "https://www.flickr.com/photos/bazoka/55616803698/",
+      "sha256": "6500448ca5a7602abc09f886b86d97e93a8574238f56a248eaaf19012f50543b",
+      "width": 1024,
+      "height": 768,
+      "generationEligible": false
+    },
+    {
+      "id": "04e807b5-2122-5d23-8c68-2f77cef9ded7",
+      "source": "https://www.flickr.com/photos/52746562@N00/55617117855/",
+      "sha256": "c678f86e34e93c2bcb7ffbceeaec063d9eed9def23ecd96e00fb186b9a899116",
+      "width": 590,
+      "height": 1024,
+      "generationEligible": false
+    },
+    {
+      "id": "044a296b-5112-5ea8-abc5-36fa703d4e38",
+      "source": "https://www.flickr.com/photos/204021192@N06/55617022661/",
+      "sha256": "bf55fd82be696668436d3d6f92c580ef483fb95aa9ff67c4cf17fec0149ace08",
+      "width": 768,
+      "height": 1024,
+      "generationEligible": false
+    },
+    {
+      "id": "61b03986-e9b4-5ec8-acf5-ccd91ec51214",
+      "source": "https://www.flickr.com/photos/205031053@N05/55616238992/",
+      "sha256": "b1d892ee0484a4dd1825a2a72ea78c7aa688a79fd7cf27f240e982bceb141050",
+      "width": 819,
+      "height": 1024,
+      "generationEligible": false
+    },
+    {
+      "id": "e04058ea-40d6-596b-b58e-2d76f92d7cd3",
+      "source": "https://www.flickr.com/photos/cropwithanna/55616731807/",
+      "sha256": "27f0d6622430b2915c58318f9a49c73a3c6e478ed694088429c77635fe6e572f",
+      "width": 768,
+      "height": 1024,
+      "generationEligible": false
+    },
+    {
+      "id": "200a48aa-96dd-5a18-b4b4-8e493a5ec839",
+      "source": "https://www.flickr.com/photos/cropwithanna/55618150230/",
+      "sha256": "d265437f2e0de63a1b6919302b70538a53a7586458a197ac1ba1bec895da5b84",
+      "width": 1024,
+      "height": 768,
+      "generationEligible": false
+    },
+    {
+      "id": "b2a8c185-0e59-56f7-a5a1-6765e185d91e",
+      "source": "https://www.flickr.com/photos/cropwithanna/55616723812/",
+      "sha256": "2a0b86fc89cd05cf952ae1ded5fd83328e00630233b6ddf782d35b9692a7fcea",
+      "width": 1024,
+      "height": 768,
+      "generationEligible": false
+    },
+    {
+      "id": "ebc70563-fd79-5700-9056-e4f45eada63f",
+      "source": "https://www.flickr.com/photos/gerryhill/55617853866/",
+      "sha256": "829997a3d8194c2c32e05db57c2b1357a0df964369c63de4a1e0b4972dfcae2d",
+      "width": 1023,
+      "height": 682,
+      "generationEligible": false
+    },
+    {
+      "id": "53ac315d-7a75-5c79-ad5b-112deb33f78b",
+      "source": "https://www.flickr.com/photos/dannycasillas/55618165499/",
+      "sha256": "c470270233fd9e2592192d162f233511d4565bc392692825a08683ed7fbf4504",
+      "width": 1024,
+      "height": 1024,
+      "generationEligible": false
+    },
+    {
+      "id": "5d2bea37-2c7a-5d11-8fe3-b12c2a860585",
+      "source": "https://www.flickr.com/photos/79761301@N00/55616963507/",
+      "sha256": "a6e851e76dd6013c0aa424fca0342d58809483e716d79038847419fe03c7f4ef",
+      "width": 768,
+      "height": 1024,
+      "generationEligible": false
+    }
+  ],
+  "aiCalls": 0,
+  "publications": 0,
+  "deployment": "62b83cb9-14c8-4bee-b637-27b315e0e090",
+  "deploymentStatus": "SUCCESS",
+  "batchReason": "queue_empty",
+  "bridgeError": false,
+  "naturalScheduledRunObserved": false
+}
