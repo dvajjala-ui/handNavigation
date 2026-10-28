@@ -1,5 +1,14 @@
 # HandNavigate Desktop
 
+October 28 hosting update: StickerDock's scheduled GitHub worker now performs
+collection away from the local PC and preserves private retry/dedup checkpoints.
+A real two-image Imgflip delivery passed; Pinterest/Reddit required attention
+from GitHub's guest network. For a persistent worker with a private interactive
+browser, see [the VM deployment](deploy/vm/README.md). Its container/console/headful
+Chromium check [passed](https://github.com/dvajjala-ui/handNavigation/actions/runs/40656090500).
+Provider/account setup and source acceptance on that actual VM are still pending.
+The Windows worker records below remain useful historical qualification.
+
 StickerDock's [collection workspace is live](COLLECTION_WORKSPACE.md): **20 Pinterest + 4 Reddit + 2 Imgflip images** were downloaded and verified in production Supabase. Admin supports fresh planner topics, a shared daily quota, verified completion monitoring and image management. Desktop **0.7.0** now includes the collection worker: open **Image collections** to start it, collect locally or connect StickerDock. This computer must stay awake for scheduled work.
 
 **Open `dist/HandNavigate-0.7.0-Windows.exe`.** No Python, Node command or AI key is needed for local collection. Pinterest/Reddit collection uses installed Chrome or Edge with saved sessions; teaching and saved workflows use the app's embedded browser. Version 0.7 retains verified transfers, pagination, duplicate history and the script API, and adds worker start/stop, connection settings, recent collection results and local Downloads output. See [DESKTOP_START_HERE.md](DESKTOP_START_HERE.md) and [API.md](API.md). Source: `desktop/` and `service/`.

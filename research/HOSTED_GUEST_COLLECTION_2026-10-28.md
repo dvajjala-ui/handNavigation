@@ -18,5 +18,11 @@ restores a private dedup/retry journal, performs actual collections and verifies
 storage. It excludes profiles/credentials from checkpoints. This deployment is
 owned by StickerDock's handnavigate-intake workflow, not the desktop application.
 
-Local verification: 36 desktop unit tests and 15 service tests pass. Fresh hosted
-guest-source and packaged acceptance remain separately reported by Actions.
+Local verification: 36 desktop unit tests and 16 service tests pass. Worker CI
+passes, as do Windows desktop/build/portable checks for browser revision b6bc66a.
+The VM image/private console/headful Chromium check passes at
+https://github.com/dvajjala-ui/handNavigation/actions/runs/40656090500.
+
+Actual hosted collection stored two Imgflip images in Supabase. Pinterest and
+Reddit reported guest restrictions; this does not prove their unattended use.
+The visual console permits a real human check where the source allows one.
