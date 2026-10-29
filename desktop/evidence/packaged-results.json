@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "executable": "D:\\5. GitUploaded\\hand\\dist\\HandNavigate-0.9.0-Windows.exe",
+  "executable": "D:\\5. GitUploaded\\hand\\dist\\HandNavigate-0.9.1-Windows.exe",
   "files": 3,
   "sha256": [
     "e17bf576cdd3b147b050d023d0e8da94893105a1e068cd2e4ab197df145f1fbd",
@@ -17,5 +17,5 @@
   "collectionCredentialPrivate": true,
   "customSourceImported": true,
   "customSourceDownloadsVerified": 2,
-  "portablePath": "D:\\5. GitUploaded\\hand\\dist\\HandNavigate-0.9.0-Windows.exe"
+  "portablePath": "D:\\5. GitUploaded\\hand\\dist\\HandNavigate-0.9.1-Windows.exe"
 }
