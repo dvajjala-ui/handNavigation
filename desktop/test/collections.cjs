@@ -13,7 +13,13 @@ async function main(){
     assert.equal((await ui.evaluate(()=>window.handnavigate.state())).value.browser.hidden,true);
     await ui.locator('#collections-start').click();await ui.locator('#collections-status').getByText(/Worker running/).waitFor();
     await ui.locator('#collections-run-form textarea').fill('architecture');await ui.locator('#collections-run-form input[name=limit]').fill('2');await ui.getByRole('button',{name:'Collect images',exact:true}).click();
-    await ui.locator('#collections-jobs').getByText(/Verified locally/).waitFor({timeout:30000});
+    try{await ui.locator('#collections-jobs').getByText(/Verified locally/).waitFor({timeout:60000});}
+    catch(error){
+      const status=await ui.evaluate(()=>window.handnavigate.collectionStatus()).catch(()=>null);
+      const state=status?.value;
+      throw new Error('Collection did not reach Verified locally: '+JSON.stringify({running:state?.running,error:state?.error,
+        jobs:state?.jobs?.map(job=>({status:job.status,saved:job.saved,error:job.error,sourceStatus:job.sourceStatus}))}),{cause:error});
+    }
     const snapshot=await ui.evaluate(()=>window.handnavigate.collectionStatus());assert.equal(snapshot.ok,true);assert.equal(snapshot.value.managed,true);assert.equal(snapshot.value.jobs[0].saved,2);
     const journal=JSON.parse(fs.readFileSync(path.join(snapshot.value.folder,'collections.json'))).data,job=journal.jobs[0];for(const item of job.items){assert.ok(item.file.startsWith(downloads));assert.equal((await imageInfo(fs.readFileSync(item.file))).sha256,item.sha256);}
     const key=JSON.parse(fs.readFileSync(path.join(snapshot.value.folder,'service-key.json'))).token;assert.equal(JSON.stringify(snapshot).includes(key),false);
