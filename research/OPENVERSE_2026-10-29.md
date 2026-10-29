@@ -62,3 +62,11 @@ two results. Source-bound CI passed [37 core](https://github.com/dvajjala-ui/han
 [37 worker](https://github.com/dvajjala-ui/handNavigation/actions/runs/40927079344),
 and [bounded container](https://github.com/dvajjala-ui/handNavigation/actions/runs/40927079288)
 checks. Hosted Openverse storage read-back remains pending.
+
+## 0.9.3 strict license keys
+
+Only explicit `cc0` and `pdm` keys are accepted. A forged `constructor`
+license without a URL no longer inherits a JavaScript object property and
+enters the candidate queue. The focused regression test and 37 worker tests
+pass. Railway deployment `48bb09af-d854-4c0f-92a0-17d7de7299af` reports
+success at source `0189803`; hosted Openverse read-back is still pending.

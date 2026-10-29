@@ -1,6 +1,6 @@
 # HandNavigate Desktop
 
-Open **dist/HandNavigate-0.9.2-Windows.exe**. It includes the app, embedded teaching browser, image decoder, script client and collection worker. You do not need Python, Node, a terminal or an AI key for local downloads. Pinterest/Reddit collection uses an installed Chrome or Edge browser; Flickr, Openverse and Imgflip need no browser login. Openverse returns source-reported license hints; review the original work before using it to generate stickers.
+Open **dist/HandNavigate-0.9.3-Windows.exe**. It includes the app, embedded teaching browser, image decoder, script client and collection worker. You do not need Python, Node, a terminal or an AI key for local downloads. Pinterest/Reddit collection uses an installed Chrome or Edge browser; Flickr, Openverse and Imgflip need no browser login. Openverse returns source-reported license hints; review the original work before using it to generate stickers.
 
 ## Collect images without teaching a workflow
 
