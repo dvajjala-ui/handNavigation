@@ -27,6 +27,11 @@ original work and record rights evidence in StickerDock Admin.
   delivery.
 - Transient Openverse 429/5xx responses receive two bounded retries. Other
   failures stop honestly.
+- Repeated topics now search up to five documented result pages (20 results
+  each), skipping previously collected source URLs. The adapter stops after
+  enough fresh candidates are found and respects the returned page count.
+  This is a bounded search, not a guarantee of 20 usable new images on every
+  day; pixel validation and near-duplicate checks can still reduce the yield.
 
 ## Evidence in this change
 

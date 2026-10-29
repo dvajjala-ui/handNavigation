@@ -23,6 +23,26 @@ test('Openverse rejects unsafe navigation and provenance hosts',async()=>{
   assert.equal(publicLanding('https://images.example.org/work/1'),'https://images.example.org/work/1');assert.equal(publicLanding('https://127.0.0.1/private'),null);assert.equal(publicLanding('https://open.example.org@127.0.0.1/private'),null);
   assert.equal(thumbUrl(thumb,id),thumb);assert.equal(thumbUrl('https://evil.example/'+id,id),null);
   const adapter=new OpenverseSearch(async()=>Response.json({results:[]}));adapter.beginRun({count:1});
-  await assert.rejects(adapter.load('https://evil.example/v1/images/?q=cat'),/Unreviewed/);await assert.rejects(adapter.load(API+'/v1/images/?q='),/topic/);await adapter.load(API+'/v1/images/?q=cat');assert.deepEqual(adapter.items,[]);
+  await assert.rejects(adapter.load('https://evil.example/v1/images/?q=cat'),/Unreviewed/);await assert.rejects(adapter.load(API+'/v1/images/?q='),/topic/);
+  await assert.rejects(adapter.load(API+'/v1/images/?q='+('a'.repeat(201))),/200 characters/);
+  await adapter.load(API+'/v1/images/?q=cat');assert.deepEqual(adapter.items,[]);
   let calls=0;adapter.transport=async()=>{calls++;return new Response('limited',{status:429});};await assert.rejects(adapter.load(API+'/v1/images/?q=cat'),/429/);assert.equal(calls,3);await adapter.close();
+});
+
+test('Openverse advances past previously collected results within a five-page anonymous bound',async()=>{
+  const old=Array.from({length:20},(_,n)=>'https://photos.example.org/work/old-'+n),pages=[];
+  const adapter=new OpenverseSearch(async value=>{
+    const page=Number(new URL(value).searchParams.get('page'));pages.push(page);
+    return Response.json({page_count:100,results:Array.from({length:20},(_,n)=>{
+      const id=String(page*100+n).padStart(8,'0')+'-0577-416b-8d05-27c0b0bdde46';
+      return {id,title:'Image '+n,license:'cc0',license_url:'https://creativecommons.org/publicdomain/zero/1.0/',
+        foreign_landing_url:page===1?old[n]:'https://photos.example.org/work/new-'+n,
+        thumbnail:API+'/v1/images/'+id+'/thumb/',width:600,height:600,mature:false};
+    })});
+  },old);
+  try{
+    adapter.beginRun({count:10});await adapter.load(API+'/v1/images/?q=cat');
+    assert.deepEqual(pages,[1,2]);assert.equal(adapter.items.length,20);
+    assert.ok(adapter.items.every(item=>item.sourceId.includes('/new-')));
+  }finally{await adapter.close();}
 });
