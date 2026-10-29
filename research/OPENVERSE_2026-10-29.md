@@ -44,10 +44,12 @@ original work and record rights evidence in StickerDock Admin.
   mature/unsupported-license rejection, duplicate suppression, metadata
   delivery and transient retry bounds.
 
-This is source and local-live evidence. It is not yet a Railway deployment or a
-natural scheduled-run acceptance. The existing Flickr plan stays authoritative
-until the compatible hosted worker is deployed and Openverse storage read-back
-is checked in StickerDock.
+The initial qualification was source and local-live evidence. Railway
+deployment `345e7ebe-239e-4d1d-8287-4f4e71363d79` now reports success at
+0.9.2 source `27dccb4`, with the 10:00 Asia/Kolkata schedule and persistent
+volume retained. It has not yet performed an Openverse-to-Supabase read-back
+or a natural daily acceptance. The existing Flickr plan stays authoritative
+until that live source is verified in StickerDock.
 
 ## 0.9.2 repeated-topic paging
 
