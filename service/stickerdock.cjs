@@ -44,7 +44,8 @@ class StickerDock{
     const staged=await sharp(original).rotate().resize(1600,1600,{fit:'inside',withoutEnlargement:true}).webp({quality:90}).toBuffer();
     if(staged.length>2800000)throw new Error('Prepared source exceeds StickerDock\'s upload bound.');
     const link=sourceLink(item.postUrl||item.source||item.imageUrl);
-    const result=await this.call('ingest',{action:'store',image:'data:image/webp;base64,'+staged.toString('base64'),collection_id:item.collectionId,platform:item.platform,topic:item.topic,source_url:link,download_url:item.imageUrl,original_sha256:item.sha256},signal),receipt=result.item;
+    const result=await this.call('ingest',{action:'store',image:'data:image/webp;base64,'+staged.toString('base64'),collection_id:item.collectionId,platform:item.platform,topic:item.topic,source_url:link,download_url:item.imageUrl,original_sha256:item.sha256,
+      ...(typeof item.title==='string'?{title:item.title}:{}),...(Array.isArray(item.tags)?{tags:item.tags}:{})},signal),receipt=result.item;
     if(!/^handnavigate\/candidates\/[0-9a-f]{64}\.webp$/.test(receipt?.storage_path||'')||!/^[0-9a-f]{64}$/.test(receipt?.stored_sha256||''))throw new Error('StickerDock returned an invalid image receipt.');
     const fetched=await this.call('ingest',{action:'get',id:receipt.id},signal),match=/^data:image\/(?:webp|png|jpeg);base64,([A-Za-z0-9+/=]+)$/.exec(fetched.image||'');
     if(!match)throw new Error('The stored source could not be independently fetched.');

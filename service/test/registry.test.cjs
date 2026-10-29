@@ -13,11 +13,11 @@ test('a real verified form-search workflow becomes a durable source with its tau
   const folder=fs.mkdtempSync(path.join(os.tmpdir(),'hand-recipe-')),site=await fixture();let collections;
   try{
     const {store,task}=await qualify(folder,site,{steps:[{op:'fill',locator:{kind:'css',value:'#topic'},value:'{{topic}}'},{op:'click',locator:{kind:'css',value:'button'}}],checks:[{kind:'text',expected:'Results: {{topic}}'}]});
-    const source=registry.compile(task,store.data.runs);registry.save(folder,source);assert.equal(registry.load(folder).length,5);assert.equal(registry.read(folder)[0].workflowSha,task.sha);
+    const source=registry.compile(task,store.data.runs);registry.save(folder,source);assert.equal(registry.load(folder).length,6);assert.equal(registry.read(folder)[0].workflowSha,task.sha);
     collections=new Collections(path.join(folder,'collections'),{sources:[source],dailyLimit:20,browser:browserOptions});
     const spec={requestId:'verified-custom-form-search',topics:['gardens'],sources:[source.id],limit:2,destination:'local'},{job}=collections.create(spec);await collections.pumpTask;
     const done=collections.get(job.id);assert.equal(done.status,'VERIFIED_LOCAL',JSON.stringify(done));assert.equal(done.items.length,2);assert.ok(done.items.every(i=>i.imageUrl.includes('/image/')));assert.deepEqual(done.sourceRecipes[0].steps,task.steps);
-    registry.remove(folder,source.id);assert.equal(registry.load(folder).length,4);collections.sources=registry.load(folder);assert.equal(collections.create(spec).reused,true);
+    registry.remove(folder,source.id);assert.equal(registry.load(folder).length,5);collections.sources=registry.load(folder);assert.equal(collections.create(spec).reused,true);
     const damaged=JSON.parse(fs.readFileSync(path.join(folder,'source-recipes.json')));damaged.data.recipes.push(source);fs.writeFileSync(path.join(folder,'source-recipes.json'),JSON.stringify(damaged));assert.throws(()=>registry.read(folder),/integrity/);
   }finally{await collections?.close();await site.close();cleanup(folder);}
 });

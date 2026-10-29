@@ -58,7 +58,8 @@ async function readImage(browserSession,url,origins,signal) {
   for(let hop=0;hop<6;hop++) {
     if(signal.aborted)throw new TaskError('Run stopped.','CANCELLED');
     const u=webUrl(current);if(!origins.includes(u.origin))throw new TaskError(`This image comes from ${u.origin}. Add it to the reviewed image websites first.`);
-    const response=await browserSession.fetch(u.href,{redirect:'manual',signal,credentials:'include',headers:{Accept:'image/*'}});
+    const accept=browserSession.imageAccept==='*/*'?'*/*':'image/*';
+    const response=await browserSession.fetch(u.href,{redirect:'manual',signal,credentials:'include',headers:{Accept:accept}});
     if([301,302,303,307,308].includes(response.status)) {
       const loc=response.headers.get('location');await response.body?.cancel();
       if(!loc)throw new TaskError('The image redirect had no destination.');
@@ -224,7 +225,13 @@ class Runner {
         if(!data)continue;
         this.check();
         if([...history,...saved].some(old=>duplicateImage(meta,old,!!task.skipSimilar))){run.duplicatesSkipped++;continue;}
-        save(data,meta,{...item,imageUrl:chosen});
+        const details={};
+        if(typeof item.title==='string'&&item.title.length<=160)details.title=item.title;
+        if(typeof item.creator==='string'&&item.creator.length<=120)details.creator=item.creator;
+        if(['CC0','PUBLIC_DOMAIN'].includes(item.license))details.license=item.license;
+        if(typeof item.licenseUrl==='string'&&item.licenseUrl.length<=500)details.licenseUrl=item.licenseUrl;
+        if(Array.isArray(item.tags)&&item.tags.length<=20&&item.tags.every(t=>typeof t==='string'&&t.length<=40))details.tags=item.tags;
+        save(data,meta,{...item,imageUrl:chosen},details);
       }
       if(run.items.length>=task.count||seen.size>1000)break;
       if(page+1<paging.maxPages&&!await this.advance(paging,task.sourceSelector,items))break;
