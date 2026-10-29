@@ -48,3 +48,15 @@ This is source and local-live evidence. It is not yet a Railway deployment or a
 natural scheduled-run acceptance. The existing Flickr plan stays authoritative
 until the compatible hosted worker is deployed and Openverse storage read-back
 is checked in StickerDock.
+
+## 0.9.2 repeated-topic paging
+
+The [Openverse API](https://api.openverse.org/v1/) documents bounded anonymous
+pagination. Version 0.9.2 requests up to five 20-result pages, stops when it
+has enough fresh candidates, and does not follow arbitrary next-page URLs.
+The worker retains its source and pixel duplicate checks. A focused test covers
+a complete first page of previously collected sources followed by fresh page
+two results. Source-bound CI passed [37 core](https://github.com/dvajjala-ui/handNavigation/actions/runs/40927080401),
+[37 worker](https://github.com/dvajjala-ui/handNavigation/actions/runs/40927079344),
+and [bounded container](https://github.com/dvajjala-ui/handNavigation/actions/runs/40927079288)
+checks. Hosted Openverse storage read-back remains pending.

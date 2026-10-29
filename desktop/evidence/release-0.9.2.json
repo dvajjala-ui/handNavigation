@@ -1,0 +1,18 @@
+{
+  "version": "0.9.2",
+  "sourceCommit": "27dccb4317228ee420b3cb72f3902297cbd48295",
+  "platform": "Windows x64",
+  "file": "HandNavigate-0.9.2-Windows.exe",
+  "bytes": 118694862,
+  "sha256": "0d9d2a699ba77f87566aaea7cd08b5970191554c217c2c5ff95cd09c2d6dd83e",
+  "signed": false,
+  "localPortableAcceptancePassed": true,
+  "packagedOpenverseMatchesSource": true,
+  "coreTests": 37,
+  "workerTests": 37,
+  "workerCI": "https://github.com/dvajjala-ui/handNavigation/actions/runs/40927079344",
+  "boundedContainerCI": "https://github.com/dvajjala-ui/handNavigation/actions/runs/40927079288",
+  "desktopCI": "https://github.com/dvajjala-ui/handNavigation/actions/runs/40927080401",
+  "desktopCIPassed": true,
+  "openverseHostedReadback": false
+}
