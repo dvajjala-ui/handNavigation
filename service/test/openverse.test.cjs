@@ -10,7 +10,8 @@ test('Openverse searches only reusable non-mature candidates through the fixed t
       if(url.pathname==='/v1/images/'){assert.equal(url.searchParams.get('q'),'cat reaction');assert.equal(url.searchParams.get('license'),'cc0,pdm');assert.equal(url.searchParams.get('mature'),'false');assert.equal(url.searchParams.get('page_size'),'20');assert.equal(options.redirect,'error');return Response.json({results:[
         {id,title:'Cat reaction',creator:'Open Artist',license:'cc0',license_url:'https://creativecommons.org/publicdomain/zero/1.0/',foreign_landing_url:landing,thumbnail:thumb,width:1200,height:800,mature:false},
         {id:'245e0b37-0577-416b-8d05-27c0b0bdde46',title:'Private host',creator:'Unsafe',license:'cc0',license_url:'https://creativecommons.org/publicdomain/zero/1.0/',foreign_landing_url:'https://127.0.0.1/private',thumbnail:API+'/v1/images/245e0b37-0577-416b-8d05-27c0b0bdde46/thumb/',width:800,height:800,mature:false},
-        {id:'345e0b37-0577-416b-8d05-27c0b0bdde46',title:'Wrong rights',license:'by',license_url:'https://creativecommons.org/licenses/by/4.0/',foreign_landing_url:'https://example.org/by',thumbnail:API+'/v1/images/345e0b37-0577-416b-8d05-27c0b0bdde46/thumb/',width:800,height:800,mature:false}
+        {id:'345e0b37-0577-416b-8d05-27c0b0bdde46',title:'Wrong rights',license:'by',license_url:'https://creativecommons.org/licenses/by/4.0/',foreign_landing_url:'https://example.org/by',thumbnail:API+'/v1/images/345e0b37-0577-416b-8d05-27c0b0bdde46/thumb/',width:800,height:800,mature:false},
+        {id:'445e0b37-0577-416b-8d05-27c0b0bdde46',title:'Prototype rights',license:'constructor',foreign_landing_url:'https://example.org/spoofed',thumbnail:API+'/v1/images/445e0b37-0577-416b-8d05-27c0b0bdde46/thumb/',width:800,height:800,mature:false}
       ]});}
       assert.equal(url.href,thumb);assert.equal(options.headers.Accept,'*/*');return new Response(image,{headers:{'Content-Type':'image/jpeg'}});
     }});

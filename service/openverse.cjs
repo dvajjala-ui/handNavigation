@@ -44,7 +44,7 @@ class OpenverseSearch extends ImgflipCatalog{
       let result;try{result=JSON.parse(await boundedText(response,2500000));}catch{throw new TaskError('Openverse returned invalid or oversized search metadata.');}
       if(!Array.isArray(result.results)||result.results.length>20)throw new TaskError('Openverse returned an unexpected search result.');
       for(const item of result.results){
-      const id=String(item?.id||'').toLowerCase(),license=LICENSES[item?.license],landing=publicLanding(item?.foreign_landing_url),thumb=thumbUrl(item?.thumbnail,id);
+      const id=String(item?.id||'').toLowerCase(),license=Object.hasOwn(LICENSES,item?.license)?LICENSES[item.license]:null,landing=publicLanding(item?.foreign_landing_url),thumb=thumbUrl(item?.thumbnail,id);
       if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(id)||!license||item.license_url!==license.url||!landing||!thumb||this.history.has(landing)||seen.has(landing))continue;
       if(item.mature!==false||!Number.isInteger(item.width)||!Number.isInteger(item.height)||Math.min(item.width,item.height)<128)continue;
       seen.add(landing);const title=typeof item.title==='string'?item.title.trim().slice(0,160):'';
