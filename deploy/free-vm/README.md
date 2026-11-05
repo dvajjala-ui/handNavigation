@@ -27,12 +27,12 @@ This Docker deployment is a remote browser worker; Windows remains the desktop-a
 ```sh
 docker build -f deploy/free-vm/Dockerfile -t handnavigate-pinterest .
 mkdir -p "$HOME/handnavigate-results"
-# Give the container's unprivileged UID ownership of this newly created data folder.
-docker run --rm --shm-size=1g -v "$HOME/handnavigate-results:/data" handnavigate-pinterest \
+# Match the remote host user's UID/GID for the new bind-mounted result folder.
+docker run --rm --user "$(id -u):$(id -g)" --shm-size=1g -v "$HOME/handnavigate-results:/data" handnavigate-pinterest \
   --topic "nature landscape" --count 20 --output /data/pinterest-2026-11-05
 ```
 
-The host data folder must be writable by the image's `runner` user. Use a dedicated empty data folder with the corresponding UID; do not make an existing home or data tree world-writable. Each run needs a new empty output directory. The result folder contains `pictures/`, `result.json` and a public-page diagnostic screenshot. Browser runtime data is separate and should not be shared.
+The command runs as the remote host user's UID/GID so its newly created data folder stays writable without opening permissions to everyone. The image's default user is unprivileged UID 10001 when no override is supplied. Each run needs a new empty output directory. The result folder contains `pictures/`, `result.json` and a public-page diagnostic screenshot. Browser runtime data is separate and should not be shared. The repository's `.dockerignore` excludes local models, browser sessions, credentials, build output and dependencies from the Docker build context.
 
 Daily cron/systemd operation should be enabled only after that host returns `VERIFIED` with 20/20 images. A repeated identical source can exhaust fresh results; the current acceptance is one batch and does not establish multi-day fresh-image delivery. A date-stamped output path prevents overwriting earlier batches.
 

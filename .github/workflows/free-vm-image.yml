@@ -1,0 +1,24 @@
+name: Remote collector Linux image
+on:
+  workflow_dispatch:
+  push:
+    paths: ['deploy/free-vm/**', '.dockerignore', '.github/workflows/free-vm-image.yml']
+  pull_request:
+    paths: ['deploy/free-vm/**', '.dockerignore', '.github/workflows/free-vm-image.yml']
+permissions:
+  contents: read
+jobs:
+  linux-image:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-latest, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f deploy/free-vm/Dockerfile -t handnavigate-guest .
+      - name: Check CLI and real unprivileged Chromium without an external website
+        run: |
+          docker run --rm handnavigate-guest --help
+          docker run --rm --shm-size=1g --entrypoint python handnavigate-guest -c "from playwright.sync_api import sync_playwright; p=sync_playwright().start(); b=p.chromium.launch(headless=True); page=b.new_page(); page.set_content('<title>Owned remote-image check</title>'); assert page.title()=='Owned remote-image check'; b.close(); p.stop(); print('Unprivileged Chromium passed')"

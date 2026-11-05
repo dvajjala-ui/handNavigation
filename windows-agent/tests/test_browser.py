@@ -96,6 +96,15 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(result['status'],'OBSERVED',result)
         with self.assertRaises(ValueError):store.enable(task['id'],True)
 
+    def test_blocked_optional_iframe_does_not_fail_the_main_page(self):
+        with Browser(self.root,Policy(self.permissions),threading.Event(),headless=True) as browser:
+            browser.navigate(self.origin+'/task')
+            browser.page.evaluate('url=>{const f=document.createElement("iframe");f.src=url;document.body.append(f)}',self.outside_origin+'/optional-ad')
+            browser.page.wait_for_timeout(500)
+            browser.check()
+            self.assertFalse(self.outside_hits)
+            self.assertIsNone(browser.error)
+
     def test_fresh_scoped_result_verifies_and_old_result_does_not(self):
         class ClickingModel:
             count=0

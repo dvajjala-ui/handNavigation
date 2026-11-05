@@ -72,6 +72,7 @@ def main():
                 browser.collect(plan,images,set(),record)
             finally:
                 try:
+                    report['blocked_requests']=browser.blocked_requests
                     report['page']={'url':browser.page.url,'title':browser.page.title(),
                         'image_matches':browser.page.locator(plan.image_selector).count(),
                         'password_fields':browser.page.locator('input[type=password]').count(),
@@ -92,7 +93,7 @@ def main():
         # browser state are excluded from the workflow's artifact upload.
         for item in report['items']:item['file']='pictures/'+Path(item['file']).name
         save()
-    print(json.dumps({k:v for k,v in report.items() if k not in ('items','page')},indent=2),flush=True)
+    print(json.dumps({k:v for k,v in report.items() if k!='items'},indent=2),flush=True)
     raise SystemExit(0 if report['status']=='VERIFIED' else 2)
 
 

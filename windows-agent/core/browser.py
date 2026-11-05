@@ -26,7 +26,7 @@ DESCRIBE=r'''el => {
 class Browser:
     def __init__(self,folder,policy,cancel,headless=False,channel='chrome'):
         self.folder=Path(folder);self.policy=policy;self.cancel=cancel
-        self.headless=headless;self.channel=channel;self.changed=False;self.refs={};self.error=None
+        self.headless=headless;self.channel=channel;self.changed=False;self.refs={};self.error=None;self.blocked_requests=[]
         self.deadline=time.monotonic()+600
 
     def __enter__(self):
@@ -42,6 +42,7 @@ class Browser:
             self.page.on('dialog',lambda dialog:dialog.dismiss())
             # Request-stage CDP interception validates EVERY redirect hop.
             self.cdp=self.context.new_cdp_session(self.page)
+            self.main_frame_id=self.cdp.send('Page.getFrameTree')['frameTree']['frame']['id']
             self.cdp.on('Fetch.requestPaused',self.guard)
             self.cdp.send('Fetch.enable',{'patterns':[{'urlPattern':'*','requestStage':'Request'}]})
             self.page.on('download',lambda download:download.cancel())
@@ -84,8 +85,12 @@ class Browser:
                 raise PermissionError('Unsupported request scheme.')
             self.cdp.send('Fetch.continueRequest',{'requestId':event['requestId']})
         except Exception:
-            if event.get('resourceType')=='Document':
-                self.error='Navigation left saved website permissions.'
+            is_main=event.get('frameId')==self.main_frame_id
+            if len(self.blocked_requests)<100:
+                self.blocked_requests.append({'url':event['request']['url'].split('?')[0],
+                    'resource_type':event.get('resourceType'),'main_frame':is_main})
+            if event.get('resourceType')=='Document' and is_main:
+                self.error='Navigation left saved website permissions: '+event['request']['url'].split('?')[0]
             try:self.cdp.send('Fetch.failRequest',{'requestId':event['requestId'],'errorReason':'BlockedByClient'})
             except Exception:pass
 
