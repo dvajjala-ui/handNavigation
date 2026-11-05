@@ -19,7 +19,7 @@ from core.models import Permissions, Plan
 from core.policy import Policy, checked_path
 from handnavigate.transfer.files import image_metadata
 
-ORIGINS=['https://www.pinterest.com','https://in.pinterest.com','https://s.pinimg.com','https://s1.pinimg.com']
+ORIGINS=['https://www.pinterest.com','https://in.pinterest.com','https://s.pinimg.com','https://s1.pinimg.com','https://s2.pinimg.com']
 IMAGE_ORIGINS=['https://i.pinimg.com']
 
 
@@ -85,6 +85,8 @@ def main():
         page=report.get('page',{})
         if not report['items'] and (page.get('password_fields') or page.get('gated_images') or any(s in page.get('text','').lower() for s in ('log in','sign up','access denied','not for bots'))):
             report['status']='ACCESS_REQUIRED'
+        elif not report['items'] and any(r.get('resource_type')=='Script' and '.pinimg.com/' in r.get('url','') for r in report.get('blocked_requests',[])):
+            report['status']='SOURCE_CONFIGURATION_REQUIRED'
     except Exception as error:
         report['status']='CANCELLED' if cancel.is_set() else 'FAILED';report['error']=str(error)[:1000]
     finally:

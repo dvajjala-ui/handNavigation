@@ -34,7 +34,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m playwright install chrome
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Test guest Pinterest and its observed s1.pinimg.com app scripts
+      - name: Test guest Pinterest with its observed s1/s2 app-script CDNs
         shell: pwsh
         env:
           PINTEREST_TOPIC: ${{ inputs.topic || 'nature landscape' }}
