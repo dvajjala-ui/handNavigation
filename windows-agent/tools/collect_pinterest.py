@@ -10,7 +10,7 @@ import time
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT.parent)]
@@ -21,6 +21,16 @@ from handnavigate.transfer.files import image_metadata
 
 ORIGINS=['https://www.pinterest.com','https://in.pinterest.com','https://s.pinimg.com','https://s1.pinimg.com','https://s2.pinimg.com']
 IMAGE_ORIGINS=['https://i.pinimg.com']
+
+
+def source_url(topic,page_url=''):
+    if not page_url:
+        return 'https://www.pinterest.com/search/pins/?'+urlencode({'q':topic})
+    parsed=urlsplit(page_url)
+    if (parsed.scheme!='https' or parsed.netloc not in ('www.pinterest.com','in.pinterest.com')
+        or parsed.username or parsed.password or parsed.fragment or parsed.path in ('','/')):
+        raise ValueError('Choose an exact public HTTPS Pinterest page without credentials, ports or fragments.')
+    return page_url
 
 
 def verified_inventory(folder,items,expected):
@@ -41,6 +51,7 @@ def verified_inventory(folder,items,expected):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--topic',default='nature landscape')
+    parser.add_argument('--page-url',default='',help='An exact public Pinterest board/page; no login is attempted')
     parser.add_argument('--count',type=int,default=20,choices=range(1,21))
     parser.add_argument('--output',required=True)
     parser.add_argument('--channel',default='chrome')
@@ -48,22 +59,23 @@ def main():
     if not os.environ.get('GITHUB_ACTIONS') and os.environ.get('HANDNAVIGATE_REMOTE_RUNNER')!='1':
         parser.error('This acceptance target runs remotely. Set HANDNAVIGATE_REMOTE_RUNNER=1 on the chosen VM.')
     if not args.topic.strip() or len(args.topic)>200:parser.error('Topic must be 1–200 characters.')
+    try:url=source_url(args.topic,args.page_url)
+    except ValueError as error:parser.error(str(error))
     output=checked_path(args.output)
     output.mkdir(parents=True,exist_ok=True)
     if any(output.iterdir()):parser.error('Choose a new empty output folder for this run.')
     images=output/'pictures';images.mkdir()
     report={'checked_at':datetime.now(timezone.utc).isoformat(),'executor':platform.platform(),
             'remote':True,'github_run':os.environ.get('GITHUB_RUN_ID'),'topic':args.topic,'requested':args.count,
-            'login_used':False,'upload_used':False,'source':'Pinterest guest browser','status':'RUNNING','items':[]}
+            'login_used':False,'upload_used':False,'source':'Pinterest guest browser','source_url':url,'status':'RUNNING','items':[]}
     report_file=output/'result.json'
     def save():report_file.write_text(json.dumps(report,indent=2),encoding='utf-8')
     save();cancel=threading.Event();timer=threading.Timer(240,cancel.set);timer.start()
     started=time.monotonic()
     try:
         policy=Policy(Permissions(browser_origins=ORIGINS,image_origins=IMAGE_ORIGINS))
-        url='https://www.pinterest.com/search/pins/?'+urlencode({'q':args.topic})
         plan=Plan(name='Pinterest guest collection',instruction='Download public Pinterest images into the chosen folder',
-                  kind='images',start_url=url,image_selector='a[href*="/pin/"] img',max_items=args.count)
+                  kind='images',start_url=url,image_selector='a[href*="/pin/"] img:not([data-test-id="gated-pin-image"])',max_items=args.count)
         with Browser(output/'private-runtime',policy,cancel,headless=True,channel=args.channel) as browser:
             try:
                 def record(item):

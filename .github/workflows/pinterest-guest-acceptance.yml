@@ -7,6 +7,10 @@ on:
         description: Pinterest search topic
         required: true
         default: nature landscape
+      page_url:
+        description: Exact public Pinterest page (blank uses the public travel board)
+        required: false
+        default: https://www.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/
   push:
     paths: ['.github/workflows/pinterest-guest-acceptance.yml']
 
@@ -34,13 +38,14 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m playwright install chrome
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Test guest Pinterest with its observed s1/s2 app-script CDNs
+      - name: Test the public travel board without login or hidden/gated images
         shell: pwsh
         env:
           PINTEREST_TOPIC: ${{ inputs.topic || 'nature landscape' }}
+          PINTEREST_PAGE_URL: ${{ inputs.page_url || 'https://www.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/' }}
         run: |
           $output=Join-Path $env:RUNNER_TEMP 'pinterest-guest-result'
-          python windows-agent/tools/collect_pinterest.py --topic $env:PINTEREST_TOPIC --count 20 --output $output
+          python windows-agent/tools/collect_pinterest.py --topic $env:PINTEREST_TOPIC --page-url $env:PINTEREST_PAGE_URL --count 20 --output $output
           exit $LASTEXITCODE
       - name: Keep pictures, manifest and public-page diagnosis
         uses: actions/upload-artifact@v4

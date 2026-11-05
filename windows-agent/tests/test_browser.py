@@ -76,6 +76,13 @@ class BrowserTests(unittest.TestCase):
                 browser.perform(Action(action='click',ref=ref),'owned account')
             self.assertEqual(browser.page.locator('h1').inner_text(),'owned account')
 
+    def test_image_candidates_exclude_hidden_and_gated_elements(self):
+        with Browser(self.root,Policy(self.permissions),threading.Event(),headless=True) as browser:
+            browser.navigate(self.origin+'/task')
+            browser.page.set_content('<img src="/image/0"><img style="display:none" src="/image/1">'
+                '<div data-test-id="gated-pin-image"><img src="/image/2"></div>')
+            self.assertEqual(set(browser.candidates('img')),{self.origin+'/image/0'})
+
     def test_redirect_and_websocket_are_blocked_before_outside_request(self):
         with Browser(self.root,Policy(self.permissions),threading.Event(),headless=True) as browser:
             with self.assertRaises(Exception):browser.navigate(self.origin+'/redirect')

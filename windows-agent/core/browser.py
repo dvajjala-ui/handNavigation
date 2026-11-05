@@ -143,6 +143,7 @@ class Browser:
     def candidates(self,selector):
         return self.page.locator(selector).evaluate_all(r'''els => els.slice(0,300).flatMap(e=>{
           const i=e.tagName==='IMG'?e:e.querySelector('img');if(!i)return [];
+          if(!i.checkVisibility()||i.closest('[data-test-id="gated-pin-image"],[hidden],[aria-hidden="true"]'))return [];
           const urls=[i.currentSrc,i.src,...(i.srcset||'').split(',').map(s=>s.trim().split(/\s+/)[0])];
           const a=i.closest('a[href]');if(a&&/\.(png|jpe?g|webp)(\?|$)/i.test(a.href))urls.unshift(a.href);
           return urls.filter(u=>/^https?:/.test(u));})''')

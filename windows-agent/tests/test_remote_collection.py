@@ -9,12 +9,21 @@ from PIL import Image
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT.parent),str(ROOT/'tools')]
-from collect_pinterest import verified_inventory
+from collect_pinterest import verified_inventory, source_url
 from handnavigate.transfer.files import image_metadata
 from core.browser import LIMITS
 
 
 class RemoteCollectionTests(unittest.TestCase):
+    def test_public_page_override_stays_on_exact_pinterest_https_hosts(self):
+        board='https://www.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/'
+        self.assertEqual(source_url('nature landscape',board),board)
+        self.assertIn('q=nature+landscape',source_url('nature landscape'))
+        for url in ('http://www.pinterest.com/board/','https://www.pinterest.com.evil.test/board/',
+                    'https://user@www.pinterest.com/board/','https://www.pinterest.com:443/board/',
+                    'https://www.pinterest.com/board/#hidden','https://i.pinimg.com/image.png'):
+            with self.subTest(url=url),self.assertRaises(ValueError):source_url('nature',url)
+
     def test_saved_folder_requires_exact_count_and_decoded_matching_hashes(self):
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder);items=[]
