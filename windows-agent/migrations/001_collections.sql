@@ -10,13 +10,15 @@ create table if not exists public.collection_topics (
   enabled boolean not null default true
 );
 
-insert into public.collection_topics (key,label,pinterest_url,reddit_subreddit,pinterest_verified) values
- ('travel','Travel','https://in.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/','travel',true),
- ('nature','Nature','https://in.pinterest.com/search/pins/?q=nature%20landscape','EarthPorn',false),
- ('animals','Animals','https://in.pinterest.com/search/pins/?q=wildlife%20photography','aww',false),
- ('art','Art','https://in.pinterest.com/search/pins/?q=digital%20art','Art',false),
- ('food','Food','https://in.pinterest.com/search/pins/?q=food%20photography','FoodPorn',false),
- ('architecture','Architecture','https://in.pinterest.com/search/pins/?q=architecture%20photography','ArchitecturePorn',false)
+-- Sources start unverified. A topic becomes collectable only after
+-- tools/import_pinterest_collection.py accepts a real signed-in run for its exact URL.
+insert into public.collection_topics (key,label,pinterest_url,reddit_subreddit) values
+ ('travel','Travel','https://in.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/','travel'),
+ ('nature','Nature','https://in.pinterest.com/search/pins/?q=nature%20landscape','EarthPorn'),
+ ('animals','Animals','https://in.pinterest.com/search/pins/?q=wildlife%20photography','aww'),
+ ('art','Art','https://in.pinterest.com/search/pins/?q=digital%20art','Art'),
+ ('food','Food','https://in.pinterest.com/search/pins/?q=food%20photography','FoodPorn'),
+ ('architecture','Architecture','https://in.pinterest.com/search/pins/?q=architecture%20photography','ArchitecturePorn')
 on conflict (key) do nothing;
 
 create table if not exists public.collection_jobs (

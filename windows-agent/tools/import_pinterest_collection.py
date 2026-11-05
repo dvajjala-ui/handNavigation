@@ -40,8 +40,10 @@ def main():
         seen.add(meta['sha256']);verified.append((item,data))
     db=CollectionDB();db.ensure_bucket()
     with db.connect() as conn:
-        topic=conn.execute('select 1 from public.collection_topics where key=%s',(args.topic,)).fetchone()
+        topic=conn.execute('select pinterest_url from public.collection_topics where key=%s',(args.topic,)).fetchone()
         if not topic:parser.error('Unknown content topic.')
+        if topic['pinterest_url']!=page:
+            parser.error('The result URL is not the configured source for topic "'+args.topic+'".')
         run=conn.execute('''insert into public.collection_runs(source,topic_key,requested,status)
             values ('pinterest',%s,20,'RUNNING') returning id''',(args.topic,)).fetchone()
     run_id=str(run['id']);stored=0
@@ -51,10 +53,11 @@ def main():
             if not result['duplicate']:stored+=1
             print(json.dumps({'verified':len(seen),'stored':stored,'duplicate':result['duplicate']}),flush=True)
         db.finish_run(run_id,'VERIFIED',20,stored)
+        db.mark_verified(args.topic,page)
     except Exception as error:
         db.finish_run(run_id,'HALTED',20,stored,str(error)[:500]);raise
     print(json.dumps({'run_id':run_id,'status':'VERIFIED','source':'pinterest','topic':args.topic,
-        'verified':20,'new_rows':stored}),flush=True)
+        'new_rows':stored,'pinterest_verified':True}),flush=True)
 
 
 if __name__=='__main__':main()

@@ -152,6 +152,15 @@ class CollectionDB:
         if hashlib.sha256(data).hexdigest()!=row['sha256']:raise RuntimeError('Stored image failed hash verification.')
         return data,row['mime_type']
 
+    def mark_verified(self,topic_key,source_url):
+        """A topic only becomes collectable after a real run passed on that exact URL."""
+        with self.connect() as db:
+            row=db.execute('select pinterest_url from public.collection_topics where key=%s',(topic_key,)).fetchone()
+            if not row:raise ValueError('Unknown content topic.')
+            if row['pinterest_url']!=source_url:
+                raise ValueError('The verified result came from a different URL than the topic source.')
+            db.execute('update public.collection_topics set pinterest_verified=true where key=%s',(topic_key,))
+
     def create_job(self,body):
         source=body.get('source');topic=body.get('topic_key') or None
         random_topic=body.get('random_topic') is True
@@ -161,7 +170,8 @@ class CollectionDB:
             raise ValueError('Choose Pinterest or Reddit and 1–20 images.')
         if not isinstance(name,str) or not 1<=len(name)<=120 or not isinstance(daily_time,str) or not TIME.fullmatch(daily_time):
             raise ValueError('Enter a name and exact daily time (HH:MM).')
-        ZoneInfo(zone)
+        try:ZoneInfo(zone)
+        except Exception:raise ValueError('Choose a real time zone such as Asia/Kolkata.') from None
         if not random_topic and (not isinstance(topic,str) or not TOPIC.fullmatch(topic)):
             raise ValueError('Choose a content topic or random.')
         if source=='reddit':
