@@ -27,6 +27,8 @@ def call(route, body=None, token=None):
 
 
 def main():
+    count=int(sys.argv[1]) if len(sys.argv)>1 else 5
+    daily_time=sys.argv[2] if len(sys.argv)>2 else '09:00'
     token = re.search(r'name="agent-token" content="([^"]+)"',
                       urllib.request.urlopen(BASE + '/', timeout=30).read().decode()).group(1)
     state = call('state', token=token)
@@ -34,14 +36,15 @@ def main():
 
     library = call('collections', token=token)
     existing = [job for job in library['jobs'] if job['source'] == 'pinterest']
+    wanted = {'name': 'Daily Pinterest rotation', 'source': 'pinterest', 'random_topic': True,
+              'topic_key': None, 'image_count': count, 'daily_time': daily_time,
+              'timezone': 'Asia/Kolkata'}
     if existing:
         job_id = existing[0]['id']
-        print('reusing job', job_id, existing[0]['name'], flush=True)
+        print('updating job', job_id, 'to', count, 'images at', daily_time,
+              json.dumps(call('collection-job', {'id': job_id, **wanted}, token=token)), flush=True)
     else:
-        job_id = call('collection-jobs', {
-            'name': 'Daily Pinterest rotation', 'source': 'pinterest', 'random_topic': True,
-            'topic_key': None, 'image_count': 5, 'daily_time': '09:00', 'timezone': 'Asia/Kolkata'},
-            token=token)['id']
+        job_id = call('collection-jobs', wanted, token=token)['id']
         print('created job', job_id, flush=True)
 
     print('starting one real occurrence...', flush=True)

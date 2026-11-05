@@ -161,7 +161,8 @@ class CollectionDB:
                 raise ValueError('The verified result came from a different URL than the topic source.')
             db.execute('update public.collection_topics set pinterest_verified=true where key=%s',(topic_key,))
 
-    def create_job(self,body):
+    def _job_fields(self,body):
+        """Shared validation for creating and editing a schedule; nothing reaches SQL unless it passes."""
         source=body.get('source');topic=body.get('topic_key') or None
         random_topic=body.get('random_topic') is True
         count=body.get('image_count');daily_time=body.get('daily_time');zone=body.get('timezone','Asia/Kolkata')
@@ -174,16 +175,43 @@ class CollectionDB:
         except Exception:raise ValueError('Choose a real time zone such as Asia/Kolkata.') from None
         if not random_topic and (not isinstance(topic,str) or not TOPIC.fullmatch(topic)):
             raise ValueError('Choose a content topic or random.')
-        if source=='reddit':
+        return {'name':name,'source':source,'topic':None if random_topic else topic,
+                'random_topic':random_topic,'count':count,'daily_time':daily_time,'zone':zone}
+
+    def create_job(self,body):
+        fields=self._job_fields(body)
+        if fields['source']=='reddit':
             raise ValueError('Reddit collection requires approved OAuth access and a verified connector.')
         with self.connect() as db:
-            if topic and not db.execute('select 1 from public.collection_topics where key=%s and enabled',(topic,)).fetchone():
+            if fields['topic'] and not db.execute('select 1 from public.collection_topics where key=%s and enabled',
+                                                  (fields['topic'],)).fetchone():
                 raise ValueError('Topic is unavailable.')
             row=db.execute('''insert into public.collection_jobs
                 (name,source,topic_key,random_topic,image_count,daily_time,timezone)
                 values (%s,%s,%s,%s,%s,%s,%s) returning id''',
-                (name,source,None if random_topic else topic,random_topic,count,daily_time,zone)).fetchone()
+                (fields['name'],fields['source'],fields['topic'],fields['random_topic'],fields['count'],
+                 fields['daily_time'],fields['zone'])).fetchone()
         return str(row['id'])
+
+    def update_job(self,job_id,body):
+        """Change what a proven job collects; enabling still requires its own verified run."""
+        fields=self._job_fields(body)
+        with self.connect() as db:
+            job=db.execute('select id,enabled from public.collection_jobs where id=%s',(uuid.UUID(str(job_id)),)).fetchone()
+            if not job:raise ValueError('Job not found.')
+            if fields['source']=='reddit' and not db.execute(
+                    'select 1 from public.collection_topics where key=%s and reddit_verified',(fields['topic'],)).fetchone():
+                raise ValueError('That topic has no verified Reddit source yet.')
+            if fields['topic'] and not db.execute('select 1 from public.collection_topics where key=%s and enabled',
+                                                  (fields['topic'],)).fetchone():
+                raise ValueError('Topic is unavailable.')
+            db.execute('''update public.collection_jobs set name=%s,source=%s,topic_key=%s,random_topic=%s,
+                image_count=%s,daily_time=%s,timezone=%s where id=%s''',
+                (fields['name'],fields['source'],fields['topic'],fields['random_topic'],fields['count'],
+                 fields['daily_time'],fields['zone'],job['id']))
+        return {'id':str(job_id),**{'image_count':fields['count'],'daily_time':fields['daily_time'],
+                'source':fields['source'],'topic_key':fields['topic'],'random_topic':fields['random_topic'],
+                'name':fields['name'],'timezone':fields['zone']}}
 
     def set_enabled(self,job_id,enabled):
         with self.connect() as db:

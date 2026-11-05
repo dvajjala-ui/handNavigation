@@ -66,5 +66,13 @@ class CollectionRuleTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             db_without_connection().store_image('0'*32,'instagram','travel','https://x','https://y',b'not an image')
 
+    def test_editing_a_job_uses_the_same_bounds_and_fails_before_any_update(self):
+        db=db_without_connection()
+        base={'name':'Daily','source':'pinterest','topic_key':'travel','image_count':20,'daily_time':'09:00'}
+        for label,change in (('count above twenty',{'image_count':21}),('non-integer count',{'image_count':'20'}),
+                             ('time without minutes',{'daily_time':'0900'}),('name too long',{'name':'x'*121})):
+            with self.subTest(label=label),self.assertRaises(ValueError):db.update_job('0'*32,{**base,**change})
+        with self.assertRaises(AssertionError):db.update_job('0'*32,{**base,'image_count':3})
+
 
 if __name__=='__main__':unittest.main()

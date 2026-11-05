@@ -31,6 +31,10 @@ async function loadLibrary(force=false){
  $('collection-jobs').replaceChildren();
  for(const job of data.jobs){
   const card=row($('collection-jobs'),job.name,{source:job.source,topic:job.random_topic?'Verified topic rotation':job.topic_key,count:job.image_count,time:job.daily_time,timezone:job.timezone,enabled:job.enabled,id:job.id});
+  const count=document.createElement('input');count.type='number';count.min='1';count.max='20';count.value=job.image_count;
+  const at=document.createElement('input');at.type='time';at.value=job.daily_time.slice(0,5);
+  const editor=document.createElement('label');editor.append(document.createTextNode('Images per day '),count,document.createTextNode(' collected at '),at);card.append(editor);
+  button('Save schedule',async()=>{await api('collection-job',{id:job.id,name:job.name,source:job.source,topic_key:job.topic_key||'',random_topic:job.random_topic,image_count:Number(count.value),daily_time:at.value,timezone:job.timezone});await loadLibrary(true);},card);
   button('Run now',async()=>{await api('collection-run',{id:job.id});$('message').textContent='Collection started. Refresh the library to see its result.';},card);
   button(job.enabled?'Pause daily':'Enable daily',async()=>{await api('collection-schedule',{id:job.id,enabled:!job.enabled});await loadLibrary(true);},card);
  }

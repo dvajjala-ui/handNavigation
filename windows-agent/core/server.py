@@ -104,6 +104,8 @@ def create_server(store,runner,llm,port=47841,collections=None):
                     store.reconcile(body['id'],body['decision']);return self.send(200,{'reviewed':True})
                 if collections and route=='/api/collection-jobs':
                     return self.send(200,{'id':collections.db.create_job(body)})
+                if collections and route=='/api/collection-job':
+                    return self.send(200,collections.db.update_job(body['id'],body))
                 if collections and route=='/api/collection-run':
                     return self.send(202,collections.run_async(body['id']))
                 if collections and route=='/api/collection-schedule':
