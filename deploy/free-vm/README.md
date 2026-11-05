@@ -52,7 +52,7 @@ This VM is for the Pinterest browser trial. Its 952 MiB usable RAM is insufficie
 
 **Actual signed-in result: VERIFIED, 20/20 images in 103.19 seconds.** All twenty files were independently reopened and decoded on the VM, matched to the manifest and checked for distinct SHA-256 hashes. The folder is `/home/ubuntu/pinterest-results/2026-11-05-manual-01/pictures`. Total size: 593,886 bytes. They are advertised board previews, 236 pixels wide, not original-resolution downloads. [Sanitized evidence](../../windows-agent/evidence/oracle-pinterest.json). Images, the signed-in page screenshot, cookies and browser profile stayed on the VM.
 
-The application is running as the persistent user service `handnavigate-browser.service`, with linger enabled so it survives SSH disconnect. Its setup and saved browser session are on the VM. The UI listens only on `127.0.0.1:47841`; reach it through an SSH tunnel, not an open public app port. No real recurring task is enabled, and the local-model planning button needs a larger host with Ollama. Structured plans and browser tasks remain available.
+The application is running as the persistent user service `handnavigate-browser.service`, with linger enabled so it survives SSH disconnect. Its setup and saved browser session are on the VM. The UI listens only on `127.0.0.1:47841`; reach it through an SSH tunnel, not an open public app port. Since 5 November it also carries the Supabase credentials in `windows-agent/.env` and runs the real daily collection job described below. The local-model planning button still needs a larger host with Ollama. Structured plans and browser tasks remain available.
 
 ## One-time manual sign-in on the VM
 
@@ -93,4 +93,31 @@ systemctl --user enable --now handnavigate-browser.service
 sudo loginctl enable-linger "$USER"
 ```
 
-Never commit or upload the VM's `handnavigate-data`, SSH private keys, browser profiles or cookies. The daily schedule remains disabled until the actual source passes. Windows-only always-on hosting is not claimed to be perpetually free.
+## Storing results in Supabase and running the daily job
+
+Credentials live in the plain `windows-agent/.env` on this VM only, as the user requested. Git ignores that file; it was copied over SSH and is never committed, printed by the UI, or bundled into a Docker image. The keys are `SUPABASE_URL`, `SUPABASE_SECRET_KEY`, and `SUPABASE_DB_HOST/PORT/USER/PASSWORD/NAME`. `core/collections.py` refuses any URL that is not the exact configured project host and refuses a publishable key where a server secret is required.
+
+With the service installed, the sequence that was actually run:
+
+```sh
+# 1. Schema, private bucket, six topics.
+HANDNAVIGATE_REMOTE_RUNNER=1 windows-agent/.venv/bin/python -c "
+import sys; sys.path[:0]=['windows-agent','.']
+from core.collections import CollectionDB; CollectionDB().migrate()"
+
+# 2. One signed-in batch per topic, then import it. The import needs a
+#    result.json whose source_url is exactly the topic's configured URL.
+HANDNAVIGATE_REMOTE_RUNNER=1 windows-agent/.venv/bin/python \
+  windows-agent/tools/import_pinterest_collection.py \
+  --result /home/ubuntu/pinterest-results/2026-11-05-nature-01/result.json --topic nature
+
+# 3. Create the 09:00 job, run it once for real, enable it only on VERIFIED.
+windows-agent/.venv/bin/python deploy/free-vm/drive_schedule.py
+
+# 4. Re-download every stored object and compare hash and size.
+windows-agent/.venv/bin/python windows-agent/tools/verify_library.py
+```
+
+`drive_schedule.py` talks to the loopback API the same way the UI does — it reads the per-process session token from the page, then posts to `/api/collection-jobs`, `/api/collection-run` and `/api/collection-schedule`. Enable is refused unless that job has a `VERIFIED` run of its own, so the daily task cannot be switched on over a broken source. After enabling, the worker's own five-second tick claims the occurrence; nothing external schedules it.
+
+Never commit or upload the VM's `handnavigate-data`, `windows-agent/.env`, SSH private keys, browser profiles or cookies. Only topics that passed a real signed-in run are collectable, and a failed or partial run pauses its schedule. Windows-only always-on hosting is not claimed to be perpetually free.

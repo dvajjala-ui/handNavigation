@@ -1,0 +1,143 @@
+{
+  "checked_at": "2026-11-05T13:03:49.637526+00:00",
+  "row_counts": {
+    "collection_topics": 6,
+    "collection_jobs": 1,
+    "collection_runs": 4,
+    "collected_images": 50
+  },
+  "library": [
+    {
+      "source": "pinterest",
+      "topic_key": "nature",
+      "rendition": "preview",
+      "n": "30",
+      "bytes": "509684"
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "travel",
+      "rendition": "preview",
+      "n": "20",
+      "bytes": "593886"
+    }
+  ],
+  "runs": [
+    {
+      "source": "pinterest",
+      "topic_key": "nature",
+      "status": "VERIFIED",
+      "requested": "5",
+      "downloaded": "5",
+      "stored": "5",
+      "scheduled_date": "2026-11-05",
+      "started": "2026-11-05 12:56",
+      "error": ""
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "nature",
+      "status": "VERIFIED",
+      "requested": "5",
+      "downloaded": "5",
+      "stored": "5",
+      "scheduled_date": null,
+      "started": "2026-11-05 12:53",
+      "error": ""
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "nature",
+      "status": "VERIFIED",
+      "requested": "20",
+      "downloaded": "20",
+      "stored": "20",
+      "scheduled_date": null,
+      "started": "2026-11-05 12:51",
+      "error": ""
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "travel",
+      "status": "VERIFIED",
+      "requested": "20",
+      "downloaded": "20",
+      "stored": "20",
+      "scheduled_date": null,
+      "started": "2026-11-05 12:09",
+      "error": ""
+    }
+  ],
+  "jobs": [
+    {
+      "name": "Daily Pinterest rotation",
+      "source": "pinterest",
+      "topic": "<random>",
+      "random_topic": "True",
+      "image_count": "5",
+      "at": "09:00",
+      "timezone": "Asia/Kolkata",
+      "enabled": "True"
+    }
+  ],
+  "topics": [
+    {
+      "key": "animals",
+      "label": "Animals",
+      "pinterest_verified": "False",
+      "enabled": "True"
+    },
+    {
+      "key": "architecture",
+      "label": "Architecture",
+      "pinterest_verified": "False",
+      "enabled": "True"
+    },
+    {
+      "key": "art",
+      "label": "Art",
+      "pinterest_verified": "False",
+      "enabled": "True"
+    },
+    {
+      "key": "food",
+      "label": "Food",
+      "pinterest_verified": "False",
+      "enabled": "True"
+    },
+    {
+      "key": "nature",
+      "label": "Nature",
+      "pinterest_verified": "True",
+      "enabled": "True"
+    },
+    {
+      "key": "travel",
+      "label": "Travel",
+      "pinterest_verified": "True",
+      "enabled": "True"
+    }
+  ],
+  "row_level_security": {
+    "collection_runs": true,
+    "collected_images": true,
+    "collection_topics": true,
+    "collection_jobs": true
+  },
+  "anon_or_authenticated_grants": [],
+  "bucket": {
+    "id": "handnavigate-images",
+    "public": false,
+    "file_size_limit": 26214400,
+    "allowed_mime_types": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ]
+  },
+  "storage_top_level": [
+    "pinterest"
+  ],
+  "read_back_verified": 50,
+  "read_back_expected": 50
+}

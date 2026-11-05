@@ -32,7 +32,19 @@ The GitHub Windows acceptance VM loaded Pinterest search and a public travel boa
 
 The user then authorized one-time manual Pinterest login. An Oracle Free Tier Mumbai A1 request (2 OCPU / 12 GB) failed for lack of capacity. After explicit user selection, a free E2.1.Micro browser VM (1 GB, Ubuntu 24.04 Minimal) was created and accepted SSH. The user signed in on the VM through a temporary loopback screen tunneled over SSH. The core collector then returned **VERIFIED, 20/20 in 103.19 seconds**. An independent VM-side read fully decoded all files, compared the exact folder to the manifest and verified twenty distinct hashes. These are 236-pixel-wide previews, not original-resolution images. [Sanitized measured result](evidence/oracle-pinterest.json).
 
-The temporary login processes were closed. The core application now runs as a persistent unprivileged systemd user service with saved setup/profile and a loopback-only UI. No real recurring task is enabled. The small VM does not host the recommended 4B model. [Deployment and reconnect guide](../deploy/free-vm/README.md).
+The temporary login processes were closed. The core application runs as a persistent unprivileged systemd user service with saved setup/profile and a loopback-only UI. The small VM does not host the recommended 4B model. [Deployment and reconnect guide](../deploy/free-vm/README.md).
+
+## Private Supabase image library and the live daily schedule
+
+The `stickerly` project now holds the collected images. [001_collections.sql](migrations/001_collections.sql) creates four tables (`collection_topics`, `collection_jobs`, `collection_runs`, `collected_images`), turns on row-level security for all four, and revokes every anonymous and authenticated grant, so only the worker's Postgres role can read them. Bytes go to a private `handnavigate-images` bucket (JPEG/PNG/WebP only, 25 MiB ceiling); the code refuses to reuse the bucket if it is ever public. The database row stores the path plus hash, size and pixel dimensions, never the image.
+
+Measured on 5 November with [tools/verify_library.py](tools/verify_library.py) — see [the sanitized report](evidence/supabase-library.json): every stored row was re-downloaded through authenticated Storage and matched its recorded SHA-256 and byte count. No row is claimed without the object existing in the bucket.
+
+A topic only becomes collectable after a real signed-in run passes on its exact configured URL; [tools/import_pinterest_collection.py](tools/import_pinterest_collection.py) calls `mark_verified` only for a `VERIFIED` batch whose source URL equals the stored one, and the migration seeds every source as unverified. Travel and Nature earned that flag this way. The other four topics are visible but rejected by the runner until they pass, so nothing is claimed for a source that has not been read.
+
+The daily job **Daily Pinterest rotation** is live on the VM: random verified topic, 5 images, `09:00` `Asia/Kolkata`, `enabled=true`. Two occurrences ran unattended through the worker's own scheduler tick — one triggered by the driver and the catch-up occurrence claimed for the local date, both `VERIFIED, 5/5` stored with per-image read-back. `enabled` is only settable after that job's own run reaches `VERIFIED`, and a `PARTIAL`, `HALTED` or crashed run pauses it instead of retrying in a loop.
+
+The suite is 35 tests, all passing locally (2 skipped). Reddit stays off: no Reddit row exists, `create_job` refuses the source before touching the database, and the coordinator raises before opening a browser, because automated Reddit collection needs an approved OAuth client rather than a saved browser login.
 
 The separate [x64 and Arm container checks](https://github.com/dvajjala-ui/handNavigation/actions/runs/42009765486) built the Linux image and started Chromium as an unprivileged user. Those checks establish browser/container startup, not real Pinterest access or Oracle performance. GitHub Actions is used only for bounded software tests, not a production personal automation service.
 
