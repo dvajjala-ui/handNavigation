@@ -24,6 +24,7 @@ def main():
     parser.add_argument('--model',default='qwen3.5:4b')
     parser.add_argument('--output',default=str(ROOT/'evidence'/'local-model.json'))
     parser.add_argument('--skip-browser',action='store_true')
+    parser.add_argument('--include-instagram-syntax',action='store_true',help='Parser-only legacy case; no account access')
     args=parser.parse_args()
     llm=Ollama(args.model)
     report={'checked_at':datetime.now(timezone.utc).isoformat(),'model':args.model,
@@ -92,7 +93,7 @@ def main():
                 require(plan.kind=='instagram_like_own' and plan.start_url=='https://www.instagram.com/agent_acceptance_demo/' and plan.account_marker=='agent_acceptance_demo','Wrong own-profile task')
                 require(plan.max_items==5 and plan.schedule is not None and plan.schedule.time=='20:00','Wrong like count or schedule')
                 return {'plan':plan.model_dump(),'execution':'not executed; parser acceptance only, no Instagram request'}
-            check('own_profile_instruction_parsing_only',instagram)
+            if args.include_instagram_syntax:check('own_profile_instruction_parsing_only',instagram)
             if not args.skip_browser:
                 def browser():
                     instruction=f'Open {fixture.origin}/task, verify the visible account text owned account, and click Save. The goal is to save the owned item. The exact result selector is #result and the expected new text is done. Run once now, no schedule, at most 6 browser actions.'
