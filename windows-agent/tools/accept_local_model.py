@@ -39,7 +39,8 @@ def main():
             data=operation()
             result={'name':name,'passed':True,'seconds':round(time.monotonic()-started,2),'metrics':dict(llm.last_metrics),**data}
         except Exception as error:
-            result={'name':name,'passed':False,'seconds':round(time.monotonic()-started,2),'error':str(error)}
+            result={'name':name,'passed':False,'seconds':round(time.monotonic()-started,2),'error':str(error),
+                    'observed_output':llm.last_output,'metrics':dict(llm.last_metrics)}
         report['checks'].append(result);save()
         print(json.dumps(result),flush=True)
     def require(condition,message):

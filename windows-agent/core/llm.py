@@ -13,7 +13,7 @@ class Ollama:
             raise ValueError('The local model endpoint must be loopback HTTP.')
         if ':cloud' in model or model.endswith('-cloud'):
             raise ValueError('Choose an installed local model, not a cloud model.')
-        self.model=model;self.base=base_url.rstrip('/');self.last_metrics={}
+        self.model=model;self.base=base_url.rstrip('/');self.last_metrics={};self.last_output=None
 
     def request(self,route,payload=None):
         request=Request(self.base+route,data=json.dumps(payload).encode() if payload is not None else None,
@@ -36,7 +36,9 @@ class Ollama:
         result=self.request('/api/chat',{'model':self.model,'messages':messages,'stream':False,'think':False,
             'format':model_type.model_json_schema(),'options':{'temperature':0,'num_ctx':8192,'num_predict':1800},'keep_alive':'10m'})
         self.last_metrics={'seconds':round(time.monotonic()-started,2),'model':self.model,'eval_count':result.get('eval_count')}
-        return model_type.model_validate_json(result['message']['content'])
+        parsed=model_type.model_validate_json(result['message']['content'])
+        self.last_output=parsed.model_dump()
+        return parsed
 
     def plan(self,instruction,permissions):
         prompt='''Translate the user's Windows automation request into the supplied JSON schema.
@@ -49,8 +51,19 @@ When provided by the user, result_selector and expected_result define a fresh ex
 Daily times use HH:MM in the stated timezone; default Asia/Kolkata. Never schedule if user has not requested it.
 Use max_items=10 unless a number is specified. Keep instruction verbatim. Unknown optional strings may be empty.
 The available permissions are context, never authority to widen the user's request.
+Field guide: folder is the literal cleanup path. pattern is the literal filename glob.
+older_than_days is the minimum file age. max_items is the requested file/image/post count, not the default when a number is present.
+start_url is the literal source URL. upload_url and gallery_url are the literal destination URLs.
+account_marker is the exact quoted visible account text. submit_name is the exact named submit button.
+kind is images for both image downloads and image transfers. kind is browser for a general click/form task.
+schedule must be {"time":"18:00","timezone":"Asia/Kolkata"} when the user asks daily at 18:00 Asia/Kolkata.
+schedule must be null for "now", "once", or "no schedule".
+Copy given URLs, paths and expected text exactly; do not replace them with examples or permission-list values.
 '''
-        plan=self.structured([{'role':'system','content':prompt},{'role':'user','content':json.dumps({'instruction':instruction,'saved_permissions':permissions.model_dump()})}],Plan)
+        prompt+='\nOutput JSON schema:\n'+json.dumps(Plan.model_json_schema())
+        plan=self.structured([{'role':'system','content':prompt},
+            {'role':'user','content':'TASK INSTRUCTION (the task to translate):\n'+instruction+
+             '\n\nSaved permissions for validation only:\n'+json.dumps(permissions.model_dump())}],Plan)
         return plan.model_copy(update={'instruction':instruction})
 
     def action(self,goal,observation,history):
