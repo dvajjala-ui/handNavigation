@@ -16,3 +16,48 @@ $('plan').onclick=()=>run($('plan'),async()=>{$('message').textContent='Local mo
 $('save-task').onclick=()=>run($('save-task'),async()=>{const result=await api('save',{plan:JSON.parse($('draft').value)});$('message').textContent='Task saved: '+result.id;});
 $('stop').onclick=()=>run($('stop'),()=>api('stop',{}));
 refresh().catch(e=>$('message').textContent=e.message);setInterval(()=>refresh().catch(e=>$('status').textContent=e.message),3000);
+let libraryKey='',imageUrls=[];
+async function loadLibrary(force=false){
+ const source=$('library-source').value,topic=$('library-topic').value;
+ let data;
+ try{data=await api('collections?source='+encodeURIComponent(source)+'&topic='+encodeURIComponent(topic));}
+ catch(e){$('library-summary').textContent='Library unavailable: '+e.message;return;}
+ const selected=$('library-topic').value,jobSelected=$('collection-topic').value;
+ $('library-topic').replaceChildren(new Option('All content',''));
+ $('collection-topic').replaceChildren();
+ for(const option of data.topics){$('library-topic').add(new Option(option.label,option.key));$('collection-topic').add(new Option(option.label+(option.pinterest_verified?'':' · unverified Pinterest source'),option.key));}
+ $('library-topic').value=selected;$('collection-topic').value=jobSelected||'travel';
+ $('library-summary').textContent=data.images.length+' shown · '+data.counts.map(x=>x.source+' / '+x.topic_key+': '+x.count).join(' · ');
+ $('collection-jobs').replaceChildren();
+ for(const job of data.jobs){
+  const card=row($('collection-jobs'),job.name,{source:job.source,topic:job.random_topic?'Verified topic rotation':job.topic_key,count:job.image_count,time:job.daily_time,timezone:job.timezone,enabled:job.enabled,id:job.id});
+  button('Run now',async()=>{await api('collection-run',{id:job.id});$('message').textContent='Collection started. Refresh the library to see its result.';},card);
+  button(job.enabled?'Pause daily':'Enable daily',async()=>{await api('collection-schedule',{id:job.id,enabled:!job.enabled});await loadLibrary(true);},card);
+ }
+ $('collection-runs').replaceChildren();
+ for(const entry of data.runs){row($('collection-runs'),entry.status+' · '+entry.started_at,{source:entry.source,topic:entry.topic_key,requested:entry.requested,downloaded:entry.downloaded,stored:entry.stored,error:entry.error});}
+ const key=source+'|'+topic+'|'+data.images.map(x=>x.id).join(',');
+ if(!force&&key===libraryKey)return;
+ libraryKey=key;for(const old of imageUrls)URL.revokeObjectURL(old);imageUrls=[];$('gallery').replaceChildren();
+ for(const item of data.images.slice(0,40)){
+  const figure=document.createElement('figure'),img=document.createElement('img'),caption=document.createElement('figcaption'),link=document.createElement('a');
+  img.alt=item.topic_key+' image from '+item.source;img.loading='lazy';
+  link.href=item.source_page_url;link.target='_blank';link.rel='noopener noreferrer';link.textContent=item.source+' · '+item.topic_key;
+  caption.append(link,document.createTextNode(' · '+item.width+'×'+item.height+' · '+item.rendition));
+  figure.append(img,caption);$('gallery').append(figure);
+  try{const response=await fetch('/api/collection-image/'+encodeURIComponent(item.id),{headers:{'X-Agent-Token':token}});
+      if(!response.ok)throw Error('Image unavailable');const url=URL.createObjectURL(await response.blob());imageUrls.push(url);img.src=url;
+  }catch(e){img.alt='Image failed verification';}
+ }
+}
+$('refresh-library').onclick=()=>run($('refresh-library'),()=>loadLibrary(true));
+$('library-source').onchange=()=>loadLibrary(true);
+$('library-topic').onchange=()=>loadLibrary(true);
+$('create-collection-job').onclick=()=>run($('create-collection-job'),async()=>{
+ const body={name:$('collection-name').value,source:$('collection-source').value,
+  topic_key:$('collection-topic').value,random_topic:$('collection-random').checked,
+  image_count:Number($('collection-count').value),daily_time:$('collection-time').value,timezone:'Asia/Kolkata'};
+ const result=await api('collection-jobs',body);$('message').textContent='Collection job saved, paused: '+result.id;await loadLibrary(true);
+});
+loadLibrary().catch(e=>$('library-summary').textContent=e.message);
+setInterval(()=>loadLibrary().catch(()=>{}),30000);

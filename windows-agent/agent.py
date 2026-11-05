@@ -57,11 +57,19 @@ def main():
                 browser.close()
             return
         from core.server import create_server
-        server=create_server(store,runner,llm,args.port)
+        collections=None
+        if (ROOT/'.env').exists() or os.environ.get('SUPABASE_URL'):
+            from core.collections import CollectionDB, CollectionCoordinator
+            collection_db=CollectionDB()
+            collection_db.recover()
+            collections=CollectionCoordinator(collection_db,runner,store,args.channel)
+        server=create_server(store,runner,llm,args.port,collections)
         stopped=threading.Event()
         def schedule_loop():
             while not stopped.wait(5):
-                try:runner.tick()
+                try:
+                    runner.tick()
+                    if collections:collections.tick()
                 except Exception as error:store.event(None,{'scheduler_error':str(error)})
         scheduler=threading.Thread(target=schedule_loop,daemon=True);scheduler.start()
         print('Open http://127.0.0.1:'+str(server.server_port),flush=True)

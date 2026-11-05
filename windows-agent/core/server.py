@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from .models import Permissions, Plan
 
 
-def create_server(store,runner,llm,port=47841):
+def create_server(store,runner,llm,port=47841,collections=None):
     token=secrets.token_urlsafe(32)
     drafts={};draft_lock=threading.Lock()
     ui=Path(__file__).parent.parent/'ui'
@@ -21,7 +21,7 @@ def create_server(store,runner,llm,port=47841):
             self.send_response(status);self.send_header('Content-Type',content_type)
             self.send_header('Content-Length',str(len(data)));self.send_header('Cache-Control','no-store')
             self.send_header('X-Content-Type-Options','nosniff')
-            self.send_header('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'")
+            self.send_header('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data: blob:; frame-ancestors 'none'; base-uri 'none'")
             self.end_headers();self.wfile.write(data)
 
         def host_ok(self):
@@ -29,7 +29,7 @@ def create_server(store,runner,llm,port=47841):
 
         def do_GET(self):
             if not self.host_ok():return self.send(403,{'error':'Use the exact loopback address.'})
-            route=urlsplit(self.path).path
+            parsed=urlsplit(self.path);route=parsed.path
             if route in ('/','/app.js','/style.css'):
                 name={'/':'index.html','/app.js':'app.js','/style.css':'style.css'}[route]
                 data=(ui/name).read_bytes().replace(b'__SESSION_TOKEN__',token.encode())
@@ -39,6 +39,16 @@ def create_server(store,runner,llm,port=47841):
             if route=='/api/model':
                 try:return self.send(200,llm.health())
                 except Exception as error:return self.send(503,{'error':str(error)})
+            if collections and route=='/api/collections':
+                from urllib.parse import parse_qs
+                args=parse_qs(parsed.query)
+                try:return self.send(200,collections.db.list_library(args.get('source',[''])[0],args.get('topic',[''])[0]))
+                except Exception as error:return self.send(503,{'error':str(error)[:300]})
+            if collections and route.startswith('/api/collection-image/'):
+                try:
+                    data,mime=collections.db.image_bytes(route.rsplit('/',1)[-1])
+                    return self.send(200,data,mime)
+                except Exception as error:return self.send(404,{'error':str(error)[:300]})
             return self.send(404,{'error':'Not found.'})
 
         def do_POST(self):
@@ -92,6 +102,13 @@ def create_server(store,runner,llm,port=47841):
                 if route=='/api/reconcile':
                     if runner.busy.locked():raise ValueError('Wait for the active task.')
                     store.reconcile(body['id'],body['decision']);return self.send(200,{'reviewed':True})
+                if collections and route=='/api/collection-jobs':
+                    return self.send(200,{'id':collections.db.create_job(body)})
+                if collections and route=='/api/collection-run':
+                    return self.send(202,collections.run_async(body['id']))
+                if collections and route=='/api/collection-schedule':
+                    collections.db.set_enabled(body['id'],body['enabled'] is True)
+                    return self.send(200,{'saved':True})
                 return self.send(404,{'error':'Not found.'})
             except Exception as error:return self.send(409,{'error':str(error)})
     server=ThreadingHTTPServer(('127.0.0.1',port),Handler)
