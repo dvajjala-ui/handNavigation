@@ -1,0 +1,63 @@
+name: Remote Pinterest guest acceptance
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: Pinterest search topic
+        required: true
+        default: nature landscape
+  push:
+    paths: ['.github/workflows/pinterest-guest-acceptance.yml']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pinterest-guest-acceptance
+  cancel-in-progress: false
+
+jobs:
+  guest-collection:
+    if: github.repository_visibility == 'public'
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install collector dependencies
+        shell: pwsh
+        run: |
+          python -m pip install -r windows-agent/requirements.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m playwright install chrome
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Test guest Pinterest download on this actual remote host
+        shell: pwsh
+        env:
+          PINTEREST_TOPIC: ${{ inputs.topic || 'nature landscape' }}
+        run: |
+          $output=Join-Path $env:RUNNER_TEMP 'pinterest-guest-result'
+          python windows-agent/tools/collect_pinterest.py --topic $env:PINTEREST_TOPIC --count 20 --output $output
+          exit $LASTEXITCODE
+      - name: Keep pictures, manifest and public-page diagnosis
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pinterest-guest-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/pinterest-guest-result/pictures/**
+            ${{ runner.temp }}/pinterest-guest-result/result.json
+            ${{ runner.temp }}/pinterest-guest-result/page.png
+          retention-days: 1
+      - name: Record the honest acceptance result
+        if: always()
+        shell: pwsh
+        run: |
+          $file=Join-Path $env:RUNNER_TEMP 'pinterest-guest-result/result.json'
+          if (Test-Path -LiteralPath $file) {
+            $result=Get-Content -LiteralPath $file -Raw | ConvertFrom-Json
+            "Pinterest guest acceptance: $($result.status), $($result.downloaded)/$($result.requested) decoded images. No login or upload." | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append
+          }
