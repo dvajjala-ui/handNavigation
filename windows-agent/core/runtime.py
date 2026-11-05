@@ -138,6 +138,12 @@ class Runner:
                             return output.count()==1 and output.is_visible() and output.inner_text().strip()==plan.expected_result
                         already_matched=output_matches()
                         for _ in range(plan.max_steps):
+                            browser.check()
+                            if history and not already_matched and output_matches():
+                                browser.account(plan.account_marker)
+                                result={'status':'VERIFIED','message':'Configured result appeared after a browser action.',
+                                    'verification':'Fresh exact text at the configured result element'}
+                                break
                             self.check();observation=browser.observe()
                             action=self.llm.action(plan.goal,observation,history)
                             self.store.event(run['id'],{'action':action.model_dump(),'url':observation['url']})
@@ -147,6 +153,14 @@ class Runner:
                                     'verification':'Fresh exact text at the configured result element' if verified else 'Model report and page observation; no independent completion verifier passed'}
                                 break
                             browser.perform(action,plan.account_marker);history.append(action.model_dump())
+                            # Verify even the last permitted action before asking the
+                            # model to act again or declaring budget exhaustion.
+                            browser.check()
+                            if not already_matched and output_matches():
+                                browser.account(plan.account_marker)
+                                result={'status':'VERIFIED','message':'Configured result appeared after a browser action.',
+                                    'verification':'Fresh exact text at the configured result element'}
+                                break
                         else:raise RuntimeError('Browser agent reached its action budget.')
             self.store.finish(run['id'],result['status'],result)
             return {'id':run['id'],**result}

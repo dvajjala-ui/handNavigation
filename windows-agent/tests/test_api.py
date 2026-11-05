@@ -50,4 +50,8 @@ class ApiTests(unittest.TestCase):
             result=llm.plan('Delete files',Permissions())
             self.assertEqual(result.instruction,'Delete files');self.assertTrue(result.missing_information)
             self.assertIn('properties',seen[0]['format']);self.assertFalse(seen[0]['stream'])
+            invalid={'name':'Bad model output','instruction':'Delete files','kind':'cleanup','folder':'','pattern':'/placeholder','missing_information':['folder']}
+            llm.request=lambda *_:{'message':{'content':json.dumps(invalid)}}
+            with self.assertRaises(ValueError):llm.plan('Delete files',Permissions())
+            self.assertEqual(json.loads(llm.last_output),invalid,'Failure evidence must show this response, not the prior plan')
         finally:server.shutdown();server.server_close()

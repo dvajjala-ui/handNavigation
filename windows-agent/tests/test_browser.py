@@ -116,10 +116,10 @@ class BrowserTests(unittest.TestCase):
         class ClickingModel:
             count=0
             def action(self,goal,observation,history):
-                if not history:return Action(action='click',ref=next(c['ref'] for c in observation['controls'] if c['name']=='Save'))
-                return Action(action='finish',evidence='New result visible')
+                if history:raise AssertionError('The verified result must stop the model before a repeated click')
+                return Action(action='click',ref=next(c['ref'] for c in observation['controls'] if c['name']=='Save'))
         store=Store(self.root/'state');store.set_setting('permissions',self.permissions.model_dump())
-        plan=Plan(name='Fresh output',instruction='Save owned item',kind='browser',start_url=self.origin+'/task',goal='Save',account_marker='owned account',result_selector='#result',expected_result='done')
+        plan=Plan(name='Fresh output',instruction='Save owned item',kind='browser',start_url=self.origin+'/task',goal='Save',account_marker='owned account',result_selector='#result',expected_result='done',max_steps=1)
         task=store.save(plan);result=Runner(store,ClickingModel(),headless=True).run(task['id'])
         self.assertEqual(result['status'],'VERIFIED',result)
         class FinishModel:

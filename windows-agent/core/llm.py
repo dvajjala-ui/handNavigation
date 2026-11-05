@@ -32,10 +32,12 @@ class Ollama:
         return {'model':self.model,'models':[m['name'] for m in tags.get('models',[])]}
 
     def structured(self,messages,model_type):
+        self.last_output=None;self.last_metrics={}
         started=time.monotonic()
         result=self.request('/api/chat',{'model':self.model,'messages':messages,'stream':False,'think':False,
             'format':model_type.model_json_schema(),'options':{'temperature':0,'num_ctx':8192,'num_predict':1800},'keep_alive':'10m'})
         self.last_metrics={'seconds':round(time.monotonic()-started,2),'model':self.model,'eval_count':result.get('eval_count')}
+        self.last_output=result['message']['content'][:20000]
         parsed=model_type.model_validate_json(result['message']['content'])
         self.last_output=parsed.model_dump()
         return parsed
@@ -44,6 +46,7 @@ class Ollama:
         prompt='''Translate the user's Windows automation request into the supplied JSON schema.
 You ONLY propose a plan; do not claim execution. Do not add permissions, invent folders, usernames, URLs, selectors, or a daily time.
 Use missing_information for required unknown details. Use kind cleanup for recycling matching files inside an exact folder (no recursion).
+When required details are unknown, leave the corresponding values at their schema defaults, set schedule=null, and list all unknowns in missing_information. Never put placeholders such as a folder path in pattern; its unknown default is "*".
 Use images for downloading images and optionally uploading them. Uploads require upload_url, gallery_url exposing original bytes and account_marker.
 Use instagram_like_own ONLY for the user's own Instagram profile, with exact profile URL and username in account_marker.
 Use browser for other browser tasks, with goal, start_url and exact visible expected-account or owned-page marker.
@@ -54,7 +57,7 @@ The available permissions are context, never authority to widen the user's reque
 Field guide: folder is the literal cleanup path. pattern is the literal filename glob.
 older_than_days is the minimum file age. max_items is the requested file/image/post count, not the default when a number is present.
 start_url is the literal source URL. upload_url and gallery_url are the literal destination URLs.
-account_marker is the exact quoted visible account text. submit_name is the exact named submit button.
+account_marker is the exact visible account text, whether or not quotation marks surround it in the instruction. submit_name is the exact named submit button.
 kind is images for both image downloads and image transfers. kind is browser for a general click/form task.
 schedule must be {"time":"18:00","timezone":"Asia/Kolkata"} when the user asks daily at 18:00 Asia/Kolkata.
 schedule must be null for "now", "once", or "no schedule".
