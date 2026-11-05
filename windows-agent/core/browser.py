@@ -146,7 +146,9 @@ class Browser:
           if(!i.checkVisibility()||i.closest('[data-test-id="gated-pin-image"],[hidden],[aria-hidden="true"]'))return [];
           const urls=[i.currentSrc,i.src,...(i.srcset||'').split(',').map(s=>s.trim().split(/\s+/)[0])];
           const a=i.closest('a[href]');if(a&&/\.(png|jpe?g|webp)(\?|$)/i.test(a.href))urls.unshift(a.href);
-          return urls.filter(u=>/^https?:/.test(u));})''')
+          // One displayed image contributes one URL; srcset variants must not
+          // count as multiple pictures toward the requested collection count.
+          return urls.filter(u=>/^https?:/.test(u)).slice(0,1);})''')
 
     def read_image(self,url):
         self.check();self.policy.url(url,images=True)

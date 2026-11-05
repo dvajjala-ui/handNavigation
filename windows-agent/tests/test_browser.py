@@ -82,6 +82,8 @@ class BrowserTests(unittest.TestCase):
             browser.page.set_content('<img src="/image/0"><img style="display:none" src="/image/1">'
                 '<div data-test-id="gated-pin-image"><img src="/image/2"></div>')
             self.assertEqual(set(browser.candidates('img')),{self.origin+'/image/0'})
+            browser.page.set_content('<img src="/image/0" srcset="/image/1 180w, /image/2 360w">')
+            self.assertEqual(len(browser.candidates('img')),1,'One picture must not be counted again for each srcset resolution')
 
     def test_redirect_and_websocket_are_blocked_before_outside_request(self):
         with Browser(self.root,Policy(self.permissions),threading.Event(),headless=True) as browser:

@@ -50,3 +50,12 @@ class RemoteCollectionTests(unittest.TestCase):
             self.assertEqual(result.returncode,2)
             self.assertIn('runs remotely',result.stderr)
             self.assertFalse(any(Path(folder).iterdir()))
+
+    def test_manual_login_helper_refuses_local_execution_without_creating_profile(self):
+        with tempfile.TemporaryDirectory() as folder:
+            env={k:v for k,v in os.environ.items() if k!='HANDNAVIGATE_REMOTE_RUNNER'}
+            result=subprocess.run([sys.executable,str(ROOT/'tools'/'remote_login.py'),'--data',folder],
+                                  capture_output=True,text=True,env=env,timeout=15)
+            self.assertEqual(result.returncode,2)
+            self.assertIn('only on the chosen Linux VM',result.stderr)
+            self.assertFalse(any(Path(folder).iterdir()))

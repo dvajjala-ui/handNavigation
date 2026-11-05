@@ -1,4 +1,4 @@
-"""Guest Pinterest acceptance/VM collector. No login, alternate source or upload."""
+"""Remote Pinterest collector. Optional saved session; no alternate source or upload."""
 from __future__ import annotations
 import argparse
 import json
@@ -17,6 +17,7 @@ sys.path[:0]=[str(ROOT),str(ROOT.parent)]
 from core.browser import Browser, LIMITS
 from core.models import Permissions, Plan
 from core.policy import Policy, checked_path
+from core.runtime import ProcessLock
 from handnavigate.transfer.files import image_metadata
 
 ORIGINS=['https://www.pinterest.com','https://in.pinterest.com','https://s.pinimg.com','https://s1.pinimg.com','https://s2.pinimg.com']
@@ -52,6 +53,7 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--topic',default='nature landscape')
     parser.add_argument('--page-url',default='',help='An exact public Pinterest board/page; no login is attempted')
+    parser.add_argument('--profile-data',default='',help='Existing VM data folder after the user manually signs in; never exported')
     parser.add_argument('--count',type=int,default=20,choices=range(1,21))
     parser.add_argument('--output',required=True)
     parser.add_argument('--channel',default='chrome')
@@ -61,13 +63,16 @@ def main():
     if not args.topic.strip() or len(args.topic)>200:parser.error('Topic must be 1–200 characters.')
     try:url=source_url(args.topic,args.page_url)
     except ValueError as error:parser.error(str(error))
+    runtime=checked_path(args.profile_data) if args.profile_data else None
+    if runtime and not (runtime/'browser-profile').is_dir():parser.error('The chosen VM profile does not exist. Complete manual login first.')
     output=checked_path(args.output)
     output.mkdir(parents=True,exist_ok=True)
     if any(output.iterdir()):parser.error('Choose a new empty output folder for this run.')
     images=output/'pictures';images.mkdir()
     report={'checked_at':datetime.now(timezone.utc).isoformat(),'executor':platform.platform(),
             'remote':True,'github_run':os.environ.get('GITHUB_RUN_ID'),'topic':args.topic,'requested':args.count,
-            'login_used':False,'upload_used':False,'source':'Pinterest guest browser','source_url':url,'status':'RUNNING','items':[]}
+            'session_mode':'saved_profile' if runtime else 'guest','upload_used':False,
+            'source':'Pinterest browser','source_url':url,'status':'RUNNING','items':[]}
     report_file=output/'result.json'
     def save():report_file.write_text(json.dumps(report,indent=2),encoding='utf-8')
     save();cancel=threading.Event();timer=threading.Timer(240,cancel.set);timer.start()
@@ -76,7 +81,7 @@ def main():
         policy=Policy(Permissions(browser_origins=ORIGINS,image_origins=IMAGE_ORIGINS))
         plan=Plan(name='Pinterest guest collection',instruction='Download public Pinterest images into the chosen folder',
                   kind='images',start_url=url,image_selector='a[href*="/pin/"] img:not([data-test-id="gated-pin-image"])',max_items=args.count)
-        with Browser(output/'private-runtime',policy,cancel,headless=True,channel=args.channel) as browser:
+        with ProcessLock(runtime or output/'private-runtime'), Browser(runtime or output/'private-runtime',policy,cancel,headless=True,channel=args.channel) as browser:
             try:
                 def record(item):
                     report['items'].append(item);save()

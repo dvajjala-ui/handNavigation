@@ -5,12 +5,13 @@ $AgentPython=Join-Path $AgentRoot '.venv\Scripts\python.exe'
 if (-not (Test-Path -LiteralPath $AgentPython)) { $AgentPython=Join-Path (Split-Path $AgentRoot -Parent) '.venv\Scripts\python.exe' }
 if (-not (Test-Path -LiteralPath $AgentPython)) { throw 'Run Setup.ps1 first.' }
 $AgentOllama=Get-Command ollama -ErrorAction SilentlyContinue
-if (-not $AgentOllama) {
-    $AgentOllamaPath=Join-Path $env:LOCALAPPDATA 'Programs\Ollama\ollama.exe'
-    if (Test-Path -LiteralPath $AgentOllamaPath) { $AgentOllama=$AgentOllamaPath }
+foreach ($AgentCandidate in @((Join-Path $AgentRoot 'runtime\ollama\ollama.exe'),(Join-Path $env:LOCALAPPDATA 'Programs\Ollama\ollama.exe'))) {
+    if (-not $AgentOllama -and (Test-Path -LiteralPath $AgentCandidate)) { $AgentOllama=$AgentCandidate }
 }
 if ($AgentOllama) {
-    $env:OLLAMA_MODELS=Join-Path $AgentRoot 'runtime\models';$env:OLLAMA_NO_CLOUD='1'
+    $AgentConfiguredModels=[Environment]::GetEnvironmentVariable('OLLAMA_MODELS','User')
+    if (-not $env:OLLAMA_MODELS) { $env:OLLAMA_MODELS=if ($AgentConfiguredModels) { $AgentConfiguredModels } else { Join-Path $AgentRoot 'runtime\models' } }
+    $env:OLLAMA_NO_CLOUD='1'
     try { Invoke-RestMethod -Uri 'http://127.0.0.1:11434/api/tags' -TimeoutSec 2 | Out-Null }
     catch {
         $AgentOllamaExe=if ($AgentOllama -is [string]) { $AgentOllama } else { $AgentOllama.Source }
