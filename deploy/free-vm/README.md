@@ -120,4 +120,10 @@ windows-agent/.venv/bin/python windows-agent/tools/verify_library.py
 
 `drive_schedule.py` talks to the loopback API the same way the UI does — it reads the per-process session token from the page, then posts to `/api/collection-jobs`, `/api/collection-run` and `/api/collection-schedule`. Enable is refused unless that job has a `VERIFIED` run of its own, so the daily task cannot be switched on over a broken source. After enabling, the worker's own five-second tick claims the occurrence; nothing external schedules it.
 
+To widen the rotation, [earn-topics.sh](earn-topics.sh) runs the same collect-then-import pair for the four search-based topics in one pass, pausing the worker first because the saved browser profile belongs to whichever process is using it. It restarts the service and prints the resulting topic, library and job state.
+
+## Why the control page is not published
+
+The UI is the machine that holds the signed-in Pinterest profile, the Supabase secret key and the ability to run browser tasks, so it listens on loopback only and its write endpoints demand the per-process session token plus an exact `Host` and `Origin`. Public hosting would put a logged-in browser and the private library behind one URL; a port scan or a leaked tunnel token would be enough to drive it. The measured 129 images are reference-only Pinterest previews, so publishing the gallery would also republish other people's material without a licence decision. Browse the library through `ssh -N -L 127.0.0.1:47841:127.0.0.1:47841 ubuntu@VM_IP`, and if a shareable page is wanted later, build it as read-only with short-lived signed URLs and its own access control rather than exposing this service.
+
 Never commit or upload the VM's `handnavigate-data`, `windows-agent/.env`, SSH private keys, browser profiles or cookies. Only topics that passed a real signed-in run are collectable, and a failed or partial run pauses its schedule. Windows-only always-on hosting is not claimed to be perpetually free.

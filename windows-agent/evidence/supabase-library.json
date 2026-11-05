@@ -1,12 +1,40 @@
 {
-  "checked_at": "2026-11-05T13:03:49.637526+00:00",
+  "checked_at": "2026-11-05T13:22:30.093990+00:00",
   "row_counts": {
     "collection_topics": 6,
     "collection_jobs": 1,
-    "collection_runs": 4,
-    "collected_images": 50
+    "collection_runs": 8,
+    "collected_images": 129
   },
   "library": [
+    {
+      "source": "pinterest",
+      "topic_key": "animals",
+      "rendition": "preview",
+      "n": "19",
+      "bytes": "364193"
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "architecture",
+      "rendition": "preview",
+      "n": "20",
+      "bytes": "362777"
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "art",
+      "rendition": "preview",
+      "n": "20",
+      "bytes": "350277"
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "food",
+      "rendition": "preview",
+      "n": "20",
+      "bytes": "386549"
+    },
     {
       "source": "pinterest",
       "topic_key": "nature",
@@ -23,6 +51,50 @@
     }
   ],
   "runs": [
+    {
+      "source": "pinterest",
+      "topic_key": "architecture",
+      "status": "VERIFIED",
+      "requested": "20",
+      "downloaded": "20",
+      "stored": "20",
+      "scheduled_date": null,
+      "started": "2026-11-05 13:20",
+      "error": ""
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "food",
+      "status": "VERIFIED",
+      "requested": "20",
+      "downloaded": "20",
+      "stored": "20",
+      "scheduled_date": null,
+      "started": "2026-11-05 13:17",
+      "error": ""
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "art",
+      "status": "VERIFIED",
+      "requested": "20",
+      "downloaded": "20",
+      "stored": "20",
+      "scheduled_date": null,
+      "started": "2026-11-05 13:15",
+      "error": ""
+    },
+    {
+      "source": "pinterest",
+      "topic_key": "animals",
+      "status": "VERIFIED",
+      "requested": "20",
+      "downloaded": "20",
+      "stored": "19",
+      "scheduled_date": null,
+      "started": "2026-11-05 13:12",
+      "error": ""
+    },
     {
       "source": "pinterest",
       "topic_key": "nature",
@@ -84,25 +156,25 @@
     {
       "key": "animals",
       "label": "Animals",
-      "pinterest_verified": "False",
+      "pinterest_verified": "True",
       "enabled": "True"
     },
     {
       "key": "architecture",
       "label": "Architecture",
-      "pinterest_verified": "False",
+      "pinterest_verified": "True",
       "enabled": "True"
     },
     {
       "key": "art",
       "label": "Art",
-      "pinterest_verified": "False",
+      "pinterest_verified": "True",
       "enabled": "True"
     },
     {
       "key": "food",
       "label": "Food",
-      "pinterest_verified": "False",
+      "pinterest_verified": "True",
       "enabled": "True"
     },
     {
@@ -138,6 +210,6 @@
   "storage_top_level": [
     "pinterest"
   ],
-  "read_back_verified": 50,
-  "read_back_expected": 50
+  "read_back_verified": 129,
+  "read_back_expected": 129
 }
