@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="agent-token" content="__SESSION_TOKEN__"><title>HandNavigate Windows core</title><link rel="stylesheet" href="/style.css"></head>
+<body><header><h1>HandNavigate Windows core</h1><p>Local instructions, saved permissions, scheduled execution.</p><span id="status">Connecting…</span><button id="stop">Stop active task</button></header>
+<main><section><h2>1. Setup once</h2><p>Choose the folders, websites and actions this runner may use. Saved tasks reuse these permissions.</p>
+<label>Local Ollama model<input id="model" value="qwen3.5:4b"></label>
+<label>Cleanup folders — one absolute folder per line<textarea id="roots" placeholder="D:\MyTemporaryFiles"></textarea></label>
+<label>Website origins — one per line<textarea id="origins" placeholder="https://www.instagram.com"></textarea></label>
+<label>Additional image/CDN origins — one per line<textarea id="image-origins" placeholder="https://images.example.com"></textarea></label>
+<label class="check"><input type="checkbox" id="uploads">Allow file uploads</label><label class="check"><input type="checkbox" id="changes">Allow agent browser interactions</label><label class="check"><input type="checkbox" id="likes">Allow likes on my configured own Instagram profile</label>
+<button id="save-setup">Save setup</button><button id="check-model">Check local model</button><pre id="model-state"></pre></section>
+<section><h2>2. Give an instruction</h2><p>Include an exact folder or URL, expected account, count and daily time when needed.</p><textarea id="instruction" rows="5" placeholder="Every day at 18:00 recycle *.tmp files older than 7 days from D:\MyTemporaryFiles, at most 20 files."></textarea><button id="plan">Create plan with local model</button>
+<p>The plan is editable. Unknown details are listed rather than invented. You can also enter a structured task here directly.</p><textarea id="draft" rows="16" spellcheck="false"></textarea><button id="save-task">Save task</button><pre id="message" role="status"></pre></section>
+<section class="wide"><h2>3. Tasks and daily schedules</h2><p>Run a task once, inspect its result, then enable its daily schedule. Keep this runner running and the computer awake. Browser tasks need this Windows user’s session; sign in with the Login command when required.</p><div id="tasks"></div></section>
+<section class="wide"><h2>Run history</h2><p>Verified = independently checked output. Observed = model report with page evidence. Needs review = an effect may have happened; inspect its destination before resolving.</p><div id="runs"></div></section></main><script src="/app.js"></script></body></html>

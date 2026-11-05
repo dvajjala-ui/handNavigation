@@ -1,3 +1,5 @@
+> Windows local-agent development core: [setup and usage](windows-agent/README.md) · [validation and pending acceptance](windows-agent/VALIDATION.md). Existing Desktop release documentation follows.
+
 # HandNavigate Desktop
 
 **Desktop 0.9.3 adds bounded Openverse result paging and strict license-key filtering for repeated daily topics, alongside crash recovery, Flickr and verified custom website workflows.** [Download the Windows portable preview](https://github.com/dvajjala-ui/handNavigation/releases/download/desktop-v0.9.3/HandNavigate-0.9.3-Windows.exe) · [release notes and checksums](https://github.com/dvajjala-ui/handNavigation/releases/tag/desktop-v0.9.3). Its packaged workflow checks passed.

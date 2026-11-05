@@ -1,0 +1,88 @@
+{
+  "executable": {
+    "path": "dist/HandNavigateAgent/HandNavigateAgent.exe",
+    "bytes": 6170451,
+    "signed": false,
+    "sha256": "e675a42e6feb1bbbd44d1b94f814d9650d074ea0354f136b2acb0a414b78e8a6"
+  },
+  "validation": {
+    "skipped": 1,
+    "live_instagram": false,
+    "real_ollama_inference": false,
+    "packaged_setup_ui": true,
+    "packaged_owned_transfer": true,
+    "failures": 0,
+    "total": 23,
+    "passed": 22,
+    "natural_daily_run": false
+  },
+  "repository_baseline": "2c17e5614142b0c20049c01da548e4b2811ff5ec",
+  "name": "HandNavigate Windows core",
+  "source_state": "Windows-agent source snapshot built before the initial core commit",
+  "version": "0.1.0-dev",
+  "source_files": [
+    {
+      "sha256": "19da0ec54dcc2999d3a0588695504fbfa59782e86420c41992f5f5032e72bcfe",
+      "path": "core/__init__.py"
+    },
+    {
+      "sha256": "ff44ee3d9bb9af02bbc293d289f8f6fce6d2a0846991775f6c797d54fd21c424",
+      "path": "core/browser.py"
+    },
+    {
+      "sha256": "08fb296b1ecab422cfe84062de7b5f9a7df931e1ef161cd604d8439906c9fe86",
+      "path": "core/llm.py"
+    },
+    {
+      "sha256": "e585c9d3d547a4ad9bab8391d8b6c36692c24764cb36ad989a5516e6a2717e5e",
+      "path": "core/models.py"
+    },
+    {
+      "sha256": "b03121a478562d48a1e00a2e5b08ff5cd98930c7582343a33d97e35623a52822",
+      "path": "core/policy.py"
+    },
+    {
+      "sha256": "36cbb27fed85de211ce780d441576c04b0577600795815221bba1b5dbf047d5c",
+      "path": "core/runtime.py"
+    },
+    {
+      "sha256": "078787084d88fce66c4a27d675bc584edf5b107de0ecdc367c1c55c8da344fe3",
+      "path": "core/server.py"
+    },
+    {
+      "sha256": "c7d8900065e404ba87fa87e0711058c84d99c100225b8519ff2a5401815dd6c1",
+      "path": "core/storage.py"
+    },
+    {
+      "sha256": "4f9a70098af70c81482f4e49b0935f42b26506c70d9919c2784f745e214ba928",
+      "path": "ui/app.js"
+    },
+    {
+      "sha256": "fcc95fbe8aa4fc7873bc5ff105e41c7133417abe05c8cbf1af87a8d73f1a20d3",
+      "path": "ui/index.html"
+    },
+    {
+      "sha256": "a9c4bd6aa3828d0d96844feabcb7550ccc1aebfb9f3ae734999612f95a8d2210",
+      "path": "ui/style.css"
+    },
+    {
+      "sha256": "db9da527f22b75b133e94f5948015b8ece7081e03bdbdbe69cea3773a8f79a69",
+      "path": "agent.py"
+    },
+    {
+      "sha256": "3a16a5d51f0a60f40d6f174c0422831b58806a0ec22512aa98500aa1066e8baa",
+      "path": "requirements.txt"
+    }
+  ],
+  "review_date": "2026-11-04",
+  "latest_validation": {
+    "duration_seconds": 42.384,
+    "failures": 0,
+    "date": "2026-11-05",
+    "total": 23,
+    "scope": "local source and actual packaged EXE, owned sites and model fixture; real LLM and provider acceptance pending",
+    "skipped": 1,
+    "passed": 22
+  },
+  "rebuilt_on": "2026-11-05"
+}

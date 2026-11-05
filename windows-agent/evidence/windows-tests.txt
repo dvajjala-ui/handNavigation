@@ -1,0 +1,28 @@
+test_local_session_permissions_persist_and_cross_origin_requests_fail (test_api.ApiTests.test_local_session_permissions_persist_and_cross_origin_requests_fail) ... ok
+test_ollama_adapter_uses_schema_and_validates_returned_plan (test_api.ApiTests.test_ollama_adapter_uses_schema_and_validates_returned_plan) ... ok
+test_changed_record_blocks_before_click (test_browser.BrowserTests.test_changed_record_blocks_before_click) ... ok
+test_fresh_scoped_result_verifies_and_old_result_does_not (test_browser.BrowserTests.test_fresh_scoped_result_verifies_and_old_result_does_not) ... ok
+test_instagram_adapter_on_synthetic_markup_checks_account_author_and_state (test_browser.BrowserTests.test_instagram_adapter_on_synthetic_markup_checks_account_author_and_state) ... ok
+test_model_finish_is_observed_and_does_not_enable_schedule (test_browser.BrowserTests.test_model_finish_is_observed_and_does_not_enable_schedule) ... ok
+test_real_download_upload_readback_and_duplicate_free_rerun (test_browser.BrowserTests.test_real_download_upload_readback_and_duplicate_free_rerun) ... ok
+test_redirect_and_websocket_are_blocked_before_outside_request (test_browser.BrowserTests.test_redirect_and_websocket_are_blocked_before_outside_request) ... ok
+test_actual_windows_recycle_bin_for_disposable_file (test_core.CoreTests.test_actual_windows_recycle_bin_for_disposable_file) ... ok
+test_cleanup_budget_fails_before_any_removal (test_core.CoreTests.test_cleanup_budget_fails_before_any_removal) ... ok
+test_cleanup_recycles_only_matching_files_and_request_id_reuses_run (test_core.CoreTests.test_cleanup_recycles_only_matching_files_and_request_id_reuses_run) ... ok
+test_dst_nonexistent_time_skipped (test_core.CoreTests.test_dst_nonexistent_time_skipped) ... ok
+test_exclusive_process_lock (test_core.CoreTests.test_exclusive_process_lock) ... ok
+test_interrupted_effect_requires_explicit_resolution (test_core.CoreTests.test_interrupted_effect_requires_explicit_resolution) ... ok
+test_permissions_are_rechecked_after_revocation (test_core.CoreTests.test_permissions_are_rechecked_after_revocation) ... ok
+test_restart_requires_review_and_pauses_schedule (test_core.CoreTests.test_restart_requires_review_and_pauses_schedule) ... ok
+test_schedule_requires_verified_rehearsal (test_core.CoreTests.test_schedule_requires_verified_rehearsal) ... ok
+test_schedule_runs_once_after_downtime_and_deduplicates (test_core.CoreTests.test_schedule_runs_once_after_downtime_and_deduplicates) ... ok
+test_submit_is_durable_before_response_and_deduplicates (test_core.CoreTests.test_submit_is_durable_before_response_and_deduplicates) ... ok
+test_symlink_target_rejected (test_core.CoreTests.test_symlink_target_rejected) ... skipped 'OS has not enabled user symlinks'
+test_traversal_and_outside_paths_rejected (test_core.CoreTests.test_traversal_and_outside_paths_rejected) ... ok
+test_unknown_actions_fields_and_model_scope_rejected (test_core.CoreTests.test_unknown_actions_fields_and_model_scope_rejected) ... ok
+test_exact_executable_ui_and_verified_image_transfer (test_packaged.PackagedTests.test_exact_executable_ui_and_verified_image_transfer) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 42.384s
+
+OK (skipped=1)

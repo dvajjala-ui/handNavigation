@@ -1,0 +1,60 @@
+name: HandNavigate Windows agent core
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'windows-agent/**'
+      - 'handnavigate/transfer/files.py'
+      - 'handnavigate/live/contracts.py'
+      - 'handnavigate/contracts.py'
+      - '.github/workflows/windows-agent.yml'
+  pull_request:
+    paths:
+      - 'windows-agent/**'
+      - 'handnavigate/transfer/files.py'
+      - 'handnavigate/live/contracts.py'
+      - 'handnavigate/contracts.py'
+      - '.github/workflows/windows-agent.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  windows-core:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install core dependencies
+        run: |
+          python -m venv windows-agent/.venv
+          windows-agent/.venv/Scripts/python.exe -m pip install -r windows-agent/requirements.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          windows-agent/.venv/Scripts/python.exe -m playwright install chrome
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build Windows executable
+        run: ./windows-agent/Build.ps1
+      - name: Run core, browser and packaged executable checks
+        run: |
+          $env:HANDNAVIGATE_TEST_PACKAGE='1'
+          windows-agent/.venv/Scripts/python.exe -m unittest discover -s windows-agent/tests -v 2>&1 | Tee-Object -FilePath windows-agent/evidence/ci-tests.txt
+          exit $LASTEXITCODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-agent-test-evidence
+          path: windows-agent/evidence/**
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: HandNavigateAgent-Windows-development
+          path: windows-agent/dist/HandNavigateAgent/**
+          retention-days: 7

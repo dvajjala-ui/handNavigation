@@ -1,0 +1,5 @@
+.venv/
+runtime/
+dist/
+__pycache__/
+*.spec

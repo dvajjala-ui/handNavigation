@@ -1,0 +1,18 @@
+'use strict';
+const $=id=>document.getElementById(id),token=document.querySelector('meta[name=agent-token]').content;
+let initialized=false;
+async function api(path,body){const response=await fetch('/api/'+path,{method:body===undefined?'GET':'POST',headers:{'X-Agent-Token':token,...(body===undefined?{}:{'Content-Type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});const value=await response.json();if(!response.ok)throw Error(value.error||'Request failed');return value;}
+const lines=id=>$(id).value.split('\n').map(s=>s.trim()).filter(Boolean);
+function button(text,action,parent){const b=document.createElement('button');b.textContent=text;b.onclick=()=>run(b,action);parent.append(b);}
+async function run(control,action){control.disabled=true;try{await action();await refresh();}catch(e){$('message').textContent=e.message;}finally{control.disabled=false;}}
+function row(parent,title,value){const article=document.createElement('article'),h=document.createElement('strong'),pre=document.createElement('pre');h.textContent=title;pre.textContent=JSON.stringify(value,null,2);article.append(h,pre);parent.append(article);return article;}
+async function refresh(){const state=await api('state');$('status').textContent=state.busy?'Task running':'Runner ready';if(!initialized){const p=state.permissions;$('model').value=state.model;$('roots').value=(p.cleanup_roots||[]).join('\n');$('origins').value=(p.browser_origins||[]).join('\n');$('image-origins').value=(p.image_origins||[]).join('\n');$('uploads').checked=!!p.allow_upload;$('changes').checked=!!p.allow_browser_changes;$('likes').checked=!!p.allow_instagram_likes;initialized=true;}
+ $('tasks').replaceChildren();for(const task of state.tasks){const card=row($('tasks'),task.plan.name,{id:task.id,kind:task.plan.kind,schedule:task.plan.schedule,enabled:!!task.enabled,next_due:task.next_due});button('Run now',()=>api('run',{id:task.id}),card);if(task.plan.schedule)button(task.enabled?'Pause daily':'Enable daily',()=>api('schedule',{id:task.id,enabled:!task.enabled}),card);}
+ $('runs').replaceChildren();for(const result of state.runs){const card=row($('runs'),result.status+' · '+result.started,result.result);if(result.status==='NEEDS_REVIEW'){button('I inspected: completed',()=>api('reconcile',{id:result.id,decision:'completed'}),card);button('I inspected: effect absent',()=>api('reconcile',{id:result.id,decision:'absent'}),card);}}
+}
+$('save-setup').onclick=()=>run($('save-setup'),async()=>{await api('setup',{model:$('model').value,permissions:{cleanup_roots:lines('roots'),browser_origins:lines('origins'),image_origins:lines('image-origins'),allow_upload:$('uploads').checked,allow_browser_changes:$('changes').checked,allow_instagram_likes:$('likes').checked}});$('message').textContent='Setup saved. These permissions persist across restarts.';});
+$('check-model').onclick=()=>run($('check-model'),async()=>{$('model-state').textContent=JSON.stringify(await api('model'),null,2);});
+$('plan').onclick=()=>run($('plan'),async()=>{$('message').textContent='Local model is planning…';const result=await api('plan',{instruction:$('instruction').value});$('draft').value=JSON.stringify(result.plan,null,2);$('message').textContent=JSON.stringify(result.metrics)+'\n'+(result.plan.missing_information.join('\n')||'Review the plan, then save.');});
+$('save-task').onclick=()=>run($('save-task'),async()=>{const result=await api('save',{plan:JSON.parse($('draft').value)});$('message').textContent='Task saved: '+result.id;});
+$('stop').onclick=()=>run($('stop'),()=>api('stop',{}));
+refresh().catch(e=>$('message').textContent=e.message);setInterval(()=>refresh().catch(e=>$('status').textContent=e.message),3000);
