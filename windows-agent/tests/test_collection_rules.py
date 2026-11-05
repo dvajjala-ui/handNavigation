@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path[:0]=[str(ROOT),str(ROOT.parent)]
+sys.path[:0]=[str(ROOT),str(ROOT.parent),str(ROOT/'tools')]
 from core.collections import CollectionDB, config
 
 
@@ -15,6 +15,25 @@ def db_without_connection():
     handle.values={}
     def boom():raise AssertionError('No database access is allowed in this test.')
     handle.connect=boom
+    return handle
+
+
+class EmptyResult:
+    def fetchone(self):return None
+    def fetchall(self):return []
+
+
+class EmptyConnection:
+    def execute(self,*_):return EmptyResult()
+    def __enter__(self):return self
+    def __exit__(self,*_):return False
+
+
+def db_with_no_verified_sources():
+    """Every lookup answers 'no rows', which is what a fresh topic table looks like."""
+    handle=CollectionDB.__new__(CollectionDB)
+    handle.values={}
+    handle.connect=EmptyConnection
     return handle
 
 
@@ -48,10 +67,26 @@ class CollectionRuleTests(unittest.TestCase):
                     'https://kyvowdxtwazxhsdjajpm.supabase.co.other.test','https://other.supabase.co'):
             with self.subTest(url=url),self.assertRaises(ValueError):config(self.env(SUPABASE_URL=url))
 
-    def test_reddit_never_reaches_the_database_without_approved_oauth(self):
-        job={'name':'Daily reddit','source':'reddit','topic_key':'travel','image_count':5,
-             'daily_time':'09:00','timezone':'Asia/Kolkata'}
-        with self.assertRaisesRegex(ValueError,'approved OAuth'):db_without_connection().create_job(job)
+    def test_reddit_pages_are_restricted_to_exact_public_https_subreddits(self):
+        from collect_reddit import page_url
+        self.assertEqual(page_url('EarthPorn'),'https://www.reddit.com/r/EarthPorn/top/?t=month')
+        board='https://old.reddit.com/r/Art/top/?t=month'
+        self.assertEqual(page_url('Art',board),board)
+        for bad in ('https://www.reddit.com.evil.test/r/x/','http://www.reddit.com/r/x/','https://user@www.reddit.com/r/x/',
+                    'https://www.reddit.com:8443/r/x/','https://www.reddit.com/r/x/#frag','https://evil.test/r/x/'):
+            with self.subTest(url=bad),self.assertRaises(ValueError):page_url('x',bad)
+        for name in ('','a'*22,'not a subreddit','r/travel','../../etc'):
+            with self.subTest(name=name),self.assertRaises(ValueError):page_url(name)
+
+    def test_a_source_without_a_verified_topic_cannot_be_scheduled(self):
+        db=db_with_no_verified_sources()
+        for source,label in (('reddit','Reddit'),('pinterest','Pinterest')):
+            job={'name':'Daily '+source,'source':source,'topic_key':'travel','image_count':5,
+                 'daily_time':'09:00','timezone':'Asia/Kolkata'}
+            with self.subTest(source=source),self.assertRaisesRegex(ValueError,'No verified '+label):
+                db.create_job(job)
+            with self.subTest(source=source,random=True),self.assertRaisesRegex(ValueError,'No verified '+label):
+                db.create_job({**job,'topic_key':None,'random_topic':True})
 
     def test_unscheduled_or_malformed_jobs_are_rejected_before_insert(self):
         db=db_without_connection()

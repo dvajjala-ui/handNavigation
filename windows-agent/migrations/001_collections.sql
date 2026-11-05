@@ -11,7 +11,7 @@ create table if not exists public.collection_topics (
 );
 
 -- Sources start unverified. A topic becomes collectable only after
--- tools/import_pinterest_collection.py accepts a real signed-in run for its exact URL.
+-- tools/import_collection.py accepts a real signed-in run for that source's exact URL.
 insert into public.collection_topics (key,label,pinterest_url,reddit_subreddit) values
  ('travel','Travel','https://in.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/','travel'),
  ('nature','Nature','https://in.pinterest.com/search/pins/?q=nature%20landscape','EarthPorn'),

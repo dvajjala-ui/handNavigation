@@ -22,6 +22,7 @@ from handnavigate.transfer.files import image_metadata
 from .browser import Browser, LIMITS
 from .models import Permissions, Plan
 from .policy import Policy
+from .sources import SOURCES, source_config
 
 BUCKET='handnavigate-images'
 ROOT=Path(__file__).resolve().parents[1]
@@ -64,8 +65,9 @@ class CollectionDB:
             sslmode='require',connect_timeout=12,row_factory=dict_row)
 
     def migrate(self):
-        sql=(ROOT/'migrations'/'001_collections.sql').read_text(encoding='utf-8')
-        with self.connect() as db:db.execute(sql)
+        for sql in sorted((ROOT/'migrations').glob('*.sql')):
+            with self.connect() as db:
+                db.execute(sql.read_text(encoding='utf-8'))
         self.ensure_bucket()
 
     def storage(self,method,path,data=None,content_type=None,allow=None):
@@ -107,7 +109,7 @@ class CollectionDB:
         return path
 
     def store_image(self,run_id,source,topic,page_url,source_url,data,rendition='preview',post_id=None):
-        if source not in ('pinterest','reddit') or not TOPIC.fullmatch(topic):raise ValueError('Invalid source/topic.')
+        if source not in SOURCES or not TOPIC.fullmatch(topic):raise ValueError('Invalid source/topic.')
         meta=image_metadata(data,LIMITS)
         with self.connect() as db:
             previous=db.execute('select id from public.collected_images where sha256=%s',(meta['sha256'],)).fetchone()
@@ -124,10 +126,10 @@ class CollectionDB:
         return {'id':str(row['id']),'duplicate':False,'sha256':meta['sha256']}
 
     def list_library(self,source='',topic=''):
-        if source and source not in ('pinterest','reddit'):raise ValueError('Invalid source filter.')
+        if source and source not in SOURCES:raise ValueError('Invalid source filter.')
         if topic and not TOPIC.fullmatch(topic):raise ValueError('Invalid topic filter.')
         with self.connect() as db:
-            topics=db.execute('select key,label,pinterest_verified,enabled from public.collection_topics order by label').fetchall()
+            topics=db.execute('select key,label,pinterest_verified,reddit_verified,enabled from public.collection_topics order by label').fetchall()
             jobs=db.execute('''select id,name,source,topic_key,random_topic,image_count,daily_time::text as daily_time,
                 timezone,enabled from public.collection_jobs order by created_at desc limit 30''').fetchall()
             images=db.execute('''select id,source,topic_key,source_page_url,sha256,mime_type,width,height,
@@ -152,14 +154,16 @@ class CollectionDB:
         if hashlib.sha256(data).hexdigest()!=row['sha256']:raise RuntimeError('Stored image failed hash verification.')
         return data,row['mime_type']
 
-    def mark_verified(self,topic_key,source_url):
-        """A topic only becomes collectable after a real run passed on that exact URL."""
+    def mark_verified(self,topic_key,source_url,source='pinterest'):
+        """A topic becomes collectable on a source only after a real run passed on that source's exact URL."""
+        config=source_config(source)
         with self.connect() as db:
-            row=db.execute('select pinterest_url from public.collection_topics where key=%s',(topic_key,)).fetchone()
+            row=db.execute('select '+config['url_column']+' as url from public.collection_topics where key=%s',
+                           (topic_key,)).fetchone()
             if not row:raise ValueError('Unknown content topic.')
-            if row['pinterest_url']!=source_url:
-                raise ValueError('The verified result came from a different URL than the topic source.')
-            db.execute('update public.collection_topics set pinterest_verified=true where key=%s',(topic_key,))
+            if row['url']!=source_url:
+                raise ValueError('The verified result came from a different URL than the '+config['label']+' topic source.')
+            db.execute('update public.collection_topics set '+config['verified_column']+'=true where key=%s',(topic_key,))
 
     def _job_fields(self,body):
         """Shared validation for creating and editing a schedule; nothing reaches SQL unless it passes."""
@@ -167,8 +171,8 @@ class CollectionDB:
         random_topic=body.get('random_topic') is True
         count=body.get('image_count');daily_time=body.get('daily_time');zone=body.get('timezone','Asia/Kolkata')
         name=body.get('name','')
-        if source not in ('pinterest','reddit') or not isinstance(count,int) or not 1<=count<=20:
-            raise ValueError('Choose Pinterest or Reddit and 1–20 images.')
+        if source not in SOURCES or not isinstance(count,int) or not 1<=count<=20:
+            raise ValueError('Choose '+' or '.join(sorted(SOURCES)) +' and 1–20 images.')
         if not isinstance(name,str) or not 1<=len(name)<=120 or not isinstance(daily_time,str) or not TIME.fullmatch(daily_time):
             raise ValueError('Enter a name and exact daily time (HH:MM).')
         try:ZoneInfo(zone)
@@ -178,14 +182,20 @@ class CollectionDB:
         return {'name':name,'source':source,'topic':None if random_topic else topic,
                 'random_topic':random_topic,'count':count,'daily_time':daily_time,'zone':zone}
 
+    def _source_available(self,db,source,topic,random_topic):
+        """True when at least one enabled topic is collectable on this source."""
+        column=source_config(source)['verified_column']
+        if random_topic:
+            return db.execute('select 1 from public.collection_topics where enabled and '+column+' limit 1').fetchone()
+        return db.execute('select 1 from public.collection_topics where key=%s and enabled and '+column,
+                          (topic,)).fetchone()
+
     def create_job(self,body):
         fields=self._job_fields(body)
-        if fields['source']=='reddit':
-            raise ValueError('Reddit collection requires approved OAuth access and a verified connector.')
         with self.connect() as db:
-            if fields['topic'] and not db.execute('select 1 from public.collection_topics where key=%s and enabled',
-                                                  (fields['topic'],)).fetchone():
-                raise ValueError('Topic is unavailable.')
+            if not self._source_available(db,fields['source'],fields['topic'],fields['random_topic']):
+                raise ValueError('No verified '+source_config(fields['source'])['label']
+                                 +' source exists for that selection yet. Collect one batch on it first.')
             row=db.execute('''insert into public.collection_jobs
                 (name,source,topic_key,random_topic,image_count,daily_time,timezone)
                 values (%s,%s,%s,%s,%s,%s,%s) returning id''',
@@ -199,12 +209,9 @@ class CollectionDB:
         with self.connect() as db:
             job=db.execute('select id,enabled from public.collection_jobs where id=%s',(uuid.UUID(str(job_id)),)).fetchone()
             if not job:raise ValueError('Job not found.')
-            if fields['source']=='reddit' and not db.execute(
-                    'select 1 from public.collection_topics where key=%s and reddit_verified',(fields['topic'],)).fetchone():
-                raise ValueError('That topic has no verified Reddit source yet.')
-            if fields['topic'] and not db.execute('select 1 from public.collection_topics where key=%s and enabled',
-                                                  (fields['topic'],)).fetchone():
-                raise ValueError('Topic is unavailable.')
+            if not self._source_available(db,fields['source'],fields['topic'],fields['random_topic']):
+                raise ValueError('No verified '+source_config(fields['source'])['label']
+                                 +' source exists for that selection yet. Collect one batch on it first.')
             db.execute('''update public.collection_jobs set name=%s,source=%s,topic_key=%s,random_topic=%s,
                 image_count=%s,daily_time=%s,timezone=%s where id=%s''',
                 (fields['name'],fields['source'],fields['topic'],fields['random_topic'],fields['count'],
@@ -215,10 +222,12 @@ class CollectionDB:
 
     def set_enabled(self,job_id,enabled):
         with self.connect() as db:
-            job=db.execute('select source from public.collection_jobs where id=%s',(uuid.UUID(job_id),)).fetchone()
+            job=db.execute('select source,topic_key,random_topic from public.collection_jobs where id=%s',(uuid.UUID(job_id),)).fetchone()
             if not job:raise ValueError('Job not found.')
             if enabled:
-                if job['source']=='reddit':raise ValueError('Reddit connector is not available.')
+                if not self._source_available(db,job['source'],job.get('topic_key'),bool(job.get('random_topic'))):
+                    raise ValueError('No verified '+source_config(job['source'])['label']
+                                     +' source exists for that selection yet. Collect one batch on it first.')
                 passed=db.execute("select 1 from public.collection_runs where job_id=%s and status='VERIFIED' limit 1",(uuid.UUID(job_id),)).fetchone()
                 if not passed:raise ValueError('Run this job successfully once before enabling daily collection.')
             db.execute('update public.collection_jobs set enabled=%s where id=%s',(bool(enabled),uuid.UUID(job_id)))
@@ -237,15 +246,17 @@ class CollectionDB:
         return due
 
     def topic_for(self,job,day=None):
+        column=source_config(job['source'])['verified_column']
         with self.connect() as db:
             if job['random_topic']:
-                rows=db.execute('select * from public.collection_topics where enabled and pinterest_verified order by key').fetchall()
-                if not rows:raise ValueError('No verified topics are available for random selection.')
+                rows=db.execute('select * from public.collection_topics where enabled and '+column+' order by key').fetchall()
+                if not rows:raise ValueError('No verified topics are available for random selection on that source.')
                 # Stable within one occurrence, independent of process restarts.
                 seed=f"{job['id']}:{day or datetime.now(timezone.utc).date()}"
                 return random.Random(seed).choice(rows)
             row=db.execute('select * from public.collection_topics where key=%s and enabled',(job['topic_key'],)).fetchone()
             if not row:raise ValueError('The selected topic is unavailable.')
+            if not row[column]:raise ValueError('That topic has no verified '+source_config(job['source'])['label']+' source yet.')
             return row
 
     def start_run(self,job,topic,scheduled_date=None):
@@ -282,31 +293,38 @@ class CollectionCoordinator:
             with self.db.connect() as conn:
                 job=conn.execute('select * from public.collection_jobs where id=%s',(uuid.UUID(str(job_id)),)).fetchone()
             if not job:raise ValueError('Job not found.')
+            config=source_config(job['source'])
             topic=self.db.topic_for(job,scheduled_date)
-            if job['source']!='pinterest':raise RuntimeError('Reddit OAuth connector is not ready; no Reddit data was fetched.')
+            if not topic[config['verified_column']]:
+                raise RuntimeError('That topic has no signed-in '+config['label']+' acceptance run yet.')
             if os.environ.get('HANDNAVIGATE_REMOTE_RUNNER')!='1':
-                raise RuntimeError('Pinterest collection is restricted to the remote worker.')
+                raise RuntimeError(config['label']+' collection is restricted to the remote worker.')
             run_id=self.db.start_run(job,topic,scheduled_date)
             if not run_id:raise ValueError('This scheduled occurrence was already claimed.')
             self.active=run_id
-            url=topic['pinterest_url']
-            if not topic['pinterest_verified']:
-                raise RuntimeError('Topic source has not passed a signed-in Pinterest acceptance run.')
-            roots=['https://www.pinterest.com','https://in.pinterest.com','https://s.pinimg.com',
-                   'https://s1.pinimg.com','https://s2.pinimg.com']
-            policy=Policy(Permissions(browser_origins=roots,image_origins=['https://i.pinimg.com']))
-            plan=Plan(name='Pinterest '+topic['label'],instruction='Collect visible Pinterest images',kind='images',
-                      start_url=url,image_selector='a[href*="/pin/"] img:not([data-test-id="gated-pin-image"])',
-                      max_items=job['image_count'])
+            url=topic[config['url_column']]
+            policy=Policy(Permissions(browser_origins=list(config['browser_origins']),
+                                      image_origins=list(config['image_origins'])))
+            plan=Plan(name=config['label']+' '+topic['label'],
+                      instruction='Collect visible '+config['label']+' images',kind='images',
+                      start_url=url,image_selector=config['image_selector'],max_items=job['image_count'])
             folder=self.store.folder/'collection-downloads'/run_id
             with self.db.connect() as conn:
                 known={x['sha256'] for x in conn.execute('select sha256 from public.collected_images')}
             with Browser(self.store.folder,policy,self.runner.cancel,headless=True,channel=self.channel) as browser:
                 items=browser.collect(plan,folder,known,lambda _item:None)
+                if not items:
+                    # Report a wall instead of pushing through it. No credential is entered,
+                    # no challenge is answered, and no substitute source is used.
+                    observed=browser.observe()['text'].lower()
+                    walls=[marker for marker in config['wall_markers'] if marker in observed]
+                    raise RuntimeError(config['label']+' returned no collectable image'
+                                       +(' and shows a sign-in or network block: '+', '.join(walls) if walls else '.')
+                                       +' Nothing was bypassed.')
             downloaded=len(items)
             for item in items:
                 if self.runner.cancel.is_set():raise InterruptedError('Collection stopped.')
-                result=self.db.store_image(run_id,'pinterest',topic['key'],url,item['source'],Path(item['file']).read_bytes())
+                result=self.db.store_image(run_id,job['source'],topic['key'],url,item['source'],Path(item['file']).read_bytes())
                 if not result['duplicate']:stored+=1
             status='VERIFIED' if stored==job['image_count'] else 'PARTIAL'
             self.db.finish_run(run_id,status,downloaded,stored)

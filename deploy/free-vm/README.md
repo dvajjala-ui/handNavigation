@@ -108,7 +108,7 @@ from core.collections import CollectionDB; CollectionDB().migrate()"
 # 2. One signed-in batch per topic, then import it. The import needs a
 #    result.json whose source_url is exactly the topic's configured URL.
 HANDNAVIGATE_REMOTE_RUNNER=1 windows-agent/.venv/bin/python \
-  windows-agent/tools/import_pinterest_collection.py \
+  windows-agent/tools/import_collection.py \
   --result /home/ubuntu/pinterest-results/2026-11-05-nature-01/result.json --topic nature
 
 # 3. Create the 09:00 job, run it once for real, enable it only on VERIFIED.

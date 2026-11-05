@@ -21,8 +21,8 @@ while IFS='|' read -r key label url; do
     --channel "" --profile-data "$DATA" --topic "$label" --page-url "$url" \
     --count 20 --output "$out" 2>&1 | tail -3
   echo "=== IMPORT $key"
-  HANDNAVIGATE_REMOTE_RUNNER=1 $PY windows-agent/tools/import_pinterest_collection.py \
-    --result "$out/result.json" --topic "$key" 2>&1 | tail -2
+  HANDNAVIGATE_REMOTE_RUNNER=1 $PY windows-agent/tools/import_collection.py \
+    --source pinterest --result "$out/result.json" --topic "$key" 2>&1 | tail -2
 done <<'TOPICS'
 animals|wildlife photography|https://in.pinterest.com/search/pins/?q=wildlife%20photography
 art|digital art|https://in.pinterest.com/search/pins/?q=digital%20art

@@ -16,17 +16,26 @@ $('plan').onclick=()=>run($('plan'),async()=>{$('message').textContent='Local mo
 $('save-task').onclick=()=>run($('save-task'),async()=>{const result=await api('save',{plan:JSON.parse($('draft').value)});$('message').textContent='Task saved: '+result.id;});
 $('stop').onclick=()=>run($('stop'),()=>api('stop',{}));
 refresh().catch(e=>$('message').textContent=e.message);setInterval(()=>refresh().catch(e=>$('status').textContent=e.message),3000);
-let libraryKey='',imageUrls=[];
+let libraryKey='',imageUrls=[],libraryTopics=[];
+function renderJobTopics(){
+ const source=$('collection-source').value,select=$('collection-topic'),selected=select.value;
+ select.replaceChildren();
+ for(const option of libraryTopics){
+  const earned=source==='reddit'?option.reddit_verified:option.pinterest_verified;
+  select.add(new Option(option.label+(earned?'':' · needs a verified '+source+' batch'),option.key));
+ }
+ select.value=selected&&libraryTopics.some(x=>x.key===selected)?selected:'travel';
+}
 async function loadLibrary(force=false){
  const source=$('library-source').value,topic=$('library-topic').value;
  let data;
  try{data=await api('collections?source='+encodeURIComponent(source)+'&topic='+encodeURIComponent(topic));}
  catch(e){$('library-summary').textContent='Library unavailable: '+e.message;return;}
- const selected=$('library-topic').value,jobSelected=$('collection-topic').value;
+ const selected=$('library-topic').value;
  $('library-topic').replaceChildren(new Option('All content',''));
- $('collection-topic').replaceChildren();
- for(const option of data.topics){$('library-topic').add(new Option(option.label,option.key));$('collection-topic').add(new Option(option.label+(option.pinterest_verified?'':' · unverified Pinterest source'),option.key));}
- $('library-topic').value=selected;$('collection-topic').value=jobSelected||'travel';
+ for(const option of data.topics)$('library-topic').add(new Option(option.label,option.key));
+ $('library-topic').value=selected;
+ libraryTopics=data.topics;renderJobTopics();
  $('library-summary').textContent=data.images.length+' shown · '+data.counts.map(x=>x.source+' / '+x.topic_key+': '+x.count).join(' · ');
  $('collection-jobs').replaceChildren();
  for(const job of data.jobs){
@@ -56,6 +65,7 @@ async function loadLibrary(force=false){
 }
 $('refresh-library').onclick=()=>run($('refresh-library'),()=>loadLibrary(true));
 $('library-source').onchange=()=>loadLibrary(true);
+$('collection-source').onchange=renderJobTopics;
 $('library-topic').onchange=()=>loadLibrary(true);
 $('create-collection-job').onclick=()=>run($('create-collection-job'),async()=>{
  const body={name:$('collection-name').value,source:$('collection-source').value,
