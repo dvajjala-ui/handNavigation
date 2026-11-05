@@ -1,18 +1,18 @@
 {
-  "checked_at": "2026-11-05T13:22:30.093990+00:00",
+  "checked_at": "2026-11-05T14:18:54.499983+00:00",
   "row_counts": {
     "collection_topics": 6,
     "collection_jobs": 1,
-    "collection_runs": 8,
-    "collected_images": 129
+    "collection_runs": 9,
+    "collected_images": 149
   },
   "library": [
     {
       "source": "pinterest",
       "topic_key": "animals",
       "rendition": "preview",
-      "n": "19",
-      "bytes": "364193"
+      "n": "39",
+      "bytes": "747678"
     },
     {
       "source": "pinterest",
@@ -51,6 +51,17 @@
     }
   ],
   "runs": [
+    {
+      "source": "pinterest",
+      "topic_key": "animals",
+      "status": "VERIFIED",
+      "requested": "20",
+      "downloaded": "20",
+      "stored": "20",
+      "scheduled_date": null,
+      "started": "2026-11-05 13:52",
+      "error": ""
+    },
     {
       "source": "pinterest",
       "topic_key": "architecture",
@@ -146,7 +157,7 @@
       "source": "pinterest",
       "topic": "<random>",
       "random_topic": "True",
-      "image_count": "5",
+      "image_count": "20",
       "at": "09:00",
       "timezone": "Asia/Kolkata",
       "enabled": "True"
@@ -210,6 +221,6 @@
   "storage_top_level": [
     "pinterest"
   ],
-  "read_back_verified": 129,
-  "read_back_expected": 129
+  "read_back_verified": 149,
+  "read_back_expected": 149
 }

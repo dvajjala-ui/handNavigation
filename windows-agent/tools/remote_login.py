@@ -1,4 +1,4 @@
-"""Temporary loopback-only remote desktop for a manual Pinterest sign-in."""
+"""Temporary loopback-only remote desktop for one manual sign-in on an allowed source."""
 from __future__ import annotations
 import argparse
 import os
@@ -13,20 +13,24 @@ import time
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT.parent)]
 from core.runtime import ProcessLock
+from core.sources import SOURCES, login_page_url
 from core.storage import Store
-from collect_pinterest import source_url
 from playwright.sync_api import sync_playwright
 
 
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--data',required=True)
-    parser.add_argument('--url',default='https://www.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/')
+    parser.add_argument('--url',default='',help='An exact public page of the chosen source; defaults to its sign-in page')
+    parser.add_argument('--source',default='pinterest',choices=sorted(SOURCES))
     parser.add_argument('--seconds',type=int,default=1200,choices=range(60,1801))
     args=parser.parse_args()
     if sys.platform!='linux' or os.environ.get('HANDNAVIGATE_REMOTE_RUNNER')!='1':
         parser.error('Run this manual-login helper only on the chosen Linux VM.')
-    try:source_url('',args.url)
+    if not args.url:
+        args.url=('https://www.reddit.com/login/' if args.source=='reddit'
+                  else 'https://www.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/')
+    try:login_page_url(args.source,args.url)
     except ValueError as error:parser.error(str(error))
     store=Store(args.data);stopped=threading.Event()
     signal.signal(signal.SIGTERM,lambda *_:stopped.set())
@@ -51,7 +55,7 @@ def main():
                 try:
                     page=browser.pages[0] if browser.pages else browser.new_page()
                     page.goto(args.url,wait_until='domcontentloaded',timeout=60000)
-                    print('Manual Pinterest login ready through SSH tunnel at http://127.0.0.1:6080/vnc.html. No password is logged.',flush=True)
+                    print('Manual '+args.source+' login ready through SSH tunnel at http://127.0.0.1:6080/vnc.html. No password is logged.',flush=True)
                     deadline=time.monotonic()+args.seconds
                     while browser.pages and not stopped.is_set() and time.monotonic()<deadline:
                         try:page.wait_for_timeout(500)

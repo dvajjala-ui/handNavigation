@@ -83,6 +83,16 @@ The profile lock prevents a sign-in browser and collector from owning the sessio
 
 After manual sign-in/collection, restart the persistent worker with `systemctl --user start handnavigate-browser.service`. The [service unit](handnavigate-browser.service) uses the same data folder and unprivileged account. For the application UI, forward `127.0.0.1:47841:127.0.0.1:47841` with SSH and open `http://127.0.0.1:47841` locally. The tunnel needs a connected client only while using the UI; the remote service itself continues independently.
 
+Reddit uses the same helper and the same profile, only with its own sign-in page:
+
+```sh
+systemctl --user stop handnavigate-browser.service
+HANDNAVIGATE_REMOTE_RUNNER=1 windows-agent/.venv/bin/python windows-agent/tools/remote_login.py \
+  --data /home/ubuntu/handnavigate-data --source reddit
+```
+
+`--source` decides which site the helper is allowed to open, and it defaults to Pinterest so an old command line still behaves the same. With the noVNC tunnel from above, sign in yourself, stop the helper, then run [earn-reddit.sh](earn-reddit.sh): it collects one 20-image batch per topic's configured subreddit, imports only a batch that verifies, and leaves `reddit_verified` false otherwise. That is the honest state as measured on 5 November — without a Reddit sign-in the VM gets Reddit's own network block, so the script reports `ACCESS_REQUIRED` and imports nothing. Nothing in this path types a credential, answers a challenge or swaps in another source.
+
 To install that service on a newly prepared VM, run from the repository root:
 
 ```sh
@@ -122,8 +132,23 @@ windows-agent/.venv/bin/python windows-agent/tools/verify_library.py
 
 To widen the rotation, [earn-topics.sh](earn-topics.sh) runs the same collect-then-import pair for the four search-based topics in one pass, pausing the worker first because the saved browser profile belongs to whichever process is using it. It restarts the service and prints the resulting topic, library and job state.
 
+## A read-only gallery you can open from anywhere
+
+The control page stays loopback-only; the library is shared through a separate published page built from expiring links.
+
+```sh
+# On the VM: one signed link per stored image, each fetched back with no key at
+# all and hash-compared, then one self-contained HTML file is written.
+HANDNAVIGATE_REMOTE_RUNNER=1 windows-agent/.venv/bin/python \
+  windows-agent/tools/make_gallery.py --hours 72 --output /tmp/gallery.html
+```
+
+Copy that one file off the VM and publish it as a static site; `deploy/gallery/dist/index.html` is the staging spot and git already ignores it, because a published file contains live links and must never be committed. The page carries no secret key, no session token and no credential: what it carries are Storage links that stop working at their expiry, which is why refreshing means re-running the tool and re-publishing. Measured on 5 November, 149 of 149 rows produced a link that opened on its own and matched its recorded hash, and the resulting page was rendered in a browser from those links.
+
+Two limits are deliberate. The pictures are reference-only previews of material that belongs to the pages it came from, so the page says so, is marked `noindex,nofollow,noarchive`, and is served behind the site's own private access mode — opening it to named people or to the public is a separate decision with its own confirmation, not a side effect of deploying. And the links do expire: an old published page turns into a clear "this gallery expired" notice rather than a broken grid.
+
 ## Why the control page is not published
 
-The UI is the machine that holds the signed-in Pinterest profile, the Supabase secret key and the ability to run browser tasks, so it listens on loopback only and its write endpoints demand the per-process session token plus an exact `Host` and `Origin`. Public hosting would put a logged-in browser and the private library behind one URL; a port scan or a leaked tunnel token would be enough to drive it. The measured 129 images are reference-only Pinterest previews, so publishing the gallery would also republish other people's material without a licence decision. Browse the library through `ssh -N -L 127.0.0.1:47841:127.0.0.1:47841 ubuntu@VM_IP`, and if a shareable page is wanted later, build it as read-only with short-lived signed URLs and its own access control rather than exposing this service.
+The UI is the machine that holds the signed-in browser profiles, the Supabase secret key and the ability to run browser tasks, so it listens on loopback only and its write endpoints demand the per-process session token plus an exact `Host` and `Origin`. Public hosting would put a logged-in browser and the private library behind one URL; a port scan or a leaked tunnel token would be enough to drive it. Browse the control page through `ssh -N -L 127.0.0.1:47841:127.0.0.1:47841 ubuntu@VM_IP`. The shareable view is the separate read-only gallery above, which exposes expiring links to stored bytes instead of exposing this service — and because the images are reference-only previews of other people's material, that page is unlisted, marked noindex, kept behind the site's own access mode, and states its licence status.
 
 Never commit or upload the VM's `handnavigate-data`, `windows-agent/.env`, SSH private keys, browser profiles or cookies. Only topics that passed a real signed-in run are collectable, and a failed or partial run pauses its schedule. Windows-only always-on hosting is not claimed to be perpetually free.

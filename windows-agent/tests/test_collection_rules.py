@@ -110,4 +110,30 @@ class CollectionRuleTests(unittest.TestCase):
         with self.assertRaises(AssertionError):db.update_job('0'*32,{**base,'image_count':3})
 
 
+    def test_the_manual_login_helper_only_opens_pages_of_the_chosen_source(self):
+        from core.sources import login_page_url
+        good={'reddit':['https://www.reddit.com/login/','https://old.reddit.com/r/travel/top/?t=month'],
+              'pinterest':['https://www.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/',
+                           'https://in.pinterest.com/search/pins/?q=nature%20landscape']}
+        for source,urls in good.items():
+            for url in urls:
+                with self.subTest(source=source,url=url):
+                    self.assertEqual(login_page_url(source,url),url)
+        bad=['https://s.pinimg.com/login/','https://static.reddit.com/login/','http://www.reddit.com/login/',
+             'https://www.reddit.com.evil.test/login','https://user@www.reddit.com/','https://www.reddit.com:8443/',
+             'https://www.pinterest.com/#fragment','https://evil.test/r/travel/','']
+        for url in bad:
+            with self.subTest(url=url),self.assertRaises(ValueError):login_page_url('reddit',url)
+            with self.subTest(url=url,source='pinterest'),self.assertRaises(ValueError):login_page_url('pinterest',url)
+
+    def test_every_source_config_names_columns_the_migrations_create(self):
+        from core.sources import SOURCES
+        sql=''.join(p.read_text(encoding='utf-8') for p in sorted((ROOT/'migrations').glob('*.sql')))
+        for key,config in SOURCES.items():
+            with self.subTest(source=key):
+                self.assertTrue(config['verified_column'] in sql and config['url_column'] in sql)
+                self.assertTrue(config['browser_origins'] and config['image_origins'] and config['image_selector'])
+                self.assertTrue(config['wall_markers'])
+
+
 if __name__=='__main__':unittest.main()

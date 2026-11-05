@@ -7,6 +7,8 @@ a source that reports a block or a challenge ends its run unresolved.
 """
 from __future__ import annotations
 
+from urllib.parse import urlsplit
+
 PINTEREST_BROWSER_ORIGINS = ['https://www.pinterest.com', 'https://in.pinterest.com',
                              'https://s.pinimg.com', 'https://s1.pinimg.com', 'https://s2.pinimg.com']
 REDDIT_BROWSER_ORIGINS = ['https://www.reddit.com', 'https://old.reddit.com', 'https://reddit.com']
@@ -44,6 +46,23 @@ def source_config(key):
     if key not in SOURCES:
         raise ValueError('Unknown image source. Choose ' + ' or '.join(sorted(SOURCES)) + '.')
     return SOURCES[key]
+
+
+# Origins a collection run may load, versus the smaller set a person may be sent
+# to by hand when signing in. Static asset hosts are never a sign-in destination.
+PAGE_HOSTS = {'pinterest': ('www.pinterest.com', 'in.pinterest.com'),
+              'reddit': ('www.reddit.com', 'old.reddit.com', 'reddit.com')}
+
+
+def login_page_url(key, url):
+    """An exact public HTTPS page of this source, for the manual sign-in helper."""
+    config = source_config(key)
+    parsed = urlsplit(url)
+    if (parsed.scheme != 'https' or parsed.netloc not in PAGE_HOSTS[key]
+            or parsed.username or parsed.password or parsed.fragment):
+        raise ValueError('Choose an exact public HTTPS ' + config['label']
+                         + ' page without credentials, ports or fragments.')
+    return url
 
 
 def reddit_page_url(subreddit):
