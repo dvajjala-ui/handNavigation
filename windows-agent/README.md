@@ -4,7 +4,7 @@ A new, isolated implementation of the Windows local-agent direction. The existin
 
 **Instruction → local Ollama plan → validated tools → durable run → checked result.**
 
-This is a development core, not a fully qualified end-to-end product. [Validation status](VALIDATION.md) separates the tested file/image/scheduler paths from pending real-model, Instagram and multi-day acceptance.
+This is a development core, not a fully qualified end-to-end product. [Validation status](VALIDATION.md) separates measured file/image/scheduler behavior from real-site and multi-day acceptance. The current acceptance target is **20 Pinterest images in a folder on a remote host, without login**; Instagram and uploads are skipped for that target. [Remote deployment and free-host research](../deploy/free-vm/README.md).
 
 ## Current functionality
 
@@ -30,9 +30,9 @@ cd F:\dwarkesh\handNavigate\windows-agent
 
 Open [the local interface](http://127.0.0.1:47841). Save your permissions in **Setup once**, write an instruction, create a plan, fill any missing details, save it and run it. You can also edit/paste a structured plan without a model. After one verified run, enable its daily schedule.
 
-Setup installs dependencies and offers Ollama installation/model download. On this development PC the automatic installer attempt did not complete and the direct installer command was rejected by automatic approval review; no local-model benchmark has been performed. The model adapter has been tested with an owned Ollama-compatible fixture, not a real downloaded model.
+Setup installs dependencies and, with `-InstallOllama`, installs the local runtime and downloads the model through `Install-LocalModel.ps1`. That helper completed installation of Ollama and `qwen3.5:4b` on 5 November. If WinGet's default downloader stalls, `Setup.ps1 -InstallOllama -RepairDownloader` temporarily uses WinGet's documented alternate downloader and restores the original settings. No local inference or local Pinterest task was run after the remote-only request; real-model acceptance runs on a temporary remote test VM.
 
-Ollama's existing running server retains its own model-directory setting. If you want models on this drive, stop the existing Ollama tray/server and set `OLLAMA_MODELS` to this folder's `runtime\models` before restarting it. Setup/Start set that variable for a server they launch; they cannot relocate an already running server's files.
+Ollama's existing running server retains its own model-directory setting. Setup/Start respect a configured model directory; a new installation defaults to this folder's `runtime\models`. They cannot relocate an already running server's files. The launcher also detects a runtime installed inside `runtime\ollama`.
 
 For manual sign-in, stop the runner first so there is one owner of its profile:
 

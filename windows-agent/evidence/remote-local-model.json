@@ -1,0 +1,163 @@
+{
+  "checked_at": "2026-11-05",
+  "model": "qwen3.5:4b",
+  "scope": "Real CPU Ollama inference on temporary Ubuntu GitHub runner; disposable files and owned HTTP pages only. No Pinterest login or collection.",
+  "tested_commit": "6fc158fb049731802c1ecf39d888369d1b598ed5",
+  "workflow_url": "https://github.com/dvajjala-ui/handNavigation/actions/runs/42013128808",
+  "passed": 4,
+  "total": 5,
+  "checks": [
+    {
+      "name": "instruction_to_verified_disposable_cleanup",
+      "passed": true,
+      "seconds": 53.32,
+      "metrics": {
+        "seconds": 53.29,
+        "model": "qwen3.5:4b",
+        "eval_count": 169
+      },
+      "plan": {
+        "name": "Daily cleanup of old temp files",
+        "instruction": "Every day at 18:00 Asia/Kolkata recycle only *.tmp files older than 7 days in the exact folder /tmp/handnavigate-real-model-b0ttzwb9/cleanup. No subfolders. At most 3 files.",
+        "kind": "cleanup",
+        "schedule": {
+          "time": "18:00",
+          "timezone": "Asia/Kolkata"
+        },
+        "folder": "/tmp/handnavigate-real-model-b0ttzwb9/cleanup",
+        "pattern": "*.tmp",
+        "older_than_days": 7,
+        "start_url": "",
+        "goal": "",
+        "account_marker": "",
+        "result_selector": "",
+        "expected_result": "",
+        "image_selector": "img",
+        "upload_url": "",
+        "gallery_url": "",
+        "file_selector": "input[type=file]",
+        "submit_name": "",
+        "max_items": 3,
+        "max_steps": 25,
+        "missing_information": []
+      },
+      "execution": {
+        "status": "VERIFIED",
+        "matched": 1
+      }
+    },
+    {
+      "name": "missing_information_is_not_invented",
+      "passed": true,
+      "seconds": 32.86,
+      "metrics": {
+        "seconds": 32.86,
+        "model": "qwen3.5:4b",
+        "eval_count": 92
+      },
+      "missing_information": [
+        "folder path",
+        "filename pattern",
+        "daily time"
+      ]
+    },
+    {
+      "name": "instruction_to_verified_image_download",
+      "passed": true,
+      "seconds": 45.42,
+      "metrics": {
+        "seconds": 44.21,
+        "model": "qwen3.5:4b",
+        "eval_count": 220
+      },
+      "plan": {
+        "name": "Download images from local source",
+        "instruction": "Download exactly 2 images from http://127.0.0.1:42825/source now. The image selector is img. Save locally; do not upload or schedule.",
+        "kind": "images",
+        "schedule": null,
+        "folder": "",
+        "pattern": "*",
+        "older_than_days": 0,
+        "start_url": "http://127.0.0.1:42825/source",
+        "goal": "",
+        "account_marker": "",
+        "result_selector": "",
+        "expected_result": "",
+        "image_selector": "img",
+        "upload_url": "",
+        "gallery_url": "",
+        "file_selector": "input[type=file]",
+        "submit_name": "",
+        "max_items": 2,
+        "max_steps": 25,
+        "missing_information": []
+      },
+      "execution": {
+        "status": "VERIFIED",
+        "downloaded": 2
+      }
+    },
+    {
+      "name": "instruction_to_verified_image_transfer",
+      "passed": false,
+      "seconds": 54.28,
+      "error": "1 validation error for Plan\n  Value error, Uploads need a saved-original gallery URL and expected account text. [type=value_error, input_value={'name': 'Download and Up...issing_information': []}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error",
+      "observed_output": "{\n  \"name\": \"Download and Upload Images\",\n  \"instruction\": \"Download exactly 2 images from http://127.0.0.1:42825/source using img, then upload them to http://127.0.0.1:42825/upload using input[type=file] and the button named Send. Verify originals at http://127.0.0.1:42825/gallery using img.\",\n  \"kind\": \"images\",\n  \"schedule\": null,\n  \"folder\": \"\",\n  \"pattern\": \"*\",\n  \"older_than_days\": 0,\n  \"start_url\": \"http://127.0.0.1:42825/source\",\n  \"goal\": \"Download exactly 2 images and verify originals.\",\n  \"account_marker\": \"\",\n  \"result_selector\": \"\",\n  \"expected_result\": \"owned account\",\n  \"image_selector\": \"img\",\n  \"upload_url\": \"http://127.0.0.1:42825/upload\",\n  \"gallery_url\": \"http://127.0.0.1:42825/gallery\",\n  \"file_selector\": \"input[type=file]\",\n  \"submit_name\": \"Send\",\n  \"max_items\": 2,\n  \"max_steps\": 25,\n  \"missing_information\": []\n}",
+      "metrics": {
+        "seconds": 54.28,
+        "model": "qwen3.5:4b",
+        "eval_count": 314
+      }
+    },
+    {
+      "name": "real_model_browser_actions_and_fresh_result",
+      "passed": true,
+      "seconds": 52.84,
+      "metrics": {
+        "seconds": 6.67,
+        "model": "qwen3.5:4b",
+        "eval_count": 14
+      },
+      "plan": {
+        "name": "Save Owned Item",
+        "instruction": "Open http://127.0.0.1:42825/task, verify the visible account text owned account, and click Save. The goal is to save the owned item. The exact result selector is #result and the expected new text is done. Run once now, no schedule, at most 6 browser actions.",
+        "kind": "browser",
+        "schedule": null,
+        "folder": "",
+        "pattern": "*",
+        "older_than_days": 0,
+        "start_url": "http://127.0.0.1:42825/task",
+        "goal": "save the owned item",
+        "account_marker": "owned account",
+        "result_selector": "#result",
+        "expected_result": "done",
+        "image_selector": "img",
+        "upload_url": "",
+        "gallery_url": "",
+        "file_selector": "input[type=file]",
+        "submit_name": "",
+        "max_items": 10,
+        "max_steps": 6,
+        "missing_information": []
+      },
+      "execution": {
+        "id": "e70086184d0a48738569d5204b2f922e",
+        "status": "VERIFIED",
+        "message": "Configured result appeared after a browser action.",
+        "verification": "Fresh exact text at the configured result element"
+      },
+      "actions": [
+        {
+          "action": {
+            "action": "click",
+            "ref": "e1",
+            "value": "",
+            "url": "",
+            "evidence": ""
+          },
+          "url": "http://127.0.0.1:42825/task"
+        }
+      ]
+    }
+  ]
+}

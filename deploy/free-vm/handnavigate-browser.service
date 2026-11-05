@@ -1,0 +1,17 @@
+[Unit]
+Description=HandNavigate browser worker (loopback UI)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/handnavigate
+ExecStart=%h/handnavigate/windows-agent/.venv/bin/python %h/handnavigate/windows-agent/agent.py --data %h/handnavigate-data --headless --channel "" serve --port 47841
+Environment=HANDNAVIGATE_REMOTE_RUNNER=1
+Environment=PYTHONUNBUFFERED=1
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillMode=control-group
+
+[Install]
+WantedBy=default.target

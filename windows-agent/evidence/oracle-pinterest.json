@@ -1,0 +1,108 @@
+{
+  "status": "VERIFIED",
+  "requested": 20,
+  "actual_files": 20,
+  "decoded_files": 20,
+  "unique_sha256": 20,
+  "total_bytes": 593886,
+  "folder": "/home/ubuntu/pinterest-results/2026-11-05-manual-01/pictures",
+  "source_url": "https://in.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/",
+  "session_mode": "saved_profile",
+  "seconds": 103.19,
+  "password_fields": 0,
+  "gated_images": 0,
+  "dimensions": [
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      472
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      472
+    ],
+    [
+      236,
+      472
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      472
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      472
+    ],
+    [
+      236,
+      472
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      472
+    ],
+    [
+      236,
+      354
+    ],
+    [
+      236,
+      472
+    ],
+    [
+      236,
+      472
+    ]
+  ],
+  "checked_at": "2026-11-05T11:09:31.300079+00:00",
+  "provider": "Oracle Always Free",
+  "region": "ap-mumbai-1",
+  "shape": "VM.Standard.E2.1.Micro",
+  "memory_mb": 952,
+  "source_commit": "b5f72c569c26c7774ea55a30bf60fc824061fda0",
+  "local_pinterest_collection": false,
+  "uploads_used": false,
+  "verification": "Independent on-VM re-read, Pillow full decode, exact directory-to-manifest match, SHA-256 comparison and unique-hash count",
+  "image_quality": "Advertised board preview images, 236 pixels wide; original-resolution downloads not claimed",
+  "service": "handnavigate-browser.service (user systemd with linger)",
+  "recurring_task_enabled": false
+}

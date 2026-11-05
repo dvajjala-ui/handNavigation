@@ -1,9 +1,9 @@
 {
   "executable": {
     "path": "dist/HandNavigateAgent/HandNavigateAgent.exe",
-    "bytes": 6170451,
+    "bytes": 6171849,
     "signed": false,
-    "sha256": "e675a42e6feb1bbbd44d1b94f814d9650d074ea0354f136b2acb0a414b78e8a6"
+    "sha256": "3ba9316e3d2eeafa5916491bc98bbcf5be8550acade367cf9368b2540e4c4198"
   },
   "validation": {
     "skipped": 1,
@@ -12,13 +12,13 @@
     "packaged_setup_ui": true,
     "packaged_owned_transfer": true,
     "failures": 0,
-    "total": 23,
-    "passed": 22,
+    "total": 30,
+    "passed": 29,
     "natural_daily_run": false
   },
-  "repository_baseline": "2c17e5614142b0c20049c01da548e4b2811ff5ec",
+  "repository_baseline": "b5f72c569c26c7774ea55a30bf60fc824061fda0",
   "name": "HandNavigate Windows core",
-  "source_state": "Windows-agent source snapshot built before the initial core commit",
+  "source_state": "Built and package-tested from committed Python core at b5f72c5",
   "version": "0.1.0-dev",
   "source_files": [
     {
@@ -26,11 +26,11 @@
       "path": "core/__init__.py"
     },
     {
-      "sha256": "ff44ee3d9bb9af02bbc293d289f8f6fce6d2a0846991775f6c797d54fd21c424",
+      "sha256": "6418ffb8508ba7e30c7496de6cb0835420d0468db145a9e6e882ffb463f27f61",
       "path": "core/browser.py"
     },
     {
-      "sha256": "08fb296b1ecab422cfe84062de7b5f9a7df931e1ef161cd604d8439906c9fe86",
+      "sha256": "3aa04cfafa6873f867710d26d9218e94e57b4742f3676824e45399c9c35cca41",
       "path": "core/llm.py"
     },
     {
@@ -42,7 +42,7 @@
       "path": "core/policy.py"
     },
     {
-      "sha256": "36cbb27fed85de211ce780d441576c04b0577600795815221bba1b5dbf047d5c",
+      "sha256": "4bd56c104ca37be5b36a99381213d84d096892654aa660f87229cd57841e3b57",
       "path": "core/runtime.py"
     },
     {
@@ -72,17 +72,43 @@
     {
       "sha256": "3a16a5d51f0a60f40d6f174c0422831b58806a0ec22512aa98500aa1066e8baa",
       "path": "requirements.txt"
+    },
+    {
+      "sha256": "43a993e9a993d7a79e0f4536d394b2858cf81e5663ffd0138ec771a7ccd8ec87",
+      "path": "../handnavigate/transfer/files.py"
+    },
+    {
+      "sha256": "79ebce6fda53e1b50c3aa952877ef8a797557c45527334af7023f8fc8ad1e983",
+      "path": "../handnavigate/live/contracts.py"
+    },
+    {
+      "sha256": "b40f2cf538df4c42c89aad76f6c52db695259512c137e92733c250ef4fc5ef14",
+      "path": "../handnavigate/contracts.py"
     }
   ],
-  "review_date": "2026-11-04",
+  "review_date": "2026-11-05",
   "latest_validation": {
-    "duration_seconds": 42.384,
-    "failures": 0,
+    "scope": "Rebuilt local EXE and source; owned browser/model fixture tests; remote real-model and live Pinterest results separate",
     "date": "2026-11-05",
-    "total": 23,
-    "scope": "local source and actual packaged EXE, owned sites and model fixture; real LLM and provider acceptance pending",
+    "passed": 29,
     "skipped": 1,
-    "passed": 22
+    "total": 30,
+    "failures": 0,
+    "duration_seconds": 46.986
   },
-  "rebuilt_on": "2026-11-05"
+  "rebuilt_on": "2026-11-05",
+  "remote_model_validation": {
+    "passed": 4,
+    "total": 5,
+    "packaged_inference": false,
+    "real_inference": true,
+    "run": "https://github.com/dvajjala-ui/handNavigation/actions/runs/42013128808"
+  },
+  "hosted_validation": {
+    "passed": 30,
+    "seconds": 57.474,
+    "total": 30,
+    "run": "https://github.com/dvajjala-ui/handNavigation/actions/runs/42015207534",
+    "skipped": 0
+  }
 }

@@ -1,7 +1,9 @@
 test_local_session_permissions_persist_and_cross_origin_requests_fail (test_api.ApiTests.test_local_session_permissions_persist_and_cross_origin_requests_fail) ... ok
 test_ollama_adapter_uses_schema_and_validates_returned_plan (test_api.ApiTests.test_ollama_adapter_uses_schema_and_validates_returned_plan) ... ok
+test_blocked_optional_iframe_does_not_fail_the_main_page (test_browser.BrowserTests.test_blocked_optional_iframe_does_not_fail_the_main_page) ... ok
 test_changed_record_blocks_before_click (test_browser.BrowserTests.test_changed_record_blocks_before_click) ... ok
 test_fresh_scoped_result_verifies_and_old_result_does_not (test_browser.BrowserTests.test_fresh_scoped_result_verifies_and_old_result_does_not) ... ok
+test_image_candidates_exclude_hidden_and_gated_elements (test_browser.BrowserTests.test_image_candidates_exclude_hidden_and_gated_elements) ... ok
 test_instagram_adapter_on_synthetic_markup_checks_account_author_and_state (test_browser.BrowserTests.test_instagram_adapter_on_synthetic_markup_checks_account_author_and_state) ... ok
 test_model_finish_is_observed_and_does_not_enable_schedule (test_browser.BrowserTests.test_model_finish_is_observed_and_does_not_enable_schedule) ... ok
 test_real_download_upload_readback_and_duplicate_free_rerun (test_browser.BrowserTests.test_real_download_upload_readback_and_duplicate_free_rerun) ... ok
@@ -21,8 +23,13 @@ test_symlink_target_rejected (test_core.CoreTests.test_symlink_target_rejected) 
 test_traversal_and_outside_paths_rejected (test_core.CoreTests.test_traversal_and_outside_paths_rejected) ... ok
 test_unknown_actions_fields_and_model_scope_rejected (test_core.CoreTests.test_unknown_actions_fields_and_model_scope_rejected) ... ok
 test_exact_executable_ui_and_verified_image_transfer (test_packaged.PackagedTests.test_exact_executable_ui_and_verified_image_transfer) ... ok
+test_manifest_cannot_claim_files_outside_the_result_folder (test_remote_collection.RemoteCollectionTests.test_manifest_cannot_claim_files_outside_the_result_folder) ... ok
+test_manual_login_helper_refuses_local_execution_without_creating_profile (test_remote_collection.RemoteCollectionTests.test_manual_login_helper_refuses_local_execution_without_creating_profile) ... ok
+test_public_page_override_stays_on_exact_pinterest_https_hosts (test_remote_collection.RemoteCollectionTests.test_public_page_override_stays_on_exact_pinterest_https_hosts) ... ok
+test_remote_acceptance_cli_refuses_accidental_local_execution (test_remote_collection.RemoteCollectionTests.test_remote_acceptance_cli_refuses_accidental_local_execution) ... ok
+test_saved_folder_requires_exact_count_and_decoded_matching_hashes (test_remote_collection.RemoteCollectionTests.test_saved_folder_requires_exact_count_and_decoded_matching_hashes) ... ok
 
 ----------------------------------------------------------------------
-Ran 23 tests in 42.384s
+Ran 30 tests in 46.986s
 
 OK (skipped=1)

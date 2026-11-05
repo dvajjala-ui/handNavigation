@@ -1,0 +1,57 @@
+{
+  "checked_at": "2026-11-05T10:34:01.920516+00:00",
+  "executor": "Windows-2025Server-10.0.26100-SP0",
+  "remote": true,
+  "github_run": "42011610291",
+  "topic": "nature landscape",
+  "requested": 20,
+  "login_used": false,
+  "upload_used": false,
+  "source": "Pinterest guest browser",
+  "source_url": "https://www.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/",
+  "status": "ACCESS_REQUIRED",
+  "blocked_requests": [
+    {
+      "url": "https://accounts.google.com/gsi/client",
+      "resource_type": "Script",
+      "main_frame": true
+    },
+    {
+      "url": "https://ct.pinterest.com/ct.html",
+      "resource_type": "Document",
+      "main_frame": false
+    },
+    {
+      "url": "https://ct.pinterest.com/ct.html",
+      "resource_type": "Document",
+      "main_frame": false
+    },
+    {
+      "url": "https://okra.pinterest.com/v2/F5675B21-025B-4843-983C-38D86DEB394B/api.js",
+      "resource_type": "Script",
+      "main_frame": true
+    },
+    {
+      "url": "https://www.recaptcha.net/recaptcha/enterprise.js",
+      "resource_type": "Script",
+      "main_frame": true
+    },
+    {
+      "url": "https://servedby.flashtalking.com/container/19112;123473;13378;iframe/",
+      "resource_type": "Document",
+      "main_frame": false
+    }
+  ],
+  "page": {
+    "url": "https://www.pinterest.com/lonelyplanet/mountain-travel-best-places-to-visit/",
+    "title": "900+ Mountain Travel: Best Places to Visit ideas in 2026 | mountain travel, bucket list life, volunteer abroad",
+    "image_matches": 0,
+    "password_fields": 1,
+    "gated_images": 8,
+    "text": "Skip to content\nSearch for\nplaces to visit\nmountain travel\nmountain images\nbeautiful places\nwonders of the world\nplaces to visit\nLog in\nSign up\nMountain Travel: Best Places to Visit\nFrom the Andes to the Zagros mountains, this new board is a place to showcase these large and timeless landforms that stand tall across the world and never cease to inspire us. If you've been invited to pin to this board please keep the pins solely to mountain images and add any geographic information you can. Also, please ensure where possible that the source online from where the image is pinned, notes the proper attribution to the original photographer. No more than 3 pins per day.\n... more\n6,101 Pins\n·\n4d\nBy \nLonely Planet\n, \nAdventuresome Soul\n, \nAlberto Mateo, Fine Art Photographer\n and 20 others\nYou are signed out\nSign in to get the best experience\nContinue with email\nContinue with Google\nBy continuing, you agree to Pinterest's Terms of Service and acknowledge you've read our Privacy Policy. Notice at collection.\nWelcome to Pinterest\nLog in to discover more ideas just for you\nEmail\nPassword\nForgot password?\nLog in\nOR\nContinue with Google\nContinue with QR code\nNew to Pinterest? Join for free\nTerms of Service · Privacy Policy · Notice at Collection"
+  },
+  "downloaded": 0,
+  "seconds": 13.09,
+  "workflow_url": "https://github.com/dvajjala-ui/handNavigation/actions/runs/42011610291",
+  "tested_commit": "920e96c0466e70da21a02d321095e71ef69a919d"
+}

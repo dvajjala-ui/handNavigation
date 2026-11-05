@@ -1,68 +1,47 @@
-# Windows core validation — rechecked 5 November 2026
+# Core validation — 5 November 2026
 
-## Measured result
+This is a working development core, not a 100% qualified unattended product. The current target is twenty Pinterest images in a folder on a remote host. Instagram and uploads are skipped for that target; a one-time manual Pinterest login is now authorized.
 
-**23 checks executed: 22 passed, one skipped, zero failures/errors.** This includes the real packaged Windows executable, its local setup interface, and an owned image-transfer flow. [Full console](evidence/windows-tests.txt).
+## Source and rebuilt Windows executable
 
-Fresh rerun on 5 November: the same 23 checks completed in 42.384 seconds, again with 22 passes and one symlink skip. This verifies the implemented paths under the stated fixtures; it does **not** establish that all requested features work end to end on real services.
+**30 checks: 29 passed, one skipped, zero failures/errors, 46.986 seconds.** [Actual console](evidence/windows-tests.txt). The executable was rebuilt from the committed Python core at `b5f72c5`. The only skip is a user-created Windows symlink fixture, unavailable on this PC.
 
-| Requested core feature | Evidence available | Remaining gate |
-| --- | --- | --- |
-| Natural-language instructions using local Ollama/Qwen | Schema/API contract tested with an owned model-server fixture | Install a real model and test planning/action accuracy and performance |
-| Delete matching files from a chosen folder | Real disposable Windows Recycle Bin operation; scoped cleanup and bounds checks | Trial with the user's actual folder rules |
-| Daily execution | Controlled-clock occurrence, DST, restart and deduplication checks | Natural multi-day run on the target PC/server |
-| Like new posts on the user's Instagram profile | Synthetic account/author/control-state checks only | Sign-in and live own-account acceptance |
-| Download images and upload them elsewhere | Source and actual EXE verified real bytes between owned HTTP sites | Qualification of the user's real source and destination |
-| Saved setup permissions | Persistence, revocation, local API and packaged setup UI tested | Clean-machine installation and Windows Server acceptance |
+Checks cover real disposable Recycle Bin cleanup, filename/age/count limits, saved permissions and revocation, path boundaries, durable request IDs, process locking, restart/review behavior, controlled-clock daily scheduling, actual owned image download/upload/read-back, local API access checks, and the actual packaged setup UI and transfer flow. Browser checks reject outside redirects and WebSockets, changed records, old success text, hidden/gated image elements, and multiple srcset resolutions counted as separate pictures. A fresh independent result now stops the model before another click, including at the last allowed action.
 
-The dedicated `windows-agent.yml` workflow builds the executable and repeats the core/package checks on Windows for future changes. Adding that workflow is not itself proof of a successful hosted CI run. It does not install a model, log into a real account, or exercise natural multi-day scheduling.
+These are controlled fixtures and real local OS/package operations. They do not prove arbitrary websites, multi-day reliability, clean-machine setup, Windows Server acceptance or signing. No user D-drive files were removed. The scheduler was not enabled for a real task.
 
-Run from the repository root after building:
+## Real Ollama model
 
-```powershell
-$env:HANDNAVIGATE_TEST_PACKAGE='1'
-.\.venv\Scripts\python.exe -m unittest discover -s windows-agent/tests -v
-```
+Ollama and `qwen3.5:4b` were installed successfully during authorized setup. The earlier WinGet downloader stall was resolved through its documented alternate downloader; original settings were restored. Local inference and Pinterest collection were kept off the user's PC after the remote-only request.
 
-Environment: Windows 10 x64, Python 3.12.14, installed Chrome; dependency versions are in `requirements.txt`. Source and package browser tests run headless against owned sites. The package is produced by PyInstaller 6.16.0. PowerShell launch/setup/build scripts were also parsed successfully, and the UI JavaScript passed its syntax check.
+The latest [remote CPU inference run](https://github.com/dvajjala-ui/handNavigation/actions/runs/42013128808) passed **4/5** cases. [Exact plans, actions and results](evidence/remote-local-model.json):
 
-## What passed
+| Case | Actual result |
+| --- | --- |
+| Instruction to cleanup plan and disposable cleanup | VERIFIED; 53.32 seconds |
+| Missing task details | Returned missing information; 32.86 seconds |
+| Instruction to two decoded image downloads | VERIFIED; 45.42 seconds |
+| Instruction to upload and original-image verification | FAILED validation: account text assigned to the wrong field; no transfer executed |
+| Instruction to a browser click and fresh exact result | VERIFIED after one click; 52.84 seconds total |
 
-- Real Windows Recycle Bin operation on one disposable test file. No user D-drive content was deleted.
-- Matching files only, no recursion, age/count limits, no partial deletion when the file-count bound is exceeded, saved permission revocation and outside-folder/traversal rejection.
-- Durable request IDs, single-run exclusion, a real process/file lock, persisted setup, restart-to-review, explicit human resolution and a lost-receipt scenario.
-- Daily time arithmetic, DST gaps, one catch-up occurrence after downtime, duplicate prevention and verified-rehearsal requirements. These are controlled-clock checks, not natural overnight operation.
-- Real owned image bytes downloaded, decoded, uploaded through a file form and independently read back. A repeated request creates no extra upload.
-- Redirect to a second unapproved local origin blocked before reaching that server.
-- WebSocket interception creates no outside server connection and stops the task.
-- An enclosing record changing from A to B blocks the click.
-- A fresh configured exact-text output verifies; a preexisting message or a model completion claim alone remains `OBSERVED` and cannot activate a daily schedule.
-- Synthetic Instagram markup checks configured/signed-in identity, post author, existing Unlike state, one Like transition and wrong-account/author rejection. This fixture uses request fulfillment; it sends no request to Instagram.
-- An owned Ollama-compatible HTTP fixture checks JSON-schema request construction, returned-plan validation and missing-information behavior. This is API-contract evidence, not real-model inference.
-- Actual packaged EXE: starts its local server, renders the interface in real Chrome, saves permissions through the actual Setup controls, accepts a task, completes two image uploads/read-backs, reuses its request ID and exits through authenticated shutdown.
+This establishes real inference for the named tasks, not general model accuracy or a performance guarantee. Small models still need plan review. Validation failures remain blocked before execution. Failed-output evidence now retains the current raw response instead of accidentally showing the previous successful plan. Upload planning remains an open core limitation even though uploads are outside the current target.
 
-The skipped check requires user-created Windows symlinks, disabled on this machine. Symlink/junction rejection exists in the path checker, but that particular OS-level fixture was not executed.
+## Remote Pinterest and hosting
 
-## Package
+The GitHub Windows acceptance VM loaded Pinterest search and a public travel board but received a login form and gated images: **ACCESS_REQUIRED, 0/20**. [Observed board report](evidence/remote-pinterest.json), [remote run](https://github.com/dvajjala-ui/handNavigation/actions/runs/42011610291). No login gate was removed and no alternate source was silently substituted.
 
-Path: `dist/HandNavigateAgent/HandNavigateAgent.exe`; the entire sibling `_internal` directory is required. The package contains 1,104 files, approximately 152.3 MB total in the measured build. It is unsigned.
+The user then authorized one-time manual Pinterest login. An Oracle Free Tier Mumbai A1 request (2 OCPU / 12 GB) failed for lack of capacity. After explicit user selection, a free E2.1.Micro browser VM (1 GB, Ubuntu 24.04 Minimal) was created and accepted SSH. The user signed in on the VM through a temporary loopback screen tunneled over SSH. The core collector then returned **VERIFIED, 20/20 in 103.19 seconds**. An independent VM-side read fully decoded all files, compared the exact folder to the manifest and verified twenty distinct hashes. These are 236-pixel-wide previews, not original-resolution images. [Sanitized measured result](evidence/oracle-pinterest.json).
 
-EXE SHA-256:
+The temporary login processes were closed. The core application now runs as a persistent unprivileged systemd user service with saved setup/profile and a loopback-only UI. No real recurring task is enabled. The small VM does not host the recommended 4B model. [Deployment and reconnect guide](../deploy/free-vm/README.md).
 
-```text
-E675A42E6FEB1BBBD44D1B94F814D9650D074EA0354F136B2ACB0A414B78E8A6
-```
+The separate [x64 and Arm container checks](https://github.com/dvajjala-ui/handNavigation/actions/runs/42009765486) built the Linux image and started Chromium as an unprivileged user. Those checks establish browser/container startup, not real Pinterest access or Oracle performance. GitHub Actions is used only for bounded software tests, not a production personal automation service.
 
-[Build/source manifest](evidence/build.json) and [actual packaged setup screenshot](evidence/packaged-ui.png). The manifest labels the repository baseline separately from the new source files, which were uncommitted when the package was built.
+## Development package and remaining acceptance
 
-The managed Python used here has an extra TLS CA-policy file beside its SSL module. Build preserves that file when present; it does not disable certificate validation to make the package work. Stock Python builds do not need that conditional resource.
+`dist/HandNavigateAgent/HandNavigateAgent.exe` is an unsigned development package. Keep its entire sibling `_internal` directory. Installed Chrome and a separately configured Ollama model remain prerequisites. [Build and source hashes](evidence/build.json); [actual packaged setup UI](evidence/packaged-ui.png). Managed-runtime TLS policy files are preserved when present; certificate verification is not disabled.
 
-## Outstanding acceptance
+Still unqualified: original-resolution Pinterest downloads, natural multi-day scheduling, full model plus browser operation on the chosen persistent host, clean-machine installation, Windows Server, signing, and arbitrary native Windows applications. The Instagram adapter has synthetic evidence only and is outside the current target. Startup scripts were parsed and integrated with the installer; no local login-startup entry was installed.
 
-- **Local model not installed or benchmarked.** The winget download remained stalled and was stopped. The subsequent direct installer command was rejected by automatic approval review with `blocked by policy`. No local inference, memory, latency or instruction-success result is claimed.
-- **No live Instagram qualification.** No actual account was signed into or modified. The initial adapter depends on compatible English desktop markup and a visible signed-in Profile link.
-- **No real third-party source/destination transfer qualification.** Owned HTTP fixtures prove this implementation's transport and verification mechanics; they do not establish every site's login, selectors, rate limits, gallery or source access.
-- **No natural multi-day run**, clean-machine installation, Windows Server acceptance, publisher signing, bounded retention or native Windows-application automation.
-- **Setup and startup scripts were not executed as an installation.** Their syntax was checked; no login-startup shortcut or enabled real task was installed on this PC.
+Run the measured checks after building with `HANDNAVIGATE_TEST_PACKAGE=1` and `.venv/Scripts/python.exe -m unittest discover -s windows-agent/tests -v`.
 
-Existing HandNavigate implementation files and previously untracked research documents were preserved. New core work is under `windows-agent/`, with a dedicated CI workflow. The initial 4 November build was local; this report was refreshed before the user's requested source-code push on 5 November. No deployment, startup entry or real recurring task was activated by these checks.
+The [hosted Windows rebuild and checks at b5f72c5](https://github.com/dvajjala-ui/handNavigation/actions/runs/42015207534) passed all 30 tests, including the symlink case, in 57.474 seconds. The [matching x64 and Arm image checks](https://github.com/dvajjala-ui/handNavigation/actions/runs/42015207580) also passed. These CI results and the measured local suite are distinct from live-site and model results. Original application lanes and untracked research files were preserved.
