@@ -19,7 +19,7 @@ from core.models import Permissions, Plan
 from core.policy import Policy, checked_path
 from handnavigate.transfer.files import image_metadata
 
-ORIGINS=['https://www.pinterest.com','https://in.pinterest.com','https://s.pinimg.com']
+ORIGINS=['https://www.pinterest.com','https://in.pinterest.com','https://s.pinimg.com','https://s1.pinimg.com']
 IMAGE_ORIGINS=['https://i.pinimg.com']
 
 
