@@ -127,6 +127,30 @@ def test_image_dimensions_and_size_are_enforced():
     with pytest.raises(LiveError): image_metadata(data.getvalue(), recipe['limits'])
 
 
+def _gif_limits():
+    return {'max_bytes': 25 * 1024 * 1024, 'max_pixels': 40_000_000, 'min_width': 1, 'min_height': 1}
+
+
+def test_static_gif_is_accepted():
+    data = BytesIO(); Image.new('RGB', (160, 160), 'red').save(data, format='GIF')
+    meta = image_metadata(data.getvalue(), _gif_limits())
+    assert (meta['format'], meta['mime'], meta['extension'], meta['frames']) == ('GIF', 'image/gif', '.gif', 1)
+
+
+def test_animated_gif_is_accepted_with_its_frames():
+    frames = [Image.new('RGB', (160, 160), c) for c in ('red', 'green', 'blue')]
+    data = BytesIO(); frames[0].save(data, format='GIF', save_all=True, append_images=frames[1:], duration=120, loop=0)
+    meta = image_metadata(data.getvalue(), _gif_limits())
+    assert meta['format'] == 'GIF' and meta['mime'] == 'image/gif' and meta['frames'] >= 2
+
+
+def test_animated_webp_is_accepted():
+    frames = [Image.new('RGB', (160, 160), c) for c in ('red', 'green')]
+    data = BytesIO(); frames[0].save(data, format='WEBP', save_all=True, append_images=frames[1:], duration=120)
+    meta = image_metadata(data.getvalue(), _gif_limits())
+    assert meta['format'] == 'WEBP' and meta['frames'] >= 2
+
+
 def test_cross_origin_image_redirect_is_blocked_before_request(tmp_path):
     with sites(count=1) as (recipe, uploads, _, state):
         recipe['count'] = 1

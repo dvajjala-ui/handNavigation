@@ -90,14 +90,20 @@ class CollectionDB:
         status,body=self.storage('GET','bucket/'+BUCKET,allow={400,404})
         if status in (400,404) and b'NoSuchBucket' not in body:
             raise RuntimeError('Storage bucket lookup failed.')
+        mimes=['image/jpeg','image/png','image/webp','image/gif']
         if status in (400,404):
             body={'name':BUCKET,'id':BUCKET,'public':False,'file_size_limit':26214400,
-                  'allowed_mime_types':['image/jpeg','image/png','image/webp']}
+                  'allowed_mime_types':mimes}
             self.storage('POST','bucket',json.dumps(body).encode(),'application/json')
         # A preexisting public bucket is never silently reused.
         _,raw=self.storage('GET','bucket/'+BUCKET)
-        if json.loads(raw).get('public') is not False:
+        info=json.loads(raw)
+        if info.get('public') is not False:
             raise RuntimeError('The collection bucket must be private.')
+        # Keep the allowed types current (an older bucket may predate GIF support); idempotent.
+        if set(info.get('allowed_mime_types') or [])!=set(mimes):
+            update={'public':False,'file_size_limit':26214400,'allowed_mime_types':mimes}
+            self.storage('PUT','bucket/'+BUCKET,json.dumps(update).encode(),'application/json')
 
     def upload_verified(self,source,topic,data,meta):
         path=f"{source}/{topic}/{meta['sha256']}{meta['extension']}"

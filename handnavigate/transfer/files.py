@@ -81,20 +81,23 @@ def image_metadata(data, limits):
             warnings.simplefilter('error', Image.DecompressionBombWarning)
             with Image.open(BytesIO(data)) as image:
                 fmt, size = image.format, image.size
-                if fmt not in {'PNG', 'JPEG', 'WEBP'}:
-                    raise LiveError('Only decoded PNG, JPEG and WebP images are accepted')
+                # GIF and animated WebP are accepted so the sticker worker can turn them into animated stickers.
+                if fmt not in {'PNG', 'JPEG', 'WEBP', 'GIF'}:
+                    raise LiveError('Only decoded PNG, JPEG, WebP and GIF images are accepted')
                 if size[0]*size[1] > limits['max_pixels']:
                     raise LiveError('Image exceeds the decoded pixel limit')
                 if size[0] < limits['min_width'] or size[1] < limits['min_height']:
                     raise LiveError('Image does not meet the minimum dimensions')
-                if getattr(image, 'n_frames', 1) != 1:
+                frames = getattr(image, 'n_frames', 1)
+                # Only GIF and WebP may be animated; an animated PNG/JPEG is still rejected.
+                if frames != 1 and fmt not in {'GIF', 'WEBP'}:
                     raise LiveError('Animated images require a separate reviewed adapter')
                 image.verify()
             with Image.open(BytesIO(data)) as image:
                 image.load()
     except (UnidentifiedImageError, OSError, SyntaxError, ValueError, Image.DecompressionBombError, Image.DecompressionBombWarning):
         raise LiveError('Downloaded content is not a valid bounded image') from None
-    extension = {'PNG': '.png', 'JPEG': '.jpg', 'WEBP': '.webp'}[fmt]
+    extension = {'PNG': '.png', 'JPEG': '.jpg', 'WEBP': '.webp', 'GIF': '.gif'}[fmt]
     return {'sha256': sha256(data).hexdigest(), 'bytes': len(data), 'format': fmt,
-            'mime': {'PNG': 'image/png', 'JPEG': 'image/jpeg', 'WEBP': 'image/webp'}[fmt],
-            'extension': extension, 'width': size[0], 'height': size[1]}
+            'mime': {'PNG': 'image/png', 'JPEG': 'image/jpeg', 'WEBP': 'image/webp', 'GIF': 'image/gif'}[fmt],
+            'extension': extension, 'width': size[0], 'height': size[1], 'frames': frames}
