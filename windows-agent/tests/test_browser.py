@@ -37,6 +37,7 @@ class BrowserTests(unittest.TestCase):
                 if self.path=='/redirect':
                     self.send_response(302);self.send_header('Location',owner.outside_origin);self.end_headers();return
                 if self.path=='/source':body='<h1>owned account</h1>'+''.join(f'<img src="/image/{i}">' for i in range(3))
+                elif self.path=='/srcset':body='<h1>owned account</h1><img src="/image/0" srcset="/image/9 4x, /image/1 2x, /image/0 1x">'
                 elif self.path=='/gallery':body='<h1>owned account</h1>'+''.join(f'<img src="/stored/{i}">' for i in range(len(owner.uploads)))
                 elif self.path=='/upload':body='<h1>owned account</h1><form method="POST" action="/upload" enctype="multipart/form-data"><input type="file" name="image"><button>Send</button></form>'
                 else:body='<h1>owned account</h1><p id="result">pending</p><article data-record="A"><button id="save" onclick="document.querySelector(\'#result\').textContent=\'done\'">Save</button></article>'
@@ -84,6 +85,18 @@ class BrowserTests(unittest.TestCase):
             self.assertEqual(set(browser.candidates('img')),{self.origin+'/image/0'})
             browser.page.set_content('<img src="/image/0" srcset="/image/1 180w, /image/2 360w">')
             self.assertEqual(len(browser.candidates('img')),1,'One picture must not be counted again for each srcset resolution')
+
+    def test_ranked_candidates_take_the_largest_rendition_and_fall_back(self):
+        with Browser(self.root,Policy(self.permissions),threading.Event(),headless=True) as browser:
+            browser.navigate(self.origin+'/task')
+            browser.page.set_content('<img src="/image/0" srcset="/image/1 180w, /image/2 360w">')
+            ranked=browser.candidates('img',ranked=True)
+            self.assertEqual(len(ranked),1,'Still one entry per displayed picture')
+            self.assertEqual(ranked[0][0],self.origin+'/image/2')
+            plan=Plan(name='Largest',instruction='Collect one picture',kind='images',start_url=self.origin+'/srcset',max_items=1)
+            got=browser.collect(plan,self.root/'largest',set(),lambda _item:None)
+            # The 4x file can't be read, so the next largest (2x) is kept instead of the 1x preview.
+            self.assertEqual([i['source'] for i in got],[self.origin+'/image/1'])
 
     def test_redirect_and_websocket_are_blocked_before_outside_request(self):
         with Browser(self.root,Policy(self.permissions),threading.Event(),headless=True) as browser:

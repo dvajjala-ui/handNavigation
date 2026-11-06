@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Earn the remaining Pinterest content topics on the VM: one signed-in 20-image
+# Earn the not-yet-verified Pinterest topics on the VM: one signed-in 20-image
 # batch per topic, imported only if that batch verifies. The import tool refuses
 # a result whose URL is not the topic's configured source, so this cannot mark a
 # topic collectable on the strength of a lookalike page.
@@ -8,12 +8,27 @@ cd "$HOME/handnavigate" || exit 1
 PY=windows-agent/.venv/bin/python
 DATA=/home/ubuntu/handnavigate-data
 
+# Topics still to earn come from the database (enabled, Pinterest not yet verified), so a topic added by a
+# migration (e.g. 003_sticker_topics.sql) needs no edit here. Optional arguments limit the run to those keys:
+#   deploy/free-vm/earn-topics.sh memes indian_memes
+TOPICS=$(HANDNAVIGATE_REMOTE_RUNNER=1 $PY - <<'PY'
+import sys; sys.path[:0] = ['windows-agent', '.']
+from core.collections import CollectionDB
+with CollectionDB().connect() as c:
+    for r in c.execute("select key, label, pinterest_url from public.collection_topics "
+                       "where enabled and not pinterest_verified order by key"):
+        print(r['key'] + '|' + r['label'] + '|' + r['pinterest_url'])
+PY
+)
+if [ -z "$TOPICS" ]; then echo "=== every enabled topic is already verified on Pinterest"; exit 0; fi
+
 # The persistent worker owns the saved browser profile while a task runs.
 systemctl --user stop handnavigate-browser.service
 sleep 3
 
 while IFS='|' read -r key label url; do
   [ -z "$key" ] && continue
+  if [ "$#" -gt 0 ] && ! printf '%s\n' "$@" | grep -qx "$key"; then continue; fi
   out="/home/ubuntu/pinterest-results/earn-$key-$(date +%Y%m%d-%H%M)"
   rm -rf "$out"
   echo "=== COLLECT $key -> $out"
@@ -23,12 +38,7 @@ while IFS='|' read -r key label url; do
   echo "=== IMPORT $key"
   HANDNAVIGATE_REMOTE_RUNNER=1 $PY windows-agent/tools/import_collection.py \
     --source pinterest --result "$out/result.json" --topic "$key" 2>&1 | tail -2
-done <<'TOPICS'
-animals|wildlife photography|https://in.pinterest.com/search/pins/?q=wildlife%20photography
-art|digital art|https://in.pinterest.com/search/pins/?q=digital%20art
-food|food photography|https://in.pinterest.com/search/pins/?q=food%20photography
-architecture|architecture photography|https://in.pinterest.com/search/pins/?q=architecture%20photography
-TOPICS
+done <<< "$TOPICS"
 
 systemctl --user start handnavigate-browser.service
 sleep 4

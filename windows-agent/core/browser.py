@@ -140,15 +140,25 @@ class Browser:
         elif action.action=='fill':element.fill(action.value,timeout=10000)
         self.refs={};self.page.wait_for_timeout(300);self.check()
 
-    def candidates(self,selector):
-        return self.page.locator(selector).evaluate_all(r'''els => els.slice(0,300).flatMap(e=>{
+    def candidates(self,selector,ranked=False):
+        """One entry per displayed picture. Plain: the URL as displayed. ranked=True: that picture's URLs best first
+        (largest srcset rendition, e.g. Pinterest's originals/736x instead of the 236x grid preview), still one
+        entry per picture so srcset variants never count as extra images."""
+        return self.page.locator(selector).evaluate_all(r'''(els, ranked) => els.slice(0,300).flatMap(e=>{
           const i=e.tagName==='IMG'?e:e.querySelector('img');if(!i)return [];
           if(!i.checkVisibility()||i.closest('[data-test-id="gated-pin-image"],[hidden],[aria-hidden="true"]'))return [];
-          const urls=[i.currentSrc,i.src,...(i.srcset||'').split(',').map(s=>s.trim().split(/\s+/)[0])];
-          const a=i.closest('a[href]');if(a&&/\.(png|jpe?g|webp)(\?|$)/i.test(a.href))urls.unshift(a.href);
-          // One displayed image contributes one URL; srcset variants must not
-          // count as multiple pictures toward the requested collection count.
-          return urls.filter(u=>/^https?:/.test(u)).slice(0,1);})''')
+          const a=i.closest('a[href]');const linked=a&&/\.(png|jpe?g|webp)(\?|$)/i.test(a.href)?[a.href]:[];
+          if(!ranked){
+            const urls=[...linked,i.currentSrc,i.src,...(i.srcset||'').split(',').map(s=>s.trim().split(/\s+/)[0])];
+            // One displayed image contributes one URL; srcset variants must not
+            // count as multiple pictures toward the requested collection count.
+            return urls.filter(u=>/^https?:/.test(u)).slice(0,1);
+          }
+          const sized=(i.srcset||'').split(',').map(s=>s.trim().split(/\s+/)).filter(p=>p[0]).map(p=>{
+            let u='';try{u=new URL(p[0],location.href).href}catch(_){}
+            return {u,v:parseFloat(p[1]||'0')||0};}).filter(x=>x.u).sort((x,y)=>y.v-x.v).map(x=>x.u);
+          const urls=[...new Set([...linked,...sized,i.currentSrc,i.src].filter(u=>/^https?:/.test(u)))].slice(0,4);
+          return urls.length?[urls]:[];})''',ranked)
 
     def read_image(self,url):
         self.check();self.policy.url(url,images=True)
@@ -162,11 +172,21 @@ class Browser:
         folder.mkdir(parents=True,exist_ok=True)
         for _ in range(10):
             self.check()
-            for url in self.candidates(plan.image_selector):
-                if url in seen:continue
-                seen.add(url)
+            for urls in self.candidates(plan.image_selector,ranked=True):
+                if any(u in seen for u in urls):continue
+                seen.update(urls)
                 if len(seen)>500:break
-                data,meta=self.read_image(url)
+                data=meta=url=None
+                for option in urls:
+                    # Largest rendition first; fall back to the displayed one if it can't be read.
+                    # check() keeps Stop and the time limit effective between attempts.
+                    self.check()
+                    try:
+                        data,meta=self.read_image(option);url=option;break
+                    except (InterruptedError,TimeoutError):raise
+                    except Exception:
+                        if option is urls[-1]:raise
+                if meta is None:continue
                 if meta['sha256'] in seen_hashes:continue
                 seen_hashes.add(meta['sha256'])
                 file=folder/(meta['sha256']+meta['extension'])

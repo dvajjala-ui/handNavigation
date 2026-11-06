@@ -136,4 +136,24 @@ class CollectionRuleTests(unittest.TestCase):
                 self.assertTrue(config['wall_markers'])
 
 
+    def test_seeded_topics_are_well_formed_and_start_unverified(self):
+        import re
+        from core.sources import PAGE_HOSTS, reddit_page_url
+        from urllib.parse import urlsplit
+        sql=''.join(p.read_text(encoding='utf-8') for p in sorted((ROOT/'migrations').glob('*.sql')))
+        self.assertNotRegex(sql.lower(),r'pinterest_verified\s*\)\s*values|reddit_verified\s*\)\s*values',
+            'A migration must never seed a topic as already verified')
+        rows=re.findall(r"\('([a-z][a-z0-9_]*)','([^']+)','(https://[^']+)','([A-Za-z0-9_]+)'(?:,\s*'(https://[^']+)')?\)",sql)
+        keys=[r[0] for r in rows]
+        self.assertGreaterEqual(len(rows),12)
+        self.assertEqual(len(keys),len(set(keys)),'Topic keys are unique across migrations')
+        for key,label,pinterest,subreddit,reddit in rows:
+            with self.subTest(topic=key):
+                self.assertRegex(key,r'^[a-z][a-z0-9_]{1,39}$')
+                self.assertIn(urlsplit(pinterest).netloc,PAGE_HOSTS['pinterest'])
+                if reddit:self.assertEqual(reddit,reddit_page_url(subreddit))
+        for key in ('memes','indian_memes','hinglish_memes','reaction_memes','bollywood_memes','funny_animals'):
+            self.assertIn(key,keys)
+
+
 if __name__=='__main__':unittest.main()

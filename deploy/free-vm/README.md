@@ -152,3 +152,28 @@ Two limits are deliberate. The pictures are reference-only previews of material 
 The UI is the machine that holds the signed-in browser profiles, the Supabase secret key and the ability to run browser tasks, so it listens on loopback only and its write endpoints demand the per-process session token plus an exact `Host` and `Origin`. Public hosting would put a logged-in browser and the private library behind one URL; a port scan or a leaked tunnel token would be enough to drive it. Browse the control page through `ssh -N -L 127.0.0.1:47841:127.0.0.1:47841 ubuntu@VM_IP`. The shareable view is the separate read-only gallery above, which exposes expiring links to stored bytes instead of exposing this service — and because the images are reference-only previews of other people's material, that page is unlisted, marked noindex, kept behind the site's own access mode, and states its licence status.
 
 Never commit or upload the VM's `handnavigate-data`, `windows-agent/.env`, SSH private keys, browser profiles or cookies. Only topics that passed a real signed-in run are collectable, and a failed or partial run pauses its schedule. Windows-only always-on hosting is not claimed to be perpetually free.
+
+## StickerDock v2 uses this library (6 November 2026)
+
+StickerDock v2 ([dvajjala-ui/stickerlyv2](https://github.com/dvajjala-ui/stickerlyv2)) shares this Supabase project.
+Its worker's `library` stage reads `collected_images`, re-downloads each object from `handnavigate-images`,
+checks the SHA-256 against the row and queues the picture for its AI sticker pipeline. Nothing on the VM changes for
+that; it only needs StickerDock's migrations applied to the same project (`python -m stickerworker migrate` in
+stickerlyv2's `backend/worker`, using the same `SUPABASE_DB_*` values as `windows-agent/.env`).
+
+Sticker-worthy topics come from `migrations/003_sticker_topics.sql`: memes, Indian, Hinglish, reaction and Bollywood
+memes, and funny animals. Like every topic, they start unverified. To earn them on Pinterest, re-run the migration,
+then collect one signed-in batch per topic:
+
+```sh
+HANDNAVIGATE_REMOTE_RUNNER=1 windows-agent/.venv/bin/python -c "
+import sys; sys.path[:0]=['windows-agent','.']
+from core.collections import CollectionDB; CollectionDB().migrate()"
+deploy/free-vm/earn-topics.sh memes indian_memes hinglish_memes reaction_memes bollywood_memes funny_animals
+```
+
+`earn-topics.sh` now reads the still-unverified topics from the database. Without arguments it earns all of them.
+
+Collections now keep each picture's **largest advertised rendition**: the biggest `srcset` entry, for example
+Pinterest's `originals`/`736x` instead of the 236 px grid preview. It falls back to the displayed URL if that file
+can't be read, and it still counts one file per displayed picture. Stickers are 512 px, so the bigger source matters.
